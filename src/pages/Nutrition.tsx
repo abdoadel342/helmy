@@ -25,16 +25,16 @@ export default function Nutrition() {
         {/* Hero Section */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section>
-            <Link to="/education/sports-nutrition" className="block relative w-full aspect-[16/9] rounded-xl overflow-hidden group cursor-pointer">
+            <Link to="/education/sports-nutrition" className="block relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden group cursor-pointer shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10"></div>
               <div 
                 className="w-full h-full bg-center bg-no-repeat bg-cover transition-transform duration-500 group-hover:scale-105" 
                 style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCaKbMQbNeRCjI_euqIVu57IO5vJskPuww0puMSR0U415wg0tUk21ZRG84VeC3sNkZSAAXUm9KOyIQK--AUTRCpa5_leARTB0KbTz7ognF6xEwfHPieXyIuhPAVrU1-wzQ9R7ny87cC203DNgs6VSwTsNnvPgHqWU2CwBFolpp0p-nAIAvZjGp9tHkltlRKAJGhzIOD2UGD_8Lkb2eY2mT0bm28r2jXj61KqC2-Nb-FOG5raXtQHkWNq4jYcxH10B60dFW6_uIeDeki")' }}
               ></div>
-              <div className="absolute bottom-4 right-4 left-4 z-20">
-                <span className="bg-primary text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">جديد</span>
-                <h2 className="text-white text-2xl font-bold">وقود الأبطال</h2>
-                <p className="text-slate-200 text-sm opacity-90">دليلك الشامل للتغذية الرياضية المتقدمة</p>
+              <div className="absolute bottom-6 right-6 left-6 z-20 md:p-4">
+                <span className="bg-primary text-white text-xs font-bold px-3 py-1 rounded inline-block mb-3 shadow-lg">جديد</span>
+                <h2 className="text-white text-3xl md:text-5xl font-black mb-2">وقود الأبطال</h2>
+                <p className="text-slate-200 text-sm md:text-lg opacity-90 max-w-2xl">دليلك الشامل للتغذية الرياضية المتقدمة والاستشفاء العضلي</p>
               </div>
             </Link>
           </section>
@@ -43,69 +43,76 @@ export default function Nutrition() {
         {/* Nutrition Plans Section */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary">restaurant_menu</span>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-black flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-3xl">restaurant_menu</span>
                 خطط التغذية
               </h2>
-              <button className="text-primary text-sm font-medium">عرض الكل</button>
+              <button className="text-primary font-bold hover:underline">عرض الكل</button>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <Link to="/nutrition/plan" className="group cursor-pointer">
-                <div className="relative aspect-square rounded-xl overflow-hidden mb-2">
+                <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 shadow-lg">
                   <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors z-10"></div>
                   <div 
-                    className="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-105" 
+                    className="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110" 
                     style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBHHkswTdSJ5qBWQMxm9vRiceixqW8h5WSmsw9baVVMFUBr8eIaUCKAqSGiiwdX2KtMcLmSPPHnd8HVvDf2_kGoooccgO8sRIvohf6mCtXPsM_Gxbsvzwc2l1i76H4TKRj_3LV6rAqajKYKMfglsmBd_6wsl5iMAufETLV8x7YUUha2B-0VzEq5nJ0SN9kEExQwOu5-hCCQKdCI27aY5h6CJ2Mbz9fxPcZf8AIp2KGccmgj9dv_IEWfh2FHWwVFIlisRE5vS3BY5BgC")' }}
                   ></div>
-                  <div className="absolute inset-0 flex items-end p-3 bg-gradient-to-t from-black/80 to-transparent z-20">
-                    <p className="text-white text-sm font-bold">بناء العضلات</p>
+                  <div className="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/90 to-transparent z-20">
+                    <p className="text-white text-lg font-black uppercase tracking-tight">بناء العضلات</p>
                   </div>
                 </div>
               </Link>
               <Link to="/nutrition/fat-loss" className="group cursor-pointer">
-                <div className="relative aspect-square rounded-xl overflow-hidden mb-2">
+                <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 shadow-lg">
                   <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors z-10"></div>
                   <div 
-                    className="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-105" 
+                    className="w-full h-full bg-center bg-cover transition-transform duration-500 group-hover:scale-110" 
                     style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDc6owwdaNDxFNxNAdFelf92nz1jut3-sQTMtmAEruNNr9dhE6HuenDA52FaUHcYfMFuhFANVJ-kdCRm-8BD7v-8B5mqKEFMKExpU1cENjGwy3Adin78qg1DFzMV0ZsKLa5q3MFb5tvi5w0OYCBz3c6fLGJFQmN8tzrdR09fgNC6Hn-Ut60o1zWP9oKNfqV9_YlPOLjcuexe45P4nDitCD7WCwyKpmrx53B8_QEsesC9aBdzu_G_qQ4I9gaKhQk5KsfirHTomXaS9Cw")' }}
                   ></div>
-                  <div className="absolute inset-0 flex items-end p-3 bg-gradient-to-t from-black/80 to-transparent z-20">
-                    <p className="text-white text-sm font-bold">خسارة الدهون</p>
+                  <div className="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/90 to-transparent z-20">
+                    <p className="text-white text-lg font-black uppercase tracking-tight">خسارة الدهون</p>
                   </div>
                 </div>
               </Link>
+              {/* placeholder for desktop */}
+              <div className="hidden md:block relative aspect-square rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+                <span className="text-zinc-700 font-bold uppercase tracking-widest text-xs">قريباً</span>
+              </div>
+              <div className="hidden md:block relative aspect-square rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+                <span className="text-zinc-700 font-bold uppercase tracking-widest text-xs">قريباً</span>
+              </div>
             </div>
           </section>
         </FadeContent>
 
         {/* Supplements Guide Section */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="bg-primary/5 -mx-4 px-4 py-6">
-            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <span className="material-symbols-outlined text-primary">pill</span>
-              دليل المكملات
+          <section className="bg-primary/5 -mx-4 md:mx-0 md:rounded-3xl px-6 py-10">
+            <h2 className="text-2xl font-black mb-8 flex items-center gap-3">
+              <span className="material-symbols-outlined text-primary text-3xl">pill</span>
+              دليل المكملات المعتمدة
             </h2>
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 bg-background-light dark:bg-background-dark p-3 rounded-xl border border-primary/10 cursor-pointer hover:border-primary/30 transition-colors">
-                <div className="size-14 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                  <span className="material-symbols-outlined text-primary text-3xl">exercise</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex items-center gap-6 bg-background-light dark:bg-zinc-900/50 p-5 rounded-2xl border border-primary/10 cursor-pointer hover:border-primary/50 transition-all shadow-xl shadow-black/5 group">
+                <div className="size-20 rounded-2xl bg-primary/20 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:rotate-6">
+                  <span className="material-symbols-outlined text-4xl">exercise</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-base">واي بروتين (Whey)</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs line-clamp-1">المصدر الأسرع لترميم الألياف العضلية بعد التمرين.</p>
+                  <h3 className="font-black text-xl mb-1">واي بروتين (Whey)</h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">المصدر الأسرع والأنقى لترميم الألياف العضلية وتخليق البروتين بعد التمرين.</p>
                 </div>
-                <span className="material-symbols-outlined text-slate-400">chevron_left</span>
+                <span className="material-symbols-outlined text-primary/30 group-hover:text-primary transition-colors">chevron_left</span>
               </div>
-              <div className="flex items-center gap-4 bg-background-light dark:bg-background-dark p-3 rounded-xl border border-primary/10 cursor-pointer hover:border-primary/30 transition-colors">
-                <div className="size-14 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                  <span className="material-symbols-outlined text-primary text-3xl">bolt</span>
+              <div className="flex items-center gap-6 bg-background-light dark:bg-zinc-900/50 p-5 rounded-2xl border border-primary/10 cursor-pointer hover:border-primary/50 transition-all shadow-xl shadow-black/5 group">
+                <div className="size-20 rounded-2xl bg-primary/20 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:-rotate-6">
+                  <span className="material-symbols-outlined text-4xl">bolt</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-base">الكرياتين مونوهيدرات</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs line-clamp-1">زيادة القوة البدنية وتحسين الأداء في التمارين عالية الكثافة.</p>
+                  <h3 className="font-black text-xl mb-1">الكرياتين مونوهيدرات</h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">أثبت المكملات كفاءة في زيادة القوة البدنية وتحسين الأداء في التمارين عالية الكثافة.</p>
                 </div>
-                <span className="material-symbols-outlined text-slate-400">chevron_left</span>
+                <span className="material-symbols-outlined text-primary/30 group-hover:text-primary transition-colors">chevron_left</span>
               </div>
             </div>
           </section>
@@ -114,27 +121,32 @@ export default function Nutrition() {
         {/* Hydration Section */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section>
-            <div className="bg-gradient-to-br from-primary to-[#4a0b8a] rounded-2xl p-6 text-white relative overflow-hidden">
-              <div className="relative z-10">
-                <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
-                  <span className="material-symbols-outlined">water_drop</span>
-                  نصائح الترطيب
-                </h2>
-                <p className="text-slate-100 text-sm mb-4 leading-relaxed opacity-90">
-                  يؤثر نقص الماء بنسبة 2% فقط على أدائك الرياضي بشكل ملحوظ. تأكد من شرب 500 مل قبل التمرين بـ 30 دقيقة.
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="bg-white/20 px-3 py-1 rounded-full flex items-center gap-1">
-                    <span className="material-symbols-outlined text-sm">schedule</span>
-                    <span className="text-xs">كل ساعتين</span>
-                  </div>
-                  <div className="bg-white/20 px-3 py-1 rounded-full flex items-center gap-1">
-                    <span className="material-symbols-outlined text-sm">glass_cup</span>
-                    <span className="text-xs">3-4 لتر يومياً</span>
+            <div className="bg-gradient-to-br from-primary to-[#4a0b8a] rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-primary/20">
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div className="max-w-xl">
+                  <h2 className="text-3xl font-black mb-4 flex items-center gap-3">
+                    <span className="material-symbols-outlined text-4xl">water_drop</span>
+                    استراتيجية الترطيب
+                  </h2>
+                  <p className="text-slate-100 text-lg mb-6 leading-relaxed opacity-90 font-medium">
+                    يؤثر نقص الماء بنسبة 2% فقط على أدائك الرياضي والذهني بشكل حاد. اتبع قاعدة الـ "500 مل" قبل التمرين لتضمن أداءً مستقراً.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-4">
+                    <div className="bg-white/10 backdrop-blur-md px-5 py-2 rounded-2xl flex items-center gap-2 border border-white/10">
+                      <span className="material-symbols-outlined text-xl">schedule</span>
+                      <span className="text-sm font-bold tracking-wide leading-none">كل 120 دقيقة</span>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-md px-5 py-2 rounded-2xl flex items-center gap-2 border border-white/10">
+                      <span className="material-symbols-outlined text-xl">glass_cup</span>
+                      <span className="text-sm font-bold tracking-wide leading-none">3.5 - 4.5 لتر يومياً</span>
+                    </div>
                   </div>
                 </div>
+                <div className="hidden md:block">
+                  <span className="material-symbols-outlined text-[160px] opacity-20 rotate-12 bg-white/10 p-4 rounded-full">opacity</span>
+                </div>
               </div>
-              <span className="material-symbols-outlined absolute -bottom-4 -left-4 text-9xl opacity-10 rotate-12">opacity</span>
+              <span className="material-symbols-outlined absolute -bottom-10 -left-10 text-[300px] opacity-10 rotate-12">opacity</span>
             </div>
           </section>
         </FadeContent>

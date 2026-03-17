@@ -89,10 +89,10 @@ export default function Home() {
         </div>
       )}
 
-      <div className="space-y-8 px-4 py-6">
+      <div className="space-y-8 py-6">
         {/* Hero Section */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="relative overflow-hidden rounded-2xl bg-primary/20 aspect-[16/9] flex items-end">
+          <section className="relative overflow-hidden rounded-3xl bg-primary/20 aspect-[16/9] md:aspect-[21/9] flex items-end">
             <div className="absolute inset-0 z-0">
               <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"></div>
               <img 
@@ -102,67 +102,54 @@ export default function Home() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="relative z-10 p-6 w-full">
-              <span className="inline-block px-3 py-1 mb-3 text-xs font-semibold bg-primary text-white rounded-full uppercase tracking-wider">
+            <div className="relative z-10 p-6 md:p-10 w-full">
+              <span className="inline-block px-4 py-1.5 mb-4 text-xs font-bold bg-primary text-white rounded-full uppercase tracking-wider">
                 {t('overview')}
               </span>
-              <h2 className="text-2xl font-bold text-white mb-2">
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
                 <ShinyText text={t('about_program')} disabled={false} speed={3} className="text-white" />
               </h2>
-              <p className="text-slate-200 text-sm leading-relaxed max-w-md">
+              <p className="text-slate-200 text-sm md:text-base leading-relaxed max-w-2xl">
                 {t('program_desc')}
               </p>
             </div>
           </section>
         </FadeContent>
 
-        {/* Stats Quick Look */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <div className="grid grid-cols-3 gap-4">
-            <SpotlightCard className="bg-primary/10 dark:bg-primary/5 p-4 rounded-xl text-center border border-primary/20" spotlightColor="rgba(115, 17, 212, 0.2)">
-              <p className="text-primary font-bold text-lg">12</p>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400">{t('completed_program')}</p>
-            </SpotlightCard>
-            <SpotlightCard className="bg-primary/10 dark:bg-primary/5 p-4 rounded-xl text-center border border-primary/20" spotlightColor="rgba(115, 17, 212, 0.2)">
-              <p className="text-primary font-bold text-lg">85%</p>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400">{t('goal_achieved')}</p>
-            </SpotlightCard>
-            <SpotlightCard className="bg-primary/10 dark:bg-primary/5 p-4 rounded-xl text-center border border-primary/20" spotlightColor="rgba(115, 17, 212, 0.2)">
-              <p className="text-primary font-bold text-lg">24</p>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400">{t('continuous_days')}</p>
-            </SpotlightCard>
-          </div>
-        </FadeContent>
+
 
         {/* Grid Menu */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold">{t('main_menu')}</h3>
-              <Link to="/programs" className="text-primary text-sm font-medium">{t('view_all')}</Link>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold">{t('main_menu')}</h3>
+              <Link to="/programs" className="text-primary font-bold flex items-center gap-1 group">
+                {t('view_all')}
+                <span className="material-symbols-outlined translate-x-0 group-hover:translate-x-1 transition-transform">chevron_left</span>
+              </Link>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <Link to="/programs" className="group relative flex flex-col items-center justify-center p-6 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl transition-all hover:border-primary active:scale-95">
-                <div className="w-12 h-12 bg-primary/20 text-primary rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                  <span className="material-symbols-outlined text-3xl">exercise</span>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              <Link to="/programs" className="group relative flex flex-col items-center justify-center p-8 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl transition-all hover:border-primary hover:shadow-xl hover:shadow-primary/5 active:scale-95">
+                <div className="w-16 h-16 bg-primary/20 text-primary rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:rotate-6">
+                  <span className="material-symbols-outlined text-4xl">exercise</span>
                 </div>
                 <span className="font-bold text-slate-900 dark:text-slate-100">{t('programs')}</span>
               </Link>
-              <Link to="/nutrition" className="group relative flex flex-col items-center justify-center p-6 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl transition-all hover:border-primary active:scale-95">
-                <div className="w-12 h-12 bg-primary/20 text-primary rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                  <span className="material-symbols-outlined text-3xl">restaurant</span>
+              <Link to="/nutrition" className="group relative flex flex-col items-center justify-center p-8 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl transition-all hover:border-primary hover:shadow-xl hover:shadow-primary/5 active:scale-95">
+                <div className="w-16 h-16 bg-primary/20 text-primary rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:-rotate-6">
+                  <span className="material-symbols-outlined text-4xl">restaurant</span>
                 </div>
                 <span className="font-bold text-slate-900 dark:text-slate-100">{t('nutrition')}</span>
               </Link>
-              <Link to="/education" className="group relative flex flex-col items-center justify-center p-6 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl transition-all hover:border-primary active:scale-95">
-                <div className="w-12 h-12 bg-primary/20 text-primary rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                  <span className="material-symbols-outlined text-3xl">school</span>
+              <Link to="/education" className="group relative flex flex-col items-center justify-center p-8 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl transition-all hover:border-primary hover:shadow-xl hover:shadow-primary/5 active:scale-95">
+                <div className="w-16 h-16 bg-primary/20 text-primary rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:rotate-6">
+                  <span className="material-symbols-outlined text-4xl">school</span>
                 </div>
                 <span className="font-bold text-slate-900 dark:text-slate-100">{t('education')}</span>
               </Link>
-              <Link to="/profile" className="group relative flex flex-col items-center justify-center p-6 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl transition-all hover:border-primary active:scale-95">
-                <div className="w-12 h-12 bg-primary/20 text-primary rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                  <span className="material-symbols-outlined text-3xl">person</span>
+              <Link to="/profile" className="group relative flex flex-col items-center justify-center p-8 bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-3xl transition-all hover:border-primary hover:shadow-xl hover:shadow-primary/5 active:scale-95">
+                <div className="w-16 h-16 bg-primary/20 text-primary rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:-rotate-6">
+                  <span className="material-symbols-outlined text-4xl">person</span>
                 </div>
                 <span className="font-bold text-slate-900 dark:text-slate-100">{t('profile')}</span>
               </Link>
@@ -171,67 +158,55 @@ export default function Home() {
         </FadeContent>
 
         {/* Goals Section */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="bg-slate-900 rounded-2xl p-6 text-white overflow-hidden relative border-l-4 border-primary">
-            <div className="absolute right-0 top-0 opacity-10">
-              <span className="material-symbols-outlined text-[100px]">emoji_events</span>
-            </div>
-            <h3 className="text-xl font-bold mb-3 relative z-10">{t('app_goals')}</h3>
-            <ul className="space-y-3 relative z-10">
-              <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                <p className="text-sm text-slate-300">{t('goal_1')}</p>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                <p className="text-sm text-slate-300">{t('goal_2')}</p>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-xl">check_circle</span>
-                <p className="text-sm text-slate-300">{t('goal_3')}</p>
-              </li>
-            </ul>
-          </section>
-        </FadeContent>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <section className="bg-slate-900 dark:bg-zinc-900 rounded-3xl p-8 text-white h-full flex flex-col justify-center relative border-l-8 border-primary overflow-hidden shadow-2xl">
+              <div className="absolute -right-8 -top-8 opacity-10">
+                <span className="material-symbols-outlined text-[180px]">emoji_events</span>
+              </div>
+              <h3 className="text-2xl font-black mb-6 relative z-10 tracking-tight">{t('app_goals')}</h3>
+              <ul className="space-y-4 relative z-10">
+                <li className="flex items-start gap-4">
+                  <span className="material-symbols-outlined text-primary text-2xl">check_circle</span>
+                  <p className="text-base text-slate-300 font-medium">{t('goal_1')}</p>
+                </li>
+                <li className="flex items-start gap-4">
+                  <span className="material-symbols-outlined text-primary text-2xl">check_circle</span>
+                  <p className="text-base text-slate-300 font-medium">{t('goal_2')}</p>
+                </li>
+                <li className="flex items-start gap-4">
+                  <span className="material-symbols-outlined text-primary text-2xl">check_circle</span>
+                  <p className="text-base text-slate-300 font-medium">{t('goal_3')}</p>
+                </li>
+              </ul>
+            </section>
+          </FadeContent>
 
-        {/* Contact & Social Section */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="space-y-6">
-            {/* Contact Us */}
-            <div className="bg-slate-100 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl p-6">
-              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary">contact_support</span>
-                {t('contact_us')}
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300">
-                  <span className="material-symbols-outlined text-primary text-xl">call</span>
-                  <span dir="ltr">+966 50 000 0000</span>
-                </div>
-                <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300">
-                  <span className="material-symbols-outlined text-primary text-xl">mail</span>
-                  <span>support@helmy.com</span>
+          {/* Contact & Social Section */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <section className="space-y-6 h-full flex flex-col justify-between">
+              {/* Contact Us */}
+              <div className="bg-slate-100 dark:bg-zinc-900/40 border border-slate-200 dark:border-zinc-800 rounded-3xl p-8 flex-1">
+                <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-primary text-3xl">contact_support</span>
+                  {t('contact_us')}
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 text-slate-700 dark:text-slate-300 text-lg hover:text-primary transition-colors cursor-pointer group">
+                    <span className="material-symbols-outlined bg-primary/10 p-2 rounded-xl text-primary group-hover:bg-primary group-hover:text-white transition-all">call</span>
+                    <span dir="ltr" className="font-bold">+966 50 000 0000</span>
+                  </div>
+                  <div className="flex items-center gap-4 text-slate-700 dark:text-slate-300 text-lg hover:text-primary transition-colors cursor-pointer group">
+                    <span className="material-symbols-outlined bg-primary/10 p-2 rounded-xl text-primary group-hover:bg-primary group-hover:text-white transition-all">mail</span>
+                    <span className="font-bold">support@helmy.com</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Social Media */}
-            <div className="text-center">
-              <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-4 uppercase tracking-widest">{t('follow_us')}</h3>
-              <div className="flex justify-center gap-6">
-                <a className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
-                  <span className="material-symbols-outlined">public</span>
-                </a>
-                <a className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
-                  <span className="material-symbols-outlined">share</span>
-                </a>
-                <a className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
-                  <span className="material-symbols-outlined">camera_alt</span>
-                </a>
-              </div>
-            </div>
-          </section>
-        </FadeContent>
+
+            </section>
+          </FadeContent>
+        </div>
       </div>
     </div>
   );

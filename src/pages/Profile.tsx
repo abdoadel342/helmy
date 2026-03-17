@@ -204,27 +204,30 @@ export default function Profile() {
         <div className="h-4 bg-zinc-900 rounded w-64"></div>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6 bg-zinc-950 p-8 rounded-3xl border border-zinc-800">
-          <div className="h-6 bg-zinc-900 rounded w-48 mb-6"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[1, 2, 3, 4, 5].map(i => (
-              <div key={i} className="space-y-2">
-                <div className="h-4 bg-zinc-900 rounded w-24"></div>
-                <div className="h-12 bg-zinc-900 rounded-xl w-full"></div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="lg:col-span-8 space-y-6 bg-zinc-950 p-8 rounded-3xl border border-zinc-800">
+          <div className="h-8 bg-zinc-900 rounded w-48 mb-8"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="space-y-3">
+                <div className="h-4 bg-zinc-900 rounded w-28"></div>
+                <div className="h-14 bg-zinc-900 rounded-2xl w-full"></div>
               </div>
             ))}
           </div>
-          <div className="h-12 bg-zinc-900 rounded-xl w-full mt-6"></div>
+          <div className="flex gap-4 mt-10">
+            <div className="h-14 bg-zinc-900 rounded-2xl flex-1"></div>
+            <div className="h-14 bg-zinc-900 rounded-2xl flex-1"></div>
+          </div>
         </div>
 
-        <div className="space-y-8">
+        <div className="lg:col-span-4 space-y-8">
           <div className="bg-zinc-950 p-8 rounded-3xl border border-zinc-800">
-            <div className="h-6 bg-zinc-900 rounded w-32 mb-6"></div>
-            <div className="h-48 bg-zinc-900 rounded-full w-48 mx-auto mb-6"></div>
+            <div className="h-6 bg-zinc-900 rounded w-32 mb-8 mx-auto"></div>
+            <div className="h-56 w-56 bg-zinc-900 rounded-full mx-auto mb-8 border-8 border-zinc-800/50"></div>
             <div className="space-y-4">
               {[1, 2, 3].map(i => (
-                <div key={i} className="flex justify-between">
+                <div key={i} className="flex justify-between items-center bg-zinc-900/30 p-3 rounded-xl">
                   <div className="h-4 bg-zinc-900 rounded w-20"></div>
                   <div className="h-4 bg-zinc-900 rounded w-16"></div>
                 </div>
@@ -242,18 +245,21 @@ export default function Profile() {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-8 pb-12"
     >
-      <header>
-        <h1 className="text-4xl font-bold text-white mb-2">ملفك الشخصي</h1>
-        <p className="text-zinc-400">أدخل بياناتك لحساب احتياجاتك بدقة علمية.</p>
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight">ملفك الشخصي</h1>
+          <p className="text-zinc-400 text-lg font-medium">أدخل بياناتك لحساب احتياجاتك بدقة علمية متطورة.</p>
+        </div>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* User Inputs Section */}
-        <div className="lg:col-span-2 space-y-6 bg-zinc-950 p-8 rounded-3xl border border-purple-900/30">
-          <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <Activity className="w-5 h-5 text-purple-500" /> البيانات الأساسية
+        <div className="lg:col-span-8 space-y-8 bg-zinc-950 p-8 md:p-10 rounded-[2.5rem] border border-purple-900/30 shadow-2xl shadow-purple-900/5 transition-all hover:border-purple-500/30">
+          <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-3">
+            <Activity className="w-8 h-8 text-purple-500 bg-purple-500/10 p-1.5 rounded-xl" /> 
+            البيانات الأساسية
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-2">
               <label className="text-sm font-medium text-zinc-400 uppercase tracking-wider">العمر</label>
               <input 
@@ -341,7 +347,7 @@ export default function Profile() {
         </div>
 
         {/* Calculated Outputs Section */}
-        <div className="space-y-6">
+        <div className="lg:col-span-4 space-y-8">
           <div className="bg-gradient-to-br from-purple-900 to-black p-6 rounded-3xl border border-purple-500/30 text-center relative overflow-hidden">
             <Flame className="absolute -right-4 -bottom-4 w-24 h-24 text-purple-500/10" />
             <h3 className="text-purple-300 font-medium uppercase tracking-widest text-sm mb-2 relative z-10">معدل الأيض الأساسي (BMR)</h3>

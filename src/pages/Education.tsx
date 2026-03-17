@@ -70,11 +70,11 @@ export default function Education() {
         </FadeContent>
 
         {/* Articles List */}
-        <div className="flex flex-col gap-3 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
           {articles.map((article, index) => (
             <FadeContent key={index} blur={true} duration={1000} initialOpacity={0} delay={index * 100}>
               <SpotlightCard 
-                className="flex items-center gap-4 bg-white dark:bg-primary/5 p-3 rounded-2xl border border-primary/10 cursor-pointer group"
+                className="flex items-center gap-4 bg-white dark:bg-primary/5 p-4 rounded-2xl border border-primary/10 cursor-pointer group h-full"
                 spotlightColor="rgba(115, 17, 212, 0.15)"
                 onClick={() => article.path !== '#' && navigate(article.path)}
               >
@@ -89,7 +89,7 @@ export default function Education() {
                     <p className="text-slate-900 dark:text-white text-lg font-bold leading-tight group-hover:text-primary transition-colors">{article.title}</p>
                     <span className="material-symbols-outlined text-primary/50 group-hover:text-primary transition-colors text-xl">chevron_left</span>
                   </div>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm font-normal line-clamp-2">{article.description}</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-normal line-clamp-2">{article.description}</p>
                 </div>
               </SpotlightCard>
             </FadeContent>

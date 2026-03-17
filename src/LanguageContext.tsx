@@ -22,9 +22,6 @@ const translations: Record<Language, Record<string, string>> = {
     'overview': 'نظرة عامة',
     'about_program': 'عن البرنامج والأهداف',
     'program_desc': 'نحن نهدف إلى تقديم أفضل المناهج التعليمية الرياضية والبرامج الغذائية المخصصة لتحقيق أهدافك البدنية بأعلى معايير الجودة العلمية.',
-    'completed_program': 'برنامج منجز',
-    'goal_achieved': 'تحقيق الهدف',
-    'continuous_days': 'يوم متواصل',
     'main_menu': 'القائمة الرئيسية',
     'view_all': 'عرض الكل',
     'app_goals': 'أهداف التطبيق',
@@ -32,7 +29,6 @@ const translations: Record<Language, Record<string, string>> = {
     'goal_2': 'نشر الوعي الثقافي حول التغذية الرياضية الصحيحة.',
     'goal_3': 'خلق مجتمع رياضي تفاعلي لتحفيز الاستمرارية.',
     'contact_us': 'تواصل معنا',
-    'follow_us': 'تابعنا على',
     'logout': 'تسجيل الخروج',
   },
   en: {
@@ -48,9 +44,6 @@ const translations: Record<Language, Record<string, string>> = {
     'overview': 'Overview',
     'about_program': 'About Program & Goals',
     'program_desc': 'We aim to provide the best sports educational curricula and customized nutritional programs to achieve your physical goals with the highest standards of scientific quality.',
-    'completed_program': 'Completed',
-    'goal_achieved': 'Goal Achieved',
-    'continuous_days': 'Streak Days',
     'main_menu': 'Main Menu',
     'view_all': 'View All',
     'app_goals': 'App Goals',
@@ -58,7 +51,6 @@ const translations: Record<Language, Record<string, string>> = {
     'goal_2': 'Spread cultural awareness about proper sports nutrition.',
     'goal_3': 'Create an interactive sports community to motivate continuity.',
     'contact_us': 'Contact Us',
-    'follow_us': 'Follow Us',
     'logout': 'Logout',
   }
 };
