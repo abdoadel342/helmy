@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: {userId}
+    // Fields:
+    //   - uid: string (required) - User ID
+    //   - personal_info: map (optional) - User's personal information
+    //   - calculated_nutrition: map (optional) - Calculated nutrition metrics
+    //   - weightHistory: list (optional) - History of user's weight
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == request.auth.uid;
+    }
+
+    function uidNotModified() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == resource.data.uid;
+    }
+
+    function isValidUserProfile(data) {
+      return data.keys().hasOnly(['uid', 'personal_info', 'calculated_nutrition', 'weightHistory', 'settings']) &&
+             data.uid is string && data.uid.size() > 0 && data.uid.size() < 100 &&
+             (!('personal_info' in data) || (
+               data.personal_info is map &&
+               data.personal_info.keys().hasOnly(['user_age', 'user_weight', 'user_height', 'user_gender', 'activity_multiplier', 'training_goal']) &&
+               (!('user_age' in data.personal_info) || data.personal_info.user_age is number) &&
+               (!('user_weight' in data.personal_info) || data.personal_info.user_weight is number) &&
+               (!('user_height' in data.personal_info) || data.personal_info.user_height is number) &&
+               (!('user_gender' in data.personal_info) || (data.personal_info.user_gender is string && data.personal_info.user_gender.size() < 20)) &&
+               (!('activity_multiplier' in data.personal_info) || data.personal_info.activity_multiplier is number) &&
+               (!('training_goal' in data.personal_info) || (data.personal_info.training_goal is string && data.personal_info.training_goal.size() < 50))
+             )) &&
+             (!('calculated_nutrition' in data) || (
+               data.calculated_nutrition is map &&
+               data.calculated_nutrition.keys().hasOnly(['calculated_bmr', 'calculated_tdee', 'target_calories', 'macros']) &&
+               (!('calculated_bmr' in data.calculated_nutrition) || data.calculated_nutrition.calculated_bmr is number) &&
+               (!('calculated_tdee' in data.calculated_nutrition) || data.calculated_nutrition.calculated_tdee is number) &&
+               (!('target_calories' in data.calculated_nutrition) || data.calculated_nutrition.target_calories is number) &&
+               (!('macros' in data.calculated_nutrition) || (
+                 data.calculated_nutrition.macros is map &&
+                 data.calculated_nutrition.macros.keys().hasOnly(['protein_grams', 'fat_grams', 'carb_grams']) &&
+                 (!('protein_grams' in data.calculated_nutrition.macros) || data.calculated_nutrition.macros.protein_grams is number) &&
+                 (!('fat_grams' in data.calculated_nutrition.macros) || data.calculated_nutrition.macros.fat_grams is number) &&
+                 (!('carb_grams' in data.calculated_nutrition.macros) || data.calculated_nutrition.macros.carb_grams is number)
+               ))
+             )) &&
+             (!('weightHistory' in data) || data.weightHistory is list) &&
+             (!('settings' in data) || (
+               data.settings is map &&
+               data.settings.keys().hasOnly(['language', 'notifications']) &&
+               (!('language' in data.settings) || data.settings.language is string) &&
+               (!('notifications' in data.settings) || data.settings.notifications is bool)
+             ));
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUserProfile(request.resource.data) && uidUnchanged();
+      allow update: if isOwner(userId) && isValidUserProfile(request.resource.data) && uidNotModified();
+      allow delete: if isOwner(userId);
+
+      match /workout_progress/{workoutId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    match /programs/{programId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}

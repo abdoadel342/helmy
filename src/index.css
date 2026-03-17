@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #7311d4;
+  --color-background-light: #f7f6f8;
+  --color-background-dark: #191022;
+  --font-display: "Lexend", "Noto Sans Arabic", sans-serif;
+  --animate-shine: shine 3s linear infinite;
+  
+  @keyframes shine {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  --animate-star-movement-bottom: star-movement-bottom linear infinite alternate;
+  --animate-star-movement-top: star-movement-top linear infinite alternate;
+
+  @keyframes star-movement-bottom {
+    0% { transform: translate(0%, 0%); opacity: 1; }
+    100% { transform: translate(-100%, 0%); opacity: 0; }
+  }
+
+  @keyframes star-movement-top {
+    0% { transform: translate(0%, 0%); opacity: 1; }
+    100% { transform: translate(100%, 0%); opacity: 0; }
+  }
+}
+
+body {
+  font-family: var(--font-display);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #4d3267;
+  border-radius: 10px;
+}
+
+.meal-card-gradient {
+  background: linear-gradient(180deg, rgba(115, 17, 212, 0.1) 0%, rgba(25, 16, 34, 0) 100%);
+}
