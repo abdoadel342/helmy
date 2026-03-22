@@ -4,9 +4,11 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
+import { useStartWorkout } from '../useStartWorkout';
 
 export default function SpeedEndurance() {
   const navigate = useNavigate();
+  const { isStarting, workoutStarted, handleStartWorkout } = useStartWorkout();
 
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-x-hidden font-display pb-32">
@@ -181,10 +183,15 @@ export default function SpeedEndurance() {
       {/* Fixed Bottom Action Bar */}
       <div className="fixed bottom-0 inset-x-0 z-50 p-4 bg-background-light dark:bg-background-dark border-t border-primary/20 shadow-[0_-10px_20px_rgba(0,0,0,0.1)]">
         <div className="max-w-md mx-auto">
-          <StarBorder as="button" color="#7311d4" speed="4s" className="w-full">
+          <StarBorder as="button" color={workoutStarted ? '#10b981' : '#7311d4'} speed="4s" className="w-full" onClick={() => handleStartWorkout('برنامج السرعة واللياقة', 'تحمل السرعة')} disabled={isStarting || workoutStarted}>
             <div className="flex items-center justify-center gap-2 font-bold">
-              <span className="material-symbols-outlined">play_circle</span>
-              <span>ابدأ التدريب الآن</span>
+              {isStarting ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : workoutStarted ? (
+                <><span className="material-symbols-outlined">check_circle</span><span>تم تسجيل التدريب بنجاح!</span></>
+              ) : (
+                <><span className="material-symbols-outlined">play_circle</span><span>ابدأ التدريب الآن</span></>
+              )}
             </div>
           </StarBorder>
         </div>

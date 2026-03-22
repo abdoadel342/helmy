@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../AuthContext';
 import { handleFirestoreError, OperationType } from '../errorHandling';
-import { Save, Calculator, Target, TrendingUp, Activity, Flame, Utensils } from 'lucide-react';
+import { Save, Calculator, Target, TrendingUp, Activity, Flame, Utensils, ClipboardList, Trash2 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 interface UserProfile {
@@ -28,6 +28,14 @@ interface UserProfile {
     };
   };
   weightHistory: { date: string; weight: number }[];
+}
+
+interface ActivityLogEntry {
+  id: string;
+  program_name: string;
+  day_title: string;
+  workout_type: string;
+  completed_at: any;
 }
 
 const activityLevels = [
@@ -71,6 +79,9 @@ export default function Profile() {
   const [profile, setProfile] = useState<Partial<UserProfile>>(defaultProfile);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  
+  const [activityLog, setActivityLog] = useState<ActivityLogEntry[]>([]);
+  const [loadingLog, setLoadingLog] = useState(true);
 
   useEffect(() => {
     if (!user) return;
@@ -96,8 +107,43 @@ export default function Profile() {
         setLoading(false);
       }
     };
+
+    const fetchActivityLog = async () => {
+      if (!user?.uid) return;
+      try {
+        const q = query(
+          collection(db, 'users', user.uid, 'workout_progress'),
+          orderBy('completed_at', 'desc')
+        );
+        const snapshot = await getDocs(q);
+        const logData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as ActivityLogEntry[];
+        setActivityLog(logData);
+      } catch (error) {
+        console.error("Error fetching activity log:", error);
+      } finally {
+        setLoadingLog(false);
+      }
+    };
+
     fetchProfile();
+    fetchActivityLog();
   }, [user]);
+
+  const handleDeleteActivity = async (activityId: string) => {
+    if (!user) return;
+    if (!window.confirm("هل أنت متأكد من رغبتك في حذف هذا النشاط؟")) return;
+    
+    try {
+      await deleteDoc(doc(db, 'users', user.uid, 'workout_progress', activityId));
+      setActivityLog(prev => prev.filter(item => item.id !== activityId));
+    } catch (error) {
+      console.error("Error deleting activity:", error);
+      alert("حدث خطأ أثناء حذف النشاط.");
+    }
+  };
 
   const calculateNutrition = () => {
     const info = profile.personal_info;
@@ -461,6 +507,55 @@ export default function Profile() {
           </div>
         </div>
       )}
+
+      {/* Activity Log */}
+      <div className="bg-zinc-950 p-8 rounded-3xl border border-zinc-800 mt-8">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <ClipboardList className="w-6 h-6 text-primary" />
+            <h2 className="text-2xl font-bold text-white">سجل الأنشطة</h2>
+          </div>
+        </div>
+
+        {loadingLog ? (
+          <div className="flex justify-center py-8">
+            <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+          </div>
+        ) : activityLog.length > 0 ? (
+          <div className="space-y-4">
+            {activityLog.map((activity) => (
+              <div key={activity.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-white font-bold text-lg mb-1">{activity.program_name || 'تمرين عام'}</h3>
+                  <p className="text-zinc-400 text-sm">{activity.day_title || activity.workout_type || 'نشاط غير محدد'}</p>
+                </div>
+                <div className="flex items-center justify-between w-full md:w-auto md:justify-end gap-4">
+                  <div className="text-right">
+                    <p className="text-white text-sm">
+                      {activity.completed_at?.toDate ? activity.completed_at.toDate().toLocaleDateString('ar-EG') : 'تاريخ غير معروف'}
+                    </p>
+                    <p className="text-zinc-500 text-xs text-left">
+                      {activity.completed_at?.toDate ? activity.completed_at.toDate().toLocaleTimeString('ar-EG', { hour: '2-digit', minute:'2-digit' }) : ''}
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => handleDeleteActivity(activity.id)}
+                    className="p-2 text-zinc-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors shrink-0"
+                    title="حذف النشاط"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 bg-zinc-900/50 rounded-2xl border border-zinc-800/50">
+            <Activity className="w-12 h-12 text-zinc-600 mx-auto mb-3" />
+            <p className="text-zinc-400">لا يوجد أنشطة مسجلة حتى الآن.</p>
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 }

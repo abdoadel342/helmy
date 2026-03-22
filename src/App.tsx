@@ -23,6 +23,7 @@ import HealthyPlate from './pages/HealthyPlate';
 import EnergyCalculator from './pages/EnergyCalculator';
 import NutritionPlan from './pages/NutritionPlan';
 import FatLossPlan from './pages/FatLossPlan';
+import Recipes from './pages/Recipes';
 import AI from './pages/AI';
 import Telemetry from './pages/Telemetry';
 import Login from './pages/Login';
@@ -36,11 +37,12 @@ import BalanceTraining from './pages/BalanceTraining';
 import NeuromuscularCoordination from './pages/NeuromuscularCoordination';
 import PlyometricsTraining from './pages/PlyometricsTraining';
 import ShortSprints from './pages/ShortSprints';
+import DarkVeil from './components/react-bits/DarkVeil';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
   if (loading) return (
-    <div className="min-h-screen bg-[#f7f6f8] dark:bg-[#191022] flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {/* Header Skeleton */}
       <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
         <div className="flex items-center gap-3">
@@ -85,6 +87,16 @@ import MuscleStrengthBuilder from './pages/MuscleStrengthBuilder';
 export default function App() {
   return (
     <AuthProvider>
+      <div className="fixed inset-0 z-[-1] pointer-events-none bg-[#0e0e0e]">
+        <DarkVeil
+          hueShift={0}
+          noiseIntensity={0}
+          scanlineIntensity={0}
+          speed={0.5}
+          scanlineFrequency={0}
+          warpAmount={0}
+        />
+      </div>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -120,6 +132,7 @@ export default function App() {
             <Route path="education/sports-nutrition" element={<SportsNutrition />} />
             <Route path="nutrition/plan" element={<NutritionPlan />} />
             <Route path="nutrition/fat-loss" element={<FatLossPlan />} />
+            <Route path="nutrition/recipes" element={<Recipes />} />
             <Route path="ai" element={<AI />} />
             <Route path="telemetry" element={<Telemetry />} />
             <Route path="settings" element={<Settings />} />

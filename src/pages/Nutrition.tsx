@@ -154,7 +154,13 @@ export default function Nutrition() {
         {/* Healthy Recipes Teaser */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section className="mb-4">
-            <h2 className="text-xl font-bold mb-4">وصفات مقترحة</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold">وصفات مقترحة</h2>
+              <Link to="/nutrition/recipes" className="text-primary font-bold hover:underline text-sm flex items-center gap-1">
+                عرض الكل
+                <span className="material-symbols-outlined text-sm">{/* RTL icon check handled by CSS or just literal */}arrow_back</span>
+              </Link>
+            </div>
             <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar -mx-4 px-4">
               <div className="min-w-[140px] space-y-2 cursor-pointer group">
                 <div 

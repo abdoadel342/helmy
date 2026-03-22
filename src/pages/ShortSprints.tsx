@@ -4,9 +4,11 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
+import { useStartWorkout } from '../useStartWorkout';
 
 export default function ShortSprints() {
   const navigate = useNavigate();
+  const { isStarting, workoutStarted, handleStartWorkout } = useStartWorkout();
 
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-[#0a0a0a] text-white overflow-x-hidden font-display">
@@ -160,10 +162,15 @@ export default function ShortSprints() {
         {/* CTA Action Button */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent z-40 max-w-2xl mx-auto">
-            <StarBorder as="button" color="#7311d4" speed="4s" className="w-full">
+            <StarBorder as="button" color={workoutStarted ? '#10b981' : '#7311d4'} speed="4s" className="w-full" onClick={() => handleStartWorkout('برنامج السرعة واللياقة', 'تمارين السرعة القصيرة')} disabled={isStarting || workoutStarted}>
               <div className="flex items-center justify-center gap-2 font-bold text-lg">
-                <span>ابدأ التدريب الآن</span>
-                <span className="material-symbols-outlined">rocket_launch</span>
+                {isStarting ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : workoutStarted ? (
+                  <><span className="material-symbols-outlined">check_circle</span><span>تم تسجيل التدريب بنجاح!</span></>
+                ) : (
+                  <><span>ابدأ التدريب الآن</span><span className="material-symbols-outlined">rocket_launch</span></>
+                )}
               </div>
             </StarBorder>
           </div>

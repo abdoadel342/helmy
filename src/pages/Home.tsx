@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { useLanguage } from '../LanguageContext';
+import { useTheme } from '../ThemeContext';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
-
+import RotatingText from '../components/react-bits/RotatingText';
+import SplitText from '../components/react-bits/SplitText';
 export default function Home() {
   const { user } = useAuth();
   const { language, toggleLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -71,7 +74,21 @@ export default function Home() {
               <span className="material-symbols-outlined text-primary">settings</span>
               <span className="font-medium text-slate-900 dark:text-slate-100">{t('settings')}</span>
             </Link>
-            
+            {/* Theme Toggle */}
+            <button 
+              onClick={toggleTheme}
+              className="flex items-center justify-between px-4 py-3 hover:bg-primary/10 transition-colors w-full text-start border-b border-primary/10"
+            >
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary">
+                  {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+                </span>
+                <span className="font-medium text-slate-900 dark:text-slate-100">
+                  {theme === 'dark' ? (language === 'ar' ? 'الوضع الفاتح' : 'Light Mode') : (language === 'ar' ? 'الوضع الداكن' : 'Dark Mode')}
+                </span>
+              </div>
+            </button>
+
             {/* Language Toggle */}
             <button 
               onClick={toggleLanguage}
@@ -92,7 +109,7 @@ export default function Home() {
       <div className="space-y-8 py-6">
         {/* Hero Section */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="relative overflow-hidden rounded-3xl bg-primary/20 aspect-[16/9] md:aspect-[21/9] flex items-end">
+          <section className="relative overflow-hidden rounded-3xl bg-zinc-950 aspect-[16/9] md:aspect-[21/9] flex items-end">
             <div className="absolute inset-0 z-0">
               <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"></div>
               <img 
@@ -116,7 +133,43 @@ export default function Home() {
           </section>
         </FadeContent>
 
-
+        {/* App Info Section */}
+        <section className="py-12 px-6 md:px-10 bg-slate-50 dark:bg-zinc-900/30 rounded-3xl border border-slate-200 dark:border-zinc-800/50 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+          
+          <div className="mb-6">
+            <SplitText
+              text={language === 'ar' ? 'ماذا يقدم تطبيق حلمي؟' : 'What does Helmy offer?'}
+              className="text-2xl md:text-3xl font-black text-center text-primary mb-2"
+              delay={50}
+              duration={1.25}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+              showCallback={false}
+            />
+          </div>
+          
+          <SplitText
+            text={language === 'ar' 
+              ? 'منصة حلمي هي بيئتك المتكاملة للارتقاء بلياقتك البدنية والصحية. نقدم لك برامج رياضية احترافية مصممة خصيصاً لأهدافك، وخطط تغذية مدروسة علمياً، بالإضافة إلى مكتبة غنية بالمقالات والموارد التعليمية التي تمكنك من الوصول إلى أفضل نسخة من نفسك.' 
+              : 'Helmy is your integrated platform to elevate your physical fitness and health. We provide professional sports programs tailored to your goals, scientifically planned nutrition plans, and a rich library of educational resources to empower you to reach the best version of yourself.'}
+            className="text-lg md:text-xl font-medium text-center text-slate-700 dark:text-slate-300 leading-relaxed max-w-4xl mx-auto"
+            delay={20}
+            duration={1.5}
+            ease="power3.out"
+            splitType="words"
+            from={{ opacity: 0, y: 20 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.2}
+            rootMargin="-50px"
+            textAlign="center"
+          />
+        </section>
 
         {/* Grid Menu */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>

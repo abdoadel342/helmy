@@ -49,7 +49,6 @@ export default function SportsNutrition() {
               <button className="border-b-2 border-primary px-4 py-3 text-sm font-bold text-primary shrink-0">المغذيات</button>
               <button onClick={() => navigate('/nutrition/calculator')} className="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-slate-500 dark:text-slate-400 shrink-0 hover:text-primary transition-colors">حساب الطاقة</button>
               <button onClick={() => navigate('/nutrition/systems')} className="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-slate-500 dark:text-slate-400 shrink-0 hover:text-primary transition-colors">الأنظمة الغذائية</button>
-              <button className="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-slate-500 dark:text-slate-400 shrink-0">الفحوصات</button>
             </div>
           </div>
         </FadeContent>
@@ -239,36 +238,6 @@ export default function SportsNutrition() {
           </section>
         </FadeContent>
 
-        {/* Lab Tests */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="px-4 space-y-4 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="material-symbols-outlined text-primary">science</span>
-              الفحوصات المخبرية المهمة
-            </h2>
-            <div className="bg-white dark:bg-background-dark border border-primary/30 rounded-xl p-4 shadow-sm">
-              <ul className="space-y-3">
-                <li className="flex justify-between items-center text-sm border-b border-black/5 dark:border-white/5 pb-2">
-                  <span>مقاومة الأنسولين (HOMA IR)</span>
-                  <span className="material-symbols-outlined text-primary">check_circle</span>
-                </li>
-                <li className="flex justify-between items-center text-sm border-b border-black/5 dark:border-white/5 pb-2">
-                  <span>وظائف الغدة الدرقية (TSH)</span>
-                  <span className="material-symbols-outlined text-primary">check_circle</span>
-                </li>
-                <li className="flex justify-between items-center text-sm border-b border-black/5 dark:border-white/5 pb-2">
-                  <span>مستوى فيتامين D</span>
-                  <span className="material-symbols-outlined text-primary">check_circle</span>
-                </li>
-                <li className="flex justify-between items-center text-sm">
-                  <span>هرمون الحليب (Prolactin)</span>
-                  <span className="material-symbols-outlined text-primary">check_circle</span>
-                </li>
-              </ul>
-            </div>
-          </section>
-        </FadeContent>
-
         {/* Interactive Meal Planning Outline */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section className="px-4 mb-8">
@@ -281,15 +250,7 @@ export default function SportsNutrition() {
                 </summary>
                 <div className="p-4 text-sm text-slate-600 dark:text-slate-400 bg-white dark:bg-transparent">تعلم الفرق بين السعرات الحرارية والقيمة الغذائية وكيفية قراءة الملصقات الغذائية.</div>
               </details>
-              
-              <details className="bg-slate-50 dark:bg-white/5 rounded-lg overflow-hidden group border border-black/5 dark:border-white/5">
-                <summary className="p-4 cursor-pointer font-bold list-none flex justify-between items-center group-open:bg-primary/10 dark:group-open:bg-primary/20">
-                  <span>2. تقييم الحالة التغذوية</span>
-                  <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
-                </summary>
-                <div className="p-4 text-sm text-slate-600 dark:text-slate-400 bg-white dark:bg-transparent">استخدام قياسات الجسم (InBody) والفحوصات لتحديد نقطة البداية.</div>
-              </details>
-              
+
               <details className="bg-slate-50 dark:bg-white/5 rounded-lg overflow-hidden group border border-black/5 dark:border-white/5">
                 <summary className="p-4 cursor-pointer font-bold list-none flex justify-between items-center group-open:bg-primary/10 dark:group-open:bg-primary/20">
                   <span>3. خرافات الأنظمة الغذائية</span>

@@ -4,9 +4,11 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
+import { useStartWorkout } from '../useStartWorkout';
 
 export default function PlyometricsTraining() {
   const navigate = useNavigate();
+  const { isStarting, workoutStarted, handleStartWorkout } = useStartWorkout();
 
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-x-hidden font-display">
@@ -165,10 +167,15 @@ export default function PlyometricsTraining() {
         {/* CTA Action Button */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <div className="px-6 py-8">
-            <StarBorder as="button" color="#7311d4" speed="4s" className="w-full">
+            <StarBorder as="button" color={workoutStarted ? '#10b981' : '#7311d4'} speed="4s" className="w-full" onClick={() => handleStartWorkout('برنامج السرعة واللياقة', 'تمارين البليومتريك')} disabled={isStarting || workoutStarted}>
               <div className="flex items-center justify-center gap-2 font-bold">
-                <span>ابدأ التدريب الآن</span>
-                <span className="material-symbols-outlined">rocket_launch</span>
+                {isStarting ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : workoutStarted ? (
+                  <><span className="material-symbols-outlined">check_circle</span><span>تم تسجيل التدريب بنجاح!</span></>
+                ) : (
+                  <><span>ابدأ التدريب الآن</span><span className="material-symbols-outlined">rocket_launch</span></>
+                )}
               </div>
             </StarBorder>
           </div>
