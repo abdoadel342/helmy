@@ -494,7 +494,7 @@ export default function Programs() {
               <button onClick={() => setActiveModule(null)} className="text-[#e08dff] hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-200">
                 <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
               </button>
-              <h1 className="font-['Lexend'] font-bold tracking-tight text-lg">
+              <h1 className="font-display font-bold tracking-tight text-lg">
                 <GradientText colors={["#5227FF","#FF9FFC","#B19EEF"]} animationSpeed={8} showBorder={false}>
                   مخطط تمارين الإطالة الديناميكية
                 </GradientText>
@@ -508,11 +508,11 @@ export default function Programs() {
                <img className="w-full h-full object-cover" alt="Abstract dynamic purple energy patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfCR95Daap8XQQ1cTrzVLHRqIdTAjLWXdMU_BQr5LeN3knVGO0q0HkGlExfCBclzU4H50FELrf4nrGGDNkLdxsv18yJ07m1Uj_m7XcsEJs_G83VdzE1QGyClca3tkPkEjA_pq2X7nO3JZlcochW10q-gwVN1RDdSU1FEK3PkTzc_-fRxZkARdMEsEBJGsw4swV42vQIIGsAQLXcwdsSShWG1dLs_rgTgXgfxeKJfeZnC6oiQseDjhcXYX6C9SUrlHOmq63Akl0S2hz"/>
              </div>
              <div className="relative z-10 space-y-4">
-               <span className="font-['Space_Grotesk'] text-[#00fcca] tracking-widest uppercase text-xs">تعريف البرنامج</span>
-               <h2 className="font-['Lexend'] text-3xl md:text-5xl font-extrabold leading-tight text-white max-w-2xl">
+               <span className="font-display text-[#00fcca] tracking-widest uppercase text-xs">تعريف البرنامج</span>
+               <h2 className="font-display text-3xl md:text-5xl font-extrabold leading-tight text-white max-w-2xl">
                    الإطالة <span className="text-[#e08dff] italic">الديناميكية</span> هي مفتاح الأداء الرياضي المتفوق.
                </h2>
-               <p className="text-[#adaaaa] font-['Manrope'] leading-relaxed max-w-xl text-lg">
+               <p className="text-[#adaaaa] font-display leading-relaxed max-w-xl text-lg">
                    تعتمد الإطالة الديناميكية على حركات نشطة ترفع درجة حرارة الجسم وتزيد من نطاق الحركة المفصلية، مما يقلل مخاطر الإصابة ويهيئ العضلات للانقباض القوي والمفاجئ.
                </p>
              </div>
@@ -521,12 +521,12 @@ export default function Programs() {
           {/* Controls */}
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-[#201f1f] rounded-3xl p-5 flex flex-col justify-between border border-white/5 transition-all hover:border-[#e08dff]/20">
-              <span className="font-['Space_Grotesk'] text-[#adaaaa] text-[10px] uppercase tracking-widest mb-4">الشدة</span>
+              <span className="font-display text-[#adaaaa] text-[10px] uppercase tracking-widest mb-4">الشدة</span>
               <div className="flex items-center justify-between bg-[#000000] rounded-full p-2">
                 <button onClick={() => setDsIntensity(Math.max(0, dsIntensity - 1))} className="w-10 h-10 rounded-full bg-[#262626] flex items-center justify-center text-[#e08dff] hover:bg-[#e08dff]/20 active:scale-90 transition-all">
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="font-['Lexend'] font-bold text-lg text-white">{dsIntensities[dsIntensity]}</span>
+                <span className="font-display font-bold text-lg text-white">{dsIntensities[dsIntensity]}</span>
                 <button onClick={() => setDsIntensity(Math.min(2, dsIntensity + 1))} className="w-10 h-10 rounded-full bg-[#e08dff] flex items-center justify-center text-[#4f006c] hover:bg-[#d160ff] active:scale-90 transition-all">
                   <span className="material-symbols-outlined">add</span>
                 </button>
@@ -534,12 +534,12 @@ export default function Programs() {
             </div>
             {/* Volume */}
             <div className="bg-[#201f1f] rounded-3xl p-5 flex flex-col justify-between border border-white/5 transition-all hover:border-[#e08dff]/20">
-              <span className="font-['Space_Grotesk'] text-[#adaaaa] text-[10px] uppercase tracking-widest mb-4">الحجم</span>
+              <span className="font-display text-[#adaaaa] text-[10px] uppercase tracking-widest mb-4">الحجم</span>
               <div className="flex items-center justify-between bg-[#000000] rounded-full p-2">
                 <button onClick={() => setDsVolume(Math.max(1, dsVolume - 1))} className="w-10 h-10 rounded-full bg-[#262626] flex items-center justify-center text-[#e08dff] hover:bg-[#e08dff]/20 active:scale-90 transition-all">
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="font-['Lexend'] font-bold text-lg text-white">{dsVolume} جولات</span>
+                <span className="font-display font-bold text-lg text-white">{dsVolume} جولات</span>
                 <button onClick={() => setDsVolume(Math.min(10, dsVolume + 1))} className="w-10 h-10 rounded-full bg-[#e08dff] flex items-center justify-center text-[#4f006c] hover:bg-[#d160ff] active:scale-90 transition-all">
                   <span className="material-symbols-outlined">add</span>
                 </button>
@@ -547,12 +547,12 @@ export default function Programs() {
             </div>
             {/* Rest */}
             <div className="bg-[#201f1f] rounded-3xl p-5 flex flex-col justify-between border border-white/5 transition-all hover:border-[#e08dff]/20">
-              <span className="font-['Space_Grotesk'] text-[#adaaaa] text-[10px] uppercase tracking-widest mb-4">الراحة</span>
+              <span className="font-display text-[#adaaaa] text-[10px] uppercase tracking-widest mb-4">الراحة</span>
               <div className="flex items-center justify-between bg-[#000000] rounded-full p-2">
                 <button onClick={() => setDsRest(Math.max(15, dsRest - 15))} className="w-10 h-10 rounded-full bg-[#262626] flex items-center justify-center text-[#e08dff] hover:bg-[#e08dff]/20 active:scale-90 transition-all">
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="font-['Lexend'] font-bold text-lg text-white">{dsRest} ثانية</span>
+                <span className="font-display font-bold text-lg text-white">{dsRest} ثانية</span>
                 <button onClick={() => setDsRest(Math.min(120, dsRest + 15))} className="w-10 h-10 rounded-full bg-[#e08dff] flex items-center justify-center text-[#4f006c] hover:bg-[#d160ff] active:scale-90 transition-all">
                   <span className="material-symbols-outlined">add</span>
                 </button>
@@ -560,12 +560,12 @@ export default function Programs() {
             </div>
             {/* Duration */}
             <div className="bg-[#201f1f] rounded-3xl p-5 flex flex-col justify-between border border-white/5 transition-all hover:border-[#e08dff]/20">
-              <span className="font-['Space_Grotesk'] text-[#adaaaa] text-[10px] uppercase tracking-widest mb-4">فترة التمرين</span>
+              <span className="font-display text-[#adaaaa] text-[10px] uppercase tracking-widest mb-4">فترة التمرين</span>
               <div className="flex items-center justify-between bg-[#000000] rounded-full p-2">
                 <button onClick={() => setDsDuration(Math.max(5, dsDuration - 5))} className="w-10 h-10 rounded-full bg-[#262626] flex items-center justify-center text-[#e08dff] hover:bg-[#e08dff]/20 active:scale-90 transition-all">
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="font-['Lexend'] font-bold text-lg text-white">{dsDuration} دقيقة</span>
+                <span className="font-display font-bold text-lg text-white">{dsDuration} دقيقة</span>
                 <button onClick={() => setDsDuration(Math.min(60, dsDuration + 5))} className="w-10 h-10 rounded-full bg-[#e08dff] flex items-center justify-center text-[#4f006c] hover:bg-[#d160ff] active:scale-90 transition-all">
                   <span className="material-symbols-outlined">add</span>
                 </button>
@@ -576,19 +576,19 @@ export default function Programs() {
           {/* List of Exercises */}
           <section className="space-y-6">
             <div className="flex items-end justify-between px-2">
-              <h3 className="font-['Lexend'] text-2xl font-bold text-white">قائمة التمارين <span className="text-[#00fcca]">(12)</span></h3>
-              <span className="font-['Space_Grotesk'] text-[#adaaaa] text-sm">اسحب للعرض</span>
+              <h3 className="font-display text-2xl font-bold text-white">قائمة التمارين <span className="text-[#00fcca]">(12)</span></h3>
+              <span className="font-display text-[#adaaaa] text-sm">اسحب للعرض</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="group relative bg-[#131313] rounded-[2rem] overflow-hidden p-1">
                 <div className="h-48 rounded-[1.75rem] overflow-hidden relative">
                   <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Athlete performing leg swings dynamic stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdXy7SrvAmFiHlBu3XOF2P2yrQP2J-j2tIia1EhlVfrJ6WVpYgbiyWzxTPK29kzyhnG07Yt1fZix38QkvwTEBW7DdbVndiuDG6WZf2Whsj1gklL5naN6bLD3lWSWOIowG1J-U6Y1QE8NY0oY2Iom0pngj5imcgU5y5TXDIYDIwMJdNBKgB1kuB_32xCfLz6z-JUga0spH7Py_MEFw-s5UHK0omb51nmKLXZSd-t8fBQmbEOkOeoBvqws0aBhWKva0C7TRq0VNVr7Qz"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  <div className="absolute bottom-4 right-4 bg-[#e08dff] px-3 py-1 rounded-full text-[#4f006c] text-xs font-bold font-['Space_Grotesk']">01</div>
+                  <div className="absolute bottom-4 right-4 bg-[#e08dff] px-3 py-1 rounded-full text-[#4f006c] text-xs font-bold font-display">01</div>
                 </div>
                 <div className="p-6">
-                  <h4 className="font-['Lexend'] text-xl font-bold text-white mb-2">أرجحة الأرجل</h4>
-                  <p className="text-[#adaaaa] text-sm font-['Manrope']">تحسين مرونة عضلات الفخذ الخلفية والوركين.</p>
+                  <h4 className="font-display text-xl font-bold text-white mb-2">أرجحة الأرجل</h4>
+                  <p className="text-[#adaaaa] text-sm font-display">تحسين مرونة عضلات الفخذ الخلفية والوركين.</p>
                 </div>
               </div>
 
@@ -596,11 +596,11 @@ export default function Programs() {
                  <div className="h-48 rounded-[1.75rem] overflow-hidden relative">
                    <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Person doing walking lunges" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVd8XIYFxf74zhNDlxFoTc_dtQou7oee5wwkU0TReP-GXWN6tNrUtLpy9qSoH208KDDR0ur2OWeM8ZOmxkMYPwf_QAiaw7B3uLR8AMK4TVAwpN7DhminSR3yf_Q1AHYwiCaVMTf-JuIrczLYrF3y7Boy82rw3Ux95OwPxoFJ3_5ekb3G9NRGr9K3kCqcdteYe344FyVpKsmhJqSZBbkq2MNZ72ItKsmRk732XQJcjOz0P6aTIEMYV6P_MHDYA5_59fpw5Q-HGELn3-"/>
                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                   <div className="absolute bottom-4 right-4 bg-[#e08dff] px-3 py-1 rounded-full text-[#4f006c] text-xs font-bold font-['Space_Grotesk']">02</div>
+                   <div className="absolute bottom-4 right-4 bg-[#e08dff] px-3 py-1 rounded-full text-[#4f006c] text-xs font-bold font-display">02</div>
                  </div>
                  <div className="p-6">
-                   <h4 className="font-['Lexend'] text-xl font-bold text-white mb-2">طعنات المشي</h4>
-                   <p className="text-[#adaaaa] text-sm font-['Manrope']">تحميل ديناميكي لعضلات الأرجل وتثبيت التوازن.</p>
+                   <h4 className="font-display text-xl font-bold text-white mb-2">طعنات المشي</h4>
+                   <p className="text-[#adaaaa] text-sm font-display">تحميل ديناميكي لعضلات الأرجل وتثبيت التوازن.</p>
                  </div>
               </div>
 
@@ -608,76 +608,76 @@ export default function Programs() {
                  <div className="h-48 rounded-[1.75rem] overflow-hidden relative">
                    <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Shoulder rotation arm circles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCkWrXR6AFxJbqr3wJOgU-yxqP2WvoseklWNc7Ob_7OZafMm1qhU0lWDDZz_KnHWLkjuQ8Ofy-W6makhad_pSqYvAjWfqYHip57vzHfjoPawu8jPkPPnfvrHK-s961kuRPSZsS5M8YtvNUIi8EjzfVw3R0XH4Mqi4jHuNpInzVdp-8lj7BWfBob_tAY4O-1pLqb1av3vLPnQRZ0ll940x2TllHpAePWPcpIotDaZSxDrecNkG2Mp8Xn8GskqLMoVIW1dpdDrPGXegv"/>
                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                   <div className="absolute bottom-4 right-4 bg-[#e08dff] px-3 py-1 rounded-full text-[#4f006c] text-xs font-bold font-['Space_Grotesk']">03</div>
+                   <div className="absolute bottom-4 right-4 bg-[#e08dff] px-3 py-1 rounded-full text-[#4f006c] text-xs font-bold font-display">03</div>
                  </div>
                  <div className="p-6">
-                   <h4 className="font-['Lexend'] text-xl font-bold text-white mb-2">دوائر الأكتاف</h4>
-                   <p className="text-[#adaaaa] text-sm font-['Manrope']">فك التوتر في مفاصل الكتف وتحسين نطاق الحركة العلوي.</p>
+                   <h4 className="font-display text-xl font-bold text-white mb-2">دوائر الأكتاف</h4>
+                   <p className="text-[#adaaaa] text-sm font-display">فك التوتر في مفاصل الكتف وتحسين نطاق الحركة العلوي.</p>
                  </div>
               </div>
 
               <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">04</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">04</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">تمرين القطة والجمل</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">تحريك العمود الفقري</span>
+                     <p className="font-display font-bold text-white">تمرين القطة والجمل</p>
+                     <span className="text-[#adaaaa] text-xs font-display">تحريك العمود الفقري</span>
                    </div>
                  </div>
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">05</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">05</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">لمس أصابع القدمين</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">إطالة عضلات الظهر والفخذ</span>
+                     <p className="font-display font-bold text-white">لمس أصابع القدمين</p>
+                     <span className="text-[#adaaaa] text-xs font-display">إطالة عضلات الظهر والفخذ</span>
                    </div>
                  </div>
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">06</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">06</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">الدوران الجذعي</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">مرونة عضلات البطن الجانبية</span>
+                     <p className="font-display font-bold text-white">الدوران الجذعي</p>
+                     <span className="text-[#adaaaa] text-xs font-display">مرونة عضلات البطن الجانبية</span>
                    </div>
                  </div>
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">07</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">07</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">ركلات المؤخرة</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">رفع نبضات القلب</span>
+                     <p className="font-display font-bold text-white">ركلات المؤخرة</p>
+                     <span className="text-[#adaaaa] text-xs font-display">رفع نبضات القلب</span>
                    </div>
                  </div>
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">08</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">08</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">رفع الركب</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">تنشيط الجزء السفلي</span>
+                     <p className="font-display font-bold text-white">رفع الركب</p>
+                     <span className="text-[#adaaaa] text-xs font-display">تنشيط الجزء السفلي</span>
                    </div>
                  </div>
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">09</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">09</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">تمرين العنكبوت</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">فتح الحوض الكامل</span>
+                     <p className="font-display font-bold text-white">تمرين العنكبوت</p>
+                     <span className="text-[#adaaaa] text-xs font-display">فتح الحوض الكامل</span>
                    </div>
                  </div>
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">10</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">10</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">المشي على اليدين</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">قوة الكتف وتمدد الجسم</span>
+                     <p className="font-display font-bold text-white">المشي على اليدين</p>
+                     <span className="text-[#adaaaa] text-xs font-display">قوة الكتف وتمدد الجسم</span>
                    </div>
                  </div>
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">11</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">11</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">فتح الحوض</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">تحسين حركة مفصل الورك</span>
+                     <p className="font-display font-bold text-white">فتح الحوض</p>
+                     <span className="text-[#adaaaa] text-xs font-display">تحسين حركة مفصل الورك</span>
                    </div>
                  </div>
                  <div className="flex items-center gap-4 p-4 bg-[#1a1919] rounded-2xl border border-white/5">
-                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-['Space_Grotesk'] font-bold text-[#00fcca]">12</div>
+                   <div className="w-12 h-12 rounded-xl bg-[#262626] flex items-center justify-center font-display font-bold text-[#00fcca]">12</div>
                    <div>
-                     <p className="font-['Lexend'] font-bold text-white">أرجحة الذراعين</p>
-                     <span className="text-[#adaaaa] text-xs font-['Manrope']">تحرير عضلات الصدر والظهر</span>
+                     <p className="font-display font-bold text-white">أرجحة الذراعين</p>
+                     <span className="text-[#adaaaa] text-xs font-display">تحرير عضلات الصدر والظهر</span>
                    </div>
                  </div>
               </div>
@@ -691,11 +691,11 @@ export default function Programs() {
                 <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
               </div>
               <div>
-                <h5 className="font-['Lexend'] font-bold text-white text-lg">ابدأ الإحماء الآن</h5>
+                <h5 className="font-display font-bold text-white text-lg">ابدأ الإحماء الآن</h5>
                 <p className="text-white/80 text-xs">{dsDuration} دقيقة • المستوى {dsIntensities[dsIntensity]}</p>
               </div>
             </div>
-            <button className="bg-white text-[#e08dff] px-6 py-3 rounded-full font-['Lexend'] font-bold active:scale-95 transition-transform">بدء</button>
+            <button className="bg-white text-[#e08dff] px-6 py-3 rounded-full font-display font-bold active:scale-95 transition-transform">بدء</button>
           </div>
         </motion.div>
       );
@@ -715,7 +715,7 @@ export default function Programs() {
               <button onClick={() => setActiveModule(null)} className="text-[#e08dff] hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-200">
                 <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
               </button>
-              <h1 className="font-['Lexend'] font-bold tracking-tight text-lg">
+              <h1 className="font-display font-bold tracking-tight text-lg">
                 <GradientText colors={["#5227FF","#FF9FFC","#B19EEF"]} animationSpeed={8} showBorder={false}>
                   مخطط تمارين المرونة الثابتة
                 </GradientText>
@@ -729,9 +729,9 @@ export default function Programs() {
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-2 h-8 bg-gradient-to-br from-[#e08dff] to-[#bc00fb] rounded-full"></span>
-                <h2 className="font-['Lexend'] text-2xl font-extrabold text-white">الإطالة الثابتة</h2>
+                <h2 className="font-display text-2xl font-extrabold text-white">الإطالة الثابتة</h2>
               </div>
-              <p className="text-[#adaaaa] leading-relaxed font-['Manrope'] pr-2">
+              <p className="text-[#adaaaa] leading-relaxed font-display pr-2">
                 هي تمرين يتضمن البقاء في وضعية تمدد معينة لمدة تتراوح بين <span className="text-[#00fcca] font-bold">15-60 ثانية</span>. تهدف بشكل أساسي إلى تحسين المدى الحركي للمفاصل، وتقليل التوتر العضلي، وتعزيز الاسترخاء العام للجسم.
               </p>
             </div>
@@ -742,14 +742,14 @@ export default function Programs() {
             {/* Control 1: Intensity */}
             <div className="flex flex-col justify-between p-5 bg-[#201f1f] rounded-3xl border border-white/5 transition-all hover:border-[#e08dff]/20">
               <div className="flex flex-col mb-4">
-                <span className="text-[#adaaaa] font-['Space_Grotesk'] text-[10px] uppercase tracking-widest">المؤشر</span>
-                <span className="font-['Lexend'] font-bold text-lg text-white">الشدة</span>
+                <span className="text-[#adaaaa] font-display text-[10px] uppercase tracking-widest">المؤشر</span>
+                <span className="font-display font-bold text-lg text-white">الشدة</span>
               </div>
               <div className="flex items-center justify-between bg-[#000000] p-2 rounded-full">
                 <button onClick={() => setSsIntensity(Math.max(0, ssIntensity - 1))} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#262626] text-[#e08dff] active:scale-95 duration-100 hover:bg-[#e08dff]/20">
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="font-['Lexend'] font-bold text-xl text-[#00fcca]">{ssIntensities[ssIntensity]}</span>
+                <span className="font-display font-bold text-xl text-[#00fcca]">{ssIntensities[ssIntensity]}</span>
                 <button onClick={() => setSsIntensity(Math.min(2, ssIntensity + 1))} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#e08dff] text-[#4f006c] active:scale-95 duration-100 hover:bg-[#d160ff]">
                   <span className="material-symbols-outlined">add</span>
                 </button>
@@ -759,14 +759,14 @@ export default function Programs() {
             {/* Control 2: Volume */}
             <div className="flex flex-col justify-between p-5 bg-[#201f1f] rounded-3xl border border-white/5 transition-all hover:border-[#e08dff]/20">
               <div className="flex flex-col mb-4">
-                <span className="text-[#adaaaa] font-['Space_Grotesk'] text-[10px] uppercase tracking-widest">التكرار</span>
-                <span className="font-['Lexend'] font-bold text-lg text-white">الحجم</span>
+                <span className="text-[#adaaaa] font-display text-[10px] uppercase tracking-widest">التكرار</span>
+                <span className="font-display font-bold text-lg text-white">الحجم</span>
               </div>
               <div className="flex items-center justify-between bg-[#000000] p-2 rounded-full">
                 <button onClick={() => setSsVolume(Math.max(1, ssVolume - 1))} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#262626] text-[#e08dff] active:scale-95 duration-100 hover:bg-[#e08dff]/20">
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="font-['Lexend'] font-bold text-xl text-[#00fcca]">{ssVolume} جولات</span>
+                <span className="font-display font-bold text-xl text-[#00fcca]">{ssVolume} جولات</span>
                 <button onClick={() => setSsVolume(Math.min(10, ssVolume + 1))} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#e08dff] text-[#4f006c] active:scale-95 duration-100 hover:bg-[#d160ff]">
                   <span className="material-symbols-outlined">add</span>
                 </button>
@@ -776,14 +776,14 @@ export default function Programs() {
             {/* Control 3: Rest */}
             <div className="flex flex-col justify-between p-5 bg-[#201f1f] rounded-3xl border border-white/5 transition-all hover:border-[#e08dff]/20">
               <div className="flex flex-col mb-4">
-                <span className="text-[#adaaaa] font-['Space_Grotesk'] text-[10px] uppercase tracking-widest">التعافي</span>
-                <span className="font-['Lexend'] font-bold text-lg text-white">الراحة</span>
+                <span className="text-[#adaaaa] font-display text-[10px] uppercase tracking-widest">التعافي</span>
+                <span className="font-display font-bold text-lg text-white">الراحة</span>
               </div>
               <div className="flex items-center justify-between bg-[#000000] p-2 rounded-full">
                 <button onClick={() => setSsRest(Math.max(15, ssRest - 15))} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#262626] text-[#e08dff] active:scale-95 duration-100 hover:bg-[#e08dff]/20">
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="font-['Lexend'] font-bold text-xl text-[#00fcca]">{ssRest} ثانية</span>
+                <span className="font-display font-bold text-xl text-[#00fcca]">{ssRest} ثانية</span>
                 <button onClick={() => setSsRest(Math.min(120, ssRest + 15))} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#e08dff] text-[#4f006c] active:scale-95 duration-100 hover:bg-[#d160ff]">
                   <span className="material-symbols-outlined">add</span>
                 </button>
@@ -793,14 +793,14 @@ export default function Programs() {
             {/* Control 4: Duration */}
             <div className="flex flex-col justify-between p-5 bg-[#201f1f] rounded-3xl border border-white/5 transition-all hover:border-[#e08dff]/20">
               <div className="flex flex-col mb-4">
-                <span className="text-[#adaaaa] font-['Space_Grotesk'] text-[10px] uppercase tracking-widest">الوقت</span>
-                <span className="font-['Lexend'] font-bold text-lg text-white">فترة التمرين</span>
+                <span className="text-[#adaaaa] font-display text-[10px] uppercase tracking-widest">الوقت</span>
+                <span className="font-display font-bold text-lg text-white">فترة التمرين</span>
               </div>
               <div className="flex items-center justify-between bg-[#000000] p-2 rounded-full">
                 <button onClick={() => setSsDuration(Math.max(5, ssDuration - 5))} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#262626] text-[#e08dff] active:scale-95 duration-100 hover:bg-[#e08dff]/20">
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="font-['Lexend'] font-bold text-xl text-[#00fcca]">{ssDuration} دقيقة</span>
+                <span className="font-display font-bold text-xl text-[#00fcca]">{ssDuration} دقيقة</span>
                 <button onClick={() => setSsDuration(Math.min(60, ssDuration + 5))} className="w-10 h-10 flex items-center justify-center rounded-full bg-[#e08dff] text-[#4f006c] active:scale-95 duration-100 hover:bg-[#d160ff]">
                   <span className="material-symbols-outlined">add</span>
                 </button>
@@ -810,7 +810,7 @@ export default function Programs() {
 
           {/* Exercises List */}
           <section className="space-y-6">
-            <h3 className="font-['Lexend'] text-xl font-bold border-r-4 border-[#00fcca] pr-4 text-white">تمارين المرونة المقترحة</h3>
+            <h3 className="font-display text-xl font-bold border-r-4 border-[#00fcca] pr-4 text-white">تمارين المرونة المقترحة</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Ex 1 */}
               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
@@ -818,8 +818,8 @@ export default function Programs() {
                   <img className="w-full h-full object-cover" alt="Hamstring stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSXaBnrKP85NW2OCgvZpZF5ZEGopyj5uKx7oaQo4DOqqBkWcutT3Ib5JjWHWIS59IBr9Z8Dc44po5CN-kqwrkEluQJML5nGsit9YJedc2y8_vuLd0nJzGz5ffHpw233-JoiwiFtsEqYXtRSYQxLgR0nrxxcc6O-4c434jWbFP8ioI6PkVn7Ach2Mhr1rWFUxu06ipsxFbizemqnWFe_vLNIyJoW0Ac7fO1oc7LwjLd1fTLRypQdIKVJFs5kBdZbJRcIMLOUhgmm7A2"/>
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-['Lexend'] font-bold text-white">إطالة عضلات الفخذ الخلفية</h4>
-                  <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تمدد عميق للجزء الخلفي من الساق.</p>
+                  <h4 className="font-display font-bold text-white">إطالة عضلات الفخذ الخلفية</h4>
+                  <p className="text-[#adaaaa] text-xs mt-1 font-display">تمدد عميق للجزء الخلفي من الساق.</p>
                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">30 ثانية</span>
                 </div>
               </div>
@@ -830,8 +830,8 @@ export default function Programs() {
                   <img className="w-full h-full object-cover" alt="Chest stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3bHh-uUXHmFwLTBXmAXedqUCOmd8_1d7j5nfEXU-VC0UfYGk_jm5mAMrApkuV3TgGLpA1pr04EjGnkqxMlB3aCkPANQeyZvI1-Pu5wc6okDL7Qpon5k4YqinyqDEdC8cLSzCXtc9ZDpor6p-ntf0MdgC7UYziGEK-SY5JT4jLe0OtxKmJM8EJ8L554gcY3tdaUjWI7hXFYAT_Hdm6WpNUD1NcYldZAzFMeXPS61LlNfSTafFglTdb_jAk4IF1HpCl9cYiXSeeUahb"/>
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-['Lexend'] font-bold text-white">إطالة عضلة الصدر</h4>
-                  <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">فتح القفص الصدري وتحسين وضعية الوقوف.</p>
+                  <h4 className="font-display font-bold text-white">إطالة عضلة الصدر</h4>
+                  <p className="text-[#adaaaa] text-xs mt-1 font-display">فتح القفص الصدري وتحسين وضعية الوقوف.</p>
                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">20 ثانية</span>
                 </div>
               </div>
@@ -842,8 +842,8 @@ export default function Programs() {
                   <img className="w-full h-full object-cover" alt="Hip flexor stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_zxQoTbFKBIWlGG_60ZAStnZLyr_Chmwm3hUiC5MhpxLlC84XblIo3jscnveB0RhyK2sxFmnmyk8SFeUU0wqRccnNNRCHkzzhCUQ9qukcZqRXSIeIRMCZTZomFtBg1XOAQC--x4vaRrg9Dq-ANOGrgx7sINEHS7sMutzoZf89A4XAL0P_zW_7hM5dH3HRK77qMAPOEd9foEZJHtwq_LS2bCyrIx07I2OPW_eMSOV2lrTfU45_kc53I8Ceo-MT9kcM5zMctJ6f7Yh4"/>
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-['Lexend'] font-bold text-white">إطالة عضلات الحوض</h4>
-                  <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تخفيف الضغط الناتج عن الجلوس.</p>
+                  <h4 className="font-display font-bold text-white">إطالة عضلات الحوض</h4>
+                  <p className="text-[#adaaaa] text-xs mt-1 font-display">تخفيف الضغط الناتج عن الجلوس.</p>
                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">45 ثانية</span>
                 </div>
               </div>
@@ -854,8 +854,8 @@ export default function Programs() {
                   <img className="w-full h-full object-cover" alt="Neck stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm4RTjaFvL3pR7KqyEB2cLdniNTV2bh8Y0Y5dVwQ7-h_l-uYqFRionnvMO5s14wsqU5Y8352ELjUbnokKEfdPMBcb1LOfgjjRDB6o-YngVXgB7vO5LfysDPOZzgxGYiLYt34b9dJ3ydN7yPwq-jh2S8iYncg0xKRWK-_G8DSWrliBCWkTWLx2O2eq46gm4whzQF9YZVBHlBFv5j0-vkn5DoFOw7mgGlmFHp242dGy3yYmpekK5AFzLvfLjbrCYLYvEhAZffGqbOzKo"/>
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-['Lexend'] font-bold text-white">إطالة عضلات الرقبة</h4>
-                  <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تحرير التشنجات في الجزء العلوي.</p>
+                  <h4 className="font-display font-bold text-white">إطالة عضلات الرقبة</h4>
+                  <p className="text-[#adaaaa] text-xs mt-1 font-display">تحرير التشنجات في الجزء العلوي.</p>
                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">15 ثانية</span>
                 </div>
               </div>
@@ -866,8 +866,8 @@ export default function Programs() {
                    <img className="w-full h-full object-cover" alt="Back stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3AK2qSR1z-WO6lDmN2zZkeHcV7ajJGey4xPF3homlUHg9dNmkLcxv6J7eM_EM7H5gD0qT3cjSW6-XFvVwx_fpkO053VDoBc4OTTl_6gnT6N7HXirrSeKcKemsJtAIzIZ-et360lgz8KsrgyvZFCVbcv4ln9ZUlvZoGQK-IRmBNTVsFfdMAxKdnwFx3U4mAVENLQwzmT7SwNXReWlXq9IOAdkDu4eTCU750p7yJI_97Amv2n-hD0KHaqkP8xn8jQ1Y1qgpX9sbsgIw"/>
                  </div>
                  <div className="flex-1">
-                   <h4 className="font-['Lexend'] font-bold text-white">إطالة عضلات الظهر</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تمديد الفقرات وتقوية مرونة الظهر.</p>
+                   <h4 className="font-display font-bold text-white">إطالة عضلات الظهر</h4>
+                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تمديد الفقرات وتقوية مرونة الظهر.</p>
                    <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">30 ثانية</span>
                  </div>
                </div>
@@ -878,8 +878,8 @@ export default function Programs() {
                    <img className="w-full h-full object-cover" alt="Calf stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlUq8riIw7o0AQpF1r247_gj3F21pCdIzaUvLjMONOnk_nNBcBOPyUYcr5L3C4qHke7uELOKNa851GLCoSyGIMw39UiAKwm06hDEboOWWFyp_-PxuI76W4PTb6OnF9jsh5b4cEGiizYA7t6QhYQzSxjBUjZWCla-act-_6icVmGFvZI8wMWyBfOhlhik2hRqo6aFVldFcvU7I7MfjBsVPDx_pDKOdk5cOEihKCIwxQW6fO_45mK1KdKx5wRRbSDSgHy48Od4Xw_xVM"/>
                  </div>
                  <div className="flex-1">
-                   <h4 className="font-['Lexend'] font-bold text-white">إطالة عضلات السمانة</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تفريغ التعب من الساقين.</p>
+                   <h4 className="font-display font-bold text-white">إطالة عضلات السمانة</h4>
+                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تفريغ التعب من الساقين.</p>
                    <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">25 ثانية</span>
                  </div>
                </div>
@@ -890,8 +890,8 @@ export default function Programs() {
                    <img className="w-full h-full object-cover" alt="Shoulder stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY1Z1vEnqROUGecWuwwyQwemeiHNfB6kDJ8uYzASlmBpx_wSGE5mQdFAZYcxy0Uq0wM9RF3p7CdBohofOv7p1gJiOrezNcpak7nfczoCjfJrdPeo1bBG8pG6wLGHtYMw19qIYUCD-uqexrfcKrDg81hRCTSckZkpqdTze7afiqxm5H8pa_DHPMPN0WgQkoVFKC0y8zZPxfZKRuJpZXqtrjwHfV0-IPfM7ejmB50gXg-xj5MmoW0zvmUsOUREjuuvBTdmGjUFVOE_qq"/>
                  </div>
                  <div className="flex-1">
-                   <h4 className="font-['Lexend'] font-bold text-white">إطالة عضلات الكتف</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تحسين حركة المفصل والأكتاف.</p>
+                   <h4 className="font-display font-bold text-white">إطالة عضلات الكتف</h4>
+                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تحسين حركة المفصل والأكتاف.</p>
                    <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">20 ثانية</span>
                  </div>
                </div>
@@ -902,8 +902,8 @@ export default function Programs() {
                    <img className="w-full h-full object-cover" alt="Child's pose" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqgk_cjjTaleiVdwHCCJit1Go5GisIwPe2kwDQwUjpPRweiVi0NGkhF3NZGRLB7gR44EDQ-MP3ZLxlYr7maCooDyU2MzTQVU-nLNGRRuUgQI7hhLY00X9DqLmKNSleMZgLQdBO7TzW8gMfy2plB2B4CfCfHB9KjBa5HnKhv34YGE50l8a2CYpzuXQvkyXJCtRzkXnvDgr9IBGmp3Us2djetjOCv9ICVHJmgQ7tBdXOk-B2fK8tmOM-dcaU9zSSKKhI9we-GA0S6NDK"/>
                  </div>
                  <div className="flex-1">
-                   <h4 className="font-['Lexend'] font-bold text-white">وضعية الطفل</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تمرين مريح جداً للجسم بالكامل.</p>
+                   <h4 className="font-display font-bold text-white">وضعية الطفل</h4>
+                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تمرين مريح جداً للجسم بالكامل.</p>
                    <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">60 ثانية</span>
                  </div>
                </div>
@@ -914,8 +914,8 @@ export default function Programs() {
                    <img className="w-full h-full object-cover" alt="Cobra stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaRbz2IjXwIXDwmiPHFE5bcHdMaoRhsKV2aTPOzAgYSUqZ0EEwZWhD9hAextkOMlCiVPyRwt43GfPx0iBc-WcsuEWJgIv4U9Z-DAHLeRFu1GeWc7qrpssWNo_T-opvNcXvzc36KEIIownlG3Q8IFMO1EHd43IImQIVLcyT9thSoa34Z9mBNE_V8ooUhvJCjGT_3Vtc-UApMWhP6MOB2h1sS0z-V3tW-Jv23KOsD3Am4Y-oHw7hyLxI9he8TKfVrEQbyKZbvWDZtqdA"/>
                  </div>
                  <div className="flex-1">
-                   <h4 className="font-['Lexend'] font-bold text-white">إطالة الكوبرا</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">إطالة وتقوية مرونة الظهر الأمامية.</p>
+                   <h4 className="font-display font-bold text-white">إطالة الكوبرا</h4>
+                   <p className="text-[#adaaaa] text-xs mt-1 font-display">إطالة وتقوية مرونة الظهر الأمامية.</p>
                    <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">30 ثانية</span>
                  </div>
                </div>
@@ -926,8 +926,8 @@ export default function Programs() {
                    <img className="w-full h-full object-cover" alt="Triceps stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1-J2-TYmNro-YpYm9FLjPPqFgs3dLP5LlPySRWNxveS2hRNK9p3WpxzoU_jTHKlGOkxSaRFKinUnttj0DIG-r7Hr-FvuwL_5TEu9YGkKC0z8ygXn9EA0WfRcYOZx97U2KLAuTBATVQQetgFGN91tmzTmaGoTnoUTAh-p2sQShgTjYtTo9lM1jOY069DnHFXSB_XZjg394dOC-fILVVDpwlB-D7AdSOlqAGRSE0sYsnQRPKfLSRp6EaatABFxfkfPxT8_sWuNN9HlO"/>
                  </div>
                  <div className="flex-1">
-                   <h4 className="font-['Lexend'] font-bold text-white">إطالة الترايسيبس</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تخفيف الشد في الذراعين الخلفية.</p>
+                   <h4 className="font-display font-bold text-white">إطالة الترايسيبس</h4>
+                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تخفيف الشد في الذراعين الخلفية.</p>
                    <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">20 ثانية</span>
                  </div>
                </div>
@@ -938,8 +938,8 @@ export default function Programs() {
                    <img className="w-full h-full object-cover" alt="Oblique stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4kiUzVlPuvo0TfZcBVup-0mGJNYwuWZQq20RMrVfSTs7YQG-3rqofOKbmaoTqk0FASmvtNkfrj7hOLiFUbG7eUMcnhlnvC6OKSUIeJ0WLLf_cnbNRKF494TLiwAP160p26iJBhMg8DBQGwOwZPw2kHC6siujJqW2tcGlleMKQNfx5jqMEYArHoEXc2BjEOJaZLV5wkYVHwJ9jdmfhGuNm-Z1HJEDcBCWBVQwofGr6jS6kY-vDKeBZoC5w6hfbqLtBiTPXxDlml1c0"/>
                  </div>
                  <div className="flex-1">
-                   <h4 className="font-['Lexend'] font-bold text-white">إطالة عضلات الجذع</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تمدد جانبي للجسم للحركة.</p>
+                   <h4 className="font-display font-bold text-white">إطالة عضلات الجذع</h4>
+                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تمدد جانبي للجسم للحركة.</p>
                    <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">30 ثانية</span>
                  </div>
                </div>
@@ -950,8 +950,8 @@ export default function Programs() {
                    <img className="w-full h-full object-cover" alt="Quadriceps stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwEBayjTDQgRP_rjGmGaTP_sIrk4oVx3aJ_y7bfdabUqS7GmjjGTR_OK9QiVJh6sAEc-w3GNDfhliT-Dlpx-aVCPBqC6Kt3dEhSCN_dInET-vg37RCHNCW0TgdavaJl1RBiTcItwJ4wJnyVjfVaYpUWKuFSBjsaZvZu00EFkoQtwo2hXG1rRes4H5mKETlxgQ0VFnNRSDf9t8CS1CKf8D89iKBm8xctJBgedr4EyA3DpzeBeJC2xbudlkSaFgQ8hux-95nBuc1MGUL"/>
                  </div>
                  <div className="flex-1">
-                   <h4 className="font-['Lexend'] font-bold text-white">إطالة الفخذ الأمامية</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-['Manrope']">تمرين أساسي بعد التمارين العنيفة.</p>
+                   <h4 className="font-display font-bold text-white">إطالة الفخذ الأمامية</h4>
+                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تمرين أساسي بعد التمارين العنيفة.</p>
                    <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">40 ثانية</span>
                  </div>
                </div>
@@ -959,7 +959,7 @@ export default function Programs() {
           </section>
 
           {/* Start Plan Button */}
-          <button className="w-full mt-8 py-5 bg-gradient-to-r from-[#e08dff] to-[#bc00fb] rounded-full font-['Lexend'] font-black text-xl text-white shadow-[0_15px_30px_rgba(188,0,251,0.3)] hover:scale-[1.02] active:scale-95 duration-150 transition-all flex items-center justify-center gap-3">
+          <button className="w-full mt-8 py-5 bg-gradient-to-r from-[#e08dff] to-[#bc00fb] rounded-full font-display font-black text-xl text-white shadow-[0_15px_30px_rgba(188,0,251,0.3)] hover:scale-[1.02] active:scale-95 duration-150 transition-all flex items-center justify-center gap-3">
             <span>بدء الجلسة الآن</span>
             <span>({ssDuration} دقيقة • {ssIntensities[ssIntensity]})</span>
             <span className="material-symbols-outlined">play_arrow</span>
@@ -982,7 +982,7 @@ export default function Programs() {
               <button onClick={() => setActiveModule(null)} className="active:scale-95 duration-200 hover:opacity-80 transition-opacity text-[#e08dff]">
                 <span className="material-symbols-outlined text-3xl">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
               </button>
-              <h1 className="font-['Lexend'] font-bold text-xl leading-relaxed text-[#e08dff]">مخطط تقنيات الاستشفاء</h1>
+              <h1 className="font-display font-bold text-xl leading-relaxed text-[#e08dff]">مخطط تقنيات الاستشفاء</h1>
             </div>
             <span className="material-symbols-outlined text-[#494847]">more_vert</span>
           </header>
@@ -992,9 +992,9 @@ export default function Programs() {
             <section className="relative overflow-hidden rounded-3xl p-8 bg-[#131313]">
               <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
                 <div className="flex-1">
-                  <span className="font-['Space_Grotesk'] text-[#00fcca] text-sm tracking-widest uppercase mb-2 block">RECOVERY INSIGHT</span>
-                  <h2 className="font-['Lexend'] text-3xl font-extrabold mb-4 leading-tight text-white">قوة الاستشفاء المنظم</h2>
-                  <p className="text-[#adaaaa] leading-relaxed max-w-2xl text-lg font-['Manrope']">
+                  <span className="font-display text-[#00fcca] text-sm tracking-widest uppercase mb-2 block">RECOVERY INSIGHT</span>
+                  <h2 className="font-display text-3xl font-extrabold mb-4 leading-tight text-white">قوة الاستشفاء المنظم</h2>
+                  <p className="text-[#adaaaa] leading-relaxed max-w-2xl text-lg font-display">
                     الاستشفاء ليس مجرد وقت راحة، بل هو عملية تقنية تهدف لإعادة بناء الأنسجة وتحسين الأداء. تنظيم هذه العملية يضمن لك الاستمرارية ويمنع الإصابات الناتجة عن الإجهاد المفرط.
                   </p>
                 </div>
@@ -1009,11 +1009,11 @@ export default function Programs() {
             {/* Techniques List (Asymmetric Bento Grid) */}
             <section>
               <div className="flex items-baseline justify-between mb-8">
-                <h3 className="font-['Lexend'] text-2xl font-bold flex items-center gap-3">
+                <h3 className="font-display text-2xl font-bold flex items-center gap-3">
                   <span className="w-8 h-[2px] bg-[#e08dff]"></span>
                   تقنيات الاستشفاء المتقدمة
                 </h3>
-                <span className="font-['Space_Grotesk'] text-[#e08dff] text-sm tracking-wider">6 ESSENTIALS</span>
+                <span className="font-display text-[#e08dff] text-sm tracking-wider">6 ESSENTIALS</span>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1022,8 +1022,8 @@ export default function Programs() {
                   <div className="w-12 h-12 rounded-xl bg-[#e08dff]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-[#e08dff]">roller_skating</span>
                   </div>
-                  <h4 className="font-['Lexend'] text-xl font-bold mb-2 text-white">التدليك بالأسطوانة</h4>
-                  <p className="text-[#adaaaa] text-sm font-['Manrope'] leading-relaxed">تخفيف التوتر العضلي وتحسين مرونة الأنسجة الضامة لزيادة نطاق الحركة.</p>
+                  <h4 className="font-display text-xl font-bold mb-2 text-white">التدليك بالأسطوانة</h4>
+                  <p className="text-[#adaaaa] text-sm font-display leading-relaxed">تخفيف التوتر العضلي وتحسين مرونة الأنسجة الضامة لزيادة نطاق الحركة.</p>
                 </div>
 
                 {/* Hydration */}
@@ -1031,8 +1031,8 @@ export default function Programs() {
                   <div className="w-12 h-12 rounded-xl bg-[#00fcca]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-[#00fcca]">water_drop</span>
                   </div>
-                  <h4 className="font-['Lexend'] text-xl font-bold mb-2 text-white">الترطيب المثالي</h4>
-                  <p className="text-[#adaaaa] text-sm font-['Manrope'] leading-relaxed">تعويض السوائل والمعادن المفقودة لضمان كفاءة العمليات الحيوية وتوصيل الغذاء.</p>
+                  <h4 className="font-display text-xl font-bold mb-2 text-white">الترطيب المثالي</h4>
+                  <p className="text-[#adaaaa] text-sm font-display leading-relaxed">تعويض السوائل والمعادن المفقودة لضمان كفاءة العمليات الحيوية وتوصيل الغذاء.</p>
                 </div>
 
                 {/* Sleep Quality */}
@@ -1040,8 +1040,8 @@ export default function Programs() {
                   <div className="w-12 h-12 rounded-xl bg-[#e08dff]/10 flex items-center justify-center mb-6">
                     <span className="material-symbols-outlined text-[#e08dff]" style={{ fontVariationSettings: "'FILL' 1" }}>dark_mode</span>
                   </div>
-                  <h4 className="font-['Lexend'] text-xl font-bold mb-2 text-white">جودة النوم</h4>
-                  <p className="text-[#adaaaa] text-sm font-['Manrope'] leading-relaxed">النوم العميق (7-9 ساعات) هو المرحلة الأساسية لإفراز هرمونات النمو وإصلاح الخلايا.</p>
+                  <h4 className="font-display text-xl font-bold mb-2 text-white">جودة النوم</h4>
+                  <p className="text-[#adaaaa] text-sm font-display leading-relaxed">النوم العميق (7-9 ساعات) هو المرحلة الأساسية لإفراز هرمونات النمو وإصلاح الخلايا.</p>
                 </div>
 
                 {/* Active Recovery */}
@@ -1051,8 +1051,8 @@ export default function Programs() {
                       <div className="w-12 h-12 rounded-xl bg-[#00fcca]/10 flex items-center justify-center mb-6">
                         <span className="material-symbols-outlined text-[#00fcca]">directions_walk</span>
                       </div>
-                      <h4 className="font-['Lexend'] text-xl font-bold mb-2 text-white">الاستشفاء النشط</h4>
-                      <p className="text-[#adaaaa] text-sm font-['Manrope'] leading-relaxed max-w-sm">تمارين منخفضة الكثافة مثل المشي أو السباحة الخفيفة لتحفيز الدورة الدموية دون إجهاد الجهاز العصبي.</p>
+                      <h4 className="font-display text-xl font-bold mb-2 text-white">الاستشفاء النشط</h4>
+                      <p className="text-[#adaaaa] text-sm font-display leading-relaxed max-w-sm">تمارين منخفضة الكثافة مثل المشي أو السباحة الخفيفة لتحفيز الدورة الدموية دون إجهاد الجهاز العصبي.</p>
                     </div>
                     <div className="hidden md:block w-48 h-32 rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all border border-white/10">
                       <img alt="Light movement" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_ZhFib2eYNhDtJM__AGOf2f0c7kYix7kqtcfJ3NvzImXs-nzGJ7EZAQitTJqSdwReTzUu2_XHfREElopYASzEzSN6sywglogIatecSYNLsXP_3COO0cKW1uH3OKjvJubtAzwBU-ZV0d2XPEdXWbeKysjyVD6UEW7z3yZ2ki7i9rjmEdoDNPwX2EU1X0Co3MjrDugKFK8gwMe7OJaD7SMUiVxwmTfdcb-ZQwq2ECT14JmkQiUMWh1Y44zjzGJJRfJUehAGbfFuC_rS"/>
@@ -1065,8 +1065,8 @@ export default function Programs() {
                   <div className="w-12 h-12 rounded-xl bg-[#e08dff]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-[#e08dff]">thermostat</span>
                   </div>
-                  <h4 className="font-['Lexend'] text-xl font-bold mb-2 text-white">حمام التباين</h4>
-                  <p className="text-[#adaaaa] text-sm font-['Manrope'] leading-relaxed">التبديل بين الماء البارد والساخن لتعزيز ضخ الدم وتقليل الالتهابات.</p>
+                  <h4 className="font-display text-xl font-bold mb-2 text-white">حمام التباين</h4>
+                  <p className="text-[#adaaaa] text-sm font-display leading-relaxed">التبديل بين الماء البارد والساخن لتعزيز ضخ الدم وتقليل الالتهابات.</p>
                 </div>
 
                 {/* Nutrition */}
@@ -1076,8 +1076,8 @@ export default function Programs() {
                       <span className="material-symbols-outlined text-[#00fcca] text-3xl">restaurant</span>
                     </div>
                     <div>
-                      <h4 className="font-['Lexend'] text-xl font-bold mb-1 text-white">التغذية للاستشفاء</h4>
-                      <p className="text-[#adaaaa] text-sm font-['Manrope'] leading-relaxed max-w-3xl">التركيز على البروتينات عالية الجودة والكربوهيدرات المعقدة ومضادات الأكسدة لتقليل الإجهاد التأكسدي وسرعة استعادة الألياف المتهتكة.</p>
+                      <h4 className="font-display text-xl font-bold mb-1 text-white">التغذية للاستشفاء</h4>
+                      <p className="text-[#adaaaa] text-sm font-display leading-relaxed max-w-3xl">التركيز على البروتينات عالية الجودة والكربوهيدرات المعقدة ومضادات الأكسدة لتقليل الإجهاد التأكسدي وسرعة استعادة الألياف المتهتكة.</p>
                     </div>
                   </div>
                 </div>
@@ -1086,21 +1086,21 @@ export default function Programs() {
 
             {/* Recovery Schedule Table */}
             <section>
-              <h3 className="font-['Lexend'] text-2xl font-bold mb-8 flex items-center gap-3">
+              <h3 className="font-display text-2xl font-bold mb-8 flex items-center gap-3">
                 <span className="w-8 h-[2px] bg-[#00fcca]"></span>
                 جدول المتابعة الأسبوعي
               </h3>
               <div className="overflow-x-auto pb-4 no-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 <div className="min-w-[800px] bg-[#131313] rounded-3xl p-8 border border-white/5">
                   <div className="grid grid-cols-8 gap-4 mb-6 border-b border-[#494847]/30 pb-4">
-                    <div className="col-span-1 text-[#adaaaa] font-['Space_Grotesk'] text-[10px] uppercase tracking-wider">التقنية / اليوم</div>
-                    <div className="text-center font-['Lexend'] font-bold text-sm text-white">الأحد</div>
-                    <div className="text-center font-['Lexend'] font-bold text-sm text-white">الاثنين</div>
-                    <div className="text-center font-['Lexend'] font-bold text-sm text-white">الثلاثاء</div>
-                    <div className="text-center font-['Lexend'] font-bold text-sm text-white">الأربعاء</div>
-                    <div className="text-center font-['Lexend'] font-bold text-sm text-white">الخميس</div>
-                    <div className="text-center font-['Lexend'] font-bold text-sm text-[#00fcca]">الجمعة</div>
-                    <div className="text-center font-['Lexend'] font-bold text-sm text-white">السبت</div>
+                    <div className="col-span-1 text-[#adaaaa] font-display text-[10px] uppercase tracking-wider">التقنية / اليوم</div>
+                    <div className="text-center font-display font-bold text-sm text-white">الأحد</div>
+                    <div className="text-center font-display font-bold text-sm text-white">الاثنين</div>
+                    <div className="text-center font-display font-bold text-sm text-white">الثلاثاء</div>
+                    <div className="text-center font-display font-bold text-sm text-white">الأربعاء</div>
+                    <div className="text-center font-display font-bold text-sm text-white">الخميس</div>
+                    <div className="text-center font-display font-bold text-sm text-[#00fcca]">الجمعة</div>
+                    <div className="text-center font-display font-bold text-sm text-white">السبت</div>
                   </div>
 
                   {/* Row 1: Sleep */}
@@ -1156,7 +1156,7 @@ export default function Programs() {
           <div className="mt-16 sticky z-40 px-4 bottom-8">
             <button className="w-full h-16 bg-gradient-to-br from-[#e08dff] to-[#bc00fb] rounded-full shadow-[0_10px_30px_rgba(188,0,251,0.4)] flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all duration-300">
               <span className="material-symbols-outlined text-white" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-              <span className="font-['Lexend'] font-black text-xl text-white">بدء جلسة اليوم المخصصة</span>
+              <span className="font-display font-black text-xl text-white">بدء جلسة اليوم المخصصة</span>
             </button>
           </div>
         </motion.div>
@@ -1175,10 +1175,10 @@ export default function Programs() {
           <header className="fixed top-0 z-50 w-full h-16 bg-[#0e0e0e]/70 backdrop-blur-xl shadow-[0_20px_40px_rgba(188,0,251,0.08)] flex items-center justify-between px-6 -mx-4 md:-mx-8">
             <div className="flex items-center gap-4">
               <span onClick={() => setActiveModule(null)} className="material-symbols-outlined text-[#e08dff] cursor-pointer active:scale-95 duration-200">arrow_forward</span>
-              <h1 className="font-['Lexend'] font-bold text-xl leading-relaxed text-[#e08dff]">مخطط الوعي الجسماني</h1>
+              <h1 className="font-display font-bold text-xl leading-relaxed text-[#e08dff]">مخطط الوعي الجسماني</h1>
             </div>
             <div className="flex items-center">
-              <span className="font-['Lexend'] font-black tracking-tighter text-[#e08dff]">HELMY</span>
+              <span className="font-display font-black tracking-tighter text-[#e08dff]">HELMY</span>
             </div>
           </header>
 
@@ -1188,11 +1188,11 @@ export default function Programs() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-transparent to-transparent z-10"></div>
               <img alt="Athlete inspiration" className="w-full h-full object-cover grayscale brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC38aVewH_yGgBVCJw4528YG_HQkdUbuDHP-fjWtkrvVh5YhG0DT21cRiim0kmI9MaP4u1vsk6q2HdZVuq8tbA7HRK4CDu7BZP0ZJ6BgwlNQSc3c8Hqpg-RI6fJ6B6Bxjxpg7gbjutCWp9nlCZmfx1F2zm6CFxqaFEUYITRm3M5AKNl5yJ_39N2QJPiL4bf9q0YTWyRA15dy2IxIA85xR7R65-e2cGJ81b35ftsmQPksVRSzRdhEWmUfLHA8MxM1EePPEvIDHtCJjs5"/>
               <div className="absolute bottom-12 right-6 left-6 z-20">
-                <h2 className="font-['Lexend'] font-extrabold text-4xl md:text-6xl text-white leading-tight tracking-tight max-w-lg">
+                <h2 className="font-display font-extrabold text-4xl md:text-6xl text-white leading-tight tracking-tight max-w-lg">
                   تواصل مع <span className="text-[#e08dff] italic">قوتك</span> الداخلية
                 </h2>
                 <div className="mt-6 flex gap-3">
-                  <button className="bg-gradient-to-br from-[#e08dff] to-[#bc00fb] px-8 py-3 rounded-full font-['Lexend'] font-bold text-white shadow-[0_10px_20px_rgba(224,141,255,0.3)] active:scale-95 duration-200">
+                  <button className="bg-gradient-to-br from-[#e08dff] to-[#bc00fb] px-8 py-3 rounded-full font-display font-bold text-white shadow-[0_10px_20px_rgba(224,141,255,0.3)] active:scale-95 duration-200">
                     ابدأ الآن
                   </button>
                 </div>
@@ -1204,8 +1204,8 @@ export default function Programs() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2 bg-[#201f1f] rounded-[32px] p-8 flex flex-col md:flex-row items-center justify-between gap-8 border border-[#494847]/30 shadow-2xl shadow-[#0e0e0e]">
                   <div className="space-y-2 text-center md:text-right">
-                    <span className="font-['Space_Grotesk'] text-[#00fcca] text-sm tracking-widest uppercase">Weekly Progress</span>
-                    <h3 className="font-['Lexend'] font-bold text-3xl text-white">التقدم الأسبوعي</h3>
+                    <span className="font-display text-[#00fcca] text-sm tracking-widest uppercase">Weekly Progress</span>
+                    <h3 className="font-display font-bold text-3xl text-white">التقدم الأسبوعي</h3>
                     <p className="text-[#adaaaa] max-w-xs mx-auto md:mx-0">أنت تقترب من هدفك! استمر في دفع حدودك اليومية.</p>
                   </div>
                   <div className="relative flex items-center justify-center h-40 w-40">
@@ -1214,20 +1214,20 @@ export default function Programs() {
                       <circle className="text-[#00fcca] shadow-[0_0_15px_rgba(0,252,202,0.4)]" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeDasharray="440" strokeDashoffset="110" strokeWidth="12" style={{ filter: "drop-shadow(0 0 10px rgba(0,252,202,0.3))" }}></circle>
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="font-['Lexend'] font-black text-4xl text-white">75%</span>
+                      <span className="font-display font-black text-4xl text-white">75%</span>
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-rows-2 gap-4">
                   <div className="bg-[#131313] rounded-[32px] p-6 flex flex-col justify-center border border-[#494847]/30 shadow-2xl shadow-[#0e0e0e]">
                     <span className="material-symbols-outlined text-[#e08dff] mb-2">fitness_center</span>
-                    <span className="font-['Space_Grotesk'] text-xs text-[#adaaaa]">التمارين المنجزة</span>
-                    <span className="font-['Lexend'] font-bold text-2xl text-white">12 تمرين</span>
+                    <span className="font-display text-xs text-[#adaaaa]">التمارين المنجزة</span>
+                    <span className="font-display font-bold text-2xl text-white">12 تمرين</span>
                   </div>
                   <div className="bg-[#131313] rounded-[32px] p-6 flex flex-col justify-center border border-[#494847]/30 shadow-2xl shadow-[#0e0e0e]">
                     <span className="material-symbols-outlined text-[#00fcca] mb-2">schedule</span>
-                    <span className="font-['Space_Grotesk'] text-xs text-[#adaaaa]">الوقت الإجمالي</span>
-                    <span className="font-['Lexend'] font-bold text-2xl text-white">340 دقيقة</span>
+                    <span className="font-display text-xs text-[#adaaaa]">الوقت الإجمالي</span>
+                    <span className="font-display font-bold text-2xl text-white">340 دقيقة</span>
                   </div>
                 </div>
               </div>
@@ -1236,49 +1236,49 @@ export default function Programs() {
             {/* Fitness Categories Grid */}
             <section className="mt-16 px-2 md:px-6">
               <div className="flex items-end justify-between mb-8">
-                <h3 className="font-['Lexend'] font-bold text-2xl text-white">فئات اللياقة</h3>
-                <span className="font-['Space_Grotesk'] text-[#e08dff] text-sm cursor-pointer hover:underline">عرض الكل</span>
+                <h3 className="font-display font-bold text-2xl text-white">فئات اللياقة</h3>
+                <span className="font-display text-[#e08dff] text-sm cursor-pointer hover:underline">عرض الكل</span>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-[#131313] aspect-square rounded-[24px] flex flex-col items-center justify-center gap-4 hover:bg-[#262626] transition-all group border border-[#494847]/10 cursor-pointer">
                   <div className="h-16 w-16 rounded-full bg-[#e08dff]/10 flex items-center justify-center group-hover:bg-[#e08dff] group-hover:text-[#4f006c] transition-colors">
                     <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
                   </div>
-                  <span className="font-['Lexend'] font-medium text-sm text-white">تحمل القوة</span>
+                  <span className="font-display font-medium text-sm text-white">تحمل القوة</span>
                 </div>
                 <div className="bg-[#131313] aspect-square rounded-[24px] flex flex-col items-center justify-center gap-4 hover:bg-[#262626] transition-all group border border-[#494847]/10 cursor-pointer">
                   <div className="h-16 w-16 rounded-full bg-[#00fcca]/10 flex items-center justify-center group-hover:bg-[#00fcca] group-hover:text-[#005b47] transition-colors">
                     <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>directions_run</span>
                   </div>
-                  <span className="font-['Lexend'] font-medium text-sm text-white">المرونة الحركية</span>
+                  <span className="font-display font-medium text-sm text-white">المرونة الحركية</span>
                 </div>
                 <div className="bg-[#131313] aspect-square rounded-[24px] flex flex-col items-center justify-center gap-4 hover:bg-[#262626] transition-all group border border-[#494847]/10 cursor-pointer">
                   <div className="h-16 w-16 rounded-full bg-[#ff928a]/10 flex items-center justify-center group-hover:bg-[#ff928a] group-hover:text-[#650b0e] transition-colors">
                     <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>self_improvement</span>
                   </div>
-                  <span className="font-['Lexend'] font-medium text-sm text-white">توازن الجسم</span>
+                  <span className="font-display font-medium text-sm text-white">توازن الجسم</span>
                 </div>
                 <div className="bg-[#131313] aspect-square rounded-[24px] flex flex-col items-center justify-center gap-4 hover:bg-[#262626] transition-all group border border-[#494847]/10 cursor-pointer">
                   <div className="h-16 w-16 rounded-full bg-[#d978ff]/10 flex items-center justify-center group-hover:bg-[#d978ff] group-hover:text-[#4c0068] transition-colors">
                     <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
                   </div>
-                  <span className="font-['Lexend'] font-medium text-sm text-white">التوافق العصبي</span>
+                  <span className="font-display font-medium text-sm text-white">التوافق العصبي</span>
                 </div>
               </div>
             </section>
 
             {/* Training Plans Carousel */}
             <section className="mt-16">
-              <h3 className="font-['Lexend'] font-bold text-2xl px-2 md:px-6 mb-8 text-white">خطط تدريب شخصية</h3>
+              <h3 className="font-display font-bold text-2xl px-2 md:px-6 mb-8 text-white">خطط تدريب شخصية</h3>
               <div className="flex overflow-x-auto gap-6 px-2 md:px-6 no-scrollbar pb-8" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 {/* Card 1 */}
                 <div className="min-w-[280px] md:min-w-[340px] h-[400px] relative rounded-[32px] overflow-hidden group border border-white/5 cursor-pointer">
                   <img alt="Beginner plan" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlLnSdo8rsiY-HK6cRLCD9TyDAckDJWf090ZVZkjLjmQyLZ4M0JYq0IfOiW1IjwsRvxE606353I2hCQbKPAIUWYutTX4EFlMQkUhNUyMBLLgwkng-g-sjC5hxCdK-oukVl7unCgbq7egKXfHCY5Q2B-hxRR0E400_mHb4sVjMvjLMhYuo2EE-rUDT7QDsrlKYUsF4tqhpO272EEwXvCrq0n6O8zHhH_CIyIGbRDsiUt1goeX2zDd5yF-kB7CZqusnzf-itNsE4DCXz"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                   <div className="absolute bottom-6 right-6 left-6">
-                    <span className="bg-[#00fcca]/20 backdrop-blur-md text-[#00fcca] px-3 py-1 rounded-full font-['Space_Grotesk'] text-[10px] tracking-widest mb-3 inline-block">BEGINNER</span>
-                    <h4 className="font-['Lexend'] font-bold text-2xl text-white">خطة المبتدئين</h4>
-                    <p className="text-white/70 text-sm mt-2 font-['Manrope']">بداية رحلة التحول الجسدي الحقيقي.</p>
+                    <span className="bg-[#00fcca]/20 backdrop-blur-md text-[#00fcca] px-3 py-1 rounded-full font-display text-[10px] tracking-widest mb-3 inline-block">BEGINNER</span>
+                    <h4 className="font-display font-bold text-2xl text-white">خطة المبتدئين</h4>
+                    <p className="text-white/70 text-sm mt-2 font-display">بداية رحلة التحول الجسدي الحقيقي.</p>
                   </div>
                 </div>
 
@@ -1287,9 +1287,9 @@ export default function Programs() {
                   <img alt="Pro plan" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRjWZf2eovL5p6c_GRQF39fMFJlX55eRMEf0OABJXcps1b7D3SQ3CCxRqaSjjysWKmyJSLaATZPihcTQ0MqcKSFpbpndB01vycwUmHqLkEv5UcD74rfEMPzPQI_aUmrmAAsHpsbNGjymnT2yARhAv_iafPdCm2nG8HiHVaZs73mziAUuyyI37S7FWusEa5_noOG-PJUPetwOT_lgVwKcnzCL_ySA86OFhaOQhB48ZJW34FQYMooiTULQOHe0IO6f2DtmXXS25WI8ct"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                   <div className="absolute bottom-6 right-6 left-6">
-                    <span className="bg-[#e08dff]/20 backdrop-blur-md text-[#e08dff] px-3 py-1 rounded-full font-['Space_Grotesk'] text-[10px] tracking-widest mb-3 inline-block">ADVANCED</span>
-                    <h4 className="font-['Lexend'] font-bold text-2xl text-white">خطة المحترفين</h4>
-                    <p className="text-white/70 text-sm mt-2 font-['Manrope']">تحديات عالية الكثافة للقوة القصوى.</p>
+                    <span className="bg-[#e08dff]/20 backdrop-blur-md text-[#e08dff] px-3 py-1 rounded-full font-display text-[10px] tracking-widest mb-3 inline-block">ADVANCED</span>
+                    <h4 className="font-display font-bold text-2xl text-white">خطة المحترفين</h4>
+                    <p className="text-white/70 text-sm mt-2 font-display">تحديات عالية الكثافة للقوة القصوى.</p>
                   </div>
                 </div>
 
@@ -1298,9 +1298,9 @@ export default function Programs() {
                   <img alt="30 day challenge" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcplZuZixKV46t2_rZmZtpG24mxd9cZDqGakKvRYCC1tAgzjQhuvFVAKodrXSiuPUrZMkEp9wuHXlpt2oXIXM5hB8I3QkM-1_QNAM98_Xh_erWvmc218OIYDwGKbKXcD6UFe9Ejg7OOc8uyJzNh8LBdnxRxrVplsW2iDgOMnbSVvTljV0OjTCLmkmmlTL4-XuGG_Ytn3AnC_CjcJfLYY5oVJP3yOLL1XsC8sKs1xfPWqgT_S7PX2y-S9gJescWuTzrTIOeyHLtSY23"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                   <div className="absolute bottom-6 right-6 left-6">
-                    <span className="bg-[#ff928a]/20 backdrop-blur-md text-[#ff928a] px-3 py-1 rounded-full font-['Space_Grotesk'] text-[10px] tracking-widest mb-3 inline-block">CHALLENGE</span>
-                    <h4 className="font-['Lexend'] font-bold text-2xl text-white">تحدي 30 يوم</h4>
-                    <p className="text-white/70 text-sm mt-2 font-['Manrope']">التزام يومي لنتائج غير مسبوقة.</p>
+                    <span className="bg-[#ff928a]/20 backdrop-blur-md text-[#ff928a] px-3 py-1 rounded-full font-display text-[10px] tracking-widest mb-3 inline-block">CHALLENGE</span>
+                    <h4 className="font-display font-bold text-2xl text-white">تحدي 30 يوم</h4>
+                    <p className="text-white/70 text-sm mt-2 font-display">التزام يومي لنتائج غير مسبوقة.</p>
                   </div>
                 </div>
               </div>
@@ -1311,8 +1311,8 @@ export default function Programs() {
               <div className="bg-gradient-to-br from-[#bc00fb] to-[#4c0068] rounded-[32px] p-10 text-center relative overflow-hidden group shadow-[0_20px_50px_rgba(188,0,251,0.2)] border border-[#e08dff]/20">
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
                 <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#00fcca]/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
-                <span className="font-['Space_Grotesk'] text-xs tracking-widest text-white/60 mb-6 inline-block uppercase">إلهام اليوم</span>
-                <p className="font-['Lexend'] font-bold text-2xl md:text-3xl text-white leading-relaxed relative z-10 italic">
+                <span className="font-display text-xs tracking-widest text-white/60 mb-6 inline-block uppercase">إلهام اليوم</span>
+                <p className="font-display font-bold text-2xl md:text-3xl text-white leading-relaxed relative z-10 italic">
                   "القوة لا تأتي مما يمكنك فعله، بل تأتي من التغلب على الأشياء التي كنت تعتقد يوماً أنك لا تستطيع فعلها."
                 </p>
                 <div className="mt-8 flex justify-center gap-2">
@@ -1340,7 +1340,7 @@ export default function Programs() {
             <button onClick={() => setActiveModule(null)} className="active:scale-95 duration-200 hover:opacity-80 transition-opacity text-[#e08dff]">
               <span className="material-symbols-outlined text-3xl">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
             </button>
-            <h1 className="font-['Lexend'] font-bold text-xl leading-relaxed text-transparent bg-clip-text bg-gradient-to-br from-[#e08dff] to-[#bc00fb]">جدول الإطالات اليومي/الأسبوعي - HELMY</h1>
+            <h1 className="font-display font-bold text-xl leading-relaxed text-transparent bg-clip-text bg-gradient-to-br from-[#e08dff] to-[#bc00fb]">جدول الإطالات اليومي/الأسبوعي - HELMY</h1>
             <div className="w-8"></div> {/* Spacer for symmetry */}
           </header>
 
@@ -1348,50 +1348,50 @@ export default function Programs() {
             {/* Weekly View (Horizontal Scroll) */}
             <section>
               <div className="flex items-center justify-between mb-6">
-                <h2 className="font-['Lexend'] font-extrabold text-2xl tracking-tight text-white">التدفق الأسبوعي</h2>
-                <span className="font-['Space_Grotesk'] text-[#00fcca] text-sm font-bold bg-[#00fcca]/10 px-3 py-1 rounded-full">أبريل 2024</span>
+                <h2 className="font-display font-extrabold text-2xl tracking-tight text-white">التدفق الأسبوعي</h2>
+                <span className="font-display text-[#00fcca] text-sm font-bold bg-[#00fcca]/10 px-3 py-1 rounded-full">أبريل 2024</span>
               </div>
               <div className="flex overflow-x-auto no-scrollbar gap-4 pb-4 px-2 -mx-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 {/* Saturday */}
                 <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#262626] border-2 border-[#e08dff] shadow-[0_0_20px_rgba(224,141,255,0.2)] flex flex-col items-center justify-center transition-transform hover:scale-105 cursor-pointer">
-                  <span className="font-['Space_Grotesk'] text-[10px] text-[#e08dff]/60 uppercase">SAT</span>
-                  <span className="font-['Lexend'] font-black text-3xl text-[#e08dff] mt-1">20</span>
+                  <span className="font-display text-[10px] text-[#e08dff]/60 uppercase">SAT</span>
+                  <span className="font-display font-black text-3xl text-[#e08dff] mt-1">20</span>
                   <div className="mt-2 w-2 h-2 rounded-full bg-[#e08dff] animate-pulse"></div>
                 </div>
                 {/* Sunday */}
                 <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-['Space_Grotesk'] text-[10px] text-[#adaaaa] uppercase">SUN</span>
-                  <span className="font-['Lexend'] font-black text-3xl text-white mt-1">21</span>
+                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">SUN</span>
+                  <span className="font-display font-black text-3xl text-white mt-1">21</span>
                   <span className="material-symbols-outlined text-[#00fcca] text-xl mt-2" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                 </div>
                 {/* Monday */}
                 <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center opacity-60 cursor-pointer">
-                  <span className="font-['Space_Grotesk'] text-[10px] text-[#adaaaa] uppercase">MON</span>
-                  <span className="font-['Lexend'] font-black text-3xl text-white mt-1">22</span>
+                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">MON</span>
+                  <span className="font-display font-black text-3xl text-white mt-1">22</span>
                   <span className="material-symbols-outlined text-[#ff6e84] text-xl mt-2">cancel</span>
                 </div>
                 {/* Tuesday */}
                 <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-['Space_Grotesk'] text-[10px] text-[#adaaaa] uppercase">TUE</span>
-                  <span className="font-['Lexend'] font-black text-3xl text-white mt-1">23</span>
+                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">TUE</span>
+                  <span className="font-display font-black text-3xl text-white mt-1">23</span>
                   <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
                 </div>
                 {/* Wednesday */}
                 <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-['Space_Grotesk'] text-[10px] text-[#adaaaa] uppercase">WED</span>
-                  <span className="font-['Lexend'] font-black text-3xl text-white mt-1">24</span>
+                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">WED</span>
+                  <span className="font-display font-black text-3xl text-white mt-1">24</span>
                   <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
                 </div>
                 {/* Thursday */}
                 <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-['Space_Grotesk'] text-[10px] text-[#adaaaa] uppercase">THU</span>
-                  <span className="font-['Lexend'] font-black text-3xl text-white mt-1">25</span>
+                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">THU</span>
+                  <span className="font-display font-black text-3xl text-white mt-1">25</span>
                   <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
                 </div>
                 {/* Friday */}
                 <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-['Space_Grotesk'] text-[10px] text-[#adaaaa] uppercase">FRI</span>
-                  <span className="font-['Lexend'] font-black text-3xl text-white mt-1">26</span>
+                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">FRI</span>
+                  <span className="font-display font-black text-3xl text-white mt-1">26</span>
                   <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
                 </div>
               </div>
@@ -1399,7 +1399,7 @@ export default function Programs() {
 
             {/* Daily Schedule Bento Grid Layout */}
             <section className="space-y-8">
-              <h2 className="font-['Lexend'] font-extrabold text-3xl mb-6 flex items-center gap-3">
+              <h2 className="font-display font-extrabold text-3xl mb-6 flex items-center gap-3">
                 <span className="w-2 h-8 bg-[#00fcca] rounded-full"></span>
                 جلسات اليوم
               </h2>
@@ -1410,11 +1410,11 @@ export default function Programs() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="material-symbols-outlined text-[#e08dff]" style={{ fontVariationSettings: "'FILL' 1" }}>accessibility_new</span>
-                      <span className="font-['Space_Grotesk'] text-[#e08dff] font-bold tracking-widest text-xs uppercase">Static Stretching</span>
+                      <span className="font-display text-[#e08dff] font-bold tracking-widest text-xs uppercase">Static Stretching</span>
                     </div>
-                    <h3 className="font-['Lexend'] font-bold text-xl">تمارين الإطالات الاستاتيكية الثابتة</h3>
+                    <h3 className="font-display font-bold text-xl">تمارين الإطالات الاستاتيكية الثابتة</h3>
                   </div>
-                  <span className="font-['Space_Grotesk'] text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">12 دقيقة</span>
+                  <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">12 دقيقة</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl">
@@ -1422,9 +1422,9 @@ export default function Programs() {
                       <img alt="stretching" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7c74GBAfLmlVbB6p-9-PY6JwL-JIL6fiHsLS_MbidyEqHH7lkjVhvklCiY_TQdKCVnFCF8fuZzf3iAV7hIccbn_TgOXKoik-6J85tun39Gwh-nuG9IZ38G2afpKDY_EGSm_vUltQf9s4n3OThJ5Kbgi2YZ9PY72rdCjBl2gwXBnilRpCWKf-nz-eiT6lzH_nXAQLsPVUlKnLulVAKDvoU2DrMSDoMM6p_4VwKDRDCkIcABrbHRsoweyqjm8g7nHhyiI4h5wi_BV1F"/>
                     </div>
                     <div>
-                      <p className="font-['Lexend'] font-semibold text-sm">إطالة أوتار الركبة</p>
-                      <p className="font-['Space_Grotesk'] text-[10px] text-[#e08dff]">3 دقيقة</p>
-                      <p className="font-['Lexend'] text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الخلفية، الألوية</p>
+                      <p className="font-display font-semibold text-sm">إطالة أوتار الركبة</p>
+                      <p className="font-display text-[10px] text-[#e08dff]">3 دقيقة</p>
+                      <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الخلفية، الألوية</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl">
@@ -1432,9 +1432,9 @@ export default function Programs() {
                       <img alt="stretching" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChMWebBlC5yPAMzXQl4__4lc-O5K8c4DhTsIMKKMKzxGgDJAdhmAkRO7XRzIc5JmgLOwE69Xg3F1FfhF_0HBgaZOWyeTdBo87tQIibtmGj5hPWKldlsCdr40BWOjLYGQ_XaSscdHTqCEy4oGJ7AeX90F1pLY1lDf0LNt5sjv5bhjpzSPpReZBbJcG08dQ_nBsYtl1auz3V97ae15_24cBEBlPBOA69xE1MnAiWHy0ezNDAWks0UpDeb9VfmjZCzpW4qQJuYL6d2e5Z"/>
                     </div>
                     <div>
-                      <p className="font-['Lexend'] font-semibold text-sm">إطالة الثبات للجذع</p>
-                      <p className="font-['Space_Grotesk'] text-[10px] text-[#e08dff]">3 دقيقة</p>
-                      <p className="font-['Lexend'] text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الظهر، البطن، الجذع</p>
+                      <p className="font-display font-semibold text-sm">إطالة الثبات للجذع</p>
+                      <p className="font-display text-[10px] text-[#e08dff]">3 دقيقة</p>
+                      <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الظهر، البطن، الجذع</p>
                     </div>
                   </div>
                 </div>
@@ -1446,15 +1446,15 @@ export default function Programs() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="material-symbols-outlined text-[#e08dff]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
-                      <span className="font-['Space_Grotesk'] text-[#e08dff] font-bold tracking-widest text-xs">PRE-WORKOUT</span>
+                      <span className="font-display text-[#e08dff] font-bold tracking-widest text-xs">PRE-WORKOUT</span>
                     </div>
-                    <h3 className="font-['Lexend'] font-bold text-xl">تحمية المفاصل والعضلات</h3>
+                    <h3 className="font-display font-bold text-xl">تحمية المفاصل والعضلات</h3>
                   </div>
-                  <span className="font-['Space_Grotesk'] text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">5 دقيقة</span>
+                  <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">5 دقيقة</span>
                 </div>
-                <div className="flex flex-col items-center justify-center h-24 bg-[#262626]/50 rounded-2xl border border-dashed border-[#494847]/30 text-[#adaaaa] font-['Manrope'] italic">
+                <div className="flex flex-col items-center justify-center h-24 bg-[#262626]/50 rounded-2xl border border-dashed border-[#494847]/30 text-[#adaaaa] font-display italic">
                   تبدأ قبل التمرين بـ 5 دقائق لتقليل خطر الإصابة
-                  <div className="mt-2 font-['Lexend'] text-[10px] text-[#adaaaa]/70 bg-[#262626] px-2 py-0.5 rounded">العضلات العاملة: الجسم بالكامل، المفاصل الرئيسية</div>
+                  <div className="mt-2 font-display text-[10px] text-[#adaaaa]/70 bg-[#262626] px-2 py-0.5 rounded">العضلات العاملة: الجسم بالكامل، المفاصل الرئيسية</div>
                 </div>
               </div>
 
@@ -1464,11 +1464,11 @@ export default function Programs() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="material-symbols-outlined text-[#00fcca]" style={{ fontVariationSettings: "'FILL' 1" }}>fitness_center</span>
-                      <span className="font-['Space_Grotesk'] text-[#00fcca] font-bold tracking-widest text-xs">POST-WORKOUT</span>
+                      <span className="font-display text-[#00fcca] font-bold tracking-widest text-xs">POST-WORKOUT</span>
                     </div>
-                    <h3 className="font-['Lexend'] font-bold text-xl">إطالات استاتيكية (ثابتة)</h3>
+                    <h3 className="font-display font-bold text-xl">إطالات استاتيكية (ثابتة)</h3>
                   </div>
-                  <span className="font-['Space_Grotesk'] text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">15 دقيقة</span>
+                  <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">15 دقيقة</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl">
@@ -1476,9 +1476,9 @@ export default function Programs() {
                       <img alt="stretching" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7c74GBAfLmlVbB6p-9-PY6JwL-JIL6fiHsLS_MbidyEqHH7lkjVhvklCiY_TQdKCVnFCF8fuZzf3iAV7hIccbn_TgOXKoik-6J85tun39Gwh-nuG9IZ38G2afpKDY_EGSm_vUltQf9s4n3OThJ5Kbgi2YZ9PY72rdCjBl2gwXBnilRpCWKf-nz-eiT6lzH_nXAQLsPVUlKnLulVAKDvoU2DrMSDoMM6p_4VwKDRDCkIcABrbHRsoweyqjm8g7nHhyiI4h5wi_BV1F"/>
                     </div>
                     <div>
-                      <p className="font-['Lexend'] font-semibold text-sm">إطالة أوتار الركبة</p>
-                      <p className="font-['Space_Grotesk'] text-[10px] text-[#00fcca]">3 دقيقة</p>
-                      <p className="font-['Lexend'] text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: العضلات الخلفية للفخذ</p>
+                      <p className="font-display font-semibold text-sm">إطالة أوتار الركبة</p>
+                      <p className="font-display text-[10px] text-[#00fcca]">3 دقيقة</p>
+                      <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: العضلات الخلفية للفخذ</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-center border-2 border-dashed border-[#00fcca]/20 rounded-2xl group-hover:border-[#00fcca]/40 transition-colors cursor-pointer">
@@ -1493,11 +1493,11 @@ export default function Programs() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="material-symbols-outlined text-[#e08dff]" style={{ fontVariationSettings: "'FILL' 1" }}>settings_accessibility</span>
-                      <span className="font-['Space_Grotesk'] text-[#e08dff] font-bold tracking-widest text-xs uppercase">CUSTOM TRAINING</span>
+                      <span className="font-display text-[#e08dff] font-bold tracking-widest text-xs uppercase">CUSTOM TRAINING</span>
                     </div>
-                    <h3 className="font-['Lexend'] font-bold text-xl">تمارين مخصصة</h3>
+                    <h3 className="font-display font-bold text-xl">تمارين مخصصة</h3>
                   </div>
-                  <span className="font-['Space_Grotesk'] text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">10 دقائق</span>
+                  <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">10 دقائق</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl hover:bg-[#262626]/80 transition-colors cursor-pointer">
@@ -1505,9 +1505,9 @@ export default function Programs() {
                       <span className="material-symbols-outlined text-[#e08dff]/40 text-3xl">fitness_center</span>
                     </div>
                     <div>
-                      <p className="font-['Lexend'] font-semibold text-sm">تمرين مخصص 1</p>
-                      <p className="font-['Space_Grotesk'] text-[10px] text-[#e08dff]">5 دقائق</p>
-                      <p className="font-['Lexend'] text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الصدر</p>
+                      <p className="font-display font-semibold text-sm">تمرين مخصص 1</p>
+                      <p className="font-display text-[10px] text-[#e08dff]">5 دقائق</p>
+                      <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الصدر</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl hover:bg-[#262626]/80 transition-colors cursor-pointer">
@@ -1515,9 +1515,9 @@ export default function Programs() {
                       <span className="material-symbols-outlined text-[#e08dff]/40 text-3xl">exercise</span>
                     </div>
                     <div>
-                      <p className="font-['Lexend'] font-semibold text-sm">تمرين مخصص 2</p>
-                      <p className="font-['Space_Grotesk'] text-[10px] text-[#e08dff]">5 دقائق</p>
-                      <p className="font-['Lexend'] text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الظهر</p>
+                      <p className="font-display font-semibold text-sm">تمرين مخصص 2</p>
+                      <p className="font-display text-[10px] text-[#e08dff]">5 دقائق</p>
+                      <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الظهر</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-center border-2 border-dashed border-[#e08dff]/20 rounded-2xl h-16 group-hover:border-[#e08dff]/40 transition-colors cursor-pointer">
@@ -1532,16 +1532,16 @@ export default function Programs() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="material-symbols-outlined text-[#e08dff]" style={{ fontVariationSettings: "'FILL' 1" }}>bedtime</span>
-                      <span className="font-['Space_Grotesk'] text-[#e08dff] font-bold tracking-widest text-xs">RELAXATION</span>
+                      <span className="font-display text-[#e08dff] font-bold tracking-widest text-xs">RELAXATION</span>
                     </div>
-                    <h3 className="font-['Lexend'] font-bold text-xl">إطالات الاسترخاء والهدوء</h3>
+                    <h3 className="font-display font-bold text-xl">إطالات الاسترخاء والهدوء</h3>
                   </div>
-                  <span className="font-['Space_Grotesk'] text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">8 دقيقة</span>
+                  <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">8 دقيقة</span>
                 </div>
-                <p className="text-[#adaaaa] text-sm font-['Manrope'] leading-relaxed max-w-md">
+                <p className="text-[#adaaaa] text-sm font-display leading-relaxed max-w-md">
                   مجموعة من الحركات البسيطة لتهدئة الجهاز العصبي وتحسين جودة النوم.
                 </p>
-                <div className="mt-4 inline-flex items-center gap-1 font-['Space_Grotesk'] text-[10px] text-[#adaaaa]/70 border border-[#494847]/30 px-2 py-0.5 rounded-full">
+                <div className="mt-4 inline-flex items-center gap-1 font-display text-[10px] text-[#adaaaa]/70 border border-[#494847]/30 px-2 py-0.5 rounded-full">
                   <span className="material-symbols-outlined text-[12px]">target</span>
                   العضلات المستهدفة: الجهاز العصبي
                 </div>
@@ -1551,7 +1551,7 @@ export default function Programs() {
             {/* Main Action Button */}
             <div className="mt-12 sticky z-40 p-4 bottom-0 bg-gradient-to-t from-[#0e0e0e] to-transparent w-full">
               <button className="w-full h-16 bg-gradient-to-br from-[#e08dff] to-[#bc00fb] rounded-full shadow-[0_10px_30px_rgba(188,0,251,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all duration-300 group">
-                <span className="font-['Lexend'] font-black text-lg text-white">ابدأ جلسة اليوم</span>
+                <span className="font-display font-black text-lg text-white">ابدأ جلسة اليوم</span>
                 <span className="material-symbols-outlined text-white group-hover:-translate-x-1 transition-transform">{language === 'ar' ? 'arrow_back' : 'arrow_forward'}</span>
               </button>
             </div>
@@ -1584,9 +1584,9 @@ export default function Programs() {
                 >
                   <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
                 </button>
-                <h1 className="font-['Lexend'] font-bold text-xl leading-[1.2] text-[#BF00FF]">برنامج المرونة والاستشفاء</h1>
+                <h1 className="font-display font-bold text-xl leading-[1.2] text-[#BF00FF]">برنامج المرونة والاستشفاء</h1>
               </div>
-              <div className="text-[#BF00FF] font-['Lexend'] font-black italic">HELMY</div>
+              <div className="text-[#BF00FF] font-display font-black italic">HELMY</div>
             </header>
 
             {/* Hero Section */}
@@ -1595,9 +1595,9 @@ export default function Programs() {
               <img alt="تمارين المرونة والاطالة" className="w-full h-full object-cover grayscale brightness-[0.8] scale-100" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2000&auto=format&fit=crop"/>
               <div className="absolute bottom-0 right-0 p-8 z-20 w-full max-w-2xl">
                 <div className="inline-block bg-[#BF00FF] px-3 py-1 rounded-sm mb-4">
-                  <span className="font-['Space_Grotesk'] text-[#ffffff] text-xs font-bold tracking-widest uppercase">RECOVERY PROGRAM</span>
+                  <span className="font-display text-[#ffffff] text-xs font-bold tracking-widest uppercase">RECOVERY PROGRAM</span>
                 </div>
-                <h2 className="font-['Lexend'] font-black text-5xl md:text-6xl text-white leading-tight mb-4 italic uppercase">خطة المرونة والاستشفاء</h2>
+                <h2 className="font-display font-black text-5xl md:text-6xl text-white leading-tight mb-4 italic uppercase">خطة المرونة والاستشفاء</h2>
                 <p className="text-[#adaaaa] text-lg leading-relaxed max-w-md border-r-4 border-[#BF00FF] pr-4">
                     مفتاحك للأداء العالي وتجنب الإصابات. تعلم كيف تعيد شحن طاقتك وتزيد من مدى حركة مفاصلك بذكاء.
                 </p>
@@ -1608,11 +1608,11 @@ export default function Programs() {
             <section className="mt-12 space-y-4">
               {/* Bento Grid - Header */}
               <div className="flex items-center justify-between mb-8">
-                <h3 className="font-['Lexend'] font-bold text-2xl text-white flex items-center gap-3">
+                <h3 className="font-display font-bold text-2xl text-white flex items-center gap-3">
                   <span className="w-8 h-[2px] bg-[#00fcca]"></span>
                     وحدات البرنامج
                 </h3>
-                <span className="font-['Space_Grotesk'] text-[#00fcca] text-sm">6 UNITS</span>
+                <span className="font-display text-[#00fcca] text-sm">6 UNITS</span>
               </div>
 
               {/* Dynamic Stretching Card */}
@@ -1624,7 +1624,7 @@ export default function Programs() {
                   <span className="material-symbols-outlined text-4xl">fitness_center</span>
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-['Lexend'] font-bold text-lg text-white mb-1">تمارين الإطالة الديناميكية</h4>
+                  <h4 className="font-display font-bold text-lg text-white mb-1">تمارين الإطالة الديناميكية</h4>
                   <p className="text-[#adaaaa] text-sm">للإحماء الفعال وزيادة مدى الحركة قبل التمرين.</p>
                 </div>
                 <span className="material-symbols-outlined text-[#777575] group-hover:text-[#BF00FF] transition-colors">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
@@ -1639,7 +1639,7 @@ export default function Programs() {
                   <span className="material-symbols-outlined text-4xl">self_improvement</span>
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-['Lexend'] font-bold text-lg text-white mb-1">تمارين الإطالة الثابتة</h4>
+                  <h4 className="font-display font-bold text-lg text-white mb-1">تمارين الإطالة الثابتة</h4>
                   <p className="text-[#adaaaa] text-sm">للاسترخاء العميق وتهدئة العضلات بعد المجهود البدني.</p>
                 </div>
                 <span className="material-symbols-outlined text-[#777575] group-hover:text-[#BF00FF] transition-colors">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
@@ -1653,9 +1653,9 @@ export default function Programs() {
                 >
                   <div className="relative z-10">
                     <span className="material-symbols-outlined text-[#00fcca] text-4xl mb-4">rebase_edit</span>
-                    <h4 className="font-['Lexend'] font-bold text-xl text-white mb-2">تقنيات الاستشفاء</h4>
+                    <h4 className="font-display font-bold text-xl text-white mb-2">تقنيات الاستشفاء</h4>
                     <p className="text-[#adaaaa] text-sm mb-6">التدليك، الفوم رولينج، والترطيب المثالي للعضلات.</p>
-                    <div className="flex items-center gap-2 text-[#00fcca] font-['Space_Grotesk'] text-xs tracking-tighter">
+                    <div className="flex items-center gap-2 text-[#00fcca] font-display text-xs tracking-tighter">
                       <span>EXPLORE TECHNIQUES</span>
                       <span className="material-symbols-outlined text-xs group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform">{language === 'ar' ? 'arrow_back' : 'north_east'}</span>
                     </div>
@@ -1671,9 +1671,9 @@ export default function Programs() {
                 >
                   <div className="relative z-10">
                     <span className="material-symbols-outlined text-[#BF00FF] text-4xl mb-4">psychology</span>
-                    <h4 className="font-['Lexend'] font-bold text-xl text-white mb-2">الوعي الجسماني</h4>
+                    <h4 className="font-display font-bold text-xl text-white mb-2">الوعي الجسماني</h4>
                     <p className="text-[#adaaaa] text-sm mb-6">تعزيز الاتصال الذهني العضلي أثناء عملية الاستشفاء.</p>
-                    <div className="flex items-center gap-2 text-[#BF00FF] font-['Space_Grotesk'] text-xs tracking-tighter">
+                    <div className="flex items-center gap-2 text-[#BF00FF] font-display text-xs tracking-tighter">
                       <span>MIND-BODY LINK</span>
                       <span className="material-symbols-outlined text-xs group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform">{language === 'ar' ? 'arrow_back' : 'north_east'}</span>
                     </div>
@@ -1690,13 +1690,13 @@ export default function Programs() {
                   <div>
                     <div className="flex items-center gap-3 mb-3">
                       <span className="material-symbols-outlined text-[#00fcca]">calendar_month</span>
-                      <h4 className="font-['Lexend'] font-bold text-2xl text-white">جدول الاستشفاء الأسبوعي</h4>
+                      <h4 className="font-display font-bold text-2xl text-white">جدول الاستشفاء الأسبوعي</h4>
                     </div>
                     <p className="text-[#adaaaa] max-w-sm">خارطة طريق مخصصة توضح لك متى وكيف تطبق تمارين الاستشفاء خلال أسبوعك.</p>
                   </div>
                   <button 
                     onClick={() => setActiveModule('schedule')}
-                    className="bg-gradient-to-br from-[#BF00FF] to-[#9a00cf] text-white font-['Lexend'] font-bold py-4 px-8 rounded-full flex items-center gap-3 shadow-[0_10px_30px_rgba(191,0,255,0.2)] hover:scale-105 active:scale-95 transition-all"
+                    className="bg-gradient-to-br from-[#BF00FF] to-[#9a00cf] text-white font-display font-bold py-4 px-8 rounded-full flex items-center gap-3 shadow-[0_10px_30px_rgba(191,0,255,0.2)] hover:scale-105 active:scale-95 transition-all"
                   >
                     عرض الجدول
                     <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_back' : 'arrow_forward'}</span>
@@ -1933,7 +1933,7 @@ export default function Programs() {
       animate={{ opacity: 1, y: 0 }}
       className="pb-12 text-[#ffffff]"
     >
-      <header className="flex items-center justify-between px-6 py-4 bg-[#0e0e0e]/70 backdrop-blur-xl rounded-2xl mb-8 border border-white/5 bg-gradient-to-b from-[#0e0e0e] to-transparent">
+      <header className="flex items-center justify-between px-6 py-5 bg-[#0e0e0e]/70 backdrop-blur-xl rounded-2xl mb-8 border border-white/5 bg-gradient-to-b from-[#0e0e0e] to-transparent">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate(-1)} 
@@ -1941,7 +1941,11 @@ export default function Programs() {
           >
             <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
           </button>
-          <h1 className="font-['Lexend'] font-bold tracking-tight uppercase text-xl text-[#e08dff]">مخطط البرامج</h1>
+          <h1 className="font-display font-extrabold tracking-tight text-2xl">
+            <GradientText colors={["#e08dff","#bc00fb","#e08dff"]} animationSpeed={6} showBorder={false}>
+              مخطط البرامج
+            </GradientText>
+          </h1>
         </div>
         <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#e08dff]/20">
           <img alt="Profile" className="w-full h-full object-cover" src={user?.photoURL || "https://lh3.googleusercontent.com/aida-public/AB6AXuCYRt_Y20UZkInvBHOC7W43x8L7_-qzEFFLCnGxNqObdMR8YgRPRvMGO-pToQAItPnK389QhbdgVcT0eqNUu5xmr3NLmdtq6IvP-YUuO5zJkjhvBrcmg0f7LSj7NMcJtCvsHHuwlWQs3PhWxcPqWlIDaV8IkeUJelSSYi1rWOvRWaUI6Psk7wbDrzud-tIbKFBOMracAtm0NYiCvjgj8pojIWFvsrZqu8K557Qky06CTMmclKTqeCbydukHOnjH_qu0pb4R7nRcRVuY"} />
@@ -1960,27 +1964,27 @@ export default function Programs() {
             className="group relative bg-[#201f1f] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#e08dff]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative bg-[#201f1f] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="relative bg-[#201f1f] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5">
               <div className="flex flex-col gap-1 flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-12 h-12 rounded-2xl bg-[#e08dff]/10 flex items-center justify-center text-[#e08dff]">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#e08dff]/20 to-[#e08dff]/5 flex items-center justify-center text-[#e08dff] shadow-lg shadow-[#e08dff]/5">
                     <span className="material-symbols-outlined text-3xl">fitness_center</span>
                   </div>
-                  <h3 className="font-['Lexend'] text-xl font-bold text-white">برنامج القوة العضلية</h3>
+                  <h3 className="font-display text-2xl font-extrabold text-white leading-tight">برنامج القوة العضلية</h3>
                 </div>
-                <p className="text-[#d160ff] text-xs mb-2 italic">يركز على بناء الكتلة العضلية وزيادة القوة البدنية باستخدام أساليب التدريب العلمي المتقدمة.</p>
-                <p className="text-[#adaaaa] text-sm leading-relaxed pr-2">بناء أساس صلب من القوة والكتلة العضلية باستخدام أساليب التدريب العلمي المتقدمة.</p>
-                <div className="flex gap-4 mt-4">
-                  <span className="text-[10px] uppercase tracking-wider text-[#00fcca] flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">schedule</span> 8 أسابيع
+                <p className="text-[#d160ff] text-sm mb-2 font-medium">يركز على بناء الكتلة العضلية وزيادة القوة البدنية باستخدام أساليب التدريب العلمي المتقدمة.</p>
+                <p className="text-[#adaaaa] text-base leading-relaxed pr-2 font-display">بناء أساس صلب من القوة والكتلة العضلية باستخدام أساليب التدريب العلمي المتقدمة.</p>
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <span className="text-[11px] tracking-wider text-[#00fcca] flex items-center gap-1.5 bg-[#00fcca]/5 px-3 py-1.5 rounded-full font-bold">
+                    <span className="material-symbols-outlined text-sm">schedule</span> 8 أسابيع
                   </span>
-                  <span className="text-[10px] uppercase tracking-wider text-[#00fcca] flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">bar_chart</span> مستوى متقدم
+                  <span className="text-[11px] tracking-wider text-[#00fcca] flex items-center gap-1.5 bg-[#00fcca]/5 px-3 py-1.5 rounded-full font-bold">
+                    <span className="material-symbols-outlined text-sm">bar_chart</span> مستوى متقدم
                   </span>
                 </div>
               </div>
-              <button className="w-12 h-12 rounded-full shrink-0 bg-[#262626] border border-[#494847]/20 flex items-center justify-center text-[#e08dff] group-hover:bg-[#e08dff] group-hover:text-white transition-all">
-                <span className="material-symbols-outlined">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
+              <button className="w-14 h-14 rounded-full shrink-0 bg-[#262626] border border-[#494847]/20 flex items-center justify-center text-[#e08dff] group-hover:bg-[#e08dff] group-hover:text-white transition-all shadow-lg">
+                <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
               </button>
             </div>
           </div>
@@ -1997,27 +2001,27 @@ export default function Programs() {
             }}
             className="group relative bg-[#131313] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
           >
-            <div className="relative bg-[#131313] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-l-2 border-[#00fcca]/10">
+            <div className="relative bg-[#131313] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5 border-l-2 border-[#00fcca]/10">
               <div className="flex flex-col gap-1 flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-12 h-12 rounded-2xl bg-[#00fcca]/10 flex items-center justify-center text-[#00fcca]">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00fcca]/15 to-[#00fcca]/5 flex items-center justify-center text-[#00fcca] shadow-lg shadow-[#00fcca]/5">
                     <span className="material-symbols-outlined text-3xl">self_improvement</span>
                   </div>
-                  <h3 className="font-['Lexend'] text-xl font-bold text-white">برنامج المرونة والاستشفاء</h3>
+                  <h3 className="font-display text-2xl font-extrabold text-white leading-tight">برنامج المرونة والاستشفاء</h3>
                 </div>
-                <p className="text-[#00edbd] text-xs mb-2 italic">يهدف لتحسين المدى الحركي وتقليل تيبس العضلات وتسريع عملية التعافي بعد التمرين.</p>
-                <p className="text-[#adaaaa] text-sm leading-relaxed pr-2">تحسين المدى الحركي وتسريع عمليات الاستشفاء العضلي لضمان أداء رياضي مستدام وبدون إصابات.</p>
-                <div className="flex gap-4 mt-4">
-                  <span className="text-[10px] uppercase tracking-wider text-[#e08dff] flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">bolt</span> يومي
+                <p className="text-[#00edbd] text-sm mb-2 font-medium">يهدف لتحسين المدى الحركي وتقليل تيبس العضلات وتسريع عملية التعافي بعد التمرين.</p>
+                <p className="text-[#adaaaa] text-base leading-relaxed pr-2 font-display">تحسين المدى الحركي وتسريع عمليات الاستشفاء العضلي لضمان أداء رياضي مستدام وبدون إصابات.</p>
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <span className="text-[11px] tracking-wider text-[#e08dff] flex items-center gap-1.5 bg-[#e08dff]/5 px-3 py-1.5 rounded-full font-bold">
+                    <span className="material-symbols-outlined text-sm">bolt</span> يومي
                   </span>
-                  <span className="text-[10px] uppercase tracking-wider text-[#e08dff] flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">accessibility</span> جميع المستويات
+                  <span className="text-[11px] tracking-wider text-[#e08dff] flex items-center gap-1.5 bg-[#e08dff]/5 px-3 py-1.5 rounded-full font-bold">
+                    <span className="material-symbols-outlined text-sm">accessibility</span> جميع المستويات
                   </span>
                 </div>
               </div>
-              <button className="w-12 h-12 rounded-full shrink-0 bg-[#201f1f] border border-[#494847]/10 flex items-center justify-center text-[#00fcca] group-hover:bg-[#00fcca] group-hover:text-[#0e0e0e] transition-all">
-                <span className="material-symbols-outlined">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
+              <button className="w-14 h-14 rounded-full shrink-0 bg-[#201f1f] border border-[#494847]/10 flex items-center justify-center text-[#00fcca] group-hover:bg-[#00fcca] group-hover:text-[#0e0e0e] transition-all shadow-lg">
+                <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
               </button>
             </div>
           </div>
@@ -2028,27 +2032,27 @@ export default function Programs() {
             className="group relative bg-[#201f1f] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#bc00fb]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative bg-[#201f1f] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="relative bg-[#201f1f] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5">
               <div className="flex flex-col gap-1 flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-12 h-12 rounded-2xl bg-[#bc00fb]/20 flex items-center justify-center text-[#bc00fb]">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#bc00fb]/20 to-[#bc00fb]/5 flex items-center justify-center text-[#bc00fb] shadow-lg shadow-[#bc00fb]/5">
                     <span className="material-symbols-outlined text-3xl">speed</span>
                   </div>
-                  <h3 className="font-['Lexend'] text-xl font-bold text-white">برنامج السرعة</h3>
+                  <h3 className="font-display text-2xl font-extrabold text-white leading-tight">برنامج السرعة</h3>
                 </div>
-                <p className="text-[#bc00fb] text-xs mb-2 italic">تمارين متخصصة لتطوير الانفجار الحركي وزيادة معدل السرعة القصوى للرياضيين.</p>
-                <p className="text-[#adaaaa] text-sm leading-relaxed pr-2">تمارين مخصصة لتطوير الانفجار الحركي وزيادة معدل السرعة القصوى.</p>
-                <div className="flex gap-4 mt-4">
-                  <span className="text-[10px] uppercase tracking-wider text-[#e08dff] flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">schedule</span> 4 أسابيع
+                <p className="text-[#bc00fb] text-sm mb-2 font-medium">تمارين متخصصة لتطوير الانفجار الحركي وزيادة معدل السرعة القصوى للرياضيين.</p>
+                <p className="text-[#adaaaa] text-base leading-relaxed pr-2 font-display">تمارين مخصصة لتطوير الانفجار الحركي وزيادة معدل السرعة القصوى.</p>
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <span className="text-[11px] tracking-wider text-[#e08dff] flex items-center gap-1.5 bg-[#e08dff]/5 px-3 py-1.5 rounded-full font-bold">
+                    <span className="material-symbols-outlined text-sm">schedule</span> 4 أسابيع
                   </span>
-                  <span className="text-[10px] uppercase tracking-wider text-[#e08dff] flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">trending_up</span> تقدم سريع
+                  <span className="text-[11px] tracking-wider text-[#e08dff] flex items-center gap-1.5 bg-[#e08dff]/5 px-3 py-1.5 rounded-full font-bold">
+                    <span className="material-symbols-outlined text-sm">trending_up</span> تقدم سريع
                   </span>
                 </div>
               </div>
-              <button className="w-12 h-12 rounded-full shrink-0 bg-[#262626] border border-[#494847]/20 flex items-center justify-center text-[#bc00fb] group-hover:bg-[#bc00fb] group-hover:text-white transition-all">
-                <span className="material-symbols-outlined">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
+              <button className="w-14 h-14 rounded-full shrink-0 bg-[#262626] border border-[#494847]/20 flex items-center justify-center text-[#bc00fb] group-hover:bg-[#bc00fb] group-hover:text-white transition-all shadow-lg">
+                <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
               </button>
             </div>
           </div>
@@ -2058,27 +2062,27 @@ export default function Programs() {
             onClick={() => navigate('/education/training/speed/plyometrics')}
             className="group relative bg-[#131313] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
           >
-            <div className="relative bg-[#131313] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-l-2 border-[#00fcca]/10">
+            <div className="relative bg-[#131313] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5 border-l-2 border-[#00fcca]/10">
               <div className="flex flex-col gap-1 flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-12 h-12 rounded-2xl bg-[#00fcca]/10 flex items-center justify-center text-[#00fcca]">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00fcca]/15 to-[#00fcca]/5 flex items-center justify-center text-[#00fcca] shadow-lg shadow-[#00fcca]/5">
                     <span className="material-symbols-outlined text-3xl">sports_gymnastics</span>
                   </div>
-                  <h3 className="font-['Lexend'] text-xl font-bold text-white">برنامج البليومترية</h3>
+                  <h3 className="font-display text-2xl font-extrabold text-white leading-tight">برنامج البليومترية</h3>
                 </div>
-                <p className="text-[#00fcca] text-xs mb-2 italic">تمارين القوة الانفجارية والقفز التي تهدف لتحسين رد فعل العضلات والقدرة الحركية.</p>
-                <p className="text-[#adaaaa] text-sm leading-relaxed pr-2">تحسين القفز والقدرة الانفجارية عبر تمارين القوة الحركية المرتدة.</p>
-                <div className="flex gap-4 mt-4">
-                  <span className="text-[10px] uppercase tracking-wider text-[#00fcca] flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">schedule</span> 6 أسابيع
+                <p className="text-[#00fcca] text-sm mb-2 font-medium">تمارين القوة الانفجارية والقفز التي تهدف لتحسين رد فعل العضلات والقدرة الحركية.</p>
+                <p className="text-[#adaaaa] text-base leading-relaxed pr-2 font-display">تحسين القفز والقدرة الانفجارية عبر تمارين القوة الحركية المرتدة.</p>
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <span className="text-[11px] tracking-wider text-[#00fcca] flex items-center gap-1.5 bg-[#00fcca]/5 px-3 py-1.5 rounded-full font-bold">
+                    <span className="material-symbols-outlined text-sm">schedule</span> 6 أسابيع
                   </span>
-                  <span className="text-[10px] uppercase tracking-wider text-[#00fcca] flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">vertical_align_top</span> قفز ومقاومة
+                  <span className="text-[11px] tracking-wider text-[#00fcca] flex items-center gap-1.5 bg-[#00fcca]/5 px-3 py-1.5 rounded-full font-bold">
+                    <span className="material-symbols-outlined text-sm">vertical_align_top</span> قفز ومقاومة
                   </span>
                 </div>
               </div>
-              <button className="w-12 h-12 rounded-full shrink-0 bg-[#201f1f] border border-[#494847]/10 flex items-center justify-center text-[#00fcca] group-hover:bg-[#00fcca] group-hover:text-[#0e0e0e] transition-all">
-                <span className="material-symbols-outlined">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
+              <button className="w-14 h-14 rounded-full shrink-0 bg-[#201f1f] border border-[#494847]/10 flex items-center justify-center text-[#00fcca] group-hover:bg-[#00fcca] group-hover:text-[#0e0e0e] transition-all shadow-lg">
+                <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
               </button>
             </div>
           </div>
@@ -2086,7 +2090,7 @@ export default function Programs() {
           {/* Program 5: Balance (Wide Layout) */}
           <div 
             onClick={() => navigate('/education/training/speed/balance')}
-            className="relative bg-[#131313] rounded-[2.5rem] p-8 flex flex-col md:flex-row items-center gap-6 overflow-hidden border-b-2 border-[#e08dff]/20 cursor-pointer"
+            className="relative bg-[#131313] rounded-[2.5rem] p-8 flex flex-col md:flex-row items-center gap-6 overflow-hidden border-b-2 border-[#e08dff]/20 cursor-pointer hover:scale-[1.01] transition-all duration-300"
           >
             <div className="absolute right-0 bottom-0 opacity-10">
               <span className="material-symbols-outlined text-[120px]">accessibility_new</span>
@@ -2095,12 +2099,12 @@ export default function Programs() {
               <span className="material-symbols-outlined text-4xl">accessibility_new</span>
             </div>
             <div className="flex-1 text-center md:text-right z-10">
-              <h3 className="font-['Lexend'] text-2xl font-black mb-1 uppercase text-white">برنامج التوازن</h3>
-              <p className="text-[#d160ff] text-xs mb-3 italic">تعزيز الاستقرار العضلي والعصبي وتحسين التوافق الحركي للجسم بالكامل.</p>
-              <p className="text-[#adaaaa] text-sm leading-relaxed">تعزيز الاستقرار العصبي العضلي والتوافق الحركي للجسم بالكامل.</p>
+              <h3 className="font-display text-2xl font-extrabold mb-2 text-white leading-tight">برنامج التوازن</h3>
+              <p className="text-[#d160ff] text-sm mb-3 font-medium">تعزيز الاستقرار العضلي والعصبي وتحسين التوافق الحركي للجسم بالكامل.</p>
+              <p className="text-[#adaaaa] text-base leading-relaxed font-display">تعزيز الاستقرار العصبي العضلي والتوافق الحركي للجسم بالكامل.</p>
             </div>
             <div className="shrink-0 z-10 w-full md:w-auto mt-4 md:mt-0">
-              <button className="w-full md:w-auto bg-white text-[#0e0e0e] px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-[#e08dff] hover:text-white transition-colors">
+              <button className="w-full md:w-auto bg-white text-[#0e0e0e] px-8 py-3 rounded-full font-bold text-sm tracking-widest hover:bg-[#e08dff] hover:text-white transition-colors font-display">
                 ابدأ الآن
               </button>
             </div>
@@ -2108,9 +2112,9 @@ export default function Programs() {
 
           {/* Need help footer */}
           <div className="mt-12 p-8 rounded-[3rem] bg-gradient-to-br from-[#262626] to-[#0e0e0e] flex flex-col items-center text-center">
-            <h4 className="font-['Lexend'] text-lg font-bold mb-2 text-white">هل تحتاج لمساعدة؟</h4>
-            <p className="text-[#adaaaa] text-sm mb-6 max-w-xs block mx-auto">فريق الخبراء لدينا متاح لمساعدتك في اختيار البرنامج الأنسب لأهدافك.</p>
-            <button className="flex items-center gap-2 text-[#e08dff] text-xs font-bold uppercase tracking-widest group">
+            <h4 className="font-display text-xl font-extrabold mb-3 text-white">هل تحتاج لمساعدة؟</h4>
+            <p className="text-[#adaaaa] text-base mb-6 max-w-sm block mx-auto font-display leading-relaxed">فريق الخبراء لدينا متاح لمساعدتك في اختيار البرنامج الأنسب لأهدافك.</p>
+            <button className="flex items-center gap-2 text-[#e08dff] text-sm font-bold tracking-widest group bg-[#e08dff]/10 px-6 py-3 rounded-full hover:bg-[#e08dff]/20 transition-colors">
               تحدث مع مدرب <span className="material-symbols-outlined group-hover:-translate-x-1 transition-transform">{language === 'ar' ? 'arrow_back' : 'arrow_forward'}</span>
             </button>
           </div>

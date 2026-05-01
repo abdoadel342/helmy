@@ -2,6 +2,124 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 
+const anatomicalDetailsMap: Record<string, Record<string, { en: string, ar: string, subtitle?: string }[]>> = {
+  'الصدر': {
+    'العلوي': [
+      { en: 'Pectoralis Major', ar: 'العضلة الصدرية الكبيرة', subtitle: 'الرأس الترقوي' },
+      { en: 'Anterior Deltoid', ar: 'الدالية الأمامية', subtitle: 'مساعد' },
+      { en: 'Pectoralis Minor', ar: 'العضلة الصدرية الصغيرة', subtitle: 'استقرار' },
+      { en: 'Serratus Anterior', ar: 'المنشارية الأمامية', subtitle: 'الجانب دعامي' }
+    ],
+    'السفلي': [
+      { en: 'Pectoralis Major', ar: 'العضلة الصدرية الكبيرة', subtitle: 'الرأس القصي' },
+      { en: 'Triceps Brachii', ar: 'العضلة ثلاثية الرؤوس', subtitle: 'مساعد' },
+      { en: 'Lower Pectoralis', ar: 'الألياف السفلية', subtitle: 'التركيز الأساسي' },
+      { en: 'Latissimus Dorsi', ar: 'المجنص', subtitle: 'مساعد ثانوي' }
+    ],
+    'الداخلي': [
+      { en: 'Sternal Fibers', ar: 'الألياف القصية', subtitle: 'التركيز الأساسي' },
+      { en: 'Pectoralis Major', ar: 'الصدرية الكبيرة', subtitle: 'انقباض كامل' }
+    ],
+    'الخارجي': [
+      { en: 'Outer Pects', ar: 'الألياف الخارجية', subtitle: 'التمدد المستهدف' },
+      { en: 'Pectoralis Minor', ar: 'الصدرية الصغيرة', subtitle: 'مساعد' }
+    ]
+  },
+  'الظهر': {
+    'العلوي': [
+      { en: 'Trapezius', ar: 'العضلة شبه المنحرفة', subtitle: 'الألياف العلوية' },
+      { en: 'Rhomboids', ar: 'المعينيات', subtitle: 'بين اللوحين' },
+      { en: 'Rear Deltoid', ar: 'الدالية الخلفية', subtitle: 'مساعد' },
+      { en: 'Teres Major', ar: 'المدورة الكبيرة', subtitle: 'استقرار' }
+    ],
+    'السفلي': [
+      { en: 'Erector Spinae', ar: 'العضلة الناصبة للفقرات', subtitle: 'العمود الفقري' },
+      { en: 'Lower Latissimus', ar: 'المجنص السفلي', subtitle: 'القطنية' },
+      { en: 'Multifidus', ar: 'العضلات المفرزة', subtitle: 'استقرار' }
+    ],
+    'الخارجي': [
+      { en: 'Latissimus Dorsi', ar: 'العضلة الظهرية العريضة', subtitle: 'المجنص الأساسي' },
+      { en: 'Teres Major', ar: 'المدورة الكبيرة', subtitle: 'مساعد' }
+    ],
+    'الداخلي': [
+      { en: 'Middle Trapezius', ar: 'الترابيس الوسطى', subtitle: 'التركيز الأساسي' },
+      { en: 'Rhomboid Major', ar: 'المعينية الكبرى', subtitle: 'عمق الظهر' }
+    ]
+  },
+  'الكتف': {
+    'العلوي': [
+      { en: 'Anterior Deltoid', ar: 'الدالية الأمامية', subtitle: 'الرأس الأمامي' },
+      { en: 'Upper Trapezius', ar: 'الترابيس العلوية', subtitle: 'مساعد' }
+    ],
+    'الخارجي': [
+      { en: 'Lateral Deltoid', ar: 'الدالية الجانبية', subtitle: 'عرض الكتف' },
+      { en: 'Supraspinatus', ar: 'فوق الشوكة', subtitle: 'مساعد الرفع' }
+    ],
+    'السفلي': [
+      { en: 'Posterior Deltoid', ar: 'الدالية الخلفية', subtitle: 'الرأس الخلفي' },
+      { en: 'Infraspinatus', ar: 'تحت الشوكة', subtitle: 'الكفة المدورة' }
+    ],
+    'الداخلي': [
+      { en: 'Anterior Deltoid', ar: 'الدالية الأمامية', subtitle: 'الرأس الأمامي' },
+      { en: 'Pectoralis Major', ar: 'الصدرية الكبيرة', subtitle: 'الرأس الترقوي' }
+    ]
+  },
+  'الذراعين': {
+    'العلوي': [
+      { en: 'Biceps Brachii', ar: 'ذات الرأسين', subtitle: 'الجزء الأمامي' },
+      { en: 'Brachialis', ar: 'العضلة العضدية', subtitle: 'عمق الذراع' }
+    ],
+    'السفلي': [
+      { en: 'Triceps Brachii', ar: 'ثلاثية الرؤوس', subtitle: 'الجزء الخلفي' },
+      { en: 'Anconeus', ar: 'المرفقية', subtitle: 'مساعد مفصلي' }
+    ],
+    'الخارجي': [
+      { en: 'Lateral Head Triceps', ar: 'الرأس الجانبي', subtitle: 'الترايسبس' },
+      { en: 'Long Head Biceps', ar: 'الرأس الطويل', subtitle: 'البايسبس' }
+    ],
+    'الداخلي': [
+      { en: 'Short Head Biceps', ar: 'الرأس القصير', subtitle: 'البايسبس' },
+      { en: 'Coracobrachialis', ar: 'الغرابية العضدية', subtitle: 'استقرار الذراع' }
+    ]
+  },
+  'الأرجل': {
+    'العلوي': [
+      { en: 'Quadriceps Femoris', ar: 'رباعية الرؤوس', subtitle: 'الفخذ الأمامي' },
+      { en: 'Rectus Femoris', ar: 'المستقيمة الفخذية', subtitle: 'الرأس الأوسط' }
+    ],
+    'السفلي': [
+      { en: 'Hamstrings', ar: 'العضلات المأبضية', subtitle: 'الفخذ الخلفي' },
+      { en: 'Gastrocnemius', ar: 'السمانة', subtitle: 'عضلة الساق' }
+    ],
+    'الداخلي': [
+      { en: 'Adductor Longus', ar: 'المقربة الطويلة', subtitle: 'الضامة' },
+      { en: 'Gracilis', ar: 'الناحلة', subtitle: 'مساعد إطالة' }
+    ],
+    'الخارجي': [
+      { en: 'Vastus Lateralis', ar: 'المتسعة الجانبية', subtitle: 'الرأس الخارجي' },
+      { en: 'Gluteus Medius', ar: 'الألوية الوسطى', subtitle: 'موازن الساق' }
+    ]
+  },
+  'البطن': {
+    'العلوي': [
+      { en: 'Upper Rectus Abdominis', ar: 'المستقيمة البطنية', subtitle: 'الألياف العلوية' },
+      { en: 'Linea Alba', ar: 'الخط الأبيض', subtitle: 'الفاصل الليفي' }
+    ],
+    'السفلي': [
+      { en: 'Lower Rectus Abdominis', ar: 'المستقيمة البطنية', subtitle: 'الألياف السفلية' },
+      { en: 'Pyramidalis', ar: 'العضلة الهرمية', subtitle: 'جدار الحوض' }
+    ],
+    'الخارجي': [
+      { en: 'External Obliques', ar: 'المائلة الخارجية', subtitle: 'جوانب البطن' },
+      { en: 'Serratus Anterior', ar: 'المنشارية الأمامية', subtitle: 'المنشارية' }
+    ],
+    'الداخلي': [
+      { en: 'Transversus Abdominis', ar: 'المستعرضة البطنية', subtitle: 'مشد البطن الداخلي' },
+      { en: 'Internal Obliques', ar: 'المائلة الداخلية', subtitle: 'الدوران الثابت' }
+    ]
+  }
+};
+
 export default function MuscleStrengthBuilder() {
   const navigate = useNavigate();
   const [selectedMuscle, setSelectedMuscle] = useState('الصدر');
@@ -12,6 +130,11 @@ export default function MuscleStrengthBuilder() {
 
   const muscles = ['الصدر', 'الظهر', 'الكتف', 'الذراعين', 'الأرجل', 'البطن'];
   const parts = ['العلوي', 'السفلي', 'الداخلي', 'الخارجي'];
+
+  const currentDetails = anatomicalDetailsMap[selectedMuscle]?.[selectedPart] || [
+    { en: 'Primary Muscle Group', ar: 'المجموعة العضلية الأساسية', subtitle: 'التركيز الأساسي' },
+    { en: 'Secondary Muscles', ar: 'العضلات المساعدة', subtitle: 'دعم حركي' }
+  ];
 
   return (
     <FadeContent blur={true} duration={600} easing="ease-out" initialOpacity={0}>
@@ -104,33 +227,28 @@ export default function MuscleStrengthBuilder() {
               ))}
             </div>
 
-            {/* Anatomical Detail View (Conditional based on selection) */}
-            {selectedMuscle === 'الصدر' && selectedPart === 'العلوي' && (
-              <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20 animate-in fade-in slide-in-from-top-2 duration-300">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="material-symbols-outlined text-primary text-sm">biotech</span>
-                  <h4 className="text-sm font-bold text-primary">التفاصيل التشريحية (الصدر العلوي)</h4>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="flex flex-col gap-0.5 p-2 rounded-lg bg-white/50 dark:bg-primary/10 border border-primary/5">
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase leading-none">Pectoralis Major</span>
-                    <span className="text-xs font-semibold">العضلة الصدرية الكبيرة</span>
-                  </div>
-                  <div className="flex flex-col gap-0.5 p-2 rounded-lg bg-white/50 dark:bg-primary/10 border border-primary/5">
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase leading-none">Clavicular Head</span>
-                    <span className="text-xs font-semibold">الرأس الترقوي</span>
-                  </div>
-                  <div className="flex flex-col gap-0.5 p-2 rounded-lg bg-white/50 dark:bg-primary/10 border border-primary/5">
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase leading-none">Anterior Deltoid</span>
-                    <span className="text-xs font-semibold">الدالية الأمامية (مساعد)</span>
-                  </div>
-                  <div className="flex flex-col gap-0.5 p-2 rounded-lg bg-white/50 dark:bg-primary/10 border border-primary/5">
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase leading-none">Pectoralis Minor</span>
-                    <span className="text-xs font-semibold">العضلة الصدرية الصغيرة</span>
-                  </div>
-                </div>
+            {/* Anatomical Detail View (Dynamic based on selectedMuscle and selectedPart) */}
+            <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="material-symbols-outlined text-primary text-sm">biotech</span>
+                <h4 className="text-sm font-bold text-primary">التفاصيل التشريحية ({selectedMuscle} - {selectedPart})</h4>
               </div>
-            )}
+              <div className="grid grid-cols-2 gap-2">
+                {currentDetails.map((detail, idx) => (
+                  <div key={idx} className="flex flex-col gap-0.5 p-2 rounded-lg bg-white/50 dark:bg-primary/10 border border-primary/5">
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase leading-none">{detail.en}</span>
+                    <span className="text-xs font-semibold mt-1 flex flex-col md:flex-row gap-1">
+                      <span>{detail.ar}</span>
+                      {detail.subtitle && (
+                        <span className="font-normal text-slate-600 dark:text-slate-400 text-[10px] bg-slate-200/60 dark:bg-black/30 px-1 rounded inline-block self-start">
+                          {detail.subtitle}
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </section>
 
           {/* Sets and Reps Configuration */}
