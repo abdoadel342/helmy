@@ -22,7 +22,7 @@ export default function Home() {
           <div className="bg-primary p-2 rounded-lg flex items-center justify-center">
             <span className="material-symbols-outlined text-white text-2xl">fitness_center</span>
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-primary uppercase tracking-widest font-black">HELMY</h1>
+          <h1 className="text-xl font-bold tracking-tight text-primary uppercase tracking-widest">HELMY</h1>
         </div>
         <div className="flex items-center gap-4">
           <button className="relative p-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-full transition-colors">
@@ -123,7 +123,7 @@ export default function Home() {
               <span className="inline-block px-4 py-1.5 mb-4 text-xs font-bold bg-primary text-white rounded-full uppercase tracking-wider">
                 {t('overview')}
               </span>
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 <ShinyText text={t('about_program')} disabled={false} speed={3} className="text-white" />
               </h2>
               <p className="text-slate-200 text-sm md:text-base leading-relaxed max-w-2xl">
@@ -140,7 +140,7 @@ export default function Home() {
           <div className="mb-6">
             <SplitText
               text={language === 'ar' ? 'ماذا يقدم تطبيق حلمي؟' : 'What does Helmy offer?'}
-              className="text-2xl md:text-3xl font-black text-center text-primary mb-2"
+              className="text-2xl md:text-3xl font-bold text-center text-primary mb-2"
               delay={50}
               duration={1.25}
               ease="power3.out"
@@ -217,7 +217,7 @@ export default function Home() {
               <div className="absolute -right-8 -top-8 opacity-10">
                 <span className="material-symbols-outlined text-[180px]">emoji_events</span>
               </div>
-              <h3 className="text-2xl font-black mb-6 relative z-10 tracking-tight">{t('app_goals')}</h3>
+              <h3 className="text-2xl font-bold mb-6 relative z-10 tracking-tight">{t('app_goals')}</h3>
               <ul className="space-y-4 relative z-10">
                 <li className="flex items-start gap-4">
                   <span className="material-symbols-outlined text-primary text-2xl">check_circle</span>

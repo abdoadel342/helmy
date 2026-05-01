@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export interface RotatingTextProps {
@@ -14,38 +14,78 @@ export interface RotatingTextProps {
   rotationInterval?: number;
 }
 
-export default function RotatingText({
-  texts,
-  mainClassName = "",
-  initial = { y: "100%" },
-  animate = { y: 0 },
-  exit = { y: "-120%" },
-  transition = { type: "spring", damping: 30, stiffness: 400 },
-  rotationInterval = 2000,
-}: RotatingTextProps) {
-  const [index, setIndex] = useState(0);
+const RotatingText = forwardRef<HTMLSpanElement, RotatingTextProps>((props, ref) => {
+  const {
+    texts,
+    transition = { type: "spring", damping: 30, stiffness: 400 },
+    initial = { y: "100%" },
+    animate = { y: 0 },
+    exit = { y: "-120%" },
+    staggerDuration = 0.025,
+    staggerFrom = "first",
+    rotationInterval = 2000,
+    mainClassName = "",
+    splitLevelClassName = "",
+  } = props;
+
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % texts.length);
+      setCurrentTextIndex((prev) => (prev + 1) % texts.length);
     }, rotationInterval);
     return () => clearInterval(interval);
   }, [texts.length, rotationInterval]);
 
+  const elements = texts[currentTextIndex].split("");
+
   return (
-    <span className={`inline-flex items-center justify-center align-middle ${mainClassName}`}>
+    <span
+      ref={ref}
+      className={`inline-flex overflow-hidden ${mainClassName}`}
+    >
       <AnimatePresence mode="wait">
-        <motion.span
-          key={index}
-          initial={initial}
-          animate={animate}
-          exit={exit}
-          transition={transition}
-          className="inline-block"
+        <motion.div
+          key={currentTextIndex}
+          className={`flex ${splitLevelClassName}`}
+          initial="initial"
+          animate="animate"
+          exit="exit"
         >
-          {texts[index]}
-        </motion.span>
+          {elements.map((char, index) => {
+            let delay = index * staggerDuration;
+            if (staggerFrom === "last") {
+              delay = (elements.length - 1 - index) * staggerDuration;
+            } else if (staggerFrom === "center") {
+              const center = Math.floor(elements.length / 2);
+              delay = Math.abs(center - index) * staggerDuration;
+            } else if (typeof staggerFrom === "number") {
+              delay = Math.abs(staggerFrom - index) * staggerDuration;
+            }
+
+            return (
+              <motion.span
+                key={index}
+                variants={{
+                  initial,
+                  animate,
+                  exit,
+                }}
+                transition={{
+                  ...transition,
+                  delay,
+                }}
+                className={char === " " ? "w-[0.5ex]" : "inline-block"}
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            );
+          })}
+        </motion.div>
       </AnimatePresence>
     </span>
   );
-}
+});
+
+RotatingText.displayName = "RotatingText";
+export default RotatingText;

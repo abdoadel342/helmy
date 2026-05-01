@@ -7,6 +7,7 @@ import { useAuth } from '../AuthContext';
 import { useLanguage } from '../LanguageContext';
 
 import { useNavigate } from 'react-router-dom';
+import GradientText from '../components/react-bits/GradientText';
 
 type ExerciseSet = {
   set_number: number;
@@ -493,7 +494,11 @@ export default function Programs() {
               <button onClick={() => setActiveModule(null)} className="text-[#e08dff] hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-200">
                 <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
               </button>
-              <h1 className="font-['Lexend'] font-bold tracking-tight text-[#e08dff] text-lg">مخطط تمارين الإطالة الديناميكية</h1>
+              <h1 className="font-['Lexend'] font-bold tracking-tight text-lg">
+                <GradientText colors={["#5227FF","#FF9FFC","#B19EEF"]} animationSpeed={8} showBorder={false}>
+                  مخطط تمارين الإطالة الديناميكية
+                </GradientText>
+              </h1>
             </div>
           </header>
 
@@ -710,7 +715,11 @@ export default function Programs() {
               <button onClick={() => setActiveModule(null)} className="text-[#e08dff] hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-200">
                 <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
               </button>
-              <h1 className="font-['Lexend'] font-bold tracking-tight text-[#e08dff] text-lg">مخطط تمارين المرونة الثابتة</h1>
+              <h1 className="font-['Lexend'] font-bold tracking-tight text-lg">
+                <GradientText colors={["#5227FF","#FF9FFC","#B19EEF"]} animationSpeed={8} showBorder={false}>
+                  مخطط تمارين المرونة الثابتة
+                </GradientText>
+              </h1>
             </div>
           </header>
 
