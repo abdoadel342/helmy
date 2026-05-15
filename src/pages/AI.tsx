@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import { ai } from '../genai';
+import { BackButton } from '../components/BackButton';
 import { MessageSquare, Mic, Search, MapPin, Zap, Upload, Activity, Utensils, Camera, PlayCircle } from 'lucide-react';
 
 declare global {
@@ -94,7 +95,9 @@ export default function AI() {
       setChatHistory(prev => [...prev, { role: 'ai', text: response.text || 'لا يوجد رد' }]);
     } catch (error) {
       console.error(error);
-      setChatHistory(prev => [...prev, { role: 'ai', text: 'خطأ في توليد الرد.' }]);
+      // Fallback response if API fails (e.g. missing API key)
+      const mockResponse = `عذراً، يبدو أن هناك مشكلة في الاتصال (ربما مفتاح API غير متوفر). كمدرب ذكي، أنصحك بالاستمرار في التدريب والالتزام بجدولك! 💪`;
+      setChatHistory(prev => [...prev, { role: 'ai', text: mockResponse }]);
     } finally {
       setChatLoading(false);
       setChatInput('');
@@ -204,9 +207,12 @@ export default function AI() {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-8 pb-12"
     >
-      <header>
-        <h1 className="text-4xl font-bold text-white mb-2">المساعد الذكي (AI)</h1>
-        <p className="text-zinc-400">أدوات متقدمة مدعومة بالذكاء الاصطناعي لتحسين أدائك وتغذيتك.</p>
+      <header className="flex items-center gap-4 mb-8">
+        <BackButton />
+        <div>
+          <h1 className="text-4xl font-bold text-white mb-2">المساعد الذكي (AI)</h1>
+          <p className="text-zinc-400">أدوات متقدمة مدعومة بالذكاء الاصطناعي لتحسين أدائك وتغذيتك.</p>
+        </div>
       </header>
 
       <div className="flex gap-4 border-b border-zinc-800 pb-4 overflow-x-auto scrollbar-hide">

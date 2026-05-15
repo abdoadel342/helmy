@@ -5,6 +5,7 @@ import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
 import { useStartWorkout } from '../useStartWorkout';
+import { BackButton } from '../components/BackButton';
 
 export default function PlyometricsTraining() {
   const navigate = useNavigate();
@@ -14,12 +15,7 @@ export default function PlyometricsTraining() {
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-x-hidden font-display">
       {/* TopAppBar */}
       <header className="flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 sticky top-0 z-50 border-b border-primary/10">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight flex-1 mr-4">تمارين البليومتريك</h1>
         <button className="flex items-center justify-center size-10 text-slate-400 hover:bg-primary/10 hover:text-primary rounded-full transition-colors">
           <span className="material-symbols-outlined">share</span>

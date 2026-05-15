@@ -4,6 +4,7 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
+import { BackButton } from '../components/BackButton';
 
 export default function NeuromuscularCoordination() {
   const navigate = useNavigate();
@@ -13,12 +14,7 @@ export default function NeuromuscularCoordination() {
       {/* TopAppBar */}
       <header className="flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 sticky top-0 z-50 border-b border-primary/10 justify-between">
         <div className="flex items-center gap-4">
-          <button 
-            onClick={() => navigate(-1)}
-            className="flex items-center justify-center p-2 rounded-full hover:bg-primary/10 transition-colors"
-          >
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <BackButton />
           <h1 className="text-lg font-bold leading-tight tracking-[-0.015em]">التوافق العصبي العضلي</h1>
         </div>
         <button className="p-2 hover:bg-primary/10 rounded-full transition-colors">

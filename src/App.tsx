@@ -38,6 +38,7 @@ import NeuromuscularCoordination from './pages/NeuromuscularCoordination';
 import PlyometricsTraining from './pages/PlyometricsTraining';
 import ShortSprints from './pages/ShortSprints';
 import DarkVeil from './components/react-bits/DarkVeil';
+import KidsTraining from './pages/KidsTraining';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
@@ -134,6 +135,7 @@ export default function App() {
             <Route path="nutrition/fat-loss" element={<FatLossPlan />} />
             <Route path="nutrition/recipes" element={<Recipes />} />
             <Route path="ai" element={<AI />} />
+            <Route path="kids-training" element={<KidsTraining />} />
             <Route path="telemetry" element={<Telemetry />} />
             <Route path="settings" element={<Settings />} />
           </Route>

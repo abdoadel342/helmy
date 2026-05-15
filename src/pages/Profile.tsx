@@ -6,6 +6,7 @@ import { useAuth } from '../AuthContext';
 import { handleFirestoreError, OperationType } from '../errorHandling';
 import { Save, Calculator, Target, TrendingUp, Activity, Flame, Utensils, ClipboardList, Trash2 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BackButton } from '../components/BackButton';
 
 interface UserProfile {
   uid: string;
@@ -291,10 +292,13 @@ export default function Profile() {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-8 pb-12"
     >
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight">ملفك الشخصي</h1>
-          <p className="text-zinc-400 text-lg font-medium">أدخل بياناتك لحساب احتياجاتك بدقة علمية متطورة.</p>
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <BackButton />
+          <div>
+            <h1 className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight">ملفك الشخصي</h1>
+            <p className="text-zinc-400 text-lg font-medium">أدخل بياناتك لحساب احتياجاتك بدقة علمية متطورة.</p>
+          </div>
         </div>
       </header>
 

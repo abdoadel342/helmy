@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
+import { BackButton } from '../components/BackButton';
 
 export default function Education() {
   const navigate = useNavigate();
@@ -51,12 +52,7 @@ export default function Education() {
       <header className="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
         <div className="flex items-center justify-between p-4">
           <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">التعليم</h1>
-          <button 
-            onClick={() => navigate(-1)}
-            className="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-          >
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <BackButton />
         </div>
       </header>
 

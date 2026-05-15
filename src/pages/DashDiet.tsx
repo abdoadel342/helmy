@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
+import { BackButton } from '../components/BackButton';
 
 export default function DashDiet() {
   const navigate = useNavigate();
@@ -9,12 +10,7 @@ export default function DashDiet() {
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden font-display">
       {/* Header Section */}
       <header className="flex items-center bg-background-light dark:bg-background-dark p-4 sticky top-0 z-10 border-b border-primary/10">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
+        <BackButton />
         <h2 className="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight flex-1 text-center mr-[-40px]">حمية DASH</h2>
       </header>
 

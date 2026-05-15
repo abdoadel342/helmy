@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
+import { BackButton } from '../components/BackButton';
 
 export default function SportsNutrition() {
   const navigate = useNavigate();
@@ -12,9 +13,7 @@ export default function SportsNutrition() {
       {/* Header Section */}
       <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/20">
         <div className="flex items-center p-4 justify-between max-w-2xl mx-auto w-full">
-          <button onClick={() => navigate(-1)} className="text-slate-900 dark:text-white hover:bg-primary/20 p-2 rounded-full transition-colors">
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <BackButton />
           <h1 className="text-slate-900 dark:text-white text-lg font-bold flex-1 text-center">تغذية الرياضيين</h1>
           <button className="text-slate-900 dark:text-white hover:bg-primary/20 p-2 rounded-full transition-colors">
             <span className="material-symbols-outlined">share</span>

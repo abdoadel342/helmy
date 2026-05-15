@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { ShinyText } from '../components/react-bits/ShinyText';
+import { BackButton } from '../components/BackButton';
 
 export default function Training() {
   const navigate = useNavigate();
@@ -11,12 +12,7 @@ export default function Training() {
       {/* Top Navigation Bar */}
       <header className="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-primary/10">
         <div className="flex items-center gap-3">
-          <button 
-            onClick={() => navigate(-1)}
-            className="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-          >
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <BackButton />
           <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">التدريب الرياضي</h1>
         </div>
         <button className="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors">

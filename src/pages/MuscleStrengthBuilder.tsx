@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
+import { BackButton } from '../components/BackButton';
 
 const anatomicalDetailsMap: Record<string, Record<string, { en: string, ar: string, subtitle?: string }[]>> = {
   'الصدر': {
@@ -142,12 +143,7 @@ export default function MuscleStrengthBuilder() {
         
         {/* Header */}
         <header className="flex items-center justify-between p-4 sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
-          <button 
-            onClick={() => navigate(-1)}
-            className="flex items-center justify-center size-10 rounded-full bg-slate-200 dark:bg-primary/20 text-slate-900 dark:text-slate-100"
-          >
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <BackButton />
           <h1 className="text-xl font-bold tracking-tight text-center flex-1">برنامج القوة العضلية</h1>
           <div className="size-10"></div> {/* Spacer for symmetry */}
         </header>

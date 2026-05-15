@@ -6,7 +6,7 @@ $utf8NoBom = New-Object System.Text.UTF8Encoding($False)
 
 foreach ($file in $files) {
     try {
-        $content = Get-Content -Path $file.FullName -Raw
+        $content = Get-Content -Path $file.FullName -Raw -Encoding UTF8
         if ($content -match $pattern) {
             $content = $content -replace $pattern, '<BackButton />'
             
@@ -19,7 +19,7 @@ foreach ($file in $files) {
                     $depth = $parts.Length - 1
                 }
                 
-                $up = ""
+                $up = "../"
                 for ($i = 0; $i -lt $depth; $i++) { $up += "../" }
                 $importStr = "import { BackButton } from '${up}components/BackButton';`r`n"
                 

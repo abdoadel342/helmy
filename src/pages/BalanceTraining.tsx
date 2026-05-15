@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
+import { BackButton } from '../components/BackButton';
 
 const BalanceTraining: React.FC = () => {
   const navigate = useNavigate();
@@ -11,12 +12,7 @@ const BalanceTraining: React.FC = () => {
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-x-hidden font-display pb-24">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/20 p-4 flex items-center justify-between">
-        <button 
-          onClick={() => navigate(-1)}
-          className="p-2 hover:bg-primary/10 rounded-full transition-colors flex items-center justify-center"
-        >
-          <span className="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">تمارين التوازن</h1>
         <div className="w-10"></div> {/* Spacer for symmetry */}
       </header>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
+import { BackButton } from '../components/BackButton';
 
 export default function Physiology() {
   const navigate = useNavigate();
@@ -12,12 +13,7 @@ export default function Physiology() {
       {/* Header Section */}
       <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/20">
         <div className="flex items-center p-4 justify-between max-w-2xl mx-auto">
-          <button 
-            onClick={() => navigate(-1)}
-            className="text-slate-900 dark:text-slate-100 p-2 hover:bg-primary/20 rounded-full transition-colors flex items-center justify-center"
-          >
-            <span className="material-symbols-outlined text-2xl">arrow_forward</span>
-          </button>
+          <BackButton />
           <h1 className="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight flex-1 text-center">فسيولوجية الرياضة</h1>
           <div className="w-10"></div> {/* Spacer for balance */}
         </div>

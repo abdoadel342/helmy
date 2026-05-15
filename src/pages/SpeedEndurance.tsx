@@ -5,6 +5,7 @@ import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
 import { useStartWorkout } from '../useStartWorkout';
+import { BackButton } from '../components/BackButton';
 
 export default function SpeedEndurance() {
   const navigate = useNavigate();
@@ -14,12 +15,7 @@ export default function SpeedEndurance() {
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-x-hidden font-display pb-32">
       {/* Header / Top Bar */}
       <header className="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/20">
-        <button 
-          onClick={() => navigate(-1)}
-          className="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="flex-1 text-center text-lg font-bold tracking-tight text-primary">HELMY</h1>
         <div className="w-10"></div> {/* Spacer for balance */}
       </header>

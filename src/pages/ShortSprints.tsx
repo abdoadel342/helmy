@@ -5,6 +5,7 @@ import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
 import { useStartWorkout } from '../useStartWorkout';
+import { BackButton } from '../components/BackButton';
 
 export default function ShortSprints() {
   const navigate = useNavigate();
@@ -14,12 +15,7 @@ export default function ShortSprints() {
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-[#0a0a0a] text-white overflow-x-hidden font-display">
       {/* TopAppBar */}
       <header className="flex items-center bg-[#0a0a0a]/80 backdrop-blur-md p-4 sticky top-0 z-50">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center size-10 rounded-full bg-[#1a1a1a] text-white hover:bg-[#2a2a2a] transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-xl font-bold tracking-tight flex-1 mr-4">تمارين السرعة القصيرة</h1>
       </header>
 

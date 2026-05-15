@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
+import { BackButton } from '../components/BackButton';
 
 export default function EnergyCalculator() {
   const navigate = useNavigate();
@@ -32,12 +33,7 @@ export default function EnergyCalculator() {
       <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
         <div className="flex items-center p-4 justify-between">
           <div className="flex items-center gap-3">
-            <button 
-              onClick={() => navigate(-1)}
-              className="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors"
-            >
-              <span className="material-symbols-outlined">arrow_forward</span>
-            </button>
+            <BackButton />
             <h2 className="text-xl font-bold tracking-tight">حساب الطاقة</h2>
           </div>
           <div className="size-10 bg-primary/20 rounded-full flex items-center justify-center text-primary">

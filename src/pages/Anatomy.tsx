@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
+import { BackButton } from '../components/BackButton';
 
 export default function Anatomy() {
   const navigate = useNavigate();
@@ -16,12 +17,7 @@ export default function Anatomy() {
     <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
       {/* Top Navigation */}
       <nav className="sticky top-0 z-50 flex items-center justify-between p-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center size-10 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
-        >
-          <span className="material-symbols-outlined text-primary">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-lg font-bold tracking-tight text-primary">HELMY Anatomy</h1>
         <div className="size-10"></div> {/* Spacer for balance */}
       </nav>

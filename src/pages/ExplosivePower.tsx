@@ -5,6 +5,7 @@ import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
 import { useStartWorkout } from '../useStartWorkout';
+import { BackButton } from '../components/BackButton';
 
 export default function ExplosivePower() {
   const navigate = useNavigate();
@@ -15,12 +16,7 @@ export default function ExplosivePower() {
       {/* TopAppBar */}
       <header className="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-primary/10">
         <div className="flex items-center gap-3">
-          <button 
-            onClick={() => navigate(-1)}
-            className="flex items-center justify-center p-2 rounded-full text-slate-900 dark:text-white hover:bg-primary/20 transition-colors cursor-pointer"
-          >
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <BackButton />
           <h1 className="text-xl font-bold leading-tight tracking-tight">القوة الانفجارية</h1>
         </div>
         <div className="flex items-center gap-2">

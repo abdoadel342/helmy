@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
+import { BackButton } from '../components/BackButton';
 
 export default function Nutrition() {
   const navigate = useNavigate();
@@ -9,12 +10,7 @@ export default function Nutrition() {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/10">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
+        <BackButton />
         <div className="flex-1 text-center">
           <h1 className="text-xl font-bold tracking-tight">التغذية للرياضيين</h1>
         </div>

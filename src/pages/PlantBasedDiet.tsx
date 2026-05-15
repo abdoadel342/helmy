@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
+import { BackButton } from '../components/BackButton';
 
 export default function PlantBasedDiet() {
   const navigate = useNavigate();
@@ -9,12 +10,7 @@ export default function PlantBasedDiet() {
     <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display pb-24">
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/10">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center size-10 rounded-full hover:bg-primary/10 transition-colors"
-        >
-          <span className="material-symbols-outlined text-primary">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-lg font-bold tracking-tight">النظام النباتي للرياضيين</h1>
         <div className="size-10"></div> {/* Spacer for balance */}
       </header>

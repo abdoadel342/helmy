@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
+import { BackButton } from '../components/BackButton';
 
 export default function FatLossPlan() {
   const navigate = useNavigate();
@@ -9,12 +10,7 @@ export default function FatLossPlan() {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-4 py-4 flex items-center justify-between">
-        <button 
-          onClick={() => navigate(-1)}
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-lg font-bold">خطة خسارة الدهون</h1>
         <div className="w-10 flex items-center justify-center text-primary font-bold text-xl italic">
           HELMY

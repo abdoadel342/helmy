@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
+import { BackButton } from '../components/BackButton';
 
 export default function NutritionPlan() {
   const navigate = useNavigate();
@@ -10,12 +11,7 @@ export default function NutritionPlan() {
       {/* Header Section */}
       <header className="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-primary/10">
         <div className="flex items-center gap-3">
-          <button 
-            onClick={() => navigate(-1)}
-            className="text-slate-900 dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-primary/10 transition-colors"
-          >
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <BackButton />
           <div className="flex flex-col">
             <span className="text-primary font-bold text-xs tracking-widest uppercase">HELMY</span>
             <h1 className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">خطة بناء العضلات</h1>

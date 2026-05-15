@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
+import { BackButton } from '../components/BackButton';
 
 export default function Psychology() {
   const navigate = useNavigate();
@@ -11,12 +12,7 @@ export default function Psychology() {
     <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-primary/10">
-        <button 
-          onClick={() => navigate(-1)}
-          className="text-slate-900 dark:text-slate-100 flex size-10 items-center justify-center rounded-full hover:bg-primary/10 transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-lg font-bold leading-tight tracking-tight flex-1 text-center">سيكولوجية الرياضة</h1>
         <div className="size-10"></div> {/* Spacer for symmetry */}
       </header>

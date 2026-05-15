@@ -8,6 +8,11 @@ import { useLanguage } from '../LanguageContext';
 
 import { useNavigate } from 'react-router-dom';
 import GradientText from '../components/react-bits/GradientText';
+import { BackButton } from '../components/BackButton';
+import { FadeContent } from '../components/react-bits/FadeContent';
+import { SpotlightCard } from '../components/react-bits/SpotlightCard';
+import { ShinyText } from '../components/react-bits/ShinyText';
+import { StarBorder } from '../components/react-bits/StarBorder';
 
 type ExerciseSet = {
   set_number: number;
@@ -1567,149 +1572,156 @@ export default function Programs() {
         exit={{ opacity: 0, x: -20 }}
         className="space-y-6 pb-12"
       >
-        <button 
-          onClick={() => setSelectedProgram(null)}
-          className="flex items-center justify-center p-2 rounded-full text-white hover:bg-white/10 transition-colors self-start"
-        >
-          <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
-        </button>
-
         {selectedProgram.program_id === 'prog_003' ? (
-          <div className="pb-12 text-[#ffffff]">
-            <header className="flex items-center justify-between px-6 py-4 bg-[#0e0e0e]/70 backdrop-blur-xl rounded-2xl mb-8 border border-white/5 bg-gradient-to-b from-[#0e0e0e] to-transparent">
-              <div className="flex items-center gap-4">
-                <button 
-                  onClick={() => setSelectedProgram(null)}
-                  className="text-[#BF00FF] hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-200"
-                >
-                  <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
-                </button>
-                <h1 className="font-display font-bold text-xl leading-[1.2] text-[#BF00FF]">برنامج المرونة والاستشفاء</h1>
-              </div>
-              <div className="text-[#BF00FF] font-display font-black italic">HELMY</div>
+          <div className="pb-12 text-[#ffffff] max-w-2xl mx-auto w-full">
+            <header className="flex items-center bg-transparent p-4 sticky top-0 z-10 border-b border-[#BF00FF]/10 mb-4 backdrop-blur-md">
+              <button onClick={() => setSelectedProgram(null)} className="flex items-center justify-center size-10 text-[#BF00FF] hover:bg-[#BF00FF]/10 rounded-full transition-colors self-start mr-2">
+                <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
+              </button>
+              <h1 className="text-white text-xl font-bold leading-tight tracking-tight flex-1 mr-4">برنامج المرونة والاستشفاء</h1>
+              <button className="flex items-center justify-center size-10 text-[#BF00FF] hover:bg-[#BF00FF]/10 rounded-full transition-colors">
+                <span className="material-symbols-outlined">share</span>
+              </button>
             </header>
 
             {/* Hero Section */}
-            <section className="relative w-full h-[480px] overflow-hidden rounded-3xl">
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/20 to-transparent z-10"></div>
-              <img alt="تمارين المرونة والاطالة" className="w-full h-full object-cover grayscale brightness-[0.8] scale-100" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2000&auto=format&fit=crop"/>
-              <div className="absolute bottom-0 right-0 p-8 z-20 w-full max-w-2xl">
-                <div className="inline-block bg-[#BF00FF] px-3 py-1 rounded-sm mb-4">
-                  <span className="font-display text-[#ffffff] text-xs font-bold tracking-widest uppercase">RECOVERY PROGRAM</span>
+            <FadeContent blur={true} duration={1000} initialOpacity={0}>
+              <div className="@container px-4 py-4">
+                <div 
+                  className="w-full aspect-video bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl relative group shadow-2xl border border-[#BF00FF]/20" 
+                  style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2000&auto=format&fit=crop")' }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e]/90 via-[#0e0e0e]/20 to-transparent"></div>
+                  <div className="relative p-6">
+                    <span className="inline-block px-3 py-1 bg-[#BF00FF] text-white text-xs font-bold rounded-full mb-2">
+                      <ShinyText text="RECOVERY PROGRAM" disabled={false} speed={3} className="text-white" />
+                    </span>
+                    <h2 className="text-white text-2xl font-bold">خطة المرونة والاستشفاء</h2>
+                  </div>
                 </div>
-                <h2 className="font-display font-black text-5xl md:text-6xl text-white leading-tight mb-4 italic uppercase">خطة المرونة والاستشفاء</h2>
-                <p className="text-[#adaaaa] text-lg leading-relaxed max-w-md border-r-4 border-[#BF00FF] pr-4">
-                    مفتاحك للأداء العالي وتجنب الإصابات. تعلم كيف تعيد شحن طاقتك وتزيد من مدى حركة مفاصلك بذكاء.
-                </p>
               </div>
-            </section>
+            </FadeContent>
 
             {/* Modules Section */}
-            <section className="mt-12 space-y-4">
-              {/* Bento Grid - Header */}
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="font-display font-bold text-2xl text-white flex items-center gap-3">
-                  <span className="w-8 h-[2px] bg-[#00fcca]"></span>
-                    وحدات البرنامج
-                </h3>
-                <span className="font-display text-[#00fcca] text-sm">6 UNITS</span>
-              </div>
-
-              {/* Dynamic Stretching Card */}
-              <div 
-                onClick={() => setActiveModule('dynamic')}
-                className="bg-[#131313] p-5 rounded-2xl flex items-center gap-5 group hover:bg-[#201f1f] transition-all active:scale-[0.98] duration-300 cursor-pointer"
-              >
-                <div className="w-16 h-16 rounded-xl bg-[#262626] flex items-center justify-center text-[#00fcca]">
-                  <span className="material-symbols-outlined text-4xl">fitness_center</span>
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-display font-bold text-lg text-white mb-1">تمارين الإطالة الديناميكية</h4>
-                  <p className="text-[#adaaaa] text-sm">للإحماء الفعال وزيادة مدى الحركة قبل التمرين.</p>
-                </div>
-                <span className="material-symbols-outlined text-[#777575] group-hover:text-[#BF00FF] transition-colors">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
-              </div>
-
-              {/* Static Stretching Card */}
-              <div 
-                onClick={() => setActiveModule('static')}
-                className="bg-[#131313] p-5 rounded-2xl flex items-center gap-5 group hover:bg-[#201f1f] transition-all active:scale-[0.98] duration-300 cursor-pointer"
-              >
-                <div className="w-16 h-16 rounded-xl bg-[#262626] flex items-center justify-center text-[#BF00FF]">
-                  <span className="material-symbols-outlined text-4xl">self_improvement</span>
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-display font-bold text-lg text-white mb-1">تمارين الإطالة الثابتة</h4>
-                  <p className="text-[#adaaaa] text-sm">للاسترخاء العميق وتهدئة العضلات بعد المجهود البدني.</p>
-                </div>
-                <span className="material-symbols-outlined text-[#777575] group-hover:text-[#BF00FF] transition-colors">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
-              </div>
-
-              {/* Recovery Techniques - High Impact Bento */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div 
-                  onClick={() => setActiveModule('techniques')}
-                  className="bg-[#131313] p-6 rounded-3xl relative overflow-hidden group hover:bg-[#201f1f] transition-all cursor-pointer border border-[#131313] hover:border-[#00fcca]/30"
-                >
-                  <div className="relative z-10">
-                    <span className="material-symbols-outlined text-[#00fcca] text-4xl mb-4">rebase_edit</span>
-                    <h4 className="font-display font-bold text-xl text-white mb-2">تقنيات الاستشفاء</h4>
-                    <p className="text-[#adaaaa] text-sm mb-6">التدليك، الفوم رولينج، والترطيب المثالي للعضلات.</p>
-                    <div className="flex items-center gap-2 text-[#00fcca] font-display text-xs tracking-tighter">
-                      <span>EXPLORE TECHNIQUES</span>
-                      <span className="material-symbols-outlined text-xs group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform">{language === 'ar' ? 'arrow_back' : 'north_east'}</span>
-                    </div>
-                  </div>
-                  <div className="absolute -bottom-4 -left-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <span className="material-symbols-outlined text-[120px]">spa</span>
-                  </div>
-                </div>
-
-                <div 
-                  onClick={() => setActiveModule('mindfulness')}
-                  className="bg-[#131313] p-6 rounded-3xl relative overflow-hidden group hover:bg-[#201f1f] transition-all cursor-pointer border border-[#131313] hover:border-[#BF00FF]/30"
-                >
-                  <div className="relative z-10">
-                    <span className="material-symbols-outlined text-[#BF00FF] text-4xl mb-4">psychology</span>
-                    <h4 className="font-display font-bold text-xl text-white mb-2">الوعي الجسماني</h4>
-                    <p className="text-[#adaaaa] text-sm mb-6">تعزيز الاتصال الذهني العضلي أثناء عملية الاستشفاء.</p>
-                    <div className="flex items-center gap-2 text-[#BF00FF] font-display text-xs tracking-tighter">
-                      <span>MIND-BODY LINK</span>
-                      <span className="material-symbols-outlined text-xs group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform">{language === 'ar' ? 'arrow_back' : 'north_east'}</span>
-                    </div>
-                  </div>
-                  <div className="absolute -bottom-4 -left-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <span className="material-symbols-outlined text-[120px]">mindfulness</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Weekly Schedule - Featured Wide Card */}
-              <div className="bg-[#262626]/40 p-8 rounded-[32px] border border-[#494847]/10 relative overflow-hidden active:scale-[0.99] transition-transform cursor-pointer">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
-                  <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="material-symbols-outlined text-[#00fcca]">calendar_month</span>
-                      <h4 className="font-display font-bold text-2xl text-white">جدول الاستشفاء الأسبوعي</h4>
-                    </div>
-                    <p className="text-[#adaaaa] max-w-sm">خارطة طريق مخصصة توضح لك متى وكيف تطبق تمارين الاستشفاء خلال أسبوعك.</p>
-                  </div>
-                  <button 
-                    onClick={() => setActiveModule('schedule')}
-                    className="bg-gradient-to-br from-[#BF00FF] to-[#9a00cf] text-white font-display font-bold py-4 px-8 rounded-full flex items-center gap-3 shadow-[0_10px_30px_rgba(191,0,255,0.2)] hover:scale-105 active:scale-95 transition-all"
+            <FadeContent blur={true} duration={1000} initialOpacity={0}>
+              <section className="mt-8 mb-10">
+                <h3 className="text-white text-lg font-bold px-4 mb-3">وحدات البرنامج الأساسية</h3>
+                <div className="flex flex-col gap-4 px-4">
+                  
+                  {/* Dynamic Stretching */}
+                  <SpotlightCard 
+                    className="!p-0 !bg-[#131313] !border-white/5 hover:!border-[#BF00FF]/30 transition-colors cursor-pointer group !rounded-xl" 
+                    spotlightColor="rgba(191, 0, 255, 0.15)"
+                    onClick={() => setActiveModule('dynamic')}
                   >
-                    عرض الجدول
-                    <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_back' : 'arrow_forward'}</span>
-                  </button>
+                    <div className="flex overflow-hidden w-full h-full">
+                      <div className="w-24 h-24 shrink-0 bg-[#BF00FF]/10 flex items-center justify-center transition-colors group-hover:bg-[#BF00FF]/20">
+                        <span className="material-symbols-outlined text-[#BF00FF] text-3xl">fitness_center</span>
+                      </div>
+                      <div className="flex flex-col justify-center p-4 flex-1">
+                        <h4 className="font-bold text-white group-hover:text-[#BF00FF] transition-colors">تمارين الإطالة الديناميكية</h4>
+                        <p className="text-xs text-[#adaaaa] mt-1">للإحماء الفعال وزيادة مدى الحركة قبل التمرين</p>
+                      </div>
+                      <div className="flex items-center justify-end px-4">
+                        <span className="material-symbols-outlined text-[#BF00FF] text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">play_circle</span>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+
+                  {/* Static Stretching */}
+                  <SpotlightCard 
+                    className="!p-0 !bg-[#131313] !border-white/5 hover:!border-[#BF00FF]/30 transition-colors cursor-pointer group !rounded-xl" 
+                    spotlightColor="rgba(191, 0, 255, 0.15)"
+                    onClick={() => setActiveModule('static')}
+                  >
+                    <div className="flex overflow-hidden w-full h-full">
+                      <div className="w-24 h-24 shrink-0 bg-[#BF00FF]/10 flex items-center justify-center transition-colors group-hover:bg-[#BF00FF]/20">
+                        <span className="material-symbols-outlined text-[#BF00FF] text-3xl">self_improvement</span>
+                      </div>
+                      <div className="flex flex-col justify-center p-4 flex-1">
+                        <h4 className="font-bold text-white group-hover:text-[#BF00FF] transition-colors">تمارين الإطالة الثابتة</h4>
+                        <p className="text-xs text-[#adaaaa] mt-1">للاسترخاء العميق وتهدئة العضلات بعد المجهود البدني</p>
+                      </div>
+                      <div className="flex items-center justify-end px-4">
+                        <span className="material-symbols-outlined text-[#BF00FF] text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">play_circle</span>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+
+                  {/* Recovery Techniques */}
+                  <SpotlightCard 
+                    className="!p-0 !bg-[#131313] !border-white/5 hover:!border-[#00fcca]/30 transition-colors cursor-pointer group !rounded-xl" 
+                    spotlightColor="rgba(0, 252, 202, 0.15)"
+                    onClick={() => setActiveModule('techniques')}
+                  >
+                    <div className="flex overflow-hidden w-full h-full">
+                      <div className="w-24 h-24 shrink-0 bg-[#00fcca]/10 flex items-center justify-center transition-colors group-hover:bg-[#00fcca]/20">
+                        <span className="material-symbols-outlined text-[#00fcca] text-3xl">rebase_edit</span>
+                      </div>
+                      <div className="flex flex-col justify-center p-4 flex-1">
+                        <h4 className="font-bold text-white group-hover:text-[#00fcca] transition-colors">تقنيات الاستشفاء</h4>
+                        <p className="text-xs text-[#adaaaa] mt-1">التدليك، الفوم رولينج، والترطيب المثالي للعضلات</p>
+                      </div>
+                      <div className="flex items-center justify-end px-4">
+                        <span className="material-symbols-outlined text-[#00fcca] text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">play_circle</span>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+
+                  {/* Mindfulness */}
+                  <SpotlightCard 
+                    className="!p-0 !bg-[#131313] !border-white/5 hover:!border-[#BF00FF]/30 transition-colors cursor-pointer group !rounded-xl" 
+                    spotlightColor="rgba(191, 0, 255, 0.15)"
+                    onClick={() => setActiveModule('mindfulness')}
+                  >
+                    <div className="flex overflow-hidden w-full h-full">
+                      <div className="w-24 h-24 shrink-0 bg-[#BF00FF]/10 flex items-center justify-center transition-colors group-hover:bg-[#BF00FF]/20">
+                        <span className="material-symbols-outlined text-[#BF00FF] text-3xl">psychology</span>
+                      </div>
+                      <div className="flex flex-col justify-center p-4 flex-1">
+                        <h4 className="font-bold text-white group-hover:text-[#BF00FF] transition-colors">الوعي الجسماني</h4>
+                        <p className="text-xs text-[#adaaaa] mt-1">تعزيز الاتصال الذهني العضلي أثناء عملية الاستشفاء</p>
+                      </div>
+                      <div className="flex items-center justify-end px-4">
+                        <span className="material-symbols-outlined text-[#BF00FF] text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">play_circle</span>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                  
+                  {/* Weekly Schedule */}
+                  <SpotlightCard 
+                    className="!p-0 !bg-[#131313] !border-white/5 hover:!border-[#00fcca]/30 transition-colors cursor-pointer group !rounded-xl" 
+                    spotlightColor="rgba(0, 252, 202, 0.15)"
+                    onClick={() => setActiveModule('schedule')}
+                  >
+                    <div className="flex overflow-hidden w-full h-full">
+                      <div className="w-24 h-24 shrink-0 bg-[#00fcca]/10 flex items-center justify-center transition-colors group-hover:bg-[#00fcca]/20">
+                        <span className="material-symbols-outlined text-[#00fcca] text-3xl">calendar_month</span>
+                      </div>
+                      <div className="flex flex-col justify-center p-4 flex-1">
+                        <h4 className="font-bold text-white group-hover:text-[#00fcca] transition-colors">جدول الاستشفاء الأسبوعي</h4>
+                        <p className="text-xs text-[#adaaaa] mt-1">خارطة طريق مخصصة توضح لك متى وكيف تطبق التمارين</p>
+                      </div>
+                      <div className="flex items-center justify-end px-4">
+                        <span className="material-symbols-outlined text-[#00fcca] text-3xl opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">arrow_forward</span>
+                      </div>
+                    </div>
+                  </SpotlightCard>
                 </div>
-                {/* Abstract Texture */}
-                <div className="absolute right-0 top-0 w-full h-full opacity-10 pointer-events-none">
-                  <svg className="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M44.7,-76.4C58.1,-69.2,69.2,-58.1,77.3,-44.7C85.4,-31.3,90.5,-15.7,89.3,-0.7C88.1,14.3,80.7,28.6,71,40.7C61.3,52.8,49.2,62.7,35.7,69.3C22.2,75.9,7.2,79.2,-7.9,78.2C-23,77.2,-38.2,71.9,-51.2,63.1C-64.2,54.3,-74.9,42,-80.7,27.7C-86.5,13.4,-87.3,-2.9,-83.4,-17.7C-79.5,-32.5,-70.8,-45.8,-59.1,-53.4C-47.4,-61,-32.7,-62.9,-20.3,-68.9C-7.9,-74.9,2.2,-85.1,16.5,-86.3C30.8,-87.5,31.3,-83.6,44.7,-76.4Z" fill="#BF00FF" transform="translate(100 100)"></path>
-                  </svg>
-                </div>
+              </section>
+            </FadeContent>
+
+            {/* CTA Action Button */}
+            <FadeContent blur={true} duration={1000} initialOpacity={0}>
+              <div className="px-4 pb-8">
+                <StarBorder as="button" color="#BF00FF" speed="4s" className="w-full" onClick={() => setActiveModule('schedule')}>
+                  <div className="flex items-center justify-center gap-2 font-bold text-white">
+                    <span>ابدأ الجلسة الآن</span>
+                    <span className="material-symbols-outlined">rocket_launch</span>
+                  </div>
+                </StarBorder>
               </div>
-            </section>
+            </FadeContent>
           </div>
         ) : (
           <>
@@ -1927,6 +1939,81 @@ export default function Programs() {
     );
   }
 
+  const programCards = [
+    {
+      id: 1,
+      title: 'برنامج القوة العضلية',
+      subtitle: 'يركز على بناء الكتلة العضلية وزيادة القوة البدنية.',
+      description: 'بناء أساس صلب من القوة والكتلة العضلية باستخدام أساليب التدريب العلمي المتقدمة لضمان أقصى استفادة.',
+      icon: 'fitness_center',
+      color: '#e08dff', // Purple
+      tags: [
+        { icon: 'schedule', label: '8 أسابيع' },
+        { icon: 'bar_chart', label: 'مستوى متقدم' }
+      ],
+      onClick: () => navigate('/programs/muscle-strength'),
+    },
+    {
+      id: 2,
+      title: 'برنامج المرونة والاستشفاء',
+      subtitle: 'يهدف لتحسين المدى الحركي وتقليل تيبس العضلات.',
+      description: 'تحسين المدى الحركي وتسريع عمليات الاستشفاء العضلي لضمان أداء رياضي مستدام وبدون إصابات.',
+      icon: 'self_improvement',
+      color: '#00fcca', // Cyan
+      tags: [
+        { icon: 'bolt', label: 'يومي' },
+        { icon: 'accessibility', label: 'جميع المستويات' }
+      ],
+      onClick: () => {
+        const prog = programs.find(p => p.program_id === 'prog_004' || p.program_name.includes('المرونة'));
+        if (prog) {
+          setSelectedProgram(prog);
+          setActiveWeekIndex(0);
+          setActiveDayIndex(0);
+        }
+      },
+    },
+    {
+      id: 3,
+      title: 'برنامج السرعة',
+      subtitle: 'تطوير الانفجار الحركي وزيادة معدل السرعة القصوى.',
+      description: 'تمارين متخصصة لتطوير الانفجار الحركي وزيادة معدل السرعة القصوى للرياضيين بطريقة علمية مدروسة.',
+      icon: 'speed',
+      color: '#bc00fb', // Deep purple
+      tags: [
+        { icon: 'schedule', label: '4 أسابيع' },
+        { icon: 'trending_up', label: 'تقدم سريع' }
+      ],
+      onClick: () => navigate('/education/training/speed'),
+    },
+    {
+      id: 4,
+      title: 'برنامج البليومترية',
+      subtitle: 'تحسين رد فعل العضلات والقدرة الحركية.',
+      description: 'تحسين القفز والقدرة الانفجارية عبر تمارين القوة الحركية المرتدة لتعزيز الأداء العام.',
+      icon: 'sports_gymnastics',
+      color: '#f97316', // Orange
+      tags: [
+        { icon: 'schedule', label: '6 أسابيع' },
+        { icon: 'vertical_align_top', label: 'قفز ومقاومة' }
+      ],
+      onClick: () => navigate('/education/training/speed/plyometrics'),
+    },
+    {
+      id: 5,
+      title: 'برنامج التوازن',
+      subtitle: 'تعزيز الاستقرار العضلي والعصبي وتحسين التوافق.',
+      description: 'تعزيز الاستقرار العصبي العضلي والتوافق الحركي للجسم بالكامل لزيادة التحكم والسيطرة.',
+      icon: 'accessibility_new',
+      color: '#3b82f6', // Blue
+      tags: [
+        { icon: 'all_inclusive', label: 'مستمر' },
+        { icon: 'balance', label: 'توافق عضلي' }
+      ],
+      onClick: () => navigate('/education/training/speed/balance'),
+    }
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -1935,12 +2022,7 @@ export default function Programs() {
     >
       <header className="flex items-center justify-between px-6 py-5 bg-[#0e0e0e]/70 backdrop-blur-xl rounded-2xl mb-8 border border-white/5 bg-gradient-to-b from-[#0e0e0e] to-transparent">
         <div className="flex items-center gap-4">
-          <button 
-            onClick={() => navigate(-1)} 
-            className="flex items-center justify-center p-2 rounded-full text-[#e08dff] hover:bg-[#e08dff]/20 transition-colors self-start"
-          >
-            <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
-          </button>
+          <BackButton />
           <h1 className="font-display font-extrabold tracking-tight text-2xl">
             <GradientText colors={["#e08dff","#bc00fb","#e08dff"]} animationSpeed={6} showBorder={false}>
               مخطط البرامج
@@ -1958,166 +2040,78 @@ export default function Programs() {
         </div>
       ) : (
         <div className="space-y-6">
-          {/* Program 1: Muscle Strength */}
-          <div 
-            onClick={() => navigate('/programs/muscle-strength')}
-            className="group relative bg-[#201f1f] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#e08dff]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative bg-[#201f1f] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5">
-              <div className="flex flex-col gap-1 flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#e08dff]/20 to-[#e08dff]/5 flex items-center justify-center text-[#e08dff] shadow-lg shadow-[#e08dff]/5">
-                    <span className="material-symbols-outlined text-3xl">fitness_center</span>
+          {programCards.map((card, idx) => (
+            <motion.div 
+              key={card.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1, duration: 0.4 }}
+              onClick={card.onClick}
+              className="group relative bg-[#131313] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+            >
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity rounded-[2rem]"
+                style={{ background: `linear-gradient(to bottom right, ${card.color}15, transparent)` }}
+              ></div>
+              <div 
+                className="relative bg-[#131313] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5 border-l-2"
+                style={{ borderColor: `${card.color}30` }}
+              >
+                <div className="flex flex-col gap-1 flex-1 w-full">
+                  <div className="flex items-center gap-4 mb-3">
+                    <div 
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-105"
+                      style={{ backgroundColor: `${card.color}15`, color: card.color, boxShadow: `0 10px 20px -5px ${card.color}20` }}
+                    >
+                      <span className="material-symbols-outlined text-3xl">{card.icon}</span>
+                    </div>
+                    <h3 className="font-display text-2xl font-extrabold text-white leading-tight">{card.title}</h3>
                   </div>
-                  <h3 className="font-display text-2xl font-extrabold text-white leading-tight">برنامج القوة العضلية</h3>
-                </div>
-                <p className="text-[#d160ff] text-sm mb-2 font-medium">يركز على بناء الكتلة العضلية وزيادة القوة البدنية باستخدام أساليب التدريب العلمي المتقدمة.</p>
-                <p className="text-[#adaaaa] text-base leading-relaxed pr-2 font-display">بناء أساس صلب من القوة والكتلة العضلية باستخدام أساليب التدريب العلمي المتقدمة.</p>
-                <div className="flex flex-wrap gap-3 mt-4">
-                  <span className="text-[11px] tracking-wider text-[#00fcca] flex items-center gap-1.5 bg-[#00fcca]/5 px-3 py-1.5 rounded-full font-bold">
-                    <span className="material-symbols-outlined text-sm">schedule</span> 8 أسابيع
-                  </span>
-                  <span className="text-[11px] tracking-wider text-[#00fcca] flex items-center gap-1.5 bg-[#00fcca]/5 px-3 py-1.5 rounded-full font-bold">
-                    <span className="material-symbols-outlined text-sm">bar_chart</span> مستوى متقدم
-                  </span>
-                </div>
-              </div>
-              <button className="w-14 h-14 rounded-full shrink-0 bg-[#262626] border border-[#494847]/20 flex items-center justify-center text-[#e08dff] group-hover:bg-[#e08dff] group-hover:text-white transition-all shadow-lg">
-                <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Program 2: Flexibility and Recovery */}
-          <div 
-            onClick={() => {
-              const prog = programs.find(p => p.program_id === 'prog_004' || p.program_name.includes('المرونة'));
-              if (prog) {
-                setSelectedProgram(prog);
-                setActiveWeekIndex(0);
-                setActiveDayIndex(0);
-              }
-            }}
-            className="group relative bg-[#131313] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-          >
-            <div className="relative bg-[#131313] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5 border-l-2 border-[#00fcca]/10">
-              <div className="flex flex-col gap-1 flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00fcca]/15 to-[#00fcca]/5 flex items-center justify-center text-[#00fcca] shadow-lg shadow-[#00fcca]/5">
-                    <span className="material-symbols-outlined text-3xl">self_improvement</span>
+                  <p className="font-display text-sm mb-2 font-bold" style={{ color: card.color }}>{card.subtitle}</p>
+                  <p className="font-display text-[#adaaaa] text-base leading-relaxed pr-2">{card.description}</p>
+                  
+                  <div className="flex flex-wrap gap-3 mt-4">
+                    {card.tags.map((tag, tIdx) => (
+                      <span 
+                        key={tIdx} 
+                        className="font-display text-[11px] tracking-wider flex items-center gap-1.5 px-3 py-1.5 rounded-full font-bold"
+                        style={{ color: card.color, backgroundColor: `${card.color}10` }}
+                      >
+                        <span className="material-symbols-outlined text-sm">{tag.icon}</span> {tag.label}
+                      </span>
+                    ))}
                   </div>
-                  <h3 className="font-display text-2xl font-extrabold text-white leading-tight">برنامج المرونة والاستشفاء</h3>
                 </div>
-                <p className="text-[#00edbd] text-sm mb-2 font-medium">يهدف لتحسين المدى الحركي وتقليل تيبس العضلات وتسريع عملية التعافي بعد التمرين.</p>
-                <p className="text-[#adaaaa] text-base leading-relaxed pr-2 font-display">تحسين المدى الحركي وتسريع عمليات الاستشفاء العضلي لضمان أداء رياضي مستدام وبدون إصابات.</p>
-                <div className="flex flex-wrap gap-3 mt-4">
-                  <span className="text-[11px] tracking-wider text-[#e08dff] flex items-center gap-1.5 bg-[#e08dff]/5 px-3 py-1.5 rounded-full font-bold">
-                    <span className="material-symbols-outlined text-sm">bolt</span> يومي
+                
+                <button 
+                  className="w-14 h-14 rounded-full shrink-0 border flex items-center justify-center transition-all shadow-lg mt-4 sm:mt-0 relative overflow-hidden"
+                  style={{ backgroundColor: '#201f1f', borderColor: '#49484720', color: card.color }}
+                >
+                  <div 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{ backgroundColor: card.color }}
+                  ></div>
+                  <span className="material-symbols-outlined text-2xl group-hover:text-white relative z-10 transition-colors">
+                    {language === 'ar' ? 'chevron_left' : 'chevron_right'}
                   </span>
-                  <span className="text-[11px] tracking-wider text-[#e08dff] flex items-center gap-1.5 bg-[#e08dff]/5 px-3 py-1.5 rounded-full font-bold">
-                    <span className="material-symbols-outlined text-sm">accessibility</span> جميع المستويات
-                  </span>
-                </div>
+                </button>
               </div>
-              <button className="w-14 h-14 rounded-full shrink-0 bg-[#201f1f] border border-[#494847]/10 flex items-center justify-center text-[#00fcca] group-hover:bg-[#00fcca] group-hover:text-[#0e0e0e] transition-all shadow-lg">
-                <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Program 3: Speed */}
-          <div 
-            onClick={() => navigate('/education/training/speed')}
-            className="group relative bg-[#201f1f] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#bc00fb]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative bg-[#201f1f] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5">
-              <div className="flex flex-col gap-1 flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#bc00fb]/20 to-[#bc00fb]/5 flex items-center justify-center text-[#bc00fb] shadow-lg shadow-[#bc00fb]/5">
-                    <span className="material-symbols-outlined text-3xl">speed</span>
-                  </div>
-                  <h3 className="font-display text-2xl font-extrabold text-white leading-tight">برنامج السرعة</h3>
-                </div>
-                <p className="text-[#bc00fb] text-sm mb-2 font-medium">تمارين متخصصة لتطوير الانفجار الحركي وزيادة معدل السرعة القصوى للرياضيين.</p>
-                <p className="text-[#adaaaa] text-base leading-relaxed pr-2 font-display">تمارين مخصصة لتطوير الانفجار الحركي وزيادة معدل السرعة القصوى.</p>
-                <div className="flex flex-wrap gap-3 mt-4">
-                  <span className="text-[11px] tracking-wider text-[#e08dff] flex items-center gap-1.5 bg-[#e08dff]/5 px-3 py-1.5 rounded-full font-bold">
-                    <span className="material-symbols-outlined text-sm">schedule</span> 4 أسابيع
-                  </span>
-                  <span className="text-[11px] tracking-wider text-[#e08dff] flex items-center gap-1.5 bg-[#e08dff]/5 px-3 py-1.5 rounded-full font-bold">
-                    <span className="material-symbols-outlined text-sm">trending_up</span> تقدم سريع
-                  </span>
-                </div>
-              </div>
-              <button className="w-14 h-14 rounded-full shrink-0 bg-[#262626] border border-[#494847]/20 flex items-center justify-center text-[#bc00fb] group-hover:bg-[#bc00fb] group-hover:text-white transition-all shadow-lg">
-                <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Program 4: Plyometrics */}
-          <div 
-            onClick={() => navigate('/education/training/speed/plyometrics')}
-            className="group relative bg-[#131313] rounded-[2rem] p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-          >
-            <div className="relative bg-[#131313] rounded-[1.9rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-5 border-l-2 border-[#00fcca]/10">
-              <div className="flex flex-col gap-1 flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00fcca]/15 to-[#00fcca]/5 flex items-center justify-center text-[#00fcca] shadow-lg shadow-[#00fcca]/5">
-                    <span className="material-symbols-outlined text-3xl">sports_gymnastics</span>
-                  </div>
-                  <h3 className="font-display text-2xl font-extrabold text-white leading-tight">برنامج البليومترية</h3>
-                </div>
-                <p className="text-[#00fcca] text-sm mb-2 font-medium">تمارين القوة الانفجارية والقفز التي تهدف لتحسين رد فعل العضلات والقدرة الحركية.</p>
-                <p className="text-[#adaaaa] text-base leading-relaxed pr-2 font-display">تحسين القفز والقدرة الانفجارية عبر تمارين القوة الحركية المرتدة.</p>
-                <div className="flex flex-wrap gap-3 mt-4">
-                  <span className="text-[11px] tracking-wider text-[#00fcca] flex items-center gap-1.5 bg-[#00fcca]/5 px-3 py-1.5 rounded-full font-bold">
-                    <span className="material-symbols-outlined text-sm">schedule</span> 6 أسابيع
-                  </span>
-                  <span className="text-[11px] tracking-wider text-[#00fcca] flex items-center gap-1.5 bg-[#00fcca]/5 px-3 py-1.5 rounded-full font-bold">
-                    <span className="material-symbols-outlined text-sm">vertical_align_top</span> قفز ومقاومة
-                  </span>
-                </div>
-              </div>
-              <button className="w-14 h-14 rounded-full shrink-0 bg-[#201f1f] border border-[#494847]/10 flex items-center justify-center text-[#00fcca] group-hover:bg-[#00fcca] group-hover:text-[#0e0e0e] transition-all shadow-lg">
-                <span className="material-symbols-outlined text-2xl">{language === 'ar' ? 'chevron_left' : 'chevron_right'}</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Program 5: Balance (Wide Layout) */}
-          <div 
-            onClick={() => navigate('/education/training/speed/balance')}
-            className="relative bg-[#131313] rounded-[2.5rem] p-8 flex flex-col md:flex-row items-center gap-6 overflow-hidden border-b-2 border-[#e08dff]/20 cursor-pointer hover:scale-[1.01] transition-all duration-300"
-          >
-            <div className="absolute right-0 bottom-0 opacity-10">
-              <span className="material-symbols-outlined text-[120px]">accessibility_new</span>
-            </div>
-            <div className="w-20 h-20 shrink-0 rounded-[2rem] bg-gradient-to-tr from-[#e08dff] to-[#bc00fb] flex items-center justify-center text-white shadow-lg mx-auto md:mx-0 drop-shadow-[0_0_20px_rgba(224,141,255,0.15)]">
-              <span className="material-symbols-outlined text-4xl">accessibility_new</span>
-            </div>
-            <div className="flex-1 text-center md:text-right z-10">
-              <h3 className="font-display text-2xl font-extrabold mb-2 text-white leading-tight">برنامج التوازن</h3>
-              <p className="text-[#d160ff] text-sm mb-3 font-medium">تعزيز الاستقرار العضلي والعصبي وتحسين التوافق الحركي للجسم بالكامل.</p>
-              <p className="text-[#adaaaa] text-base leading-relaxed font-display">تعزيز الاستقرار العصبي العضلي والتوافق الحركي للجسم بالكامل.</p>
-            </div>
-            <div className="shrink-0 z-10 w-full md:w-auto mt-4 md:mt-0">
-              <button className="w-full md:w-auto bg-white text-[#0e0e0e] px-8 py-3 rounded-full font-bold text-sm tracking-widest hover:bg-[#e08dff] hover:text-white transition-colors font-display">
-                ابدأ الآن
-              </button>
-            </div>
-          </div>
+            </motion.div>
+          ))}
 
           {/* Need help footer */}
-          <div className="mt-12 p-8 rounded-[3rem] bg-gradient-to-br from-[#262626] to-[#0e0e0e] flex flex-col items-center text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mt-12 p-8 rounded-[3rem] bg-gradient-to-br from-[#262626] to-[#0e0e0e] flex flex-col items-center text-center border border-white/5"
+          >
             <h4 className="font-display text-xl font-extrabold mb-3 text-white">هل تحتاج لمساعدة؟</h4>
             <p className="text-[#adaaaa] text-base mb-6 max-w-sm block mx-auto font-display leading-relaxed">فريق الخبراء لدينا متاح لمساعدتك في اختيار البرنامج الأنسب لأهدافك.</p>
-            <button className="flex items-center gap-2 text-[#e08dff] text-sm font-bold tracking-widest group bg-[#e08dff]/10 px-6 py-3 rounded-full hover:bg-[#e08dff]/20 transition-colors">
+            <button className="flex items-center gap-2 text-[#e08dff] text-sm font-bold tracking-widest group bg-[#e08dff]/10 px-6 py-3 rounded-full hover:bg-[#e08dff]/20 transition-colors font-display">
               تحدث مع مدرب <span className="material-symbols-outlined group-hover:-translate-x-1 transition-transform">{language === 'ar' ? 'arrow_back' : 'arrow_forward'}</span>
             </button>
-          </div>
+          </motion.div>
         </div>
       )}
       

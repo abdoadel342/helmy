@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
+import { BackButton } from '../components/BackButton';
 
 export default function HealthyPlate() {
   const navigate = useNavigate();
@@ -9,12 +10,7 @@ export default function HealthyPlate() {
     <div className="min-h-screen flex flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
       {/* Header Navigation */}
       <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-4 py-4 flex items-center justify-between">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center p-2 rounded-lg bg-primary/10 text-primary"
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">نموذج الطبق الصحي</h1>
         <div className="w-10"></div> {/* Spacer for balance */}
       </header>

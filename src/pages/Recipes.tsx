@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { BackButton } from '../components/BackButton';
 
 export default function Recipes() {
   const navigate = useNavigate();
@@ -11,12 +12,7 @@ export default function Recipes() {
       <header className="fixed top-0 w-full z-50 bg-[#0e0e0e]/70 backdrop-blur-xl shadow-[0_20px_40px_rgba(188,0,251,0.08)]">
         <div className="flex items-center justify-between px-6 py-4 w-full">
           <div className="flex items-center gap-4">
-            <button 
-              onClick={() => navigate(-1)}
-              className="active:scale-95 transition-transform text-[#e08dff] hover:opacity-80"
-            >
-              <span className="material-symbols-outlined text-3xl">arrow_forward</span>
-            </button>
+            <BackButton />
             <h1 className="font-['Lexend'] font-bold text-xl leading-relaxed text-[#e08dff]">
               مخطط الوصفات الشامل - HELMY
             </h1>

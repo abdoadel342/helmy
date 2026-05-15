@@ -5,6 +5,7 @@ import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
 import { useStartWorkout } from '../useStartWorkout';
+import { BackButton } from '../components/BackButton';
 
 export default function StartingBlock() {
   const navigate = useNavigate();
@@ -14,12 +15,7 @@ export default function StartingBlock() {
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-x-hidden font-display">
       {/* Header */}
       <header className="flex items-center bg-background-light dark:bg-background-dark p-4 sticky top-0 z-50 border-b border-primary/10">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-primary/20 transition-colors cursor-pointer"
-        >
-          <span className="material-symbols-outlined text-slate-900 dark:text-white">arrow_forward</span>
-        </button>
+        <BackButton />
         <h1 className="text-slate-900 dark:text-white text-lg font-bold leading-tight flex-1 text-center mr-[-40px]">تمارين الانطلاق من البدء</h1>
         <div className="flex items-center gap-2">
           <span className="text-primary font-bold text-sm tracking-widest">HELMY</span>

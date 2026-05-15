@@ -4,6 +4,7 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
+import { BackButton } from '../components/BackButton';
 
 const AgilityTraining: React.FC = () => {
   const navigate = useNavigate();
@@ -13,12 +14,7 @@ const AgilityTraining: React.FC = () => {
       {/* Top AppBar */}
       <header className="sticky top-0 z-50 bg-slate-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center justify-between p-4 max-w-2xl mx-auto">
-          <button 
-            onClick={() => navigate(-1)}
-            className="text-slate-900 dark:text-slate-100 p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors"
-          >
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <BackButton />
           <h1 className="text-lg font-bold tracking-tight text-center flex-1">تمارين الرشاقة (Agility Training)</h1>
           <div className="w-10"></div> {/* Spacer for balance */}
         </div>
