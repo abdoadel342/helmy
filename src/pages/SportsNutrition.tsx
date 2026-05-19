@@ -29,7 +29,7 @@ export default function SportsNutrition() {
               <img 
                 alt="Sports Nutrition" 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsv1spO5eXzInYTq6B5b5Dw2qE7vrsz5sN6hqNektoqUXmFIOJcaZ5F1fJB3fbZjGsaRxCbhm1AZBSYS6ZzsvJmwQoF3xN-s7Fm0x1ULgb9NtPjeLmwlHx2OVFr9F8rg5N6_1z924GwXaDeQzqhdas--75jSdiUa_yTkekMWdbCCjtDiyoYBWHvCoE_hkmuhpKvQD6qlpKaLM7ttj9tQrfWTChSQ7ywPlY2MiQW6eaJJoNLoc7wp4EgSIhNZMzsYSRwOsw52fHYPjD"
+                src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
               <div className="absolute bottom-4 right-4">
@@ -61,6 +61,9 @@ export default function SportsNutrition() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <SpotlightCard className="p-4 rounded-xl border-r-4 border-r-orange-500 bg-primary/5 border border-primary/10" spotlightColor="rgba(249, 115, 22, 0.15)">
+                <div className="w-full h-24 rounded-lg overflow-hidden mb-3">
+                  <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80" alt="Carbohydrates" className="w-full h-full object-cover" />
+                </div>
                 <div className="flex justify-between items-start mb-2">
                   <span className="material-symbols-outlined text-orange-500">bakery_dining</span>
                   <span className="text-xs font-bold text-orange-500">4 سعرات/جم</span>
@@ -70,6 +73,9 @@ export default function SportsNutrition() {
               </SpotlightCard>
               
               <SpotlightCard className="p-4 rounded-xl border-r-4 border-r-blue-500 bg-primary/5 border border-primary/10" spotlightColor="rgba(59, 130, 246, 0.15)">
+                <div className="w-full h-24 rounded-lg overflow-hidden mb-3">
+                  <img src="https://images.unsplash.com/photo-1529863149613-51b27f74243c?auto=format&fit=crop&w=400&q=80" alt="Proteins" className="w-full h-full object-cover" />
+                </div>
                 <div className="flex justify-between items-start mb-2">
                   <span className="material-symbols-outlined text-blue-500">egg_alt</span>
                   <span className="text-xs font-bold text-blue-500">4 سعرات/جم</span>
@@ -79,6 +85,9 @@ export default function SportsNutrition() {
               </SpotlightCard>
 
               <SpotlightCard className="p-4 rounded-xl border-r-4 border-r-yellow-500 bg-primary/5 border border-primary/10" spotlightColor="rgba(234, 179, 8, 0.15)">
+                <div className="w-full h-24 rounded-lg overflow-hidden mb-3">
+                  <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" alt="Fats" className="w-full h-full object-cover" />
+                </div>
                 <div className="flex justify-between items-start mb-2">
                   <span className="material-symbols-outlined text-yellow-500">opacity</span>
                   <span className="text-xs font-bold text-yellow-500">9 سعرات/جم</span>
@@ -137,6 +146,9 @@ export default function SportsNutrition() {
             <div className="bg-white dark:bg-background-dark border border-black/5 dark:border-white/5 rounded-xl overflow-hidden shadow-sm">
               <div className="p-4 bg-slate-50 dark:bg-white/5 border-b border-black/5 dark:border-white/5">
                 <h3 className="font-bold">مكونات استهلاك الطاقة اليومي (TEE)</h3>
+              </div>
+              <div className="w-full h-36 overflow-hidden border-b border-black/5 dark:border-white/5">
+                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="Energy Expenditure Metabolism" className="w-full h-full object-cover" />
               </div>
               <div className="p-4 space-y-4">
                 <div className="flex items-center gap-4">
@@ -204,6 +216,9 @@ export default function SportsNutrition() {
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section className="px-4 space-y-4 mb-8">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">تقدير الحصص باليد</h2>
+            <div className="w-full aspect-[21/9] rounded-xl overflow-hidden mb-3 border border-primary/10 shadow-sm">
+              <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=600&q=80" alt="Healthy portions estimation" className="w-full h-full object-cover" />
+            </div>
             <div className="grid grid-cols-2 gap-3">
               <SpotlightCard className="flex items-center gap-3 p-3 bg-primary/5 border border-primary/10 rounded-lg" spotlightColor="rgba(115, 17, 212, 0.15)">
                 <span className="material-symbols-outlined text-primary">front_hand</span>

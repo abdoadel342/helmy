@@ -26,7 +26,7 @@ export default function Physiology() {
             <div className="px-4 py-4">
               <div 
                 className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl min-h-64 shadow-2xl shadow-primary/20 border border-primary/30" 
-                style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6hQY4nK8mNbkex_d7q6eGYWwdvMPfSsqRb_QJKdoltJ4HeWcouP8PW2V2tmBkXW6VqvT3M_IG6iPgFQj9mlMdS3Hp4CxuHWbnj39v8ViwWvPtm7s7V8n4wqAAIOZmp6PNowoeHk_2iQ1xdy4a8Trcw4xjy9WnzjVkBodzbEY2Y_0h80ZtV2i4eToTEXhuJ_g5rAPEs01PK5eMXYSZF_73cqHaTFYupzXpiyvpCVWR7WhM6yk-knsEv8Qfkm2K0dkIMA1I8jQE8psT")' }}
+                style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80")' }}
               >
                 <div className="bg-gradient-to-t from-background-dark via-background-dark/60 to-transparent p-6">
                   <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-bold rounded-full mb-3 uppercase tracking-wider">الدرس الأول</span>
@@ -50,6 +50,9 @@ export default function Physiology() {
                 <span className="material-symbols-outlined text-primary font-bold">bolt</span>
               </div>
               <h3 className="text-slate-900 dark:text-slate-100 text-xl font-bold">أنظمة إنتاج الطاقة</h3>
+            </div>
+            <div className="w-full aspect-[21/9] rounded-xl overflow-hidden mb-4 border border-primary/10 shadow-sm">
+              <img src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=800&q=80" alt="Energy systems athletic performance" className="w-full h-full object-cover" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Anaerobic */}
@@ -93,7 +96,7 @@ export default function Physiology() {
             <div className="relative overflow-hidden rounded-xl bg-slate-100 dark:bg-background-dark border border-primary/20 p-1">
               <div 
                 className="aspect-video w-full rounded-lg overflow-hidden relative" 
-                style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuAToUR5Tgwc9S1OOM67P8yuEQAR8VVy_7fNYH7JpgzF3eyhgRykwHrsu5-CoA8lSXglVTPPqUTXM8JF6H2ckt-cdc6SVeYEf0C5JFnHA6gORaefCk6EHgCYPRHYzmxqc2vQ368AcoQUPaz-YhfNOolVL89vZU9HUYln13vZ7nl094__jPbeGOt_m4eJF0mPJwvVkWktmJmrGv0w93Mmoxdq7kc2Z3ez0niCw6FoaqFKv0TOOfs22oKcQRGnswZDUe-DMneBkHSKDsKC")', backgroundSize: 'cover' }}
+                style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&w=800&q=80")', backgroundSize: 'cover' }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-background-dark/80 to-transparent flex flex-col justify-center p-6">
                   <ul className="space-y-3">
@@ -127,6 +130,9 @@ export default function Physiology() {
                 </div>
                 <h3 className="text-slate-900 dark:text-slate-100 text-lg font-bold">الاستجابة الهرمونية</h3>
               </div>
+              <div className="w-full h-24 rounded-xl overflow-hidden mb-3 border border-primary/10 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=400&q=80" alt="Hormonal and chemical recovery analysis" className="w-full h-full object-cover" />
+              </div>
               <div className="space-y-3">
                 <SpotlightCard className="bg-white dark:bg-primary/5 p-3 rounded-lg flex items-center justify-between border border-primary/10" spotlightColor="rgba(115, 17, 212, 0.15)">
                   <div>
@@ -155,7 +161,7 @@ export default function Physiology() {
               </div>
               <div 
                 className="relative rounded-xl overflow-hidden h-32 border border-primary/20" 
-                style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_wIdWvGktOdq9NTJRdJfdvfUNvmSDE_1gbKNfMGnLSzQUnQaRDau6ZSwO08n3HQ5CI0gJJkW7wjGtb-TdahK4H00PVL-s7bj5RR03sg4bzJH68j3yM7Cx29YsjpktoYdyLxKMa-LK06MhFTpBU0xWNQ_R8jXwGrqH-6jtkjWt2Y8-8Jloj6gk4kP-huYbyHZrMDQm7opCd4hHcUEwOIexMYLGRvnSRSOYLY44SSd8G5xtur6IoaGvZ5EWbg-LVmmNRwALQwmMzh7T")', backgroundSize: 'cover' }}
+                style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80")', backgroundSize: 'cover' }}
               >
                 <div className="absolute inset-0 bg-primary/60 dark:bg-primary/40 flex items-center justify-center">
                   <p className="text-center text-white px-4 text-xs font-bold leading-relaxed">تضخم الألياف العضلية وزيادة عدد الميتوكوندريا لإنتاج طاقة أكبر.</p>

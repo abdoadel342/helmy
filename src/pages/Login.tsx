@@ -6,7 +6,7 @@ import { Dumbbell } from 'lucide-react';
 export default function Login() {
   const { user } = useAuth();
 
-  if (user) {
+  if (user && user.uid !== 'mock-user-123') {
     return <Navigate to="/" />;
   }
 

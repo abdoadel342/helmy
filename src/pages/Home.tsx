@@ -8,6 +8,8 @@ import { ShinyText } from '../components/react-bits/ShinyText';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import SplitText from '../components/react-bits/SplitText';
 import GradientText from '../components/react-bits/GradientText';
+import { Instagram, Linkedin } from 'lucide-react';
+import { logOut } from '../firebase';
 
 /* ── tiny animated counter ── */
 function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
@@ -101,13 +103,24 @@ export default function Home() {
               <span className="font-medium text-slate-900 dark:text-slate-100">{theme === 'dark' ? (isAr ? 'الوضع الفاتح' : 'Light Mode') : (isAr ? 'الوضع الداكن' : 'Dark Mode')}</span>
             </div>
           </button>
-          <button onClick={() => { toggleLanguage(); }} className="flex items-center justify-between px-5 py-3 hover:bg-primary/10 transition-colors w-full text-start">
+          <button onClick={() => { toggleLanguage(); }} className="flex items-center justify-between px-5 py-3 hover:bg-primary/10 transition-colors w-full text-start border-b border-primary/5">
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined text-primary">language</span>
               <span className="font-medium text-slate-900 dark:text-slate-100">{t('language')}</span>
             </div>
             <span className="text-xs font-bold bg-primary/10 text-primary px-2.5 py-1 rounded-lg">{isAr ? 'English' : 'العربية'}</span>
           </button>
+          {user?.uid === 'mock-user-123' ? (
+            <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 px-5 py-3 hover:bg-primary/10 text-primary hover:text-primary-light transition-colors w-full text-start">
+              <span className="material-symbols-outlined text-primary">login</span>
+              <span className="font-medium">{isAr ? 'تسجيل الدخول / إنشاء حساب' : 'Log In / Register'}</span>
+            </Link>
+          ) : (
+            <button onClick={() => { if (window.confirm(isAr ? 'هل أنت متأكد من تسجيل الخروج؟' : 'Are you sure you want to log out?')) { logOut(); setIsMenuOpen(false); } }} className="flex items-center gap-3 px-5 py-3 hover:bg-red-500/10 text-red-500 hover:text-red-400 transition-colors w-full text-start">
+              <span className="material-symbols-outlined text-red-500">logout</span>
+              <span className="font-medium">{isAr ? 'تسجيل الخروج' : 'Log Out'}</span>
+            </button>
+          )}
         </div>
       )}
 
@@ -213,7 +226,7 @@ export default function Home() {
             <Link to="/ai" className="block w-full h-full">
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-primary to-purple-800 z-0"></div>
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 z-0 mix-blend-overlay"></div>
-              
+
               <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700 z-0"></div>
               <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-fuchsia-500/30 rounded-full blur-2xl z-0"></div>
 
@@ -298,23 +311,56 @@ export default function Home() {
                 <span className="material-symbols-outlined text-primary text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>contact_support</span>
                 {t('contact_us')}
               </h3>
-              <div className="space-y-4">
-                <a href="tel:+966500000000" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-3 rounded-2xl hover:bg-primary/5">
-                  <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
-                    <span className="material-symbols-outlined text-primary group-hover:text-white transition-colors" style={{ fontVariationSettings: "'FILL' 1" }}>call</span>
+              <div className="space-y-3.5">
+                <a href="tel:+201012345678" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
+                    <span className="material-symbols-outlined text-primary group-hover:text-white transition-colors text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>call</span>
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'اتصل بنا' : 'Call us'}</p>
-                    <span dir="ltr" className="font-bold text-lg">+966 50 000 0000</span>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'اتصل بنا (مصر)' : 'Call us (Egypt)'}</p>
+                    <span dir="ltr" className="font-bold text-base text-slate-900 dark:text-white">+20 10 1234 5678</span>
                   </div>
                 </a>
-                <a href="mailto:support@helmy.com" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-3 rounded-2xl hover:bg-primary/5">
-                  <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
-                    <span className="material-symbols-outlined text-primary group-hover:text-white transition-colors" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
+
+                <a href="https://instagram.com/helmy.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
+                    <Instagram className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'البريد الإلكتروني' : 'Email us'}</p>
-                    <span className="font-bold text-lg">support@helmy.com</span>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'إنستجرام' : 'Instagram'}</p>
+                    <span className="font-bold text-base text-slate-900 dark:text-white">@helmy.app</span>
+                  </div>
+                </a>
+
+                <a href="https://tiktok.com/@helmy.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-primary group-hover:text-white transition-colors">
+                      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'تيك توك' : 'TikTok'}</p>
+                    <span className="font-bold text-base text-slate-900 dark:text-white">@helmy.app</span>
+                  </div>
+                </a>
+
+                <a href="https://linkedin.com/company/helmy" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
+                    <Linkedin className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'لينكد إن' : 'LinkedIn'}</p>
+                    <span className="font-bold text-base text-slate-900 dark:text-white">Helmy App</span>
+                  </div>
+                </a>
+
+                <a href="mailto:support@helmy.com" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
+                    <span className="material-symbols-outlined text-primary group-hover:text-white transition-colors text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'البريد الإلكتروني' : 'Email'}</p>
+                    <span className="font-bold text-base text-slate-900 dark:text-white">support@helmy.com</span>
                   </div>
                 </a>
               </div>
@@ -325,7 +371,6 @@ export default function Home() {
         {/* ── FOOTER BRANDING ── */}
         <footer className="text-center py-6 opacity-50">
           <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-            {isAr ? 'صُنع بـ ❤️ بواسطة فريق حلمي' : 'Made with ❤️ by Team Helmy'}
           </p>
         </footer>
       </div>

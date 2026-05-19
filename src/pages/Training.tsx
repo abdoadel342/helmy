@@ -29,7 +29,7 @@ export default function Training() {
               <img 
                 alt="Professional athlete training" 
                 className="w-full h-full object-cover" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjstB-7WiLJtOONG6H5qpbWY4Ogft8DYaFNzr8F2_imIz9wZjiIpj2PTWnzr3dRKembcfaRqHA3UlP7ZDjnfqsEkpzalyrwUND4JJJOk5y55fJesTMc8Nv45cgx8WPUlH-wfCCTLnn3Ss7iDlxRIgPT30twbIRxK6zSaF9BvyRqK-QFeQxQtkILdfOKvi_EUak4la4fFDJoUJeWfROmC4MvbRJmLNBwlvCokJuyfSKnlhPIv-l5bxVGtID2FqKdtUSwcKJ1ec1JzA1"
+                src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80"
               />
               <div className="absolute bottom-4 right-4 z-20">
                 <span className="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
@@ -73,6 +73,9 @@ export default function Training() {
                 </p>
 
                 <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 mt-8">2.1 نظرية متلازمة التكيف العام (General Adaptation Syndrome - GAS)</h3>
+                <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-xl overflow-hidden my-4 border border-primary/10 shadow-sm">
+                  <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="GAS theory stress recovery adaptation" className="w-full h-full object-cover" />
+                </div>
                 <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-lg mb-4">
                   تستند الغالبية العظمى من قرارات تصميم البرامج التدريبية إلى النموذج النظري الذي وضعه العالم هانز سيلي (Hans Selye) في عام 1956، والذي يُعرف بمتلازمة التكيف العام (GAS). يفترض هذا النموذج أن الاستجابة الفسيولوجية للجسم تجاه الإجهاد تمر بثلاث مراحل أساسية متسلسلة، بغض النظر عن نوع المؤثر الخارجي:
                 </p>
@@ -241,6 +244,9 @@ export default function Training() {
                   <span className="material-symbols-outlined">event_note</span>
                   5. خطة التقسيم المرحلي والبرمجة الزمنية (Periodization Plan)
                 </h2>
+                <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-xl overflow-hidden my-4 border border-primary/10 shadow-sm">
+                  <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Periodization plan calendar" className="w-full h-full object-cover" />
+                </div>
                 
                 <ul className="space-y-4 text-slate-700 dark:text-slate-300 leading-relaxed text-lg mr-6 list-disc mb-8">
                   <li><strong>الخطة السنوية (Annual Plan):</strong> المخطط الاستراتيجي العام للسنة التدريبية بأكملها.</li>
@@ -319,6 +325,9 @@ export default function Training() {
                 </h2>
                 
                 <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 mt-6">6.1 التدريب الرياضي للناشئين والشباب (Youth Athletes)</h3>
+                <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-xl overflow-hidden my-4 border border-primary/10 shadow-sm">
+                  <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80" alt="Youth athletic training" className="w-full h-full object-cover" />
+                </div>
                 <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-lg mb-4">
                   بينما يعتقد البعض أن التدريب المكثف مطلوب للوصول لمرحلة النخبة، فإن الإجماع الطبي والعلمي يُظهر أن التخصص المبكر قبل سن البلوغ (في رياضة واحدة فقط واستبعاد الرياضات الأخرى) غير ضروري للوصول إلى النخبة في معظم الرياضات، بل ويحمل مخاطر كارثية تشمل ارتفاع معدلات الإصابة البدنية، الإجهاد النفسي الشديد، والاحتراق الرياضي المبكر (Burnout) الذي يدفع الأطفال لترك الرياضة تماماً في سن مبكرة.
                 </p>
@@ -338,6 +347,9 @@ export default function Training() {
                   <span className="material-symbols-outlined">female</span>
                   7. الفروق البيولوجية وتكييف الخطة للرياضيات الإناث
                 </h2>
+                <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-xl overflow-hidden my-4 border border-[#bc00fb]/10 shadow-sm">
+                  <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80" alt="Female athletes training" className="w-full h-full object-cover" />
+                </div>
                 
                 <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 mt-6">7.1 الاختلافات المورفولوجية والفسيولوجية المقارنة</h3>
                 <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-lg mb-4">

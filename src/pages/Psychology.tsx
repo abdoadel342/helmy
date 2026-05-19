@@ -23,7 +23,7 @@ export default function Psychology() {
           <div className="@container px-4 py-3">
             <div 
               className="bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-xl min-h-80 relative group" 
-              style={{ backgroundImage: 'linear-gradient(0deg, rgba(25, 16, 34, 0.8) 0%, rgba(25, 16, 34, 0) 60%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJMevs6yiRKUG1B9T7qj8NXv_jSvx7f0tEd91p7z-MHQ-0A1DMNH7blUW4CLEJE-Hkfm8iS3e5JlQP8vaayxn6ceHLvNHcxkCVg1810j2-XY2NiWO7w2ulFnKRirZItLjLT9bo7zOkKFl-XJVMCiK_V-940bU-8EfTlL9rgHWPi9pcv4bIA7m-B4HS9GzfJtvzGRThy0GXWnf0HFICIcxIt-1oWFvwT9hO4qvkEGn6VzYhx9oprIYOJRmLJ4o_KpYe1aZ_LKNG8Bsk")' }}
+              style={{ backgroundImage: 'linear-gradient(0deg, rgba(25, 16, 34, 0.8) 0%, rgba(25, 16, 34, 0) 60%), url("https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80")' }}
             >
               <div className="p-6">
                 <span className="bg-primary px-3 py-1 rounded-full text-xs font-semibold mb-2 inline-block text-white">تطوير ذهني</span>
@@ -41,6 +41,9 @@ export default function Psychology() {
             <div className="flex items-center gap-2 mb-3">
               <span className="material-symbols-outlined text-primary">psychology</span>
               <h3 className="text-xl font-bold">الدافع والتحفيز</h3>
+            </div>
+            <div className="w-full aspect-[21/9] rounded-xl overflow-hidden mb-4 border border-primary/10 shadow-sm">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Team motivation and sports psychology" className="w-full h-full object-cover" />
             </div>
             <div className="bg-primary/5 border border-primary/10 rounded-xl p-4">
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
@@ -70,6 +73,9 @@ export default function Psychology() {
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section className="px-4 py-6 bg-primary/5">
             <h3 className="text-xl font-bold mb-5 px-1">الصلابة الذهنية</h3>
+            <div className="w-full aspect-[21/9] rounded-xl overflow-hidden mb-4 border border-primary/10 shadow-sm">
+              <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80" alt="Mental toughness and focus in sports" className="w-full h-full object-cover" />
+            </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="flex flex-col items-center text-center gap-2">
                 <div className="size-14 rounded-full bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
@@ -156,6 +162,9 @@ export default function Psychology() {
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
           <section className="px-4 py-6">
             <h3 className="text-xl font-bold mb-3">التركيز والاسترخاء</h3>
+            <div className="w-full aspect-[21/9] rounded-xl overflow-hidden mb-4 border border-primary/10 shadow-sm">
+              <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Stretching and mental relaxation" className="w-full h-full object-cover" />
+            </div>
             <div className="bg-primary/5 rounded-xl p-5 border-r-4 border-primary">
               <p className="italic text-slate-700 dark:text-slate-300">
                 "الاسترخاء ليس غياب النشاط، بل هو توجيه الطاقة نحو الهدف الصحيح في الوقت المناسب."

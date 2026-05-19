@@ -28,7 +28,7 @@ export default function Anatomy() {
           <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10"></div>
           <div 
             className="w-full h-full bg-center bg-no-repeat bg-cover" 
-            style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdsB3v7QMUiU7p2jNyIvMjz9Ofa-7HFX7-mse3vfYsXgLsqs8balOcoN5bBt-0J9KyNKglLSW8aQtfKMmZ7IFmucNKdj327OdtfC18N8F4sw-Z2EWO0OamD2jq2RXvRZdeyLlSgpqUIC7tQ0jtNMsiRY5Z8XV36-og8b6FY-Z13nmQYEiBwl6pMfJLX1Z4AbIA-TfnfEPXM6LIcNylfyv5jvFXYKjKIjW_78a98YbgLzGsGfi7MjAoPVJ142NkZU10qxwP6Fj5NjyW")' }}
+            style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80")' }}
           ></div>
           <div className="absolute bottom-6 right-6 z-20">
             <h2 className="text-4xl font-bold text-slate-100">
@@ -46,6 +46,16 @@ export default function Anatomy() {
             <div className="flex items-center gap-2 mb-6">
               <span className="material-symbols-outlined text-primary">category</span>
               <h3 className="text-2xl font-bold">أنواع العضلات</h3>
+            </div>
+            <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-xl overflow-hidden mb-6 border border-primary/20 relative shadow-md">
+              <img 
+                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
+                alt="Muscular System Anatomy" 
+                className="w-full h-full object-cover" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-background-dark/30 to-transparent flex items-end p-4">
+                <p className="text-white text-xs md:text-sm font-medium">التقسيم الوظيفي والتشريحي للأنسجة العضلية في الجسم البشري</p>
+              </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <SpotlightCard className="bg-primary/5 backdrop-blur-md border border-primary/20 p-5 rounded-xl flex flex-col gap-3" spotlightColor="rgba(115, 17, 212, 0.15)">
@@ -69,10 +79,32 @@ export default function Anatomy() {
 
         {/* Muscle Fiber Types Section */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="bg-primary/5 rounded-2xl p-6 border border-primary/20">
+          <section>
             <div className="flex items-center gap-2 mb-6">
               <span className="material-symbols-outlined text-primary">biotech</span>
               <h3 className="text-2xl font-bold">أنواع الألياف العضلية</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="relative aspect-video rounded-xl overflow-hidden border border-red-500/20 group">
+                <img 
+                  src="https://images.unsplash.com/photo-1486218119243-13883505764c?auto=format&fit=crop&w=600&q=80" 
+                  alt="Type I Fiber (Endurance)" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
+                  <span className="text-white text-[10px] md:text-xs font-bold">الألياف بطيئة الانقباض (هوائية)</span>
+                </div>
+              </div>
+              <div className="relative aspect-video rounded-xl overflow-hidden border border-primary/20 group">
+                <img 
+                  src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=600&q=80" 
+                  alt="Type II Fiber (Power)" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
+                  <span className="text-white text-[10px] md:text-xs font-bold">الألياف سريعة الانقباض (لاهوائية)</span>
+                </div>
+              </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4">
@@ -127,8 +159,11 @@ export default function Anatomy() {
                   <span className={`material-symbols-outlined text-slate-500 group-hover:text-primary transition-transform ${openAccordion === 0 ? 'rotate-180' : ''}`}>expand_more</span>
                 </div>
                 {openAccordion === 0 && (
-                  <div className="p-4 bg-slate-50 dark:bg-background-dark/40 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-primary/10">
-                    الوظيفة الأساسية هي دفع الأوزان بعيداً عن الجسم وضم الذراعين للداخل. خلال التمرين، تعمل كمحرك أساسي في تمارين (Bench Press) والضغط، وتتطلب توازناً بين الألياف العلوية والسفلية.
+                  <div className="p-4 bg-slate-50 dark:bg-background-dark/40 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-primary/10 space-y-4">
+                    <p>الوظيفة الأساسية هي دفع الأوزان بعيداً عن الجسم وضم الذراعين للداخل. خلال التمرين، تعمل كمحرك أساسي في تمارين (Bench Press) والضغط، وتتطلب توازناً بين الألياف العلوية والسفلية.</p>
+                    <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-lg overflow-hidden border border-primary/10 shadow-sm">
+                      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Chest Exercises" className="w-full h-full object-cover" />
+                    </div>
                   </div>
                 )}
               </div>
@@ -151,8 +186,11 @@ export default function Anatomy() {
                   <span className={`material-symbols-outlined text-slate-500 group-hover:text-primary transition-transform ${openAccordion === 1 ? 'rotate-180' : ''}`}>expand_more</span>
                 </div>
                 {openAccordion === 1 && (
-                  <div className="p-4 bg-slate-50 dark:bg-background-dark/40 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-primary/10">
-                    أكبر مجموعة عضلية في الجزء العلوي، مسؤولة عن عمليات السحب وتثبيت العمود الفقري. تمارين (Deadlift) و (Pull-ups) هي الأفضل لاستهداف العرض والكثافة العضلية.
+                  <div className="p-4 bg-slate-50 dark:bg-background-dark/40 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-primary/10 space-y-4">
+                    <p>أكبر مجموعة عضلية في الجزء العلوي، مسؤولة عن عمليات السحب وتثبيت العمود الفقري. تمارين (Deadlift) و (Pull-ups) هي الأفضل لاستهداف العرض والكثافة العضلية.</p>
+                    <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-lg overflow-hidden border border-primary/10 shadow-sm">
+                      <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=600&q=80" alt="Back Exercises" className="w-full h-full object-cover" />
+                    </div>
                   </div>
                 )}
               </div>
@@ -175,8 +213,11 @@ export default function Anatomy() {
                   <span className={`material-symbols-outlined text-slate-500 group-hover:text-primary transition-transform ${openAccordion === 2 ? 'rotate-180' : ''}`}>expand_more</span>
                 </div>
                 {openAccordion === 2 && (
-                  <div className="p-4 bg-slate-50 dark:bg-background-dark/40 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-primary/10">
-                    تمثل قاعدة القوة للجسم بالكامل. عضلة الكوادز مسؤولة عن مد الركبة، بينما الهامسترنج مسؤولة عن ثنيها. تمرين (Squat) هو الملك هنا لتحفيز إفراز هرمونات النمو.
+                  <div className="p-4 bg-slate-50 dark:bg-background-dark/40 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-primary/10 space-y-4">
+                    <p>تمثل قاعدة القوة للجسم بالكامل. عضلة الكوادز مسؤولة عن مد الركبة، بينما الهامسترنج مسؤولة عن ثنيها. تمرين (Squat) هو الملك هنا لتحفيز إفراز هرمونات النمو.</p>
+                    <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-lg overflow-hidden border border-primary/10 shadow-sm">
+                      <img src="https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&w=600&q=80" alt="Legs Exercises" className="w-full h-full object-cover" />
+                    </div>
                   </div>
                 )}
               </div>
@@ -199,8 +240,11 @@ export default function Anatomy() {
                   <span className={`material-symbols-outlined text-slate-500 group-hover:text-primary transition-transform ${openAccordion === 3 ? 'rotate-180' : ''}`}>expand_more</span>
                 </div>
                 {openAccordion === 3 && (
-                  <div className="p-4 bg-slate-50 dark:bg-background-dark/40 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-primary/10">
-                    تتكون من ثلاثة رؤوس تمنح الجسم شكل (V-taper). هي العضلة الأكثر حركية وتعقيداً، وتتطلب زوايا تدريب مختلفة (أمامية، جانبية، وخلفية) لضمان التناسق ومنع الإصابات.
+                  <div className="p-4 bg-slate-50 dark:bg-background-dark/40 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-primary/10 space-y-4">
+                    <p>تتكون من ثلاثة رؤوس تمنح الجسم شكل (V-taper). هي العضلة الأكثر حركية وتعقيداً، وتتطلب زوايا تدريب مختلفة (أمامية، جانبية، وخلفية) لضمان التناسق ومنع الإصابات.</p>
+                    <div className="w-full aspect-[21/9] md:aspect-[3/1] rounded-lg overflow-hidden border border-primary/10 shadow-sm">
+                      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80" alt="Shoulders Exercises" className="w-full h-full object-cover" />
+                    </div>
                   </div>
                 )}
               </div>

@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import { db, logOut } from '../firebase';
 import { useAuth } from '../AuthContext';
 import { handleFirestoreError, OperationType } from '../errorHandling';
-import { Save, Settings as SettingsIcon, Globe, Bell, RefreshCw, Activity, CheckCircle2 } from 'lucide-react';
+import { Save, Settings as SettingsIcon, Globe, Bell, RefreshCw, Activity, CheckCircle2, Trash2, LogOut, ShieldAlert } from 'lucide-react';
 
 import { programsData } from './Programs';
 
 export default function Settings() {
   const { user } = useAuth();
+  const isGuest = !user || user.uid === 'mock-user-123';
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [syncing, setSyncing] = useState(false);
@@ -23,6 +25,39 @@ export default function Settings() {
   });
 
   const [bmi, setBmi] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  const handleLogOut = async () => {
+    if (window.confirm('هل أنت متأكد من رغبتك في تسجيل الخروج؟')) {
+      await logOut();
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!user) return;
+    const confirm1 = window.confirm('تحذير: هل أنت متأكد من رغبتك في حذف حسابك نهائياً؟ لا يمكن التراجع عن هذا الإجراء.');
+    if (!confirm1) return;
+    const confirm2 = window.confirm('سيتم حذف كافة تفضيلاتك، خططك الغذائية، وسجلات الأنشطة والأجهزة المتصلة من قاعدة البيانات. هل تريد الاستمرار بحذف الحساب؟');
+    if (!confirm2) return;
+
+    setDeleting(true);
+    try {
+      await deleteDoc(doc(db, 'users', user.uid));
+      try {
+        await user.delete();
+      } catch (authError) {
+        console.warn("Could not delete Auth user directly (requires recent login), signing out instead.", authError);
+      }
+      await logOut();
+      alert('تم حذف الحساب والبيانات بالكامل بنجاح. يمكنك الآن التسجيل بحساب جديد.');
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      alert('حدث خطأ أثناء حذف الحساب. تم تسجيل خروجك لحماية خصوصيتك.');
+      await logOut();
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   useEffect(() => {
     if (!user) return;
@@ -306,6 +341,59 @@ export default function Settings() {
             {syncing ? 'جاري المزامنة...' : syncSuccess ? 'تمت المزامنة بنجاح!' : 'مزامنة البرامج التدريبية'}
           </button>
         </div>
+
+        {/* Danger Zone */}
+        {isGuest ? (
+          <div className="bg-zinc-950 p-8 rounded-3xl border border-purple-900/30 space-y-6 lg:col-span-2">
+            <h2 className="text-xl font-bold text-purple-400 flex items-center gap-2">
+              <SettingsIcon className="w-5 h-5 text-purple-500" /> إدارة الحساب (وضع الزائر)
+            </h2>
+            <p className="text-zinc-400 text-sm">
+              أنت تستخدم التطبيق حالياً كزائر. يمكنك تسجيل الدخول أو إنشاء حساب لحفظ بياناتك الرياضية وخططك الغذائية بشكل دائم.
+            </p>
+            <div className="pt-2">
+              <Link
+                to="/login"
+                className="w-full py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2"
+              >
+                <LogOut className="w-5 h-5 text-white/80 rotate-180" />
+                تسجيل الدخول / إنشاء حساب جديد
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-zinc-950 p-8 rounded-3xl border border-red-900/30 space-y-6 lg:col-span-2">
+            <h2 className="text-xl font-bold text-red-500 flex items-center gap-2">
+              <ShieldAlert className="w-5 h-5" /> منطقة الخطورة والإدارة
+            </h2>
+            <p className="text-zinc-400 text-sm">
+              يمكنك تسجيل الخروج من حسابك الحالي أو حذف الحساب وجميع البيانات والخطط المسجلة نهائياً لجعل التطبيق خالياً ومستعداً لتسجيل جديد.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <button
+                onClick={handleLogOut}
+                className="flex-1 py-4 bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-800 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <LogOut className="w-5 h-5 text-zinc-400" />
+                تسجيل الخروج
+              </button>
+
+              <button
+                onClick={handleDeleteAccount}
+                disabled={deleting}
+                className="flex-1 py-4 bg-red-600/10 hover:bg-red-600 text-red-500 hover:text-white border border-red-500/20 hover:border-red-500 rounded-xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {deleting ? (
+                  <RefreshCw className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Trash2 className="w-5 h-5" />
+                )}
+                {deleting ? 'جاري حذف الحساب...' : 'حذف الحساب نهائياً'}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="pt-4">

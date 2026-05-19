@@ -11,37 +11,37 @@ export default function Education() {
     {
       title: "تشريح الجهاز العضلي",
       description: "الدليل التقني المتكامل للرياضيين",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBdsB3v7QMUiU7p2jNyIvMjz9Ofa-7HFX7-mse3vfYsXgLsqs8balOcoN5bBt-0J9KyNKglLSW8aQtfKMmZ7IFmucNKdj327OdtfC18N8F4sw-Z2EWO0OamD2jq2RXvRZdeyLlSgpqUIC7tQ0jtNMsiRY5Z8XV36-og8b6FY-Z13nmQYEiBwl6pMfJLX1Z4AbIA-TfnfEPXM6LIcNylfyv5jvFXYKjKIjW_78a98YbgLzGsGfi7MjAoPVJ142NkZU10qxwP6Fj5NjyW",
+      image: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80",
       path: "/education/anatomy"
     },
     {
       title: "الميكانيكية وعلم الحركة",
       description: "تعلم أساسيات حركة الجسم وتفاعل القوى",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB8Hty8omI8ntTWPKngq1xIBAwDCZKA3UY53Oj1zZPLJt2fJlrfv4rvm8TyTLs4-qAOAuLJuJFaJhDrxkEyu0qQtSPAYLZjrST5XgXFhGaZEA0kFlQaYy4KBH8DWuQp2VUSjLssc7Be9lIQz-ZbrSwlrbeNWzVM_aNPeQMtszgtqmLrv_iEGxRkHOdN32fpjfq73mWFiylFPysTtW4fR9u3-uEeRW82lbpPie0pDeZRhNXy0JuNviGEGbChTMEMtCwyhmjvq2MDlPtj",
+      image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=800&q=80",
       path: "/education/biomechanics"
     },
     {
       title: "التغذية للرياضيين",
       description: "دليلك الشامل للغذاء الصحي والأداء العالي",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD2L-VPaiGxNi-a1zOGnx7OxHF0UBfdIsfzaEl0PlsNoCb4jR1bi2T-2HD7sLJih2Wg-cxrIDu9ERBHi9ym1iE4KT1x1LIjiKKbrqYOmZ55tJlCqNlADoBWOGqxwv0etwldvOIw43zWQ0CHmKUwVNfCEqfFsq7b47jEnKHhcnnmI59ZZE1bMgN3YH3OCgi59v7QeYQOBx8CRLI4sSGQsHbDQn4dZYc3FszKOy2Vm3vFIG-mnOun3FGn9cTbsRYPayxSXX356ZN6pT3o",
+      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80",
       path: "/education/sports-nutrition"
     },
     {
       title: "التدريب الرياضي",
       description: "منهجيات التدريب الحديثة لرفع الكفاءة البدنية",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBgvs43HRfxu6A3Ma39QjXcJndxZ__pIsUvhRG_0lQCGRZ2ayFniGlt2dSYUzcIDrOzLMcOG9KZib5O4vVme12iaCikwgo5aJA4DakhdHcDZ35Hd--eqTN6cb86hd3ZI8qgRS4Ia2Jq2zGzADtHeyRuQzVmi7kk46h2DtfoNiy8puIpZ2QS4mvbYNPkRUgVDjvZlhahHAEHHjCrT7okwwBislgWO8SWF3L_8qryFST2kFgCrfOsh14-u3TR5h8NAEilbO-tWD86Fc1b",
+      image: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80",
       path: "/education/training"
     },
     {
       title: "فسيولوجية الرياضة",
       description: "استجابة وتكيف أجهزة الجسم للجهد البدني",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB6JzsHqB2J12QRErx_y5rI1ymx20LBtH9cU_ntxop9nnimdY5tJfU20nviTM0pO4jdxmpLsuR-0uEFkUsCaxbw6a0sYJXVh-katszXmmEpzow9bmzH_Hon8Kw_DkpHWutRxmMgu1LZmxN_m4F7jMMtqWVSs5_xkFNpIQrJN1yQLt4yVVfU1j0PV9PHamWnV_sTn42V9l2onUusa3s63_IIXQka1CZ00Skf1XECGH9B_i-u7iCC8gVGSbTTkpV5E8On6Qmu5etJ6LGE",
+      image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80",
       path: "/education/physiology"
     },
     {
       title: "سيكولوجية الرياضة",
       description: "العوامل النفسية المؤثرة على الأداء الرياضي",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB6RABoCrQM4odBZpYeVLZWmqRloPItJNbFNJsc1qR15eFxObft-3gpyDripB0OXLVLapDC4oqTXr29Bqohqsg6O8MxqTvtalVoEnWTrtDxLw7zNxjPaYDIR_o57Mw0tCBrt9VnKGvlI4ZMDWmZzP4IOFfxfFvlM35CyEknpQzMmRjZpqSoGEjUZF_NcP4x9xuSgSYTvlS7w6RBT_bsFaCraqoNk6HHaCh3VpSLG0QLNJw8NL1fPYHUSGg6xDbMR050X3j6cmCxhNT_",
+      image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80",
       path: "/education/psychology"
     }
   ];

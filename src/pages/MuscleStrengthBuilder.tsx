@@ -140,7 +140,7 @@ export default function MuscleStrengthBuilder() {
   return (
     <FadeContent blur={true} duration={600} easing="ease-out" initialOpacity={0}>
       <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden pb-48 bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased font-display">
-        
+
         {/* Header */}
         <header className="flex items-center justify-between p-4 sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
           <BackButton />
@@ -151,9 +151,9 @@ export default function MuscleStrengthBuilder() {
         {/* Hero Section */}
         <div className="px-4 py-6">
           <div className="relative h-48 w-full overflow-hidden rounded-xl bg-gradient-to-br from-primary to-primary/40 p-6 flex flex-col justify-end">
-            <img 
-              alt="Muscular person training" 
-              className="absolute inset-0 h-full w-full object-cover mix-blend-overlay opacity-60" 
+            <img
+              alt="Muscular person training"
+              className="absolute inset-0 h-full w-full object-cover mix-blend-overlay opacity-60"
               src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2070&auto=format&fit=crop"
               referrerPolicy="no-referrer"
             />
@@ -167,7 +167,7 @@ export default function MuscleStrengthBuilder() {
 
         {/* Workout Builder Configuration */}
         <div className="px-4 space-y-8">
-          
+
           {/* Muscle Selection Section */}
           <section>
             <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
@@ -176,14 +176,13 @@ export default function MuscleStrengthBuilder() {
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {muscles.map((muscle) => (
-                <button 
+                <button
                   key={muscle}
                   onClick={() => setSelectedMuscle(muscle)}
-                  className={`flex items-center justify-between p-4 rounded-xl border-2 transition-colors ${
-                    selectedMuscle === muscle 
-                      ? 'border-primary bg-primary/5 text-primary' 
-                      : 'border-slate-200 dark:border-primary/10 bg-white dark:bg-primary/5 text-slate-600 dark:text-slate-400'
-                  }`}
+                  className={`flex items-center justify-between p-4 rounded-xl border-2 transition-colors ${selectedMuscle === muscle
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-slate-200 dark:border-primary/10 bg-white dark:bg-primary/5 text-slate-600 dark:text-slate-400'
+                    }`}
                 >
                   <span className="font-medium">{muscle}</span>
                   {selectedMuscle === muscle ? (
@@ -204,14 +203,13 @@ export default function MuscleStrengthBuilder() {
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {parts.map((part) => (
-                <button 
+                <button
                   key={part}
                   onClick={() => setSelectedPart(part)}
-                  className={`flex items-center justify-between p-4 rounded-xl border-2 transition-colors ${
-                    selectedPart === part 
-                      ? 'border-primary bg-primary/5 text-primary' 
-                      : 'border-slate-200 dark:border-primary/10 bg-white dark:bg-primary/5 text-slate-600 dark:text-slate-400'
-                  }`}
+                  className={`flex items-center justify-between p-4 rounded-xl border-2 transition-colors ${selectedPart === part
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-slate-200 dark:border-primary/10 bg-white dark:bg-primary/5 text-slate-600 dark:text-slate-400'
+                    }`}
                 >
                   <span className="font-medium">{part}</span>
                   {selectedPart === part ? (
@@ -249,7 +247,7 @@ export default function MuscleStrengthBuilder() {
 
           {/* Sets and Reps Configuration */}
           <section className="space-y-4">
-            
+
             {/* Sets Counter */}
             <div className="bg-slate-100 dark:bg-primary/5 p-4 rounded-2xl border border-slate-200 dark:border-primary/10">
               <div className="flex items-center justify-between mb-4">
@@ -260,7 +258,7 @@ export default function MuscleStrengthBuilder() {
                 <span className="text-primary font-bold text-lg">{sets}</span>
               </div>
               <div className="flex items-center justify-between bg-white dark:bg-background-dark rounded-xl p-2 border border-slate-200 dark:border-primary/20">
-                <button 
+                <button
                   onClick={() => setSets(s => s + 1)}
                   className="size-10 rounded-lg bg-slate-100 dark:bg-primary/20 flex items-center justify-center text-primary"
                 >
@@ -270,7 +268,7 @@ export default function MuscleStrengthBuilder() {
                   <span className="text-2xl font-bold">{sets}</span>
                   <span className="text-slate-500 text-sm self-end pb-1">مجموعات</span>
                 </div>
-                <button 
+                <button
                   onClick={() => setSets(s => Math.max(1, s - 1))}
                   className="size-10 rounded-lg bg-slate-100 dark:bg-primary/20 flex items-center justify-center text-primary"
                 >
@@ -289,7 +287,7 @@ export default function MuscleStrengthBuilder() {
                 <span className="text-primary font-bold text-lg">{reps}</span>
               </div>
               <div className="flex items-center justify-between bg-white dark:bg-background-dark rounded-xl p-2 border border-slate-200 dark:border-primary/20">
-                <button 
+                <button
                   onClick={() => setReps(r => r + 1)}
                   className="size-10 rounded-lg bg-slate-100 dark:bg-primary/20 flex items-center justify-center text-primary"
                 >
@@ -299,7 +297,7 @@ export default function MuscleStrengthBuilder() {
                   <span className="text-2xl font-bold">{reps}</span>
                   <span className="text-slate-500 text-sm self-end pb-1">تكرار</span>
                 </div>
-                <button 
+                <button
                   onClick={() => setReps(r => Math.max(1, r - 1))}
                   className="size-10 rounded-lg bg-slate-100 dark:bg-primary/20 flex items-center justify-center text-primary"
                 >
@@ -318,7 +316,7 @@ export default function MuscleStrengthBuilder() {
                 <span className="text-primary font-bold text-lg">{restTime}</span>
               </div>
               <div className="flex items-center justify-between bg-white dark:bg-background-dark rounded-xl p-2 border border-slate-200 dark:border-primary/20">
-                <button 
+                <button
                   onClick={() => setRestTime(r => r + 15)}
                   className="size-10 rounded-lg bg-slate-100 dark:bg-primary/20 flex items-center justify-center text-primary"
                 >
@@ -328,7 +326,7 @@ export default function MuscleStrengthBuilder() {
                   <span className="text-2xl font-bold">{restTime}</span>
                   <span className="text-slate-500 text-sm self-end pb-1">ثانية</span>
                 </div>
-                <button 
+                <button
                   onClick={() => setRestTime(r => Math.max(15, r - 15))}
                   className="size-10 rounded-lg bg-slate-100 dark:bg-primary/20 flex items-center justify-center text-primary"
                 >

@@ -1954,6 +1954,32 @@ export default function Programs() {
       onClick: () => navigate('/programs/muscle-strength'),
     },
     {
+      id: 6,
+      title: 'برامج بناء العضلات',
+      subtitle: 'Push Pull Legs • Upper Lower • Full Body',
+      description: '٣ برامج احترافية لبناء العضلات مصممة لجميع المستويات مع تمارين مفصلة وجداول تدريبية متكاملة.',
+      icon: 'cardiology',
+      color: '#ff6b6b',
+      tags: [
+        { icon: 'schedule', label: '4-8 أسابيع' },
+        { icon: 'group', label: 'جميع المستويات' }
+      ],
+      onClick: () => navigate('/programs/muscle-building'),
+    },
+    {
+      id: 7,
+      title: 'برنامج خسارة الدهون',
+      subtitle: 'Beginner • Intermediate • Advanced',
+      description: '٣ مستويات لحرق الدهون تجمع بين تمارين المقاومة والكارديو و HIIT للحفاظ على العضلات وتسريع الأيض.',
+      icon: 'local_fire_department',
+      color: '#ff6b6b',
+      tags: [
+        { icon: 'schedule', label: '4-8 أسابيع' },
+        { icon: 'whatshot', label: 'حرق دهون' }
+      ],
+      onClick: () => navigate('/programs/fat-loss'),
+    },
+    {
       id: 2,
       title: 'برنامج المرونة والاستشفاء',
       subtitle: 'يهدف لتحسين المدى الحركي وتقليل تيبس العضلات.',

@@ -84,6 +84,8 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 import MuscleStrengthBuilder from './pages/MuscleStrengthBuilder';
+import MuscleBuilding from './pages/MuscleBuilding';
+import FatLossProgram from './pages/FatLossProgram';
 
 export default function App() {
   return (
@@ -106,6 +108,8 @@ export default function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="programs" element={<Programs />} />
             <Route path="programs/muscle-strength" element={<MuscleStrengthBuilder />} />
+            <Route path="programs/muscle-building" element={<MuscleBuilding />} />
+            <Route path="programs/fat-loss" element={<FatLossProgram />} />
             <Route path="education" element={<Education />} />
             <Route path="education/biomechanics" element={<Biomechanics />} />
             <Route path="education/anatomy" element={<Anatomy />} />
