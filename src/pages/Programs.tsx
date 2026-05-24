@@ -471,6 +471,7 @@ export default function Programs() {
       });
       
       setCompletedDays(prev => [...prev, workoutId]);
+      alert(`تم تسجيل وحفظ التمرين بنجاح: ${dayTitle}`);
     } catch (error) {
       console.error("Error saving workout progress:", error);
       alert("حدث خطأ أثناء حفظ التقدم. يرجى المحاولة مرة أخرى.");
@@ -700,7 +701,13 @@ export default function Programs() {
                 <p className="text-white/80 text-xs">{dsDuration} دقيقة • المستوى {dsIntensities[dsIntensity]}</p>
               </div>
             </div>
-            <button className="bg-white text-[#e08dff] px-6 py-3 rounded-full font-display font-bold active:scale-95 transition-transform">بدء</button>
+            <button 
+              onClick={() => handleCompleteWorkout('prog_003', activeWeekIndex + 1, activeDayIndex + 1, `إحماء ديناميكي (${dsIntensities[dsIntensity]})`)}
+              disabled={isCompleting}
+              className="bg-white text-[#e08dff] px-6 py-3 rounded-full font-display font-bold active:scale-95 transition-transform"
+            >
+              {isCompleting ? 'جاري...' : 'بدء'}
+            </button>
           </div>
         </motion.div>
       );
@@ -964,8 +971,12 @@ export default function Programs() {
           </section>
 
           {/* Start Plan Button */}
-          <button className="w-full mt-8 py-5 bg-gradient-to-r from-[#e08dff] to-[#bc00fb] rounded-full font-display font-black text-xl text-white shadow-[0_15px_30px_rgba(188,0,251,0.3)] hover:scale-[1.02] active:scale-95 duration-150 transition-all flex items-center justify-center gap-3">
-            <span>بدء الجلسة الآن</span>
+          <button 
+            onClick={() => handleCompleteWorkout('prog_003', activeWeekIndex + 1, activeDayIndex + 1, `جلسة إطالة ثابتة (${ssDuration} دقيقة • ${ssIntensities[ssIntensity]})`)}
+            disabled={isCompleting}
+            className="w-full mt-8 py-5 bg-gradient-to-r from-[#e08dff] to-[#bc00fb] rounded-full font-display font-black text-xl text-white shadow-[0_15px_30px_rgba(188,0,251,0.3)] hover:scale-[1.02] active:scale-95 duration-150 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+          >
+            <span>{isCompleting ? 'جاري الحفظ...' : 'بدء الجلسة الآن'}</span>
             <span>({ssDuration} دقيقة • {ssIntensities[ssIntensity]})</span>
             <span className="material-symbols-outlined">play_arrow</span>
           </button>
@@ -1159,9 +1170,13 @@ export default function Programs() {
 
           {/* Fixed Action Button */}
           <div className="mt-16 sticky z-40 px-4 bottom-8">
-            <button className="w-full h-16 bg-gradient-to-br from-[#e08dff] to-[#bc00fb] rounded-full shadow-[0_10px_30px_rgba(188,0,251,0.4)] flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all duration-300">
+            <button 
+              onClick={() => handleCompleteWorkout('prog_003', activeWeekIndex + 1, activeDayIndex + 1, 'جلسة تقنيات الاستشفاء الذاتي')}
+              disabled={isCompleting}
+              className="w-full h-16 bg-gradient-to-br from-[#e08dff] to-[#bc00fb] rounded-full shadow-[0_10px_30px_rgba(188,0,251,0.4)] flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-50"
+            >
               <span className="material-symbols-outlined text-white" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-              <span className="font-display font-black text-xl text-white">بدء جلسة اليوم المخصصة</span>
+              <span className="font-display font-black text-xl text-white">{isCompleting ? 'جاري البدء...' : 'بدء جلسة اليوم المخصصة'}</span>
             </button>
           </div>
         </motion.div>
@@ -1197,8 +1212,12 @@ export default function Programs() {
                   تواصل مع <span className="text-[#e08dff] italic">قوتك</span> الداخلية
                 </h2>
                 <div className="mt-6 flex gap-3">
-                  <button className="bg-gradient-to-br from-[#e08dff] to-[#bc00fb] px-8 py-3 rounded-full font-display font-bold text-white shadow-[0_10px_20px_rgba(224,141,255,0.3)] active:scale-95 duration-200">
-                    ابدأ الآن
+                  <button 
+                    onClick={() => handleCompleteWorkout('prog_003', activeWeekIndex + 1, activeDayIndex + 1, 'جلسة الوعي الجسماني والاسترخاء')}
+                    disabled={isCompleting}
+                    className="bg-gradient-to-br from-[#e08dff] to-[#bc00fb] px-8 py-3 rounded-full font-display font-bold text-white shadow-[0_10px_20px_rgba(224,141,255,0.3)] active:scale-95 duration-200 disabled:opacity-50"
+                  >
+                    {isCompleting ? 'جاري...' : 'ابدأ الآن'}
                   </button>
                 </div>
               </div>
@@ -1555,8 +1574,12 @@ export default function Programs() {
 
             {/* Main Action Button */}
             <div className="mt-12 sticky z-40 p-4 bottom-0 bg-gradient-to-t from-[#0e0e0e] to-transparent w-full">
-              <button className="w-full h-16 bg-gradient-to-br from-[#e08dff] to-[#bc00fb] rounded-full shadow-[0_10px_30px_rgba(188,0,251,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all duration-300 group">
-                <span className="font-display font-black text-lg text-white">ابدأ جلسة اليوم</span>
+              <button 
+                onClick={() => handleCompleteWorkout('prog_003', activeWeekIndex + 1, activeDayIndex + 1, `جلسة الاستشفاء: ${activeDay?.day_title || 'اليومية'}`)}
+                disabled={isCompleting}
+                className="w-full h-16 bg-gradient-to-br from-[#e08dff] to-[#bc00fb] rounded-full shadow-[0_10px_30px_rgba(188,0,251,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all duration-300 group disabled:opacity-50"
+              >
+                <span className="font-display font-black text-lg text-white">{isCompleting ? 'جاري الحفظ...' : 'ابدأ جلسة اليوم'}</span>
                 <span className="material-symbols-outlined text-white group-hover:-translate-x-1 transition-transform">{language === 'ar' ? 'arrow_back' : 'arrow_forward'}</span>
               </button>
             </div>

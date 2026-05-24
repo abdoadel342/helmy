@@ -5,9 +5,11 @@ import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
 import { BackButton } from '../components/BackButton';
+import { useStartWorkout } from '../useStartWorkout';
 
 const AgilityTraining: React.FC = () => {
   const navigate = useNavigate();
+  const { isStarting, workoutStarted, handleStartWorkout } = useStartWorkout();
 
   return (
     <div className="bg-slate-50 dark:bg-[#0a0a0a] text-slate-900 dark:text-slate-100 min-h-screen pb-32 font-sans">
@@ -194,12 +196,25 @@ const AgilityTraining: React.FC = () => {
           <StarBorder
             as="button"
             className="w-full !p-0"
-            color="rgba(115, 17, 212, 0.8)"
+            color={workoutStarted ? '#10b981' : 'rgba(115, 17, 212, 0.8)'}
             speed="3s"
+            onClick={() => handleStartWorkout('برنامج السرعة واللياقة', 'تمارين الرشاقة')}
+            disabled={isStarting || workoutStarted}
           >
             <div className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-[32px] flex items-center justify-center gap-2 transition-all active:scale-95">
-              <span className="material-symbols-outlined">rocket_launch</span>
-              ابدأ التدريب الآن
+              {isStarting ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : workoutStarted ? (
+                <>
+                  <span className="material-symbols-outlined">check_circle</span>
+                  تم تسجيل التدريب بنجاح!
+                </>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined">rocket_launch</span>
+                  ابدأ التدريب الآن
+                </>
+              )}
             </div>
           </StarBorder>
         </div>

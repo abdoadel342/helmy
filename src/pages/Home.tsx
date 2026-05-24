@@ -10,6 +10,7 @@ import SplitText from '../components/react-bits/SplitText';
 import GradientText from '../components/react-bits/GradientText';
 import { Instagram, Linkedin } from 'lucide-react';
 import { logOut } from '../firebase';
+import { AnimatedThemeToggler } from '../components/AnimatedThemeToggler';
 
 /* ── tiny animated counter ── */
 function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
@@ -68,6 +69,7 @@ export default function Home() {
           <h1 className="text-xl font-black tracking-tight bg-gradient-to-r from-primary to-violet-400 bg-clip-text text-transparent">HELMY</h1>
         </div>
         <div className="flex items-center gap-2">
+          <AnimatedThemeToggler />
           <button className="relative p-2.5 text-slate-500 dark:text-slate-400 hover:bg-primary/10 rounded-xl transition-colors">
             <span className="material-symbols-outlined text-[22px]">notifications</span>
             <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full ring-2 ring-background-light dark:ring-background-dark"></span>

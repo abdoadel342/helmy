@@ -4,6 +4,7 @@ import { BackButton } from '../components/BackButton';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import GradientText from '../components/react-bits/GradientText';
 import { useLanguage } from '../LanguageContext';
+import { useStartWorkout } from '../useStartWorkout';
 
 type Exercise = { name: string; sets: number; reps: string; rest: string; muscle: string; note?: string };
 type DayPlan = { title: string; exercises: Exercise[] };
@@ -97,6 +98,7 @@ const programs: ProgramType[] = [
 
 export default function MuscleBuilding() {
   const { language } = useLanguage();
+  const { isStarting, workoutStarted, handleStartWorkout } = useStartWorkout();
   const [selectedProgram, setSelectedProgram] = useState<ProgramType | null>(null);
   const [activeDayIdx, setActiveDayIdx] = useState(0);
 
@@ -197,6 +199,41 @@ export default function MuscleBuilding() {
               <li className="flex gap-2"><span style={{ color: selectedProgram.color }}>•</span>احرص على النوم 7-9 ساعات يومياً.</li>
               <li className="flex gap-2"><span style={{ color: selectedProgram.color }}>•</span>تناول 1.6-2.2 غ بروتين/كغ من وزن الجسم.</li>
             </ul>
+          </div>
+
+          {/* Start/Record Session Button */}
+          <div className="mx-4 mt-6">
+            <button
+              onClick={() => handleStartWorkout(selectedProgram.name, day.title, selectedProgram.id)}
+              disabled={isStarting || workoutStarted}
+              className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all duration-300 ${
+                workoutStarted
+                  ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-500/30'
+                  : 'bg-gradient-to-r hover:scale-[1.02] active:scale-95 text-white shadow-lg shadow-black/40'
+              }`}
+              style={
+                !workoutStarted
+                  ? {
+                      background: `linear-gradient(135deg, ${selectedProgram.color}, ${selectedProgram.color}dd)`,
+                      boxShadow: `0 10px 30px ${selectedProgram.color}33`,
+                    }
+                  : {}
+              }
+            >
+              {isStarting ? (
+                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : workoutStarted ? (
+                <>
+                  <span className="material-symbols-outlined text-emerald-400">check_circle</span>
+                  <span>تم تسجيل هذا التمرين بنجاح!</span>
+                </>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined text-white">play_arrow</span>
+                  <span>ابدأ وحفظ هذا التمرين</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
       </FadeContent>

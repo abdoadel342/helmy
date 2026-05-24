@@ -4,9 +4,12 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { BackButton } from '../components/BackButton';
+import { StarBorder } from '../components/react-bits/StarBorder';
+import { useStartWorkout } from '../useStartWorkout';
 
 const BalanceTraining: React.FC = () => {
   const navigate = useNavigate();
+  const { isStarting, workoutStarted, handleStartWorkout } = useStartWorkout();
 
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-x-hidden font-display pb-24">
@@ -44,7 +47,7 @@ const BalanceTraining: React.FC = () => {
                 أهمية تمارين التوازن
               </h3>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm">
-                تعتبر تمارين التوازن (الثابتة والديناميكية) ضرورية لتحسين الأداء الرياضي والوقاية من الإصابات. فهي لا تقوي العضلات فحسب، بل تعمل على تعسين استقرار المفاصل وتقوية العضلات المركزية (Core)، مما يمنحك تحكماً أفضل في حركات جسمك تحت الضغط.
+                تعتبر تمارين التوازن (الثابتة والديناميكية) ضرورية لتحسين الأداء الرياضي والوقاية من الإصابات. فهي لا تقوي العضلات فحسب، بل تعمل على تحسين استقرار المفاصل وتقوية العضلات المركزية (Core)، مما يمنحك تحكماً أفضل في حركات جسمك تحت الضغط.
               </p>
             </div>
           </section>
@@ -158,6 +161,36 @@ const BalanceTraining: React.FC = () => {
               </ul>
             </div>
           </section>
+        </FadeContent>
+
+        {/* Footer Action */}
+        <FadeContent blur={true} duration={1000} initialOpacity={0}>
+          <div className="px-4 pt-4 pb-8">
+            <StarBorder
+              as="button"
+              className="w-full !p-0"
+              color={workoutStarted ? '#10b981' : 'rgba(115, 17, 212, 0.8)'}
+              speed="3s"
+              onClick={() => handleStartWorkout('برنامج السرعة واللياقة', 'تمارين التوازن')}
+              disabled={isStarting || workoutStarted}
+            >
+              <div className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-[32px] flex items-center justify-center gap-2 transition-all active:scale-95">
+                {isStarting ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : workoutStarted ? (
+                  <>
+                    <span className="material-symbols-outlined">check_circle</span>
+                    تم تسجيل التدريب بنجاح!
+                  </>
+                ) : (
+                  <>
+                    <span className="material-symbols-outlined">rocket_launch</span>
+                    ابدأ التدريب الآن
+                  </>
+                )}
+              </div>
+            </StarBorder>
+          </div>
         </FadeContent>
       </main>
     </div>

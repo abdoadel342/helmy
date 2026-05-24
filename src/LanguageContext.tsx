@@ -5,6 +5,7 @@ type Language = 'ar' | 'en';
 interface LanguageContextType {
   language: Language;
   toggleLanguage: () => void;
+  setLanguage: (lang: Language) => void;
   t: (key: string) => string;
 }
 
@@ -158,13 +159,16 @@ const translations: Record<Language, Record<string, string>> = {
     'week_label': 'Week'
   }
 };
-
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('ar');
+  const [language, setLanguage] = useState<Language>(() => {
+    const saved = localStorage.getItem('app_language');
+    return (saved === 'en' || saved === 'ar') ? saved : 'ar';
+  });
 
   useEffect(() => {
+    localStorage.setItem('app_language', language);
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
   }, [language]);
@@ -178,7 +182,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   };
 
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ language, toggleLanguage, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
