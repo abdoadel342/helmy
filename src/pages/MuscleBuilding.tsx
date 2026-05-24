@@ -96,14 +96,117 @@ const programs: ProgramType[] = [
   },
 ];
 
+const getExerciseEquipment = (name: string): string[] => {
+  const equipments = [];
+  const text = name.toLowerCase();
+
+  if (text.includes('دمبل') || text.includes('مطرقة') || text.includes('كيرل بايسبس') || text.includes('رفع جانبي') || text.includes('تريسبس')) {
+    equipments.push('dumbbells');
+  }
+
+  if (text.includes('بار') || text.includes('عسكري') || text.includes('ديدلفت') || text.includes('سكوات') || text.includes('روما')) {
+    equipments.push('barbell');
+  }
+
+  if (text.includes('كيبل') || text.includes('كابل') || text.includes('حبل') || text.includes('pull')) {
+    equipments.push('cable');
+  }
+
+  if (
+    text.includes('جهاز') ||
+    text.includes('سحب') ||
+    text.includes('تمديد') ||
+    text.includes('ثني') ||
+    text.includes('برس') ||
+    text.includes('press')
+  ) {
+    equipments.push('machines');
+  }
+
+  if (
+    text.includes('وزن') ||
+    text.includes('جسم') ||
+    text.includes('دبس') ||
+    text.includes('متوازي') ||
+    text.includes('بلانك') ||
+    text.includes('عقلة') ||
+    text.includes('سمانة') ||
+    text.includes('بلغار')
+  ) {
+    equipments.push('bodyweight');
+  }
+
+  if (equipments.length === 0) {
+    equipments.push('others');
+  }
+
+  return equipments;
+};
+
 export default function MuscleBuilding() {
   const { language } = useLanguage();
   const { isStarting, workoutStarted, handleStartWorkout } = useStartWorkout();
   const [selectedProgram, setSelectedProgram] = useState<ProgramType | null>(null);
   const [activeDayIdx, setActiveDayIdx] = useState(0);
+  const [customExercises, setCustomExercises] = useState<Record<string, { sets: number; reps: string; rest: string }>>({});
+  const [selectedEquipment, setSelectedEquipment] = useState<string[]>(['dumbbells', 'barbell', 'cable', 'machines', 'bodyweight', 'others']);
+
+  const adjustReps = (repsStr: string, increment: boolean): string => {
+    const rangeMatch = repsStr.match(/^(\d+)-(\d+)(.*)$/);
+    if (rangeMatch) {
+      const start = parseInt(rangeMatch[1]);
+      const end = parseInt(rangeMatch[2]);
+      const suffix = rangeMatch[3] || '';
+      const diff = end - start;
+      const newStart = increment ? start + 1 : Math.max(1, start - 1);
+      const newEnd = newStart + diff;
+      return `${newStart}-${newEnd}${suffix}`;
+    }
+    const singleMatch = repsStr.match(/^(\d+)(.*)$/);
+    if (singleMatch) {
+      const val = parseInt(singleMatch[1]);
+      const suffix = singleMatch[2] || '';
+      const newVal = increment ? val + 1 : Math.max(1, val - 1);
+      return `${newVal}${suffix}`;
+    }
+    return repsStr;
+  };
+
+  const adjustRest = (restStr: string, increment: boolean): string => {
+    const match = restStr.match(/^(\d+)(.*)$/);
+    if (match) {
+      const val = parseInt(match[1]);
+      const suffix = match[2] || '';
+      const newVal = increment ? val + 15 : Math.max(15, val - 15);
+      return `${newVal}${suffix}`;
+    }
+    return restStr;
+  };
+
+  const handleStartRoutine = () => {
+    if (!selectedProgram) return;
+    const day = selectedProgram.days[activeDayIdx];
+    const filteredExercises = day.exercises.filter(ex => {
+      const eqList = getExerciseEquipment(ex.name);
+      return eqList.some(eq => selectedEquipment.includes(eq));
+    });
+    if (filteredExercises.length === 0) return;
+    const workoutName = `برنامج ${selectedProgram.name} - ${day.title}`;
+    const description = filteredExercises
+      .map((ex) => {
+        const custom = customExercises[`${day.title}-${ex.name}`] || { sets: ex.sets, reps: ex.reps, rest: ex.rest };
+        return `• ${ex.name}: ${custom.sets} مجموعات × ${custom.reps} (راحة ${custom.rest})`;
+      })
+      .join('\n');
+    handleStartWorkout(workoutName, description, selectedProgram.id);
+  };
 
   if (selectedProgram) {
     const day = selectedProgram.days[activeDayIdx];
+    const filteredExercises = day.exercises.filter(ex => {
+      const eqList = getExerciseEquipment(ex.name);
+      return eqList.some(eq => selectedEquipment.includes(eq));
+    });
     return (
       <FadeContent blur duration={400} easing="ease-out" initialOpacity={0}>
         <div className="relative flex flex-col min-h-screen pb-32 bg-[#0e0e0e] text-white font-display antialiased">
@@ -150,40 +253,184 @@ export default function MuscleBuilding() {
             ))}
           </div>
 
+          {/* Equipment Filter Section */}
+          <div className="mx-4 mt-6 p-5 rounded-2xl border border-white/5 bg-[#131313]">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="material-symbols-outlined" style={{ color: selectedProgram.color }}>fitness_center</span>
+              <h4 className="font-bold text-sm">الأجهزة المستخدمة لهذه الحصة</h4>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { id: 'dumbbells', nameAr: 'دمبلز', icon: 'fitness_center' },
+                { id: 'barbell', nameAr: 'بار', icon: 'line_weight' },
+                { id: 'cable', nameAr: 'كيبل', icon: 'cable' },
+                { id: 'machines', nameAr: 'أجهزة', icon: 'hardware' },
+                { id: 'bodyweight', nameAr: 'وزن الجسم', icon: 'accessibility_new' },
+                { id: 'others', nameAr: 'أدوات أخرى', icon: 'handyman' },
+              ].map((option) => {
+                const isSelected = selectedEquipment.includes(option.id);
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => {
+                      if (isSelected) {
+                        setSelectedEquipment(selectedEquipment.filter((id) => id !== option.id));
+                      } else {
+                        setSelectedEquipment([...selectedEquipment, option.id]);
+                      }
+                    }}
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs transition-all duration-300 ${
+                      isSelected
+                        ? 'border-white bg-white/10 text-white font-bold'
+                        : 'border-white/10 bg-white/5 text-[#adaaaa] hover:border-white/20'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-sm">{option.icon}</span>
+                    <span>{option.nameAr}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="px-4 mt-6 space-y-3">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-lg font-bold">{day.title}</h3>
               <span className="text-xs px-3 py-1 rounded-full font-bold" style={{ color: selectedProgram.color, backgroundColor: `${selectedProgram.color}15` }}>
-                {day.exercises.length} تمارين
+                {filteredExercises.length} تمارين
               </span>
             </div>
             <AnimatePresence mode="wait">
-              <motion.div key={activeDayIdx} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-3">
-                {day.exercises.map((ex, i) => (
-                  <div key={i} className="bg-[#131313] rounded-2xl p-4 border border-white/5 hover:border-white/10 transition-all group">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center font-bold text-sm" style={{ backgroundColor: `${selectedProgram.color}15`, color: selectedProgram.color }}>
-                        {String(i + 1).padStart(2, '0')}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-white text-base">{ex.name}</h4>
-                        <span className="text-xs text-[#adaaaa]">{ex.muscle}</span>
-                        {ex.note && <p className="text-xs mt-1 text-[#adaaaa] italic">💡 {ex.note}</p>}
-                      </div>
-                    </div>
-                    <div className="flex gap-2 mt-3 flex-wrap">
-                      {[
-                        { icon: 'replay', label: `${ex.sets} مجموعات` },
-                        { icon: 'fitness_center', label: `${ex.reps} تكرار` },
-                        { icon: 'timer', label: ex.rest },
-                      ].map((s, j) => (
-                        <span key={j} className="text-[10px] flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 text-[#adaaaa]">
-                          <span className="material-symbols-outlined text-xs" style={{ color: selectedProgram.color }}>{s.icon}</span>{s.label}
-                        </span>
-                      ))}
-                    </div>
+              <motion.div key={`${activeDayIdx}-${selectedEquipment.join(',')}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-3">
+                {filteredExercises.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center p-8 text-center gap-2 bg-[#131313] border border-white/5 rounded-2xl relative z-10">
+                    <span className="material-symbols-outlined text-[#f59e0b] text-3xl animate-bounce">warning</span>
+                    <p className="text-sm font-bold text-slate-300">لا توجد تمارين تطابق الأجهزة المختارة</p>
+                    <p className="text-xs text-[#adaaaa]">يرجى اختيار أجهزة أخرى من القائمة أعلاه لعرض تمارين هذا اليوم.</p>
                   </div>
-                ))}
+                ) : (
+                  filteredExercises.map((ex, i) => {
+                  const key = `${day.title}-${ex.name}`;
+                  const custom = customExercises[key] || { sets: ex.sets, reps: ex.reps, rest: ex.rest };
+
+                  return (
+                    <div key={i} className="bg-[#131313] rounded-2xl p-4 border border-white/5 hover:border-white/10 transition-all group">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center font-bold text-sm" style={{ backgroundColor: `${selectedProgram.color}15`, color: selectedProgram.color }}>
+                          {String(i + 1).padStart(2, '0')}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-bold text-white text-base">{ex.name}</h4>
+                          <span className="text-xs text-[#adaaaa]">{ex.muscle}</span>
+                          {ex.note && <p className="text-xs mt-1 text-[#adaaaa] italic">💡 {ex.note}</p>}
+                        </div>
+                      </div>
+                      
+                      {/* Interactive Customization Controls */}
+                      <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-white/5">
+                        {/* Sets Control */}
+                        <div className="flex flex-col items-center p-2 rounded-xl bg-white/5 border border-white/5">
+                          <span className="text-[9px] text-[#adaaaa] mb-1 flex items-center gap-0.5 select-none">
+                            <span className="material-symbols-outlined text-[10px]" style={{ color: selectedProgram.color }}>replay</span>
+                            المجموعات
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => {
+                                setCustomExercises(prev => ({
+                                  ...prev,
+                                  [key]: { ...custom, sets: Math.max(1, custom.sets - 1) }
+                                }));
+                              }}
+                              className="size-6 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition-colors"
+                            >
+                              -
+                            </button>
+                            <span className="text-xs font-bold font-mono select-none">{custom.sets}</span>
+                            <button
+                              onClick={() => {
+                                setCustomExercises(prev => ({
+                                  ...prev,
+                                  [key]: { ...custom, sets: custom.sets + 1 }
+                                }));
+                              }}
+                              className="size-6 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition-colors"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Reps Control */}
+                        <div className="flex flex-col items-center p-2 rounded-xl bg-white/5 border border-white/5">
+                          <span className="text-[9px] text-[#adaaaa] mb-1 flex items-center gap-0.5 select-none">
+                            <span className="material-symbols-outlined text-[10px]" style={{ color: selectedProgram.color }}>fitness_center</span>
+                            التكرارات
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => {
+                                setCustomExercises(prev => ({
+                                  ...prev,
+                                  [key]: { ...custom, reps: adjustReps(custom.reps, false) }
+                                }));
+                              }}
+                              className="size-6 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition-colors"
+                            >
+                              -
+                            </button>
+                            <span className="text-[10px] font-bold text-center leading-none truncate max-w-[40px] select-none">{custom.reps}</span>
+                            <button
+                              onClick={() => {
+                                setCustomExercises(prev => ({
+                                  ...prev,
+                                  [key]: { ...custom, reps: adjustReps(custom.reps, true) }
+                                }));
+                              }}
+                              className="size-6 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition-colors"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Rest Control */}
+                        <div className="flex flex-col items-center p-2 rounded-xl bg-white/5 border border-white/5">
+                          <span className="text-[9px] text-[#adaaaa] mb-1 flex items-center gap-0.5 select-none">
+                            <span className="material-symbols-outlined text-[10px]" style={{ color: selectedProgram.color }}>timer</span>
+                            الراحة
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => {
+                                setCustomExercises(prev => ({
+                                  ...prev,
+                                  [key]: { ...custom, rest: adjustRest(custom.rest, false) }
+                                }));
+                              }}
+                              className="size-6 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition-colors"
+                            >
+                              -
+                            </button>
+                            <span className="text-[10px] font-bold text-center leading-none truncate max-w-[40px] select-none">{custom.rest}</span>
+                            <button
+                              onClick={() => {
+                                setCustomExercises(prev => ({
+                                  ...prev,
+                                  [key]: { ...custom, rest: adjustRest(custom.rest, true) }
+                                }));
+                              }}
+                              className="size-6 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition-colors"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -204,8 +451,8 @@ export default function MuscleBuilding() {
           {/* Start/Record Session Button */}
           <div className="mx-4 mt-6">
             <button
-              onClick={() => handleStartWorkout(selectedProgram.name, day.title, selectedProgram.id)}
-              disabled={isStarting || workoutStarted}
+              onClick={handleStartRoutine}
+              disabled={isStarting || workoutStarted || filteredExercises.length === 0}
               className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all duration-300 ${
                 workoutStarted
                   ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-500/30'
