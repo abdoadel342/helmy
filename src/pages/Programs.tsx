@@ -326,6 +326,105 @@ function RestTimer({ defaultTime }: { defaultTime: number }) {
   );
 }
 
+const staticStretches = [
+  {
+    id: 'ss_hamstring',
+    name: 'إطالة عضلات الفخذ الخلفية',
+    description: 'تمدد عميق للجزء الخلفي من الساق.',
+    defaultTime: 30,
+    muscle: 'العضلات الخلفية للفخذ',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBSXaBnrKP85NW2OCgvZpZF5ZEGopyj5uKx7oaQo4DOqqBkWcutT3Ib5JjWHWIS59IBr9Z8Dc44po5CN-kqwrkEluQJML5nGsit9YJedc2y8_vuLd0nJzGz5ffHpw233-JoiwiFtsEqYXtRSYQxLgR0nrxxcc6O-4c434jWbFP8ioI6PkVn7Ach2Mhr1rWFUxu06ipsxFbizemqnWFe_vLNIyJoW0Ac7fO1oc7LwjLd1fTLRypQdIKVJFs5kBdZbJRcIMLOUhgmm7A2'
+  },
+  {
+    id: 'ss_chest',
+    name: 'إطالة عضلة الصدر',
+    description: 'فتح القفص الصدري وتحسين وضعية الوقوف.',
+    defaultTime: 20,
+    muscle: 'الصدر',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA3bHh-uUXHmFwLTBXmAXedqUCOmd8_1d7j5nfEXU-VC0UfYGk_jm5mAMrApkuV3TgGLpA1pr04EjGnkqxMlB3aCkPANQeyZvI1-Pu5wc6okDL7Qpon5k4YqinyqDEdC8cLSzCXtc9ZDpor6p-ntf0MdgC7UYziGEK-SY5JT4jLe0OtxKmJM8EJ8L554gcY3tdaUjWI7hXFYAT_Hdm6WpNUD1NcYldZAzFMeXPS61LlNfSTafFglTdb_jAk4IF1HpCl9cYiXSeeUahb'
+  },
+  {
+    id: 'ss_hip_flexor',
+    name: 'إطالة عضلات الحوض',
+    description: 'تخفيف الضغط الناتج عن الجلوس.',
+    defaultTime: 45,
+    muscle: 'الحوض',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC_zxQoTbFKBIWlGG_60ZAStnZLyr_Chmwm3hUiC5MhpxLlC84XblIo3jscnveB0RhyK2sxFmnmyk8SFeUU0wqRccnNNRCHkzzhCUQ9qukcZqRXSIeIRMCZTZomFtBg1XOAQC--x4vaRrg9Dq-ANOGrgx7sINEHS7sMutzoZf89A4XAL0P_zW_7hM5dH3HRK77qMAPOEd9foEZJHtwq_LS2bCyrIx07I2OPW_eMSOV2lrTfU45_kc53I8Ceo-MT9kcM5zMctJ6f7Yh4'
+  },
+  {
+    id: 'ss_neck',
+    name: 'إطالة عضلات الرقبة',
+    description: 'تحرير التشنجات في الجزء العلوي.',
+    defaultTime: 15,
+    muscle: 'الرقبة',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBm4RTjaFvL3pR7KqyEB2cLdniNTV2bh8Y0Y5dVwQ7-h_l-uYqFRionnvMO5s14wsqU5Y8352ELjUbnokKEfdPMBcb1LOfgjjRDB6o-YngVXgB7vO5LfysDPOZzgxGYiLYt34b9dJ3ydN7yPwq-jh2S8iYncg0xKRWK-_G8DSWrliBCWkTWLx2O2eq46gm4whzQF9YZVBHlBFv5j0-vkn5DoFOw7mgGlmFHp242dGy3yYmpekK5AFzLvfLjbrCYLYvEhAZffGqbOzKo'
+  },
+  {
+    id: 'ss_back',
+    name: 'إطالة عضلات الظهر',
+    description: 'تمديد الفقرات وتقوية مرونة الظهر.',
+    defaultTime: 30,
+    muscle: 'الظهر',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD3AK2qSR1z-WO6lDmN2zZkeHcV7ajJGey4xPF3homlUHg9dNmkLcxv6J7eM_EM7H5gD0qT3cjSW6-XFvVwx_fpkO053VDoBc4OTTl_6gnT6N7HXirrSeKcKemsJtAIzIZ-et360lgz8KsrgyvZFCVbcv4ln9ZUlvZoGQK-IRmBNTVsFfdMAxKdnwFx3U4mAVENLQwzmT7SwNXReWlXq9IOAdkDu4eTCU750p7yJI_97Amv2n-hD0KHaqkP8xn8jQ1Y1qgpX9sbsgIw'
+  },
+  {
+    id: 'ss_calf',
+    name: 'إطالة عضلات السمانة',
+    description: 'تفريغ التعب من الساقين.',
+    defaultTime: 25,
+    muscle: 'السمانة',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBlUq8riIw7o0AQpF1r247_gj3F21pCdIzaUvLjMONOnk_nNBcBOPyUYcr5L3C4qHke7uELOKNa851GLCoSyGIMw39UiAKwm06hDEboOWWFyp_-PxuI76W4PTb6OnF9jsh5b4cEGiizYA7t6QhYQzSxjBUjZWCla-act-_6icVmGFvZI8wMWyBfOhlhik2hRqo6aFVldFcvU7I7MfjBsVPDx_pDKOdk5cOEihKCIwxQW6fO_45mK1KdKx5wRRbSDSgHy48Od4Xw_xVM'
+  },
+  {
+    id: 'ss_shoulder',
+    name: 'إطالة عضلات الكتف',
+    description: 'تحسين حركة المفصل والأكتاف.',
+    defaultTime: 20,
+    muscle: 'الكتف',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDY1Z1vEnqROUGecWuwwyQwemeiHNfB6kDJ8uYzASlmBpx_wSGE5mQdFAZYcxy0Uq0wM9RF3p7CdBohofOv7p1gJiOrezNcpak7nfczoCjfJrdPeo1bBG8pG6wLGHtYMw19qIYUCD-uqexrfcKrDg81hRCTSckZkpqdTze7afiqxm5H8pa_DHPMPN0WgQkoVFKC0y8zZPxfZKRuJpZXqtrjwHfV0-IPfM7ejmB50gXg-xj5MmoW0zvmUsOUREjuuvBTdmGjUFVOE_qq'
+  },
+  {
+    id: 'ss_childs_pose',
+    name: 'وضعية الطفل',
+    description: 'تمرين مريح جداً للجسم بالكامل.',
+    defaultTime: 60,
+    muscle: 'الجسم بالكامل',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDqgk_cjjTaleiVdwHCCJit1Go5GisIwPe2kwDQwUjpPRweiVi0NGkhF3NZGRLB7gR44EDQ-MP3ZLxlYr7maCooDyU2MzTQVU-nLNGRRuUgQI7hhLY00X9DqLmKNSleMZgLQdBO7TzW8gMfy2plB2B4CfCfHB9KjBa5HnKhv34YGE50l8a2CYpzuXQvkyXJCtRzkXnvDgr9IBGmp3Us2djetjOCv9ICVHJmgQ7tBdXOk-B2fK8tmOM-dcaU9zSSKKhI9we-GA0S6NDK'
+  },
+  {
+    id: 'ss_cobra',
+    name: 'إطالة الكوبرا',
+    description: 'إطالة وتقوية مرونة الظهر الأمامية.',
+    defaultTime: 30,
+    muscle: 'الظهر والبطن',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCaRbz2IjXwIXDwmiPHFE5bcHdMaoRhsKV2aTPOzAgYSUqZ0EEwZWhD9hAextkOMlCiVPyRwt43GfPx0iBc-WcsuEWJgIv4U9Z-DAHLeRFu1GeWc7qrpssWNo_T-opvNcXvzc36KEIIownlG3Q8IFMO1EHd43IImQIVLcyT9thSoa34Z9mBNE_V8ooUhvJCjGT_3Vtc-UApMWhP6MOB2h1sS0z-V3tW-Jv23KOsD3Am4Y-oHw7hyLxI9he8TKfVrEQbyKZbvWDZtqdA'
+  },
+  {
+    id: 'ss_triceps',
+    name: 'إطالة الترايسيبس',
+    description: 'تخفيف الشد في الذراعين الخلفية.',
+    defaultTime: 20,
+    muscle: 'الذراعين (الترايسيبس)',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC1-J2-TYmNro-YpYm9FLjPPqFgs3dLP5LlPySRWNxveS2hRNK9p3WpxzoU_jTHKlGOkxSaRFKinUnttj0DIG-r7Hr-FvuwL_5TEu9YGkKC0z8ygXn9EA0WfRcYOZx97U2KLAuTBATVQQetgFGN91tmzTmaGoTnoUTAh-p2sQShgTjYtTo9lM1jOY069DnHFXSB_XZjg394dOC-fILVVDpwlB-D7AdSOlqAGRSE0sYsnQRPKfLSRp6EaatABFxfkfPxT8_sWuNN9HlO'
+  },
+  {
+    id: 'ss_oblique',
+    name: 'إطالة عضلات الجذع',
+    description: 'تمدد جانبي للجسم للحركة.',
+    defaultTime: 30,
+    muscle: 'الجذع',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC4kiUzVlPuvo0TfZcBVup-0mGJNYwuWZQq20RMrVfSTs7YQG-3rqofOKbmaoTqk0FASmvtNkfrj7hOLiFUbG7eUMcnhlnvC6OKSUIeJ0WLLf_cnbNRKF494TLiwAP160p26iJBhMg8DBQGwOwZPw2kHC6siujJqW2tcGlleMKQNfx5jqMEYArHoEXc2BjEOJaZLV5wkYVHwJ9jdmfhGuNm-Z1HJEDcBCWBVQwofGr6jS6kY-vDKeBZoC5w6hfbqLtBiTPXxDlml1c0'
+  },
+  {
+    id: 'ss_quadriceps',
+    name: 'إطالة الفخذ الأمامية',
+    description: 'تمرين أساسي بعد التمارين العنيفة.',
+    defaultTime: 40,
+    muscle: 'الفخذ الأمامية',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAwEBayjTDQgRP_rjGmGaTP_sIrk4oVx3aJ_y7bfdabUqS7GmjjGTR_OK9QiVJh6sAEc-w3GNDfhliT-Dlpx-aVCPBqC6Kt3dEhSCN_dInET-vg37RCHNCW0TgdavaJl1RBiTcItwJ4wJnyVjfVaYpUWKuFSBjsaZvZu00EFkoQtwo2hXG1rRes4H5mKETlxgQ0VFnNRSDf9t8CS1CKf8D89iKBm8xctJBgedr4EyA3DpzeBeJC2xbudlkSaFgQ8hux-95nBuc1MGUL'
+  }
+];
+
 export default function Programs() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -338,6 +437,26 @@ export default function Programs() {
   const [completedDays, setCompletedDays] = useState<string[]>([]);
   const [isCompleting, setIsCompleting] = useState(false);
   const [activeModule, setActiveModule] = useState<string | null>(null);
+
+  // Custom schedule exercises state
+  const [customScheduleExercises, setCustomScheduleExercises] = useState([
+    { id: '1', name: 'تمرين مخصص 1', duration: 5, muscle: 'الصدر', icon: 'fitness_center' },
+    { id: '2', name: 'تمرين مخصص 2', duration: 5, muscle: 'الظهر', icon: 'exercise' }
+  ]);
+
+  // Post-workout exercises state
+  const [postWorkoutExercises, setPostWorkoutExercises] = useState([
+    { id: '1', name: 'إطالة أوتار الركبة', duration: 3, muscle: 'العضلات الخلفية للفخذ', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA7c74GBAfLmlVbB6p-9-PY6JwL-JIL6fiHsLS_MbidyEqHH7lkjVhvklCiY_TQdKCVnFCF8fuZzf3iAV7hIccbn_TgOXKoik-6J85tun39Gwh-nuG9IZ38G2afpKDY_EGSm_vUltQf9s4n3OThJ5Kbgi2YZ9PY72rdCjBl2gwXBnilRpCWKf-nz-eiT6lzH_nXAQLsPVUlKnLulVAKDvoU2DrMSDoMM6p_4VwKDRDCkIcABrbHRsoweyqjm8g7nHhyiI4h5wi_BV1F' }
+  ]);
+
+  // Add exercise modal states
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [modalTarget, setModalTarget] = useState<'custom' | 'post'>('custom');
+  const [newExName, setNewExName] = useState('');
+  const [newExDuration, setNewExDuration] = useState(5);
+  const [newExMuscle, setNewExMuscle] = useState('');
+  const [newExIcon, setNewExIcon] = useState('fitness_center');
+
   
   // Dynamic Stretching Interaction States
   const [dsIntensity, setDsIntensity] = useState(1);
@@ -352,6 +471,11 @@ export default function Programs() {
   const [ssRest, setSsRest] = useState(15);
   const [ssDuration, setSsDuration] = useState(20);
   const ssIntensities = ['خفيفة', 'متوسطة', 'قوية'];
+
+  // Custom stretch selection states
+  const [selectedStaticExercises, setSelectedStaticExercises] = useState<string[]>([]);
+  const [customStaticParams, setCustomStaticParams] = useState<Record<string, { sets: number; duration: number; rest: number }>>({});
+  const [transferTarget, setTransferTarget] = useState<'post' | 'custom'>('post');
 
   // Interactive & Dynamic protocol state
   const defaultProtocol = [
@@ -394,6 +518,95 @@ export default function Programs() {
   };
 
   const resetProtocol = () => setProtocol(defaultProtocol.map(p => ({ ...p })));
+
+  const toggleStaticExercise = (id: string) => {
+    if (selectedStaticExercises.includes(id)) {
+      setSelectedStaticExercises(prev => prev.filter(x => x !== id));
+    } else {
+      setSelectedStaticExercises(prev => [...prev, id]);
+      if (!customStaticParams[id]) {
+        const stretch = staticStretches.find(s => s.id === id);
+        setCustomStaticParams(prev => ({
+          ...prev,
+          [id]: {
+            sets: ssVolume,
+            duration: stretch ? stretch.defaultTime : 30,
+            rest: ssRest
+          }
+        }));
+      }
+    }
+  };
+
+  const updateStaticParam = (id: string, field: 'sets' | 'duration' | 'rest', delta: number) => {
+    setCustomStaticParams(prev => {
+      const current = prev[id] || { sets: ssVolume, duration: 30, rest: ssRest };
+      let newVal = current[field] + delta;
+      if (field === 'sets') newVal = Math.max(1, Math.min(10, newVal));
+      if (field === 'duration') newVal = Math.max(5, Math.min(300, newVal));
+      if (field === 'rest') newVal = Math.max(0, Math.min(120, newVal));
+      return {
+        ...prev,
+        [id]: {
+          ...current,
+          [field]: newVal
+        }
+      };
+    });
+  };
+
+  const handleTransferToSchedule = () => {
+    if (selectedStaticExercises.length === 0) {
+      alert("يرجى اختيار تمرين واحد على الأقل أولاً.");
+      return;
+    }
+
+    if (transferTarget === 'post') {
+      const newItems = selectedStaticExercises.map(id => {
+        const stretch = staticStretches.find(s => s.id === id);
+        const params = customStaticParams[id] || { sets: ssVolume, duration: stretch ? stretch.defaultTime : 30, rest: ssRest };
+        const totalSeconds = (params.sets * params.duration) + ((params.sets - 1) * params.rest);
+        const durationMin = Math.max(1, Math.round(totalSeconds / 60));
+        return {
+          id: `ss-${id}-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+          name: stretch?.name || 'إطالة مخصصة',
+          duration: durationMin,
+          muscle: stretch?.muscle || 'كامل الجسم',
+          image: stretch?.image || ''
+        };
+      });
+
+      setPostWorkoutExercises(prev => {
+        const existingNames = prev.map(item => item.name);
+        const uniqueNewItems = newItems.filter(item => !existingNames.includes(item.name));
+        return [...prev, ...uniqueNewItems];
+      });
+    } else {
+      const newItems = selectedStaticExercises.map(id => {
+        const stretch = staticStretches.find(s => s.id === id);
+        const params = customStaticParams[id] || { sets: ssVolume, duration: stretch ? stretch.defaultTime : 30, rest: ssRest };
+        const totalSeconds = (params.sets * params.duration) + ((params.sets - 1) * params.rest);
+        const durationMin = Math.max(1, Math.round(totalSeconds / 60));
+        return {
+          id: `custom-ss-${id}-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+          name: stretch?.name || 'إطالة مخصصة',
+          duration: durationMin,
+          muscle: stretch?.muscle || 'كامل الجسم',
+          icon: 'self_improvement'
+        };
+      });
+
+      setCustomScheduleExercises(prev => {
+        const existingNames = prev.map(item => item.name);
+        const uniqueNewItems = newItems.filter(item => !existingNames.includes(item.name));
+        return [...prev, ...uniqueNewItems];
+      });
+    }
+
+    setSelectedStaticExercises([]);
+    setActiveModule('schedule');
+    alert("تم نقل التمارين المحددة إلى جدول تمارين اليوم بنجاح!");
+  };
 
   // Fetch programs from Firestore
   useEffect(() => {
@@ -822,164 +1035,233 @@ export default function Programs() {
 
           {/* Exercises List */}
           <section className="space-y-6">
-            <h3 className="font-display text-xl font-bold border-r-4 border-[#00fcca] pr-4 text-white">تمارين المرونة المقترحة</h3>
+            <div className="flex items-end justify-between pr-4 border-r-4 border-[#00fcca]">
+              <div>
+                <h3 className="font-display text-xl font-bold text-white">تمارين المرونة المقترحة</h3>
+                <p className="text-xs text-[#adaaaa] mt-1">اختر التمارين التي ترغب في إضافتها إلى جدولك اليومي</p>
+              </div>
+              <span className="font-display text-[#e08dff] text-xs font-bold bg-[#e08dff]/10 px-3 py-1.5 rounded-full">
+                تم اختيار {selectedStaticExercises.length} من {staticStretches.length}
+              </span>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Ex 1 */}
-              <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                  <img className="w-full h-full object-cover" alt="Hamstring stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSXaBnrKP85NW2OCgvZpZF5ZEGopyj5uKx7oaQo4DOqqBkWcutT3Ib5JjWHWIS59IBr9Z8Dc44po5CN-kqwrkEluQJML5nGsit9YJedc2y8_vuLd0nJzGz5ffHpw233-JoiwiFtsEqYXtRSYQxLgR0nrxxcc6O-4c434jWbFP8ioI6PkVn7Ach2Mhr1rWFUxu06ipsxFbizemqnWFe_vLNIyJoW0Ac7fO1oc7LwjLd1fTLRypQdIKVJFs5kBdZbJRcIMLOUhgmm7A2"/>
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-display font-bold text-white">إطالة عضلات الفخذ الخلفية</h4>
-                  <p className="text-[#adaaaa] text-xs mt-1 font-display">تمدد عميق للجزء الخلفي من الساق.</p>
-                  <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">30 ثانية</span>
-                </div>
-              </div>
-
-              {/* Ex 2 */}
-              <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                  <img className="w-full h-full object-cover" alt="Chest stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3bHh-uUXHmFwLTBXmAXedqUCOmd8_1d7j5nfEXU-VC0UfYGk_jm5mAMrApkuV3TgGLpA1pr04EjGnkqxMlB3aCkPANQeyZvI1-Pu5wc6okDL7Qpon5k4YqinyqDEdC8cLSzCXtc9ZDpor6p-ntf0MdgC7UYziGEK-SY5JT4jLe0OtxKmJM8EJ8L554gcY3tdaUjWI7hXFYAT_Hdm6WpNUD1NcYldZAzFMeXPS61LlNfSTafFglTdb_jAk4IF1HpCl9cYiXSeeUahb"/>
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-display font-bold text-white">إطالة عضلة الصدر</h4>
-                  <p className="text-[#adaaaa] text-xs mt-1 font-display">فتح القفص الصدري وتحسين وضعية الوقوف.</p>
-                  <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">20 ثانية</span>
-                </div>
-              </div>
-
-              {/* Ex 3 */}
-              <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                  <img className="w-full h-full object-cover" alt="Hip flexor stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_zxQoTbFKBIWlGG_60ZAStnZLyr_Chmwm3hUiC5MhpxLlC84XblIo3jscnveB0RhyK2sxFmnmyk8SFeUU0wqRccnNNRCHkzzhCUQ9qukcZqRXSIeIRMCZTZomFtBg1XOAQC--x4vaRrg9Dq-ANOGrgx7sINEHS7sMutzoZf89A4XAL0P_zW_7hM5dH3HRK77qMAPOEd9foEZJHtwq_LS2bCyrIx07I2OPW_eMSOV2lrTfU45_kc53I8Ceo-MT9kcM5zMctJ6f7Yh4"/>
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-display font-bold text-white">إطالة عضلات الحوض</h4>
-                  <p className="text-[#adaaaa] text-xs mt-1 font-display">تخفيف الضغط الناتج عن الجلوس.</p>
-                  <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">45 ثانية</span>
-                </div>
-              </div>
-
-              {/* Ex 4 */}
-              <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                  <img className="w-full h-full object-cover" alt="Neck stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm4RTjaFvL3pR7KqyEB2cLdniNTV2bh8Y0Y5dVwQ7-h_l-uYqFRionnvMO5s14wsqU5Y8352ELjUbnokKEfdPMBcb1LOfgjjRDB6o-YngVXgB7vO5LfysDPOZzgxGYiLYt34b9dJ3ydN7yPwq-jh2S8iYncg0xKRWK-_G8DSWrliBCWkTWLx2O2eq46gm4whzQF9YZVBHlBFv5j0-vkn5DoFOw7mgGlmFHp242dGy3yYmpekK5AFzLvfLjbrCYLYvEhAZffGqbOzKo"/>
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-display font-bold text-white">إطالة عضلات الرقبة</h4>
-                  <p className="text-[#adaaaa] text-xs mt-1 font-display">تحرير التشنجات في الجزء العلوي.</p>
-                  <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">15 ثانية</span>
-                </div>
-              </div>
-
-               {/* Ex 5 */}
-               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                   <img className="w-full h-full object-cover" alt="Back stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3AK2qSR1z-WO6lDmN2zZkeHcV7ajJGey4xPF3homlUHg9dNmkLcxv6J7eM_EM7H5gD0qT3cjSW6-XFvVwx_fpkO053VDoBc4OTTl_6gnT6N7HXirrSeKcKemsJtAIzIZ-et360lgz8KsrgyvZFCVbcv4ln9ZUlvZoGQK-IRmBNTVsFfdMAxKdnwFx3U4mAVENLQwzmT7SwNXReWlXq9IOAdkDu4eTCU750p7yJI_97Amv2n-hD0KHaqkP8xn8jQ1Y1qgpX9sbsgIw"/>
-                 </div>
-                 <div className="flex-1">
-                   <h4 className="font-display font-bold text-white">إطالة عضلات الظهر</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تمديد الفقرات وتقوية مرونة الظهر.</p>
-                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">30 ثانية</span>
-                 </div>
-               </div>
- 
-               {/* Ex 6 */}
-               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                   <img className="w-full h-full object-cover" alt="Calf stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlUq8riIw7o0AQpF1r247_gj3F21pCdIzaUvLjMONOnk_nNBcBOPyUYcr5L3C4qHke7uELOKNa851GLCoSyGIMw39UiAKwm06hDEboOWWFyp_-PxuI76W4PTb6OnF9jsh5b4cEGiizYA7t6QhYQzSxjBUjZWCla-act-_6icVmGFvZI8wMWyBfOhlhik2hRqo6aFVldFcvU7I7MfjBsVPDx_pDKOdk5cOEihKCIwxQW6fO_45mK1KdKx5wRRbSDSgHy48Od4Xw_xVM"/>
-                 </div>
-                 <div className="flex-1">
-                   <h4 className="font-display font-bold text-white">إطالة عضلات السمانة</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تفريغ التعب من الساقين.</p>
-                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">25 ثانية</span>
-                 </div>
-               </div>
-               
-               {/* Ex 7 */}
-               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                   <img className="w-full h-full object-cover" alt="Shoulder stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY1Z1vEnqROUGecWuwwyQwemeiHNfB6kDJ8uYzASlmBpx_wSGE5mQdFAZYcxy0Uq0wM9RF3p7CdBohofOv7p1gJiOrezNcpak7nfczoCjfJrdPeo1bBG8pG6wLGHtYMw19qIYUCD-uqexrfcKrDg81hRCTSckZkpqdTze7afiqxm5H8pa_DHPMPN0WgQkoVFKC0y8zZPxfZKRuJpZXqtrjwHfV0-IPfM7ejmB50gXg-xj5MmoW0zvmUsOUREjuuvBTdmGjUFVOE_qq"/>
-                 </div>
-                 <div className="flex-1">
-                   <h4 className="font-display font-bold text-white">إطالة عضلات الكتف</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تحسين حركة المفصل والأكتاف.</p>
-                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">20 ثانية</span>
-                 </div>
-               </div>
- 
-               {/* Ex 8 */}
-               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                   <img className="w-full h-full object-cover" alt="Child's pose" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqgk_cjjTaleiVdwHCCJit1Go5GisIwPe2kwDQwUjpPRweiVi0NGkhF3NZGRLB7gR44EDQ-MP3ZLxlYr7maCooDyU2MzTQVU-nLNGRRuUgQI7hhLY00X9DqLmKNSleMZgLQdBO7TzW8gMfy2plB2B4CfCfHB9KjBa5HnKhv34YGE50l8a2CYpzuXQvkyXJCtRzkXnvDgr9IBGmp3Us2djetjOCv9ICVHJmgQ7tBdXOk-B2fK8tmOM-dcaU9zSSKKhI9we-GA0S6NDK"/>
-                 </div>
-                 <div className="flex-1">
-                   <h4 className="font-display font-bold text-white">وضعية الطفل</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تمرين مريح جداً للجسم بالكامل.</p>
-                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">60 ثانية</span>
-                 </div>
-               </div>
-               
-               {/* Ex 9 */}
-               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                   <img className="w-full h-full object-cover" alt="Cobra stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaRbz2IjXwIXDwmiPHFE5bcHdMaoRhsKV2aTPOzAgYSUqZ0EEwZWhD9hAextkOMlCiVPyRwt43GfPx0iBc-WcsuEWJgIv4U9Z-DAHLeRFu1GeWc7qrpssWNo_T-opvNcXvzc36KEIIownlG3Q8IFMO1EHd43IImQIVLcyT9thSoa34Z9mBNE_V8ooUhvJCjGT_3Vtc-UApMWhP6MOB2h1sS0z-V3tW-Jv23KOsD3Am4Y-oHw7hyLxI9he8TKfVrEQbyKZbvWDZtqdA"/>
-                 </div>
-                 <div className="flex-1">
-                   <h4 className="font-display font-bold text-white">إطالة الكوبرا</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-display">إطالة وتقوية مرونة الظهر الأمامية.</p>
-                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">30 ثانية</span>
-                 </div>
-               </div>
- 
-               {/* Ex 10 */}
-               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                   <img className="w-full h-full object-cover" alt="Triceps stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1-J2-TYmNro-YpYm9FLjPPqFgs3dLP5LlPySRWNxveS2hRNK9p3WpxzoU_jTHKlGOkxSaRFKinUnttj0DIG-r7Hr-FvuwL_5TEu9YGkKC0z8ygXn9EA0WfRcYOZx97U2KLAuTBATVQQetgFGN91tmzTmaGoTnoUTAh-p2sQShgTjYtTo9lM1jOY069DnHFXSB_XZjg394dOC-fILVVDpwlB-D7AdSOlqAGRSE0sYsnQRPKfLSRp6EaatABFxfkfPxT8_sWuNN9HlO"/>
-                 </div>
-                 <div className="flex-1">
-                   <h4 className="font-display font-bold text-white">إطالة الترايسيبس</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تخفيف الشد في الذراعين الخلفية.</p>
-                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">20 ثانية</span>
-                 </div>
-               </div>
-               
-               {/* Ex 11 */}
-               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                   <img className="w-full h-full object-cover" alt="Oblique stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4kiUzVlPuvo0TfZcBVup-0mGJNYwuWZQq20RMrVfSTs7YQG-3rqofOKbmaoTqk0FASmvtNkfrj7hOLiFUbG7eUMcnhlnvC6OKSUIeJ0WLLf_cnbNRKF494TLiwAP160p26iJBhMg8DBQGwOwZPw2kHC6siujJqW2tcGlleMKQNfx5jqMEYArHoEXc2BjEOJaZLV5wkYVHwJ9jdmfhGuNm-Z1HJEDcBCWBVQwofGr6jS6kY-vDKeBZoC5w6hfbqLtBiTPXxDlml1c0"/>
-                 </div>
-                 <div className="flex-1">
-                   <h4 className="font-display font-bold text-white">إطالة عضلات الجذع</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تمدد جانبي للجسم للحركة.</p>
-                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">30 ثانية</span>
-                 </div>
-               </div>
- 
-               {/* Ex 12 */}
-               <div className="flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all hover:bg-[#201f1f]">
-                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                   <img className="w-full h-full object-cover" alt="Quadriceps stretch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwEBayjTDQgRP_rjGmGaTP_sIrk4oVx3aJ_y7bfdabUqS7GmjjGTR_OK9QiVJh6sAEc-w3GNDfhliT-Dlpx-aVCPBqC6Kt3dEhSCN_dInET-vg37RCHNCW0TgdavaJl1RBiTcItwJ4wJnyVjfVaYpUWKuFSBjsaZvZu00EFkoQtwo2hXG1rRes4H5mKETlxgQ0VFnNRSDf9t8CS1CKf8D89iKBm8xctJBgedr4EyA3DpzeBeJC2xbudlkSaFgQ8hux-95nBuc1MGUL"/>
-                 </div>
-                 <div className="flex-1">
-                   <h4 className="font-display font-bold text-white">إطالة الفخذ الأمامية</h4>
-                   <p className="text-[#adaaaa] text-xs mt-1 font-display">تمرين أساسي بعد التمارين العنيفة.</p>
-                   <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">40 ثانية</span>
-                 </div>
-               </div>
+              {staticStretches.map((stretch) => {
+                const isSelected = selectedStaticExercises.includes(stretch.id);
+                return (
+                  <div 
+                    key={stretch.id}
+                    onClick={() => toggleStaticExercise(stretch.id)}
+                    className={`flex items-center gap-4 bg-[#131313] p-3 rounded-3xl transition-all duration-300 cursor-pointer relative group border ${
+                      isSelected 
+                        ? 'border-[#BF00FF] bg-[#1a131f]/40 shadow-[0_0_15px_rgba(191,0,255,0.15)]' 
+                        : 'border-white/5 hover:bg-[#201f1f] hover:border-white/10'
+                    }`}
+                  >
+                    <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 relative">
+                      <img className="w-full h-full object-cover" alt={stretch.name} src={stretch.image}/>
+                      {isSelected && (
+                        <div className="absolute inset-0 bg-[#BF00FF]/25 backdrop-blur-[2px] flex items-center justify-center transition-all duration-300">
+                          <span className="material-symbols-outlined text-white text-3xl font-bold">check_circle</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-display font-bold text-white group-hover:text-[#e08dff] transition-colors">{stretch.name}</h4>
+                      <p className="text-[#adaaaa] text-xs mt-1 font-display leading-relaxed">{stretch.description}</p>
+                      <span className="inline-block mt-2 bg-[#e08dff]/10 text-[#e08dff] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
+                        {stretch.defaultTime} ثانية
+                      </span>
+                    </div>
+                    
+                    {!isSelected && (
+                      <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 p-1 rounded-full">
+                        <span className="material-symbols-outlined text-white/50 text-sm">add</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </section>
 
+          {/* Selected Exercises Schedule Table */}
+          {selectedStaticExercises.length > 0 && (
+            <section className="space-y-6 mt-8 animate-fade-in">
+              <div className="flex items-center justify-between border-r-4 border-[#BF00FF] pr-4">
+                <div>
+                  <h3 className="font-display text-xl font-bold text-white">جدول التمارين المخصصة</h3>
+                  <p className="text-xs text-[#adaaaa] mt-1">اضبط الجولات ومدة الثبات وفترات الراحة لكل تمرين</p>
+                </div>
+                <button 
+                  onClick={() => setSelectedStaticExercises([])}
+                  className="text-xs text-[#ff6e84] hover:underline flex items-center gap-1 bg-[#ff6e84]/15 px-3 py-1.5 rounded-full transition-all"
+                >
+                  <span className="material-symbols-outlined text-sm">clear_all</span>
+                  مسح الجدول
+                </button>
+              </div>
+              
+              <div className="bg-[#131313] rounded-3xl p-4 md:p-6 border border-white/5 overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-right border-collapse">
+                    <thead>
+                      <tr className="border-b border-[#494847]/30 pb-4 text-[#adaaaa] font-display text-xs">
+                        <th className="pb-3 pr-2 text-right">التمرين</th>
+                        <th className="pb-3 text-center w-28 md:w-36">الجولات</th>
+                        <th className="pb-3 text-center w-28 md:w-36">الثبات</th>
+                        <th className="pb-3 text-center w-28 md:w-36">الراحة</th>
+                        <th className="pb-3 text-center w-12"></th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#494847]/20">
+                      {selectedStaticExercises.map((id) => {
+                        const stretch = staticStretches.find(s => s.id === id);
+                        if (!stretch) return null;
+                        const params = customStaticParams[id] || { sets: ssVolume, duration: stretch.defaultTime, rest: ssRest };
+                        
+                        return (
+                          <tr key={id} className="hover:bg-white/[0.02] transition-colors group">
+                            <td className="py-4 pr-2">
+                              <div className="flex items-center gap-3">
+                                <img className="w-10 h-10 rounded-lg object-cover shrink-0" alt={stretch.name} src={stretch.image}/>
+                                <div>
+                                  <p className="font-display font-semibold text-white text-sm md:text-base">{stretch.name}</p>
+                                  <p className="font-display text-[10px] text-[#adaaaa] max-w-[200px] truncate">{stretch.description}</p>
+                                </div>
+                              </div>
+                            </td>
+                            
+                            <td className="py-4 text-center">
+                              <div className="inline-flex items-center justify-between bg-[#201f1f] rounded-full p-1 border border-white/5">
+                                <button 
+                                  onClick={() => updateStaticParam(id, 'sets', -1)}
+                                  className="w-7 h-7 rounded-full bg-[#131313] hover:bg-zinc-800 text-[#e08dff] flex items-center justify-center active:scale-90 duration-200"
+                                >
+                                  <span className="material-symbols-outlined text-sm">remove</span>
+                                </button>
+                                <span className="font-display font-bold text-xs text-white px-2.5 min-w-[70px] text-center">{params.sets} جولات</span>
+                                <button 
+                                  onClick={() => updateStaticParam(id, 'sets', 1)}
+                                  className="w-7 h-7 rounded-full bg-[#BF00FF] hover:bg-[#a600dd] text-white flex items-center justify-center active:scale-90 duration-200"
+                                >
+                                  <span className="material-symbols-outlined text-sm">add</span>
+                                </button>
+                              </div>
+                            </td>
+                            
+                            <td className="py-4 text-center">
+                              <div className="inline-flex items-center justify-between bg-[#201f1f] rounded-full p-1 border border-white/5">
+                                <button 
+                                  onClick={() => updateStaticParam(id, 'duration', -5)}
+                                  className="w-7 h-7 rounded-full bg-[#131313] hover:bg-zinc-800 text-[#e08dff] flex items-center justify-center active:scale-90 duration-200"
+                                >
+                                  <span className="material-symbols-outlined text-sm">remove</span>
+                                </button>
+                                <span className="font-display font-bold text-xs text-white px-2.5 min-w-[50px] text-center">{params.duration} ث</span>
+                                <button 
+                                  onClick={() => updateStaticParam(id, 'duration', 5)}
+                                  className="w-7 h-7 rounded-full bg-[#BF00FF] hover:bg-[#a600dd] text-white flex items-center justify-center active:scale-90 duration-200"
+                                >
+                                  <span className="material-symbols-outlined text-sm">add</span>
+                                </button>
+                              </div>
+                            </td>
+                            
+                            <td className="py-4 text-center">
+                              <div className="inline-flex items-center justify-between bg-[#201f1f] rounded-full p-1 border border-white/5">
+                                <button 
+                                  onClick={() => updateStaticParam(id, 'rest', -5)}
+                                  className="w-7 h-7 rounded-full bg-[#131313] hover:bg-zinc-800 text-[#e08dff] flex items-center justify-center active:scale-90 duration-200"
+                                >
+                                  <span className="material-symbols-outlined text-sm">remove</span>
+                                </button>
+                                <span className="font-display font-bold text-xs text-white px-2.5 min-w-[50px] text-center">{params.rest} ث</span>
+                                <button 
+                                  onClick={() => updateStaticParam(id, 'rest', 5)}
+                                  className="w-7 h-7 rounded-full bg-[#BF00FF] hover:bg-[#a600dd] text-white flex items-center justify-center active:scale-90 duration-200"
+                                >
+                                  <span className="material-symbols-outlined text-sm">add</span>
+                                </button>
+                              </div>
+                            </td>
+                            
+                            <td className="py-4 text-center">
+                              <button 
+                                onClick={() => setSelectedStaticExercises(prev => prev.filter(x => x !== id))}
+                                className="text-rose-500 hover:text-rose-400 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                title="حذف"
+                              >
+                                <span className="material-symbols-outlined text-lg">delete</span>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          )}
+
           {/* Start Plan Button */}
-          <button 
-            onClick={() => handleCompleteWorkout('prog_003', activeWeekIndex + 1, activeDayIndex + 1, `جلسة إطالة ثابتة (${ssDuration} دقيقة • ${ssIntensities[ssIntensity]})`)}
-            disabled={isCompleting}
-            className="w-full mt-8 py-5 bg-gradient-to-r from-[#e08dff] to-[#bc00fb] rounded-full font-display font-black text-xl text-white shadow-[0_15px_30px_rgba(188,0,251,0.3)] hover:scale-[1.02] active:scale-95 duration-150 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
-          >
-            <span>{isCompleting ? 'جاري الحفظ...' : 'بدء الجلسة الآن'}</span>
-            <span>({ssDuration} دقيقة • {ssIntensities[ssIntensity]})</span>
-            <span className="material-symbols-outlined">play_arrow</span>
-          </button>
+          {(() => {
+            const hasCustomRoutine = selectedStaticExercises.length > 0;
+            
+            // Dynamic calculation
+            let customTotalSeconds = 0;
+            selectedStaticExercises.forEach(id => {
+              const stretch = staticStretches.find(s => s.id === id);
+              const params = customStaticParams[id] || { sets: ssVolume, duration: stretch ? stretch.defaultTime : 30, rest: ssRest };
+              customTotalSeconds += (params.sets * params.duration) + ((params.sets - 1) * params.rest);
+            });
+            const customTotalMinutes = Math.max(1, Math.round(customTotalSeconds / 60));
+
+            const handleStartStaticSession = () => {
+              let dayTitle = '';
+              if (hasCustomRoutine) {
+                const workoutSummary = selectedStaticExercises.map(id => {
+                  const stretch = staticStretches.find(s => s.id === id);
+                  const params = customStaticParams[id] || { sets: ssVolume, duration: stretch ? stretch.defaultTime : 30, rest: ssRest };
+                  return `${stretch?.name} (${params.sets}×${params.duration}ث)`;
+                }).join(' • ');
+                dayTitle = `جدول إطالة مخصص: ${workoutSummary.substring(0, 100)}`;
+              } else {
+                dayTitle = `جلسة إطالة ثابتة (${ssDuration} دقيقة • ${ssIntensities[ssIntensity]})`;
+              }
+              handleCompleteWorkout('prog_003', activeWeekIndex + 1, activeDayIndex + 1, dayTitle);
+            };
+
+            return (
+              <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                {hasCustomRoutine && (
+                  <button 
+                    onClick={handleTransferToSchedule}
+                    className="flex-1 py-5 bg-gradient-to-r from-[#00fcca] to-[#00a896] rounded-full font-display font-black text-xl text-[#0e0e0e] shadow-[0_15px_30px_rgba(0,252,202,0.2)] hover:scale-[1.02] active:scale-95 duration-150 transition-all flex items-center justify-center gap-3"
+                  >
+                    <span>نقل التمارين للجدول</span>
+                    <span className="material-symbols-outlined">send</span>
+                  </button>
+                )}
+                <button 
+                  onClick={handleStartStaticSession}
+                  disabled={isCompleting}
+                  className={`py-5 bg-gradient-to-r from-[#e08dff] to-[#bc00fb] rounded-full font-display font-black text-xl text-white shadow-[0_15px_30px_rgba(188,0,251,0.3)] hover:scale-[1.02] active:scale-95 duration-150 transition-all flex items-center justify-center gap-3 disabled:opacity-50 ${
+                    hasCustomRoutine ? 'flex-1' : 'w-full'
+                  }`}
+                >
+                  <span>{isCompleting ? 'جاري الحفظ...' : 'بدء الجلسة الآن'}</span>
+                  {hasCustomRoutine ? (
+                    <span>({customTotalMinutes} دقيقة • مخصص)</span>
+                  ) : (
+                    <span>({ssDuration} دقيقة • {ssIntensities[ssIntensity]})</span>
+                  )}
+                  <span className="material-symbols-outlined">play_arrow</span>
+                </button>
+              </div>
+            );
+          })()}
         </motion.div>
       );
     }
@@ -1360,12 +1642,10 @@ export default function Programs() {
            className="pb-32 px-4 md:px-8 max-w-5xl mx-auto mt-6 text-[#ffffff]"
         >
           {/* TopAppBar */}
-          <header className="bg-[#0e0e0e]/70 backdrop-blur-xl border border-white/5 bg-gradient-to-b from-[#0e0e0e] to-transparent top-0 sticky z-50 flex items-center justify-between px-6 py-4 w-full rounded-2xl mb-8">
+          <header className="bg-[#0e0e0e]/70 backdrop-blur-xl border border-white/5 bg-gradient-to-b from-[#0e0e0e] to-transparent top-0 sticky z-50 flex items-center px-6 py-4 w-full rounded-2xl mb-8">
             <button onClick={() => setActiveModule(null)} className="active:scale-95 duration-200 hover:opacity-80 transition-opacity text-[#e08dff]">
               <span className="material-symbols-outlined text-3xl">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
             </button>
-            <h1 className="font-display font-bold text-xl leading-relaxed text-transparent bg-clip-text bg-gradient-to-br from-[#e08dff] to-[#bc00fb]">جدول الإطالات اليومي/الأسبوعي - HELMY</h1>
-            <div className="w-8"></div> {/* Spacer for symmetry */}
           </header>
 
           <main className="space-y-10">
@@ -1373,51 +1653,58 @@ export default function Programs() {
             <section>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="font-display font-extrabold text-2xl tracking-tight text-white">التدفق الأسبوعي</h2>
-                <span className="font-display text-[#00fcca] text-sm font-bold bg-[#00fcca]/10 px-3 py-1 rounded-full">أبريل 2024</span>
+                <span className="font-display text-[#00fcca] text-sm font-bold bg-[#00fcca]/10 px-3 py-1 rounded-full">{new Date().toLocaleDateString('ar-EG', { month: 'long', year: 'numeric' })}</span>
               </div>
               <div className="flex overflow-x-auto no-scrollbar gap-4 pb-4 px-2 -mx-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                {/* Saturday */}
-                <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#262626] border-2 border-[#e08dff] shadow-[0_0_20px_rgba(224,141,255,0.2)] flex flex-col items-center justify-center transition-transform hover:scale-105 cursor-pointer">
-                  <span className="font-display text-[10px] text-[#e08dff]/60 uppercase">SAT</span>
-                  <span className="font-display font-black text-3xl text-[#e08dff] mt-1">20</span>
-                  <div className="mt-2 w-2 h-2 rounded-full bg-[#e08dff] animate-pulse"></div>
-                </div>
-                {/* Sunday */}
-                <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">SUN</span>
-                  <span className="font-display font-black text-3xl text-white mt-1">21</span>
-                  <span className="material-symbols-outlined text-[#00fcca] text-xl mt-2" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                </div>
-                {/* Monday */}
-                <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center opacity-60 cursor-pointer">
-                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">MON</span>
-                  <span className="font-display font-black text-3xl text-white mt-1">22</span>
-                  <span className="material-symbols-outlined text-[#ff6e84] text-xl mt-2">cancel</span>
-                </div>
-                {/* Tuesday */}
-                <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">TUE</span>
-                  <span className="font-display font-black text-3xl text-white mt-1">23</span>
-                  <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
-                </div>
-                {/* Wednesday */}
-                <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">WED</span>
-                  <span className="font-display font-black text-3xl text-white mt-1">24</span>
-                  <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
-                </div>
-                {/* Thursday */}
-                <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">THU</span>
-                  <span className="font-display font-black text-3xl text-white mt-1">25</span>
-                  <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
-                </div>
-                {/* Friday */}
-                <div className="flex-shrink-0 w-20 h-28 rounded-2xl bg-[#131313] border border-[#494847]/20 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="font-display text-[10px] text-[#adaaaa] uppercase">FRI</span>
-                  <span className="font-display font-black text-3xl text-white mt-1">26</span>
-                  <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
-                </div>
+                {(() => {
+                  const weekDaysConfig = [
+                    { abbr: 'SAT', label: 'السبت' },
+                    { abbr: 'SUN', label: 'الأحد' },
+                    { abbr: 'MON', label: 'الإثنين' },
+                    { abbr: 'TUE', label: 'الثلاثاء' },
+                    { abbr: 'WED', label: 'الأربعاء' },
+                    { abbr: 'THU', label: 'الخميس' },
+                    { abbr: 'FRI', label: 'الجمعة' },
+                  ];
+                  const today = new Date();
+                  const jsDay = today.getDay(); // 0=Sun..6=Sat
+                  const satBasedToday = jsDay === 6 ? 0 : jsDay + 1; // Sat=0..Fri=6
+                  const startOfWeek = new Date(today);
+                  startOfWeek.setDate(today.getDate() - satBasedToday);
+
+                  return weekDaysConfig.map((day, index) => {
+                    const dayDate = new Date(startOfWeek);
+                    dayDate.setDate(startOfWeek.getDate() + index);
+                    const dayNumber = dayDate.getDate();
+                    const isActive = activeDayIndex === index;
+                    const workoutId = `${selectedProgram.program_id}_w${activeWeekIndex + 1}_d${index + 1}`;
+                    const isCompleted = completedDays.includes(workoutId);
+
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => setActiveDayIndex(index)}
+                        className={`flex-shrink-0 w-20 h-28 rounded-2xl flex flex-col items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer ${
+                          isActive
+                            ? 'bg-[#262626] border-2 border-[#e08dff] shadow-[0_0_20px_rgba(224,141,255,0.2)]'
+                            : 'bg-[#131313] border border-[#494847]/20'
+                        }`}
+                      >
+                        <span className={`font-display text-[10px] uppercase ${isActive ? 'text-[#e08dff]/60' : 'text-[#adaaaa]'}`}>{day.abbr}</span>
+                        <span className={`font-display font-black text-3xl mt-1 ${isActive ? 'text-[#e08dff]' : 'text-white'}`}>{dayNumber}</span>
+                        {isActive && !isCompleted && (
+                          <div className="mt-2 w-2 h-2 rounded-full bg-[#e08dff] animate-pulse"></div>
+                        )}
+                        {isCompleted && (
+                          <span className="material-symbols-outlined text-[#00fcca] text-xl mt-2" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                        )}
+                        {!isActive && !isCompleted && (
+                          <div className="mt-2 w-1.5 h-1.5 rounded-full bg-[#494847]"></div>
+                        )}
+                      </div>
+                    );
+                  });
+                })()}
               </div>
             </section>
 
@@ -1429,7 +1716,10 @@ export default function Programs() {
               </h2>
 
               {/* Morning Session */}
-              <div className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 transition-all duration-300 hover:bg-[#201f1f] border-r-4 border-[#e08dff]/40 cursor-pointer">
+              <div 
+                onClick={() => setActiveModule('static')}
+                className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 transition-all duration-300 hover:bg-[#201f1f] border-r-4 border-[#e08dff]/40 cursor-pointer"
+              >
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -1465,7 +1755,10 @@ export default function Programs() {
               </div>
 
               {/* Pre-Workout Session */}
-              <div className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 transition-all duration-300 hover:bg-[#201f1f] border-r-4 border-[#e08dff]/40 cursor-pointer">
+              <div 
+                onClick={() => setActiveModule('dynamic')}
+                className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 transition-all duration-300 hover:bg-[#201f1f] border-r-4 border-[#e08dff]/40 cursor-pointer"
+              >
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -1483,7 +1776,7 @@ export default function Programs() {
               </div>
 
               {/* Post-Workout Session */}
-              <div className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 transition-all duration-300 hover:bg-[#201f1f] border-r-4 border-[#00fcca]/40 cursor-pointer">
+              <div className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 border-r-4 border-[#00fcca]/40">
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -1492,27 +1785,63 @@ export default function Programs() {
                     </div>
                     <h3 className="font-display font-bold text-xl">إطالات استاتيكية (ثابتة)</h3>
                   </div>
-                  <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">15 دقيقة</span>
+                  <div className="flex flex-col items-end gap-2">
+                    <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">
+                      {postWorkoutExercises.reduce((acc, curr) => acc + curr.duration, 0)} دقيقة
+                    </span>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModule('static');
+                      }}
+                      className="text-xs text-[#00fcca] hover:underline flex items-center gap-0.5"
+                    >
+                      عرض التفاصيل <span className="material-symbols-outlined text-xs">open_in_new</span>
+                    </button>
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl">
-                    <div className="w-14 h-14 rounded-xl bg-[#0e0e0e] flex items-center justify-center overflow-hidden">
-                      <img alt="stretching" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7c74GBAfLmlVbB6p-9-PY6JwL-JIL6fiHsLS_MbidyEqHH7lkjVhvklCiY_TQdKCVnFCF8fuZzf3iAV7hIccbn_TgOXKoik-6J85tun39Gwh-nuG9IZ38G2afpKDY_EGSm_vUltQf9s4n3OThJ5Kbgi2YZ9PY72rdCjBl2gwXBnilRpCWKf-nz-eiT6lzH_nXAQLsPVUlKnLulVAKDvoU2DrMSDoMM6p_4VwKDRDCkIcABrbHRsoweyqjm8g7nHhyiI4h5wi_BV1F"/>
+                  {postWorkoutExercises.map((ex) => (
+                    <div key={ex.id} className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl relative group/item">
+                      <div className="w-14 h-14 rounded-xl bg-[#0e0e0e] flex items-center justify-center overflow-hidden shrink-0">
+                        {ex.image ? (
+                          <img alt={ex.name} className="w-full h-full object-cover" src={ex.image} />
+                        ) : (
+                          <span className="material-symbols-outlined text-[#00fcca]/60 text-2xl">self_improvement</span>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0 text-right">
+                        <p className="font-display font-semibold text-sm text-white truncate">{ex.name}</p>
+                        <p className="font-display text-[10px] text-[#00fcca]">{ex.duration} دقيقة</p>
+                        <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1 truncate">العضلات العاملة: {ex.muscle}</p>
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPostWorkoutExercises(prev => prev.filter(item => item.id !== ex.id));
+                        }}
+                        className="absolute top-2 left-2 size-6 rounded-md bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-opacity"
+                        title="حذف"
+                      >
+                        <span className="material-symbols-outlined text-xs">delete</span>
+                      </button>
                     </div>
-                    <div>
-                      <p className="font-display font-semibold text-sm">إطالة أوتار الركبة</p>
-                      <p className="font-display text-[10px] text-[#00fcca]">3 دقيقة</p>
-                      <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: العضلات الخلفية للفخذ</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center border-2 border-dashed border-[#00fcca]/20 rounded-2xl group-hover:border-[#00fcca]/40 transition-colors cursor-pointer">
+                  ))}
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setTransferTarget('post');
+                      setActiveModule('static');
+                    }}
+                    className="flex items-center justify-center border-2 border-dashed border-[#00fcca]/20 rounded-2xl h-16 hover:border-[#00fcca]/40 transition-colors cursor-pointer"
+                  >
                     <span className="material-symbols-outlined text-[#00fcca]/40">add</span>
-                  </div>
+                  </button>
                 </div>
               </div>
 
               {/* Custom Training Section */}
-              <div className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 transition-all duration-300 hover:bg-[#201f1f] border-r-4 border-[#e08dff]/40 cursor-pointer">
+              <div className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 border-r-4 border-[#e08dff]/40">
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -1521,37 +1850,62 @@ export default function Programs() {
                     </div>
                     <h3 className="font-display font-bold text-xl">تمارين مخصصة</h3>
                   </div>
-                  <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">10 دقائق</span>
+                  <div className="flex flex-col items-end gap-2">
+                    <span className="font-display text-[#adaaaa] text-sm bg-[#262626] px-3 py-1 rounded-lg">
+                      {customScheduleExercises.reduce((acc, curr) => acc + curr.duration, 0)} دقائق
+                    </span>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveModule('static');
+                      }}
+                      className="text-xs text-[#e08dff] hover:underline flex items-center gap-0.5"
+                    >
+                      عرض التمارين <span className="material-symbols-outlined text-xs">open_in_new</span>
+                    </button>
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl hover:bg-[#262626]/80 transition-colors cursor-pointer">
-                    <div className="w-14 h-14 rounded-xl bg-[#0e0e0e] flex items-center justify-center overflow-hidden">
-                      <span className="material-symbols-outlined text-[#e08dff]/40 text-3xl">fitness_center</span>
+                  {customScheduleExercises.map((ex) => (
+                    <div key={ex.id} className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl relative group/item">
+                      <div className="w-14 h-14 rounded-xl bg-[#0e0e0e] flex items-center justify-center overflow-hidden shrink-0">
+                        <span className="material-symbols-outlined text-[#e08dff]/60 text-2xl">{ex.icon}</span>
+                      </div>
+                      <div className="flex-1 min-w-0 text-right">
+                        <p className="font-display font-semibold text-sm text-white truncate">{ex.name}</p>
+                        <p className="font-display text-[10px] text-[#e08dff]">{ex.duration} دقائق</p>
+                        <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1 truncate">العضلات العاملة: {ex.muscle}</p>
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCustomScheduleExercises(prev => prev.filter(item => item.id !== ex.id));
+                        }}
+                        className="absolute top-2 left-2 size-6 rounded-md bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-opacity"
+                        title="حذف"
+                      >
+                        <span className="material-symbols-outlined text-xs">delete</span>
+                      </button>
                     </div>
-                    <div>
-                      <p className="font-display font-semibold text-sm">تمرين مخصص 1</p>
-                      <p className="font-display text-[10px] text-[#e08dff]">5 دقائق</p>
-                      <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الصدر</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 bg-[#262626] p-3 rounded-2xl hover:bg-[#262626]/80 transition-colors cursor-pointer">
-                    <div className="w-14 h-14 rounded-xl bg-[#0e0e0e] flex items-center justify-center overflow-hidden">
-                      <span className="material-symbols-outlined text-[#e08dff]/40 text-3xl">exercise</span>
-                    </div>
-                    <div>
-                      <p className="font-display font-semibold text-sm">تمرين مخصص 2</p>
-                      <p className="font-display text-[10px] text-[#e08dff]">5 دقائق</p>
-                      <p className="font-display text-[10px] text-[#adaaaa]/70 mt-1">العضلات العاملة: الظهر</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center border-2 border-dashed border-[#e08dff]/20 rounded-2xl h-16 group-hover:border-[#e08dff]/40 transition-colors cursor-pointer">
+                  ))}
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setTransferTarget('custom');
+                      setActiveModule('static');
+                    }}
+                    className="flex items-center justify-center border-2 border-dashed border-[#e08dff]/20 rounded-2xl h-16 hover:border-[#e08dff]/40 transition-colors cursor-pointer"
+                  >
                     <span className="material-symbols-outlined text-[#e08dff]/40">add</span>
-                  </div>
+                  </button>
                 </div>
               </div>
 
               {/* Bedtime Session */}
-              <div className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 transition-all duration-300 hover:bg-[#201f1f] border-r-4 border-[#e08dff]/40 cursor-pointer">
+              <div 
+                onClick={() => setActiveModule('static')}
+                className="group relative overflow-hidden rounded-3xl bg-[#131313] p-6 transition-all duration-300 hover:bg-[#201f1f] border-r-4 border-[#e08dff]/40 cursor-pointer"
+              >
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -2014,7 +2368,7 @@ export default function Programs() {
         { icon: 'accessibility', label: 'جميع المستويات' }
       ],
       onClick: () => {
-        const prog = programs.find(p => p.program_id === 'prog_004' || p.program_name.includes('المرونة'));
+        const prog = programs.find(p => p.program_id === 'prog_003' || p.program_name.includes('المرونة'));
         if (prog) {
           setSelectedProgram(prog);
           setActiveWeekIndex(0);
@@ -2164,6 +2518,165 @@ export default function Programs() {
         </div>
       )}
       
+      <AnimatePresence>
+        {showAddModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="w-full max-w-md bg-[#18181b] border border-white/10 rounded-3xl p-6 shadow-2xl relative text-right"
+              dir="rtl"
+            >
+              <h3 className="text-xl font-bold text-white mb-4">
+                {modalTarget === 'custom' ? 'إضافة تمرين مخصص جديد' : 'إضافة تمرين إطالة جديد'}
+              </h3>
+              
+              {/* Preset Selector */}
+              <div className="mb-4">
+                <label className="block text-xs font-bold text-zinc-400 mb-2">اختر من التمارين والوجبات الجاهزة (تلقائي)</label>
+                <select 
+                  onChange={(e) => {
+                    const selectedId = e.target.value;
+                    if (selectedId) {
+                      const stretch = staticStretches.find(s => s.id === selectedId);
+                      if (stretch) {
+                        setNewExName(stretch.name);
+                        setNewExMuscle(stretch.muscle);
+                        setNewExDuration(Math.max(1, Math.round(stretch.defaultTime / 60) || 2));
+                        if (modalTarget === 'custom') {
+                          setNewExIcon('self_improvement');
+                        }
+                      }
+                    }
+                  }}
+                  className="w-full bg-[#131313] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#e08dff] focus:outline-none transition-colors"
+                >
+                  <option value="">-- اختر تمرين إطالة جاهز --</option>
+                  {staticStretches.map((stretch) => (
+                    <option key={stretch.id} value={stretch.id}>
+                      {stretch.name} ({stretch.muscle})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-zinc-400 mb-2">اسم التمرين</label>
+                  <input 
+                    type="text" 
+                    value={newExName}
+                    onChange={(e) => setNewExName(e.target.value)}
+                    placeholder="مثال: إطالة عضلة البايسبس" 
+                    className="w-full bg-[#131313] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#e08dff] focus:outline-none transition-colors"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-zinc-400 mb-2">المدة (دقائق)</label>
+                    <input 
+                      type="number" 
+                      value={newExDuration}
+                      onChange={(e) => setNewExDuration(parseInt(e.target.value) || 1)}
+                      className="w-full bg-[#131313] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#e08dff] focus:outline-none transition-colors"
+                      min="1"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-zinc-400 mb-2">العضلة المستهدفة</label>
+                    <input 
+                      type="text" 
+                      value={newExMuscle}
+                      onChange={(e) => setNewExMuscle(e.target.value)}
+                      placeholder="مثال: الذراعين"
+                      className="w-full bg-[#131313] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-[#e08dff] focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {modalTarget === 'custom' && (
+                  <div>
+                    <label className="block text-xs font-bold text-zinc-400 mb-2">اختر الأيقونة</label>
+                    <div className="grid grid-cols-4 gap-2">
+                      {[
+                        { id: 'fitness_center', name: 'دمبل' },
+                        { id: 'self_improvement', name: 'يوجا' },
+                        { id: 'directions_run', name: 'جري' },
+                        { id: 'accessibility_new', name: 'جسم' }
+                      ].map((item) => (
+                        <button
+                          key={item.id}
+                          onClick={() => setNewExIcon(item.id)}
+                          type="button"
+                          className={`py-2 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all ${
+                            newExIcon === item.id 
+                              ? 'border-[#e08dff] bg-[#e08dff]/10 text-white font-bold' 
+                              : 'border-white/5 bg-[#131313] text-zinc-400 hover:border-white/10'
+                          }`}
+                        >
+                          <span className="material-symbols-outlined text-lg">{item.id}</span>
+                          <span className="text-[10px]">{item.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-3 mt-6">
+                <button
+                  onClick={() => {
+                    if (!newExName || !newExMuscle) {
+                      alert('يرجى ملء جميع الحقول');
+                      return;
+                    }
+                    if (modalTarget === 'custom') {
+                      setCustomScheduleExercises(prev => [
+                        ...prev,
+                        {
+                          id: String(Date.now()),
+                          name: newExName,
+                          duration: newExDuration,
+                          muscle: newExMuscle,
+                          icon: newExIcon
+                        }
+                      ]);
+                    } else {
+                      setPostWorkoutExercises(prev => [
+                        ...prev,
+                        {
+                          id: String(Date.now()),
+                          name: newExName,
+                          duration: newExDuration,
+                          muscle: newExMuscle,
+                          image: '' // Fallback to icon
+                        }
+                      ]);
+                    }
+                    // Reset
+                    setNewExName('');
+                    setNewExMuscle('');
+                    setNewExDuration(5);
+                    setShowAddModal(false);
+                  }}
+                  className="flex-1 py-3 bg-gradient-to-r from-[#e08dff] to-[#bc00fb] text-white text-sm font-bold rounded-xl active:scale-95 transition-all shadow-lg shadow-purple-500/20"
+                >
+                  إضافة التمرين
+                </button>
+                <button
+                  onClick={() => setShowAddModal(false)}
+                  className="flex-1 py-3 bg-zinc-800 border border-white/5 text-zinc-300 text-sm font-bold rounded-xl active:scale-95 transition-all"
+                >
+                  إلغاء
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* Visual Floating Elements */}
       <div className="fixed bottom-10 right-10 w-32 h-32 bg-[#00fcca]/5 blur-[100px] pointer-events-none z-[-1]"></div>
       <div className="fixed top-40 left-0 w-48 h-48 bg-[#e08dff]/5 blur-[120px] pointer-events-none z-[-1]"></div>

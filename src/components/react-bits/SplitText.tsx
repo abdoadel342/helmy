@@ -23,7 +23,7 @@ export const SplitText = ({
   delay = 50,
   duration = 1.25,
   ease = 'easeOut',
-  splitType = 'chars',
+  splitType = 'words',
   from = { opacity: 0, y: 40 },
   to = { opacity: 1, y: 0 },
   threshold = 0.1,
@@ -49,7 +49,7 @@ export const SplitText = ({
               ? onLetterAnimationComplete
               : undefined
           }
-          className={`inline-block whitespace-pre ${splitType === 'chars' ? '' : 'mr-2'}`}
+          className={`inline-block whitespace-pre ${splitType === 'chars' ? '' : 'ml-1.5'}`}
         >
           {letter}
         </motion.span>

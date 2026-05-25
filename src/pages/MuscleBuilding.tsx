@@ -5,8 +5,9 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import GradientText from '../components/react-bits/GradientText';
 import { useLanguage } from '../LanguageContext';
 import { useStartWorkout } from '../useStartWorkout';
+import { usePersistentState } from '../hooks/usePersistentState';
 
-type Exercise = { name: string; sets: number; reps: string; rest: string; muscle: string; note?: string };
+type Exercise = { name: string; sets: number; reps: string; rest: string; muscle: string; note?: string; alternatives?: string[] };
 type DayPlan = { title: string; exercises: Exercise[] };
 type ProgramType = {
   id: string; name: string; desc: string; icon: string; color: string;
@@ -20,31 +21,31 @@ const programs: ProgramType[] = [
     desc: 'نظام تقسيم عضلي يركز على تجميع العضلات حسب وظيفتها الحركية (دفع، سحب، أرجل) لتحقيق أقصى تحفيز عضلي مع راحة كافية.',
     days: [
       { title: 'يوم الدفع (Push)', exercises: [
-        { name: 'ضغط البنش بالبار', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الصدر', note: 'حافظ على تقوس خفيف بالظهر' },
-        { name: 'ضغط صدر علوي بالدمبلز', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الصدر العلوي' },
-        { name: 'ضغط كتف عسكري', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الكتف الأمامي' },
-        { name: 'رفع جانبي بالدمبلز', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الكتف الجانبي' },
-        { name: 'تفتيح صدر بالكيبل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الصدر الداخلي' },
-        { name: 'تمديد تريسبس بالحبل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'التريسبس' },
-        { name: 'دبس متوازي', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'التريسبس والصدر' },
+        { name: 'ضغط البنش بالبار', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الصدر', note: 'حافظ على تقوس خفيف بالظهر', alternatives: ['ضغط بنش بالدمبلز', 'ضغط بنش جهاز سميث'] },
+        { name: 'ضغط صدر علوي بالدمبلز', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الصدر العلوي', alternatives: ['ضغط صدر علوي بالبار', 'ضغط صدر علوي جهاز'] },
+        { name: 'ضغط كتف عسكري', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الكتف الأمامي', alternatives: ['ضغط كتف بالدمبلز', 'ضغط كتف جهاز'] },
+        { name: 'رفع جانبي بالدمبلز', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الكتف الجانبي', alternatives: ['رفع جانبي كيبل', 'رفع جانبي جهاز'] },
+        { name: 'تفتيح صدر بالكيبل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الصدر الداخلي', alternatives: ['تفتيح صدر بالدمبلز', 'فراشة (Pec Deck)'] },
+        { name: 'تمديد تريسبس بالحبل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'التريسبس', alternatives: ['تمديد تريسبس بار V', 'كيك باك بالدمبلز'] },
+        { name: 'دبس متوازي', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'التريسبس والصدر', alternatives: ['ضغط تريسبس ضيق بالبار', 'تمديد تريسبس خلف الرأس'] },
       ]},
       { title: 'يوم السحب (Pull)', exercises: [
-        { name: 'سحب أمامي (Lat Pulldown)', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الظهر العلوي' },
-        { name: 'تجديف بالبار', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الظهر الأوسط', note: 'ميل الجذع 45°' },
-        { name: 'سحب كيبل ضيق', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الظهر السفلي' },
-        { name: 'Face Pulls', sets: 3, reps: '15-20', rest: '60 ث', muscle: 'الكتف الخلفي' },
-        { name: 'كيرل بار زجزاج', sets: 3, reps: '10-12', rest: '60 ث', muscle: 'البايسبس' },
-        { name: 'كيرل مطرقة', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'البايسبس والساعد' },
-        { name: 'شراجز بالدمبلز', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الترابيس' },
+        { name: 'سحب أمامي (Lat Pulldown)', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الظهر العلوي', alternatives: ['عقلة واسع (Pull-ups)', 'سحب جهاز'] },
+        { name: 'تجديف بالبار', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الظهر الأوسط', note: 'ميل الجذع 45°', alternatives: ['تجديف بالدمبلز', 'تجديف كيبل جالس'] },
+        { name: 'سحب كيبل ضيق', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الظهر السفلي', alternatives: ['تجديف ذراع واحدة', 'تي بار رو (T-Bar Row)'] },
+        { name: 'Face Pulls', sets: 3, reps: '15-20', rest: '60 ث', muscle: 'الكتف الخلفي', alternatives: ['رفرفة خلفي بالدمبلز', 'فراشة عكسي جهاز'] },
+        { name: 'كيرل بار زجزاج', sets: 3, reps: '10-12', rest: '60 ث', muscle: 'البايسبس', alternatives: ['كيرل بايسبس بالدمبلز', 'كيرل بايسبس كيبل'] },
+        { name: 'كيرل مطرقة', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'البايسبس والساعد', alternatives: ['كيرل مطرقة بالكيبل', 'كيرل عكسي بالبار'] },
+        { name: 'شراجز بالدمبلز', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الترابيس', alternatives: ['شراجز بالبار', 'شراجز جهاز سميث'] },
       ]},
       { title: 'يوم الأرجل (Legs)', exercises: [
-        { name: 'سكوات بالبار', sets: 4, reps: '6-8', rest: '180 ث', muscle: 'الفخذ الأمامي', note: 'انزل حتى التوازي أو أعمق' },
-        { name: 'ضغط أرجل (Leg Press)', sets: 4, reps: '10-12', rest: '120 ث', muscle: 'الفخذ الكامل' },
-        { name: 'رومانيان ديدلفت', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الفخذ الخلفي' },
-        { name: 'تمديد أرجل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الكوادريسبس' },
-        { name: 'ثني أرجل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الهامسترنج' },
-        { name: 'رفع سمانة واقف', sets: 4, reps: '15-20', rest: '45 ث', muscle: 'السمانة' },
-        { name: 'طعنات بالدمبلز', sets: 3, reps: '10 لكل رجل', rest: '90 ث', muscle: 'الأرجل والمؤخرة' },
+        { name: 'سكوات بالبار', sets: 4, reps: '6-8', rest: '180 ث', muscle: 'الفخذ الأمامي', note: 'انزل حتى التوازي أو أعمق', alternatives: ['هاك سكوات', 'سكوات جوبليت'] },
+        { name: 'ضغط أرجل (Leg Press)', sets: 4, reps: '10-12', rest: '120 ث', muscle: 'الفخذ الكامل', alternatives: ['طعنات مشي بالدمبلز', 'سكوات بلغاري'] },
+        { name: 'رومانيان ديدلفت', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الفخذ الخلفي', alternatives: ['ديدلفت مستقيم الساقين', 'صباح الخير (Good Mornings)'] },
+        { name: 'تمديد أرجل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الكوادريسبس', alternatives: ['سكوات بوزن الجسم', 'سكوات كعب مرفوع'] },
+        { name: 'ثني أرجل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الهامسترنج', alternatives: ['ثني أرجل واقف جهاز', 'نورديك كيرل'] },
+        { name: 'رفع سمانة واقف', sets: 4, reps: '15-20', rest: '45 ث', muscle: 'السمانة', alternatives: ['رفع سمانة جالس', 'رفع سمانة بجهاز ضغط الأرجل'] },
+        { name: 'طعنات بالدمبلز', sets: 3, reps: '10 لكل رجل', rest: '90 ث', muscle: 'الأرجل والمؤخرة', alternatives: ['صعود الصندوق', 'رفسة خلفية بالكيبل'] },
       ]},
     ]
   },
@@ -54,20 +55,20 @@ const programs: ProgramType[] = [
     desc: 'تقسيم بسيط وفعال بين الجزء العلوي والسفلي، مثالي لمن يبحث عن تكرار تدريبي عالٍ مع توازن في الراحة.',
     days: [
       { title: 'الجزء العلوي (Upper)', exercises: [
-        { name: 'ضغط البنش بالبار', sets: 4, reps: '6-8', rest: '120 ث', muscle: 'الصدر' },
-        { name: 'تجديف بالدمبلز', sets: 4, reps: '8-10', rest: '90 ث', muscle: 'الظهر' },
-        { name: 'ضغط كتف بالدمبلز', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الكتف' },
-        { name: 'سحب أمامي واسع', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الظهر العلوي' },
-        { name: 'رفع جانبي', sets: 3, reps: '15', rest: '60 ث', muscle: 'الكتف الجانبي' },
-        { name: 'كيرل بايسبس + تريسبس', sets: 3, reps: '12', rest: '60 ث', muscle: 'الذراعين' },
+        { name: 'ضغط البنش بالبار', sets: 4, reps: '6-8', rest: '120 ث', muscle: 'الصدر', alternatives: ['ضغط بنش بالدمبلز', 'دبس متوازي'] },
+        { name: 'تجديف بالدمبلز', sets: 4, reps: '8-10', rest: '90 ث', muscle: 'الظهر', alternatives: ['تجديف بالبار', 'تجديف كيبل جالس'] },
+        { name: 'ضغط كتف بالدمبلز', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الكتف', alternatives: ['ضغط كتف عسكري بالبار', 'ضغط كتف جهاز'] },
+        { name: 'سحب أمامي واسع', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الظهر العلوي', alternatives: ['عقلة واسع', 'سحب جهاز'] },
+        { name: 'رفع جانبي', sets: 3, reps: '15', rest: '60 ث', muscle: 'الكتف الجانبي', alternatives: ['رفع جانبي كيبل', 'رفع جانبي جهاز'] },
+        { name: 'كيرل بايسبس + تريسبس', sets: 3, reps: '12', rest: '60 ث', muscle: 'الذراعين', alternatives: ['بايسبس وتريسبس بالدمبلز', 'بايسبس وتريسبس بالكيبل'] },
       ]},
       { title: 'الجزء السفلي (Lower)', exercises: [
-        { name: 'سكوات بالبار', sets: 4, reps: '6-8', rest: '180 ث', muscle: 'الفخذ الأمامي' },
-        { name: 'ديدلفت روماني', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الفخذ الخلفي' },
-        { name: 'ضغط أرجل', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الفخذ الكامل' },
-        { name: 'طعنات بلغارية', sets: 3, reps: '10 لكل رجل', rest: '90 ث', muscle: 'الأرجل والمؤخرة' },
-        { name: 'ثني أرجل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الهامسترنج' },
-        { name: 'رفع سمانة', sets: 4, reps: '15-20', rest: '45 ث', muscle: 'السمانة' },
+        { name: 'سكوات بالبار', sets: 4, reps: '6-8', rest: '180 ث', muscle: 'الفخذ الأمامي', alternatives: ['هاك سكوات', 'سكوات جوبليت بالدمبلز'] },
+        { name: 'ديدلفت روماني', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الفخذ الخلفي', alternatives: ['ثني أرجل خلفي', 'ديدلفت بالدمبلز'] },
+        { name: 'ضغط أرجل', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الفخذ الكامل', alternatives: ['طعنات متحركة بالدمبلز', 'طعنات بلغارية'] },
+        { name: 'طعنات بلغارية', sets: 3, reps: '10 لكل رجل', rest: '90 ث', muscle: 'الأرجل والمؤخرة', alternatives: ['صعود الصندوق (Step-ups)', 'دفع حوض (Hip Thrust)'] },
+        { name: 'ثني أرجل', sets: 3, reps: '12-15', rest: '60 ث', muscle: 'الهامسترنج', alternatives: ['ثني أرجل بالدمبل', 'نورديك كيرل'] },
+        { name: 'رفع سمانة', sets: 4, reps: '15-20', rest: '45 ث', muscle: 'السمانة', alternatives: ['رفع سمانة جالس', 'سمانة على جهاز ضغط الأرجل'] },
       ]},
     ]
   },
@@ -77,20 +78,20 @@ const programs: ProgramType[] = [
     desc: 'برنامج شامل يستهدف جميع المجموعات العضلية في كل جلسة تدريبية، مثالي للمبتدئين ولتعزيز اللياقة العامة.',
     days: [
       { title: 'تمرين الجسم الكامل - يوم A', exercises: [
-        { name: 'سكوات بالبار', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الأرجل' },
-        { name: 'ضغط البنش بالبار', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الصدر' },
-        { name: 'تجديف بالبار', sets: 4, reps: '8-10', rest: '90 ث', muscle: 'الظهر' },
-        { name: 'ضغط كتف عسكري', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الكتف' },
-        { name: 'كيرل بايسبس', sets: 2, reps: '12-15', rest: '60 ث', muscle: 'البايسبس' },
-        { name: 'تمديد تريسبس', sets: 2, reps: '12-15', rest: '60 ث', muscle: 'التريسبس' },
+        { name: 'سكوات بالبار', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الأرجل', alternatives: ['ضغط أرجل', 'سكوات جوبليت'] },
+        { name: 'ضغط البنش بالبار', sets: 4, reps: '8-10', rest: '120 ث', muscle: 'الصدر', alternatives: ['ضغط صدر بالدمبلز', 'ضغط صدر جهاز سميث'] },
+        { name: 'تجديف بالبار', sets: 4, reps: '8-10', rest: '90 ث', muscle: 'الظهر', alternatives: ['تجديف بالدمبلز', 'سحب كيبل ضيق'] },
+        { name: 'ضغط كتف عسكري', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الكتف', alternatives: ['ضغط كتف دمبلز', 'رفع جانبي'] },
+        { name: 'كيرل بايسبس', sets: 2, reps: '12-15', rest: '60 ث', muscle: 'البايسبس', alternatives: ['كيرل مطرقة', 'كيرل كيبل'] },
+        { name: 'تمديد تريسبس', sets: 2, reps: '12-15', rest: '60 ث', muscle: 'التريسبس', alternatives: ['دبس متوازي', 'كيك باك بالدمبلز'] },
       ]},
       { title: 'تمرين الجسم الكامل - يوم B', exercises: [
-        { name: 'ديدلفت', sets: 4, reps: '6-8', rest: '180 ث', muscle: 'الظهر والأرجل' },
-        { name: 'ضغط صدر مائل بالدمبلز', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الصدر العلوي' },
-        { name: 'سحب أمامي', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الظهر العلوي' },
-        { name: 'طعنات بالدمبلز', sets: 3, reps: '10 لكل رجل', rest: '90 ث', muscle: 'الأرجل' },
-        { name: 'رفع جانبي', sets: 3, reps: '15', rest: '60 ث', muscle: 'الكتف' },
-        { name: 'بلانك', sets: 3, reps: '45-60 ث', rest: '45 ث', muscle: 'البطن' },
+        { name: 'ديدلفت', sets: 4, reps: '6-8', rest: '180 ث', muscle: 'الظهر والأرجل', alternatives: ['رومانيان ديدلفت', 'تمديد ظهر'] },
+        { name: 'ضغط صدر مائل بالدمبلز', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الصدر العلوي', alternatives: ['ضغط مائل بار', 'تفتيح مائل بالدمبلز'] },
+        { name: 'سحب أمامي', sets: 3, reps: '10-12', rest: '90 ث', muscle: 'الظهر العلوي', alternatives: ['عقلة', 'سحب جهاز'] },
+        { name: 'طعنات بالدمبلز', sets: 3, reps: '10 لكل رجل', rest: '90 ث', muscle: 'الأرجل', alternatives: ['طعنات بلغارية', 'هاك سكوات'] },
+        { name: 'رفع جانبي', sets: 3, reps: '15', rest: '60 ث', muscle: 'الكتف', alternatives: ['فيس بولز (Face Pulls)', 'فراشة خلفي جهاز'] },
+        { name: 'بلانك', sets: 3, reps: '45-60 ث', rest: '45 ث', muscle: 'البطن', alternatives: ['كرانشز (Crunches)', 'رفع أرجل معلق'] },
       ]},
     ]
   },
@@ -148,7 +149,8 @@ export default function MuscleBuilding() {
   const { isStarting, workoutStarted, handleStartWorkout } = useStartWorkout();
   const [selectedProgram, setSelectedProgram] = useState<ProgramType | null>(null);
   const [activeDayIdx, setActiveDayIdx] = useState(0);
-  const [customExercises, setCustomExercises] = useState<Record<string, { sets: number; reps: string; rest: string }>>({});
+  const [customExercises, setCustomExercises] = usePersistentState<Record<string, { sets: number; reps: string; rest: string; swappedName?: string }>>('muscle_building_custom_v2', {});
+  const [swapMenuOpenFor, setSwapMenuOpenFor] = useState<string | null>(null);
   const [selectedEquipment, setSelectedEquipment] = useState<string[]>(['dumbbells', 'barbell', 'cable', 'machines', 'bodyweight', 'others']);
 
   const adjustReps = (repsStr: string, increment: boolean): string => {
@@ -187,7 +189,10 @@ export default function MuscleBuilding() {
     if (!selectedProgram) return;
     const day = selectedProgram.days[activeDayIdx];
     const filteredExercises = day.exercises.filter(ex => {
-      const eqList = getExerciseEquipment(ex.name);
+      const key = `${day.title}-${ex.name}`;
+      const custom = customExercises[key];
+      const actualName = custom?.swappedName || ex.name;
+      const eqList = getExerciseEquipment(actualName);
       return eqList.some(eq => selectedEquipment.includes(eq));
     });
     if (filteredExercises.length === 0) return;
@@ -204,7 +209,10 @@ export default function MuscleBuilding() {
   if (selectedProgram) {
     const day = selectedProgram.days[activeDayIdx];
     const filteredExercises = day.exercises.filter(ex => {
-      const eqList = getExerciseEquipment(ex.name);
+      const key = `${day.title}-${ex.name}`;
+      const custom = customExercises[key];
+      const actualName = custom?.swappedName || ex.name;
+      const eqList = getExerciseEquipment(actualName);
       return eqList.some(eq => selectedEquipment.includes(eq));
     });
     return (
@@ -312,17 +320,85 @@ export default function MuscleBuilding() {
                   filteredExercises.map((ex, i) => {
                   const key = `${day.title}-${ex.name}`;
                   const custom = customExercises[key] || { sets: ex.sets, reps: ex.reps, rest: ex.rest };
+                  const actualName = custom.swappedName || ex.name;
 
                   return (
                     <div key={i} className="bg-[#131313] rounded-2xl p-4 border border-white/5 hover:border-white/10 transition-all group">
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center font-bold text-sm" style={{ backgroundColor: `${selectedProgram.color}15`, color: selectedProgram.color }}>
-                          {String(i + 1).padStart(2, '0')}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-bold text-white text-base">{ex.name}</h4>
-                          <span className="text-xs text-[#adaaaa]">{ex.muscle}</span>
-                          {ex.note && <p className="text-xs mt-1 text-[#adaaaa] italic">💡 {ex.note}</p>}
+                      <div className="flex flex-col gap-3">
+                        <div className="flex items-start gap-3 justify-between">
+                          <div className="flex items-start gap-3">
+                            <div className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center font-bold text-sm" style={{ backgroundColor: `${selectedProgram.color}15`, color: selectedProgram.color }}>
+                              {String(i + 1).padStart(2, '0')}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-bold text-white text-base leading-tight mb-1">{actualName}</h4>
+                              <span className="text-[11px] px-2 py-0.5 rounded bg-white/5 text-[#adaaaa] font-bold">{ex.muscle}</span>
+                              {ex.note && !custom.swappedName && <p className="text-xs mt-1.5 text-[#adaaaa] italic">💡 {ex.note}</p>}
+                            </div>
+                          </div>
+                          
+                          {/* Swap Button */}
+                          {ex.alternatives && ex.alternatives.length > 0 && (
+                            <div className="relative shrink-0">
+                              <button
+                                onClick={() => setSwapMenuOpenFor(swapMenuOpenFor === key ? null : key)}
+                                className="flex items-center gap-1 px-2 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all text-xs font-bold text-[#adaaaa] hover:text-white"
+                                title="استبدال التمرين"
+                              >
+                                <span className="material-symbols-outlined text-[14px]">swap_horiz</span>
+                                تبديل
+                              </button>
+                              
+                              <AnimatePresence>
+                                {swapMenuOpenFor === key && (
+                                  <motion.div
+                                    initial={{ opacity: 0, y: -5, scale: 0.95 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: -5, scale: 0.95 }}
+                                    className="absolute left-0 top-full mt-2 w-48 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-xl shadow-black/50 z-50 overflow-hidden"
+                                  >
+                                    <div className="px-3 py-2 border-b border-white/5 text-[10px] text-[#adaaaa] font-bold">
+                                      اختر تمريناً بديلاً:
+                                    </div>
+                                    <div className="max-h-40 overflow-y-auto scrollbar-hide">
+                                      {/* Option to revert to original */}
+                                      {custom.swappedName && (
+                                        <button
+                                          onClick={() => {
+                                            const newCustom = { ...custom };
+                                            delete newCustom.swappedName;
+                                            setCustomExercises(prev => ({ ...prev, [key]: newCustom }));
+                                            setSwapMenuOpenFor(null);
+                                          }}
+                                          className="w-full text-right px-3 py-2.5 text-xs hover:bg-white/5 transition-colors border-b border-white/5 text-white/80"
+                                        >
+                                          <span className="text-[#f59e0b] font-bold block mb-0.5">التمرين الأصلي:</span>
+                                          {ex.name}
+                                        </button>
+                                      )}
+                                      
+                                      {ex.alternatives.map((alt, altIdx) => (
+                                        <button
+                                          key={altIdx}
+                                          onClick={() => {
+                                            setCustomExercises(prev => ({
+                                              ...prev,
+                                              [key]: { ...custom, swappedName: alt }
+                                            }));
+                                            setSwapMenuOpenFor(null);
+                                          }}
+                                          className={`w-full text-right px-3 py-2.5 text-xs hover:bg-white/5 transition-colors ${actualName === alt ? 'bg-white/5 text-white font-bold' : 'text-[#adaaaa]'}`}
+                                          style={actualName === alt ? { color: selectedProgram.color } : {}}
+                                        >
+                                          {alt}
+                                        </button>
+                                      ))}
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </div>
+                          )}
                         </div>
                       </div>
                       

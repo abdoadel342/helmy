@@ -12,6 +12,10 @@ import { Instagram, Linkedin } from 'lucide-react';
 import { logOut } from '../firebase';
 import { AnimatedThemeToggler } from '../components/AnimatedThemeToggler';
 
+import { programsData } from './Programs';
+import { nutritionPlansData } from './Nutrition';
+import { articlesData } from './Education';
+
 /* ── tiny animated counter ── */
 function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -53,9 +57,9 @@ export default function Home() {
   ];
 
   const stats = [
-    { value: 12, suffix: '+', label: isAr ? 'برنامج تدريبي' : 'Programs', icon: 'fitness_center' },
-    { value: 8, suffix: '+', label: isAr ? 'خطة غذائية' : 'Meal Plans', icon: 'restaurant_menu' },
-    { value: 50, suffix: '+', label: isAr ? 'مقال تعليمي' : 'Articles', icon: 'menu_book' },
+    { value: programsData.length, suffix: '', label: isAr ? 'برامج تدريبية' : 'Programs', icon: 'fitness_center', to: '/programs' },
+    { value: nutritionPlansData.length, suffix: '', label: isAr ? 'خطط غذائية' : 'Meal Plans', icon: 'restaurant_menu', to: '/nutrition' },
+    { value: articlesData.length, suffix: '', label: isAr ? 'محتوى علمي' : 'Articles', icon: 'menu_book', to: '/education' },
   ];
 
   return (
@@ -69,7 +73,6 @@ export default function Home() {
           <h1 className="text-xl font-black tracking-tight bg-gradient-to-r from-primary to-violet-400 bg-clip-text text-transparent">HELMY</h1>
         </div>
         <div className="flex items-center gap-2">
-          <AnimatedThemeToggler />
           <button className="relative p-2.5 text-slate-500 dark:text-slate-400 hover:bg-primary/10 rounded-xl transition-colors">
             <span className="material-symbols-outlined text-[22px]">notifications</span>
             <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full ring-2 ring-background-light dark:ring-background-dark"></span>
@@ -99,6 +102,7 @@ export default function Home() {
               <span className="font-medium text-slate-900 dark:text-slate-100">{item.label}</span>
             </Link>
           ))}
+
           <button onClick={() => { toggleTheme(); }} className="flex items-center justify-between px-5 py-3 hover:bg-primary/10 transition-colors w-full text-start border-b border-primary/5">
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined text-primary">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span>
@@ -158,40 +162,109 @@ export default function Home() {
         <FadeContent blur={true} duration={800} initialOpacity={0}>
           <section className="grid grid-cols-3 gap-3 md:gap-5">
             {stats.map((s, i) => (
-              <div key={i} className="relative bg-slate-100/80 dark:bg-zinc-900/60 backdrop-blur-sm border border-slate-200/80 dark:border-zinc-800/60 rounded-2xl p-4 md:p-6 text-center group hover:border-primary/40 transition-all duration-300">
+              <Link key={i} to={s.to} className="relative bg-slate-100/80 dark:bg-zinc-900/60 backdrop-blur-sm border border-slate-200/80 dark:border-zinc-800/60 rounded-2xl p-4 md:p-6 text-center group hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <span className="material-symbols-outlined text-primary text-2xl md:text-3xl mb-2 block" style={{ fontVariationSettings: "'FILL' 1" }}>{s.icon}</span>
+                <span className="material-symbols-outlined text-primary text-2xl md:text-3xl mb-2 block group-hover:scale-110 transition-transform duration-300" style={{ fontVariationSettings: "'FILL' 1" }}>{s.icon}</span>
                 <p className="text-2xl md:text-3xl font-black text-primary"><AnimatedCounter target={s.value} suffix={s.suffix} /></p>
-                <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400 mt-1">{s.label}</p>
-              </div>
+                <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400 mt-1 group-hover:text-primary transition-colors">{s.label}</p>
+              </Link>
             ))}
           </section>
         </FadeContent>
 
         {/* ── APP INFO ── */}
-        <section className="py-10 px-6 md:px-10 bg-slate-50/80 dark:bg-zinc-900/30 backdrop-blur-sm rounded-3xl border border-slate-200/80 dark:border-zinc-800/50 relative overflow-hidden">
+        <section className="py-12 px-6 md:px-12 bg-slate-50/80 dark:bg-zinc-900/30 backdrop-blur-sm rounded-3xl border border-slate-200/80 dark:border-zinc-800/50 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-60"></div>
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(115,17,212,0.03)_0%,transparent_70%)] pointer-events-none"></div>
 
-          <div className="mb-6">
+          <div className="mb-12 relative z-10">
             <SplitText
-              text={isAr ? 'ماذا يقدم تطبيق حلمي؟' : 'What does Helmy offer?'}
-              className="text-2xl md:text-3xl font-black text-center text-primary mb-2"
-              delay={50} duration={1.25} ease="power3.out" splitType="chars"
+              text={isAr ? 'الفلسفة العلمية لتطبيق حلمي' : 'The Scientific Philosophy of Helmy'}
+              className="text-3xl md:text-5xl font-black text-center text-primary mb-6"
+              delay={50} duration={1.25} ease="power3.out" splitType="words"
               from={{ opacity: 0, y: 40 }} to={{ opacity: 1, y: 0 }}
               threshold={0.1} rootMargin="-100px" textAlign="center" showCallback={false}
             />
+            <p className="text-center text-slate-600 dark:text-slate-300 text-base md:text-lg font-medium leading-relaxed max-w-4xl mx-auto">
+              {isAr 
+                ? 'نحن لا نقدم مجرد جداول رياضية عشوائية؛ منصة "حلمي" هي بيئة متكاملة مصممة على أسس الطب الرياضي النخبوي، تدمج بين الذكاء الاصطناعي الخوارزمي وعلوم الفسيولوجيا والميكانيكا الحيوية لضمان تحقيقك لنتائج دقيقة ومستدامة.' 
+                : 'We don’t just provide random workout templates; Helmy is an elite sports medicine ecosystem blending algorithmic AI, physiology, and biomechanics to guarantee precise and sustainable results.'}
+            </p>
           </div>
 
-          <SplitText
-            text={isAr
-              ? 'منصة حلمي هي بيئتك المتكاملة للارتقاء بلياقتك البدنية والصحية. نقدم لك برامج رياضية احترافية مصممة خصيصاً لأهدافك، وخطط تغذية مدروسة علمياً، بالإضافة إلى مكتبة غنية بالمقالات والموارد التعليمية التي تمكنك من الوصول إلى أفضل نسخة من نفسك.'
-              : 'Helmy is your integrated platform to elevate your physical fitness and health. We provide professional sports programs tailored to your goals, scientifically planned nutrition plans, and a rich library of educational resources to empower you to reach the best version of yourself.'}
-            className="text-lg md:text-xl font-medium text-center text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl mx-auto"
-            delay={20} duration={1.5} ease="power3.out" splitType="words"
-            from={{ opacity: 0, y: 20 }} to={{ opacity: 1, y: 0 }}
-            threshold={0.2} rootMargin="-50px" textAlign="center"
-          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+            {/* Feature 1: AI Coach */}
+            <div className="bg-white/60 dark:bg-zinc-800/50 p-8 rounded-3xl border border-slate-200/60 dark:border-zinc-700/60 shadow-lg hover:shadow-primary/10 transition-all group">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined text-white text-3xl">smart_toy</span>
+                </div>
+                <div>
+                  <h4 className="font-black text-xl text-slate-900 dark:text-slate-100">{isAr ? 'عقل اصطناعي متقدم (AI Coach)' : 'Advanced AI Coach'}</h4>
+                  <p className="text-primary text-sm font-bold">{isAr ? 'تحليل لحظي وتكيف مستمر' : 'Real-time analysis & adaptation'}</p>
+                </div>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 leading-loose text-sm md:text-base font-medium">
+                {isAr 
+                  ? 'مدربك الشخصي الذكي لا ينام. مدعوم بخوارزميات متطورة قادرة على تحليل تقدمك، تعديل أحمالك التدريبية بناءً على مستوى الإجهاد (RPE)، وتصميم وجبات دقيقة بضغطة زر. يمكنك سؤاله في أي وقت عن تصحيح الأداء الحركي أو استراتيجيات التعافي، وسيجيبك بناءً على أحدث الأبحاث العلمية.'
+                  : 'Your AI coach never sleeps. Powered by advanced algorithms, it analyzes your progress, adjusts training loads based on RPE, and generates precise meals instantly. Ask it anytime about biomechanical corrections or recovery strategies, and get evidence-based answers.'}
+              </p>
+            </div>
+            
+            {/* Feature 2: Science */}
+            <div className="bg-white/60 dark:bg-zinc-800/50 p-8 rounded-3xl border border-slate-200/60 dark:border-zinc-700/60 shadow-lg hover:shadow-primary/10 transition-all group">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined text-white text-3xl">science</span>
+                </div>
+                <div>
+                  <h4 className="font-black text-xl text-slate-900 dark:text-slate-100">{isAr ? 'موسوعة العلوم الرياضية' : 'Sports Science Encyclopedia'}</h4>
+                  <p className="text-sky-500 text-sm font-bold">{isAr ? 'الميكانيكا الحيوية، الفسيولوجيا، والسيكولوجيا' : 'Biomechanics, Physiology, & Psychology'}</p>
+                </div>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 leading-loose text-sm md:text-base font-medium">
+                {isAr 
+                  ? 'نؤمن أن المعرفة هي القوة. يوفر التطبيق منهجاً أكاديمياً مبسطاً يشرح آليات الجسد: كيف تعمل أنظمة الطاقة (ATP-PC)، كيف تتشكل الروافع الميكانيكية في المفاصل، وكيف تصل إلى "حالة التدفق" (Flow State) الذهنية لتجاوز حدودك. أنت لا تتدرب فقط، أنت تتعلم كيف يتدرب الأبطال.'
+                  : 'We believe knowledge is power. The app provides a simplified academic curriculum explaining body mechanics: how ATP energy systems work, how joint levers function, and how to reach the mental Flow State to push your limits.'}
+              </p>
+            </div>
+
+            {/* Feature 3: Training */}
+            <div className="bg-white/60 dark:bg-zinc-800/50 p-8 rounded-3xl border border-slate-200/60 dark:border-zinc-700/60 shadow-lg hover:shadow-primary/10 transition-all group">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-rose-500 to-red-600 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined text-white text-3xl">fitness_center</span>
+                </div>
+                <div>
+                  <h4 className="font-black text-xl text-slate-900 dark:text-slate-100">{isAr ? 'هندسة الأحمال التدريبية' : 'Training Load Engineering'}</h4>
+                  <p className="text-rose-500 text-sm font-bold">{isAr ? 'تقسيم مرحلي ومراقبة دقيقة' : 'Periodization & Precise Monitoring'}</p>
+                </div>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 leading-loose text-sm md:text-base font-medium">
+                {isAr 
+                  ? 'برامجنا ليست قوالب ثابتة. نستخدم أسلوب "التقسيم المرحلي" (Periodization) لبناء القوة الانفجارية، التضخم العضلي، وتحمل السرعة. تتضمن البرامج إحماءات عصبية عضلية، تمارين البليومتريكس لردود الفعل، وخططاً متكاملة لتأسيس الأطفال حركياً وذهنياً دون تخصص مبكر ضار.'
+                  : 'Our programs are not static templates. We use advanced Periodization to build explosive power, hypertrophy, and speed endurance. Programs include neuromuscular warm-ups, plyometrics, and holistic development plans for kids without harmful early specialization.'}
+              </p>
+            </div>
+
+            {/* Feature 4: Nutrition */}
+            <div className="bg-white/60 dark:bg-zinc-800/50 p-8 rounded-3xl border border-slate-200/60 dark:border-zinc-700/60 shadow-lg hover:shadow-primary/10 transition-all group">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined text-white text-3xl">restaurant_menu</span>
+                </div>
+                <div>
+                  <h4 className="font-black text-xl text-slate-900 dark:text-slate-100">{isAr ? 'التغذية الإكلينيكية والرياضية' : 'Clinical & Sports Nutrition'}</h4>
+                  <p className="text-emerald-500 text-sm font-bold">{isAr ? 'حاسبات دقيقة ونظام البدائل' : 'Precise Calculators & Exchange System'}</p>
+                </div>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 leading-loose text-sm md:text-base font-medium">
+                {isAr 
+                  ? 'تجاوزنا حساب السعرات التقليدي لنقدم لك "نظام بدائل الأطعمة" العالمي. يضم التطبيق أنظمة علاجية مثل حمية البحر المتوسط وDASH للوقاية من الضغط، بالإضافة لتوقيت المغذيات (Nutrient Timing) الدقيق قبل وبعد البطولات الرياضية لضمان أقصى مخزون من الجليكوجين وتعب أقل.'
+                  : 'We went beyond simple calorie counting to integrate the global Food Exchange System. The app features clinical diets like DASH and Mediterranean, plus strict Nutrient Timing protocols around competitions for max glycogen storage and minimal fatigue.'}
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* ── NAVIGATION GRID ── */}
@@ -309,61 +382,52 @@ export default function Home() {
             <section className="bg-slate-100/80 dark:bg-zinc-900/40 backdrop-blur-sm border border-slate-200/80 dark:border-zinc-800/60 rounded-3xl p-8 h-full flex flex-col justify-center relative overflow-hidden">
               <div className="absolute -bottom-12 -left-12 w-32 h-32 bg-primary/5 rounded-full blur-2xl"></div>
 
-              <h3 className="text-xl font-black mb-6 flex items-center gap-3">
+              <h3 className="text-xl font-black mb-8 flex items-center justify-center gap-3 text-center">
                 <span className="material-symbols-outlined text-primary text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>contact_support</span>
                 {t('contact_us')}
               </h3>
-              <div className="space-y-3.5">
-                <a href="tel:+201012345678" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
-                    <span className="material-symbols-outlined text-primary group-hover:text-white transition-colors text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>call</span>
+              
+              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+                {/* Phone */}
+                <a href="tel:+201012345678" className="flex flex-col items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-3 rounded-2xl hover:bg-primary/5 border border-transparent hover:border-primary/20 w-[80px] md:w-[100px] text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all group-hover:-translate-y-1">
+                    <span className="material-symbols-outlined text-primary group-hover:text-white transition-colors text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>call</span>
                   </div>
-                  <div>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'اتصل بنا (مصر)' : 'Call us (Egypt)'}</p>
-                    <span dir="ltr" className="font-bold text-base text-slate-900 dark:text-white">+20 10 1234 5678</span>
-                  </div>
+                  <span className="font-bold text-[10px] md:text-[11px] uppercase tracking-wider">{isAr ? 'اتصال' : 'Call'}</span>
                 </a>
 
-                <a href="https://instagram.com/helmy.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
-                    <Instagram className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
+                {/* Instagram */}
+                <a href="https://instagram.com/helmy.app" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-3 rounded-2xl hover:bg-primary/5 border border-transparent hover:border-primary/20 w-[80px] md:w-[100px] text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all group-hover:-translate-y-1">
+                    <Instagram className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'إنستجرام' : 'Instagram'}</p>
-                    <span className="font-bold text-base text-slate-900 dark:text-white">@helmy.app</span>
-                  </div>
+                  <span className="font-bold text-[10px] md:text-[11px] uppercase tracking-wider">Insta</span>
                 </a>
 
-                <a href="https://tiktok.com/@helmy.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-primary group-hover:text-white transition-colors">
+                {/* TikTok */}
+                <a href="https://tiktok.com/@helmy.app" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-3 rounded-2xl hover:bg-primary/5 border border-transparent hover:border-primary/20 w-[80px] md:w-[100px] text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all group-hover:-translate-y-1">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary group-hover:text-white transition-colors">
                       <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
                     </svg>
                   </div>
-                  <div>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'تيك توك' : 'TikTok'}</p>
-                    <span className="font-bold text-base text-slate-900 dark:text-white">@helmy.app</span>
-                  </div>
+                  <span className="font-bold text-[10px] md:text-[11px] uppercase tracking-wider">TikTok</span>
                 </a>
 
-                <a href="https://linkedin.com/company/helmy" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
-                    <Linkedin className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
+                {/* LinkedIn */}
+                <a href="https://linkedin.com/company/helmy" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-3 rounded-2xl hover:bg-primary/5 border border-transparent hover:border-primary/20 w-[80px] md:w-[100px] text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all group-hover:-translate-y-1">
+                    <Linkedin className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'لينكد إن' : 'LinkedIn'}</p>
-                    <span className="font-bold text-base text-slate-900 dark:text-white">Helmy App</span>
-                  </div>
+                  <span className="font-bold text-[10px] md:text-[11px] uppercase tracking-wider">LinkedIn</span>
                 </a>
 
-                <a href="mailto:support@helmy.com" className="flex items-center gap-4 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-2.5 rounded-xl hover:bg-primary/5">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all">
-                    <span className="material-symbols-outlined text-primary group-hover:text-white transition-colors text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
+                {/* Email */}
+                <a href="mailto:support@helmy.com" className="flex flex-col items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors group p-3 rounded-2xl hover:bg-primary/5 border border-transparent hover:border-primary/20 w-[80px] md:w-[100px] text-center">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/25 transition-all group-hover:-translate-y-1">
+                    <span className="material-symbols-outlined text-primary group-hover:text-white transition-colors text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
                   </div>
-                  <div>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-0.5">{isAr ? 'البريد الإلكتروني' : 'Email'}</p>
-                    <span className="font-bold text-base text-slate-900 dark:text-white">support@helmy.com</span>
-                  </div>
+                  <span className="font-bold text-[10px] md:text-[11px] uppercase tracking-wider">{isAr ? 'إيميل' : 'Email'}</span>
                 </a>
               </div>
             </section>

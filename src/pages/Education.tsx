@@ -4,47 +4,49 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { BackButton } from '../components/BackButton';
 
+export const articlesData = [
+  {
+    title: "تشريح الجهاز العضلي",
+    description: "الدليل التقني المتكامل للرياضيين",
+    image: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80",
+    path: "/education/anatomy"
+  },
+  {
+    title: "الميكانيكية وعلم الحركة",
+    description: "تعلم أساسيات حركة الجسم وتفاعل القوى",
+    image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=800&q=80",
+    path: "/education/biomechanics"
+  },
+  {
+    title: "التغذية للرياضيين",
+    description: "دليلك الشامل للغذاء الصحي والأداء العالي",
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80",
+    path: "/education/sports-nutrition"
+  },
+  {
+    title: "التدريب الرياضي",
+    description: "منهجيات التدريب الحديثة لرفع الكفاءة البدنية",
+    image: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80",
+    path: "/education/training"
+  },
+  {
+    title: "فسيولوجية الرياضة",
+    description: "استجابة وتكيف أجهزة الجسم للجهد البدني",
+    image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80",
+    path: "/education/physiology"
+  },
+  {
+    title: "سيكولوجية الرياضة",
+    description: "العوامل النفسية المؤثرة على الأداء الرياضي",
+    image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80",
+    path: "/education/psychology"
+  }
+];
+
 export default function Education() {
   const navigate = useNavigate();
 
-  const articles = [
-    {
-      title: "تشريح الجهاز العضلي",
-      description: "الدليل التقني المتكامل للرياضيين",
-      image: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80",
-      path: "/education/anatomy"
-    },
-    {
-      title: "الميكانيكية وعلم الحركة",
-      description: "تعلم أساسيات حركة الجسم وتفاعل القوى",
-      image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=800&q=80",
-      path: "/education/biomechanics"
-    },
-    {
-      title: "التغذية للرياضيين",
-      description: "دليلك الشامل للغذاء الصحي والأداء العالي",
-      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80",
-      path: "/education/sports-nutrition"
-    },
-    {
-      title: "التدريب الرياضي",
-      description: "منهجيات التدريب الحديثة لرفع الكفاءة البدنية",
-      image: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80",
-      path: "/education/training"
-    },
-    {
-      title: "فسيولوجية الرياضة",
-      description: "استجابة وتكيف أجهزة الجسم للجهد البدني",
-      image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=800&q=80",
-      path: "/education/physiology"
-    },
-    {
-      title: "سيكولوجية الرياضة",
-      description: "العوامل النفسية المؤثرة على الأداء الرياضي",
-      image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80",
-      path: "/education/psychology"
-    }
-  ];
+  const articles = articlesData;
 
   return (
     <div className="flex flex-col min-h-screen pb-20">

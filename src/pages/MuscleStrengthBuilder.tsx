@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { BackButton } from '../components/BackButton';
 import { useStartWorkout } from '../useStartWorkout';
+import { usePersistentState } from '../hooks/usePersistentState';
 
 const partsMap: Record<string, string[]> = {
   'الصدر': ['العلوي (الترقوي)', 'الأوسط (القصي)', 'السفلي (البطني)', 'الداخلي (متقاطع)'],
@@ -352,7 +353,7 @@ const exerciseSuggestions: Record<string, Record<string, ExerciseSuggestion[]>> 
       }
     ]
   },
-    'الكتف': {
+  'الكتف': {
     'الأمامي (Anterior)': [
       {
         name: 'ضغط كتف أمامي بالدمبلز',
@@ -1824,13 +1825,13 @@ const getExerciseEquipment = (ex: ExerciseSuggestion): string[] => {
   }
 
   if (
-    text.includes('بار') || 
-    text.includes('barbell') || 
-    text.includes('ez-bar') || 
-    text.includes('زجزاج') || 
-    text.includes('smith') || 
-    text.includes('سميث') || 
-    text.includes('لاندمين') || 
+    text.includes('بار') ||
+    text.includes('barbell') ||
+    text.includes('ez-bar') ||
+    text.includes('زجزاج') ||
+    text.includes('smith') ||
+    text.includes('سميث') ||
+    text.includes('لاندمين') ||
     text.includes('landmine')
   ) {
     equipments.push('barbell');
@@ -1928,14 +1929,14 @@ export default function MuscleStrengthBuilder() {
   const [selectedParts, setSelectedParts] = useState<string[]>(['العلوي (الترقوي)']);
   const [selectedExercises, setSelectedExercises] = useState<Record<string, number>>({});
   const [selectedEquipment, setSelectedEquipment] = useState<Record<string, string[]>>({});
-  
+
   // Default values for new exercises added to routine
   const [sets, setSets] = useState(4);
   const [reps, setReps] = useState(12);
   const [restTime, setRestTime] = useState(60);
 
-  // Routine state
-  const [routine, setRoutine] = useState<RoutineItem[]>([]);
+  // Routine state (persisted per user)
+  const [routine, setRoutine] = usePersistentState<RoutineItem[]>('custom_muscle_routine', []);
 
   const addToRoutine = (exercise: ExerciseSuggestion, part: string) => {
     const id = `${selectedMuscle}-${part}-${exercise.name}`;
@@ -1976,7 +1977,7 @@ export default function MuscleStrengthBuilder() {
   const muscles = ['الصدر', 'الظهر', 'الكتف', 'الذراعين', 'الأرجل', 'البطن'];
   const currentParts = partsMap[selectedMuscle] || [];
 
-  const exerciseLabel = selectedParts.length > 0 
+  const exerciseLabel = selectedParts.length > 0
     ? `تمارين ${selectedMuscle} (${selectedParts.map(p => p.split(' ')[0]).join('، ')})`
     : `تمرين ${selectedMuscle}`;
 
@@ -2107,186 +2108,185 @@ export default function MuscleStrengthBuilder() {
               })}
             </div>
 
-                    {/* Target Exercise Selection Section */}
-          {selectedParts.length > 0 && (
-            <section className="animate-in fade-in slide-in-from-top-4 duration-300 mt-6">
-              <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary">fitness_center</span>
-                اختر التمرين المقترح
-              </h3>
-              
-              <div className="space-y-6">
-                {selectedParts.map(part => {
-                  const rawExercises = exerciseSuggestions[selectedMuscle]?.[part] || [];
-                  
-                  // Compute available equipment types specifically for this muscle part
-                  const availableEquipmentsForPart = Array.from(
-                    new Set(rawExercises.flatMap(ex => getExerciseEquipment(ex)))
-                  );
-                  
-                  // Active equipment selection for this part (defaults to all available if undefined)
-                  const activeSelected = selectedEquipment[part] || availableEquipmentsForPart;
+            {/* Target Exercise Selection Section */}
+            {selectedParts.length > 0 && (
+              <section className="animate-in fade-in slide-in-from-top-4 duration-300 mt-6">
+                <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-primary">fitness_center</span>
+                  اختر التمرين المقترح
+                </h3>
 
-                  const exercises = rawExercises.filter(ex => {
-                    const eqList = getExerciseEquipment(ex);
-                    return eqList.some(eq => activeSelected.includes(eq));
-                  });
+                <div className="space-y-6">
+                  {selectedParts.map(part => {
+                    const rawExercises = exerciseSuggestions[selectedMuscle]?.[part] || [];
 
-                  const rawIndex = selectedExercises[part] || 0;
-                  const currentIndex = rawIndex >= exercises.length ? 0 : rawIndex;
-                  const currentExercise = exercises[currentIndex];
-                  
-                  return (
-                    <div key={part} className="space-y-3 p-5 rounded-2xl border border-slate-200 dark:border-primary/10 bg-white dark:bg-zinc-900/65 shadow-xl relative group transition-all duration-300">
-                      <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-primary/10 blur-2xl group-hover:bg-primary/20 transition-all duration-300 pointer-events-none" />
-                      
-                      <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 pr-2 border-r-2 border-primary mb-2">
-                        تمارين لـ {selectedMuscle} ({part.split(' ')[0]})
-                      </h4>
+                    // Compute available equipment types specifically for this muscle part
+                    const availableEquipmentsForPart = Array.from(
+                      new Set(rawExercises.flatMap(ex => getExerciseEquipment(ex)))
+                    );
 
-                      {/* Dynamic Equipment Selector for this Part */}
-                      <div className="mb-4 bg-slate-50 dark:bg-primary/5 p-3 rounded-xl border border-slate-200 dark:border-primary/10 relative z-10">
-                        <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-2 font-display">الأجهزة المتاحة لتمرين هذا الجزء:</span>
-                        <div className="flex flex-wrap gap-1.5">
-                          {availableEquipmentsForPart.map(eqId => {
-                            const option = equipmentOptions.find(o => o.id === eqId);
-                            if (!option) return null;
-                            const isSelected = activeSelected.includes(eqId);
-                            return (
-                              <button
-                                key={eqId}
-                                onClick={() => {
-                                  let newList;
-                                  if (isSelected) {
-                                    newList = activeSelected.filter(id => id !== eqId);
-                                  } else {
-                                    newList = [...activeSelected, eqId];
-                                  }
-                                  setSelectedEquipment(prev => ({
-                                    ...prev,
-                                    [part]: newList
-                                  }));
-                                }}
-                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all duration-200 ${
-                                  isSelected
-                                    ? 'border-primary bg-primary/10 text-primary shadow-sm font-bold scale-[1.01]'
-                                    : 'border-slate-200 dark:border-primary/10 bg-white dark:bg-primary/5 text-slate-600 dark:text-slate-400 hover:border-primary/30'
-                                }`}
-                              >
-                                <span className="material-symbols-outlined text-sm leading-none">{option.icon}</span>
-                                <span className="text-[10px] leading-none">{option.nameAr}</span>
-                                {isSelected && (
-                                  <span className="material-symbols-outlined text-[10px] leading-none">check</span>
+                    // Active equipment selection for this part (defaults to all available if undefined)
+                    const activeSelected = selectedEquipment[part] || availableEquipmentsForPart;
+
+                    const exercises = rawExercises.filter(ex => {
+                      const eqList = getExerciseEquipment(ex);
+                      return eqList.some(eq => activeSelected.includes(eq));
+                    });
+
+                    const rawIndex = selectedExercises[part] || 0;
+                    const currentIndex = rawIndex >= exercises.length ? 0 : rawIndex;
+                    const currentExercise = exercises[currentIndex];
+
+                    return (
+                      <div key={part} className="space-y-3 p-5 rounded-2xl border border-slate-200 dark:border-primary/10 bg-white dark:bg-zinc-900/65 shadow-xl relative group transition-all duration-300">
+                        <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-primary/10 blur-2xl group-hover:bg-primary/20 transition-all duration-300 pointer-events-none" />
+
+                        <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 pr-2 border-r-2 border-primary mb-2">
+                          تمارين لـ {selectedMuscle} ({part.split(' ')[0]})
+                        </h4>
+
+                        {/* Dynamic Equipment Selector for this Part */}
+                        <div className="mb-4 bg-slate-50 dark:bg-primary/5 p-3 rounded-xl border border-slate-200 dark:border-primary/10 relative z-10">
+                          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-2 font-display">الأجهزة المتاحة لتمرين هذا الجزء:</span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {availableEquipmentsForPart.map(eqId => {
+                              const option = equipmentOptions.find(o => o.id === eqId);
+                              if (!option) return null;
+                              const isSelected = activeSelected.includes(eqId);
+                              return (
+                                <button
+                                  key={eqId}
+                                  onClick={() => {
+                                    let newList;
+                                    if (isSelected) {
+                                      newList = activeSelected.filter(id => id !== eqId);
+                                    } else {
+                                      newList = [...activeSelected, eqId];
+                                    }
+                                    setSelectedEquipment(prev => ({
+                                      ...prev,
+                                      [part]: newList
+                                    }));
+                                  }}
+                                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all duration-200 ${isSelected
+                                      ? 'border-primary bg-primary/10 text-primary shadow-sm font-bold scale-[1.01]'
+                                      : 'border-slate-200 dark:border-primary/10 bg-white dark:bg-primary/5 text-slate-600 dark:text-slate-400 hover:border-primary/30'
+                                    }`}
+                                >
+                                  <span className="material-symbols-outlined text-sm leading-none">{option.icon}</span>
+                                  <span className="text-[10px] leading-none">{option.nameAr}</span>
+                                  {isSelected && (
+                                    <span className="material-symbols-outlined text-[10px] leading-none">check</span>
+                                  )}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {exercises.length === 0 ? (
+                          <div className="flex flex-col items-center justify-center p-6 text-center gap-2 relative z-10">
+                            <span className="material-symbols-outlined text-amber-500 text-3xl">warning</span>
+                            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">لا توجد تمارين تطابق الأجهزة المختارة</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">يرجى اختيار أجهزة أخرى من القائمة أعلاه لعرض التمارين المقترحة.</p>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 relative z-10">
+                              {exercises.map((ex, idx) => (
+                                <button
+                                  key={idx}
+                                  onClick={() => setSelectedExercises(prev => ({ ...prev, [part]: idx }))}
+                                  className={`flex flex-col items-start p-4 rounded-xl border-2 transition-all duration-300 text-right ${currentIndex === idx
+                                    ? 'border-primary bg-primary/10 text-primary shadow-md shadow-primary/10'
+                                    : 'border-slate-200 dark:border-primary/10 bg-slate-50 dark:bg-primary/5 text-slate-600 dark:text-slate-400 hover:border-primary/30'
+                                    }`}
+                                >
+                                  <div className="flex w-full items-center justify-between mb-2 gap-2">
+                                    <span className="font-bold text-sm leading-tight">
+                                      {ex.name}
+                                    </span>
+                                    {currentIndex === idx ? (
+                                      <span className="material-symbols-outlined text-[20px] text-primary shrink-0">check_circle</span>
+                                    ) : (
+                                      <div className="size-5 rounded-full border-2 border-slate-300 dark:border-primary/30 shrink-0"></div>
+                                    )}
+                                  </div>
+                                  <span className="text-[10px] opacity-70 font-mono tracking-wider">{ex.nameEn}</span>
+                                </button>
+                              ))}
+                            </div>
+
+                            {/* Exercise Details Card */}
+                            <div className="mt-4 pt-4 border-t border-slate-100 dark:border-white/5 relative z-10">
+                              <div className="flex items-center justify-between mb-4">
+                                <span className="text-xs font-bold text-slate-500 dark:text-slate-400">تفاصيل التمرين المحدد:</span>
+                                <span className="text-[10px] font-bold bg-primary/10 text-primary px-2.5 py-1 rounded-full">
+                                  شدة {currentExercise.intensity}
+                                </span>
+                              </div>
+
+                              <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
+                                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-zinc-800/40 border border-slate-100 dark:border-zinc-800">
+                                  <span className="material-symbols-outlined text-primary text-sm">schedule</span>
+                                  <div>
+                                    <p className="text-[10px] text-slate-400">المدة المقدرة</p>
+                                    <p className="font-bold text-slate-700 dark:text-slate-200">{currentExercise.durationMinutes} دقيقة</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-zinc-800/40 border border-slate-100 dark:border-zinc-800">
+                                  <span className="material-symbols-outlined text-primary text-sm">track_changes</span>
+                                  <div>
+                                    <p className="text-[10px] text-slate-400">التركيز الدقيق</p>
+                                    <p className="font-bold text-slate-700 dark:text-slate-200 truncate">{currentExercise.targetSpecs}</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="space-y-2 bg-primary/5 p-4 rounded-xl border border-primary/10">
+                                <h6 className="text-xs font-extrabold text-primary flex items-center gap-1.5 mb-2 font-display">
+                                  <span className="material-symbols-outlined text-xs">lightbulb</span>
+                                  تعليمات الأداء الصحيح:
+                                </h6>
+                                <ul className="space-y-2">
+                                  {currentExercise.tips.map((tip, i) => (
+                                    <li key={i} className="text-xs text-slate-600 dark:text-slate-300 flex items-start gap-2 leading-relaxed">
+                                      <span className="text-primary font-bold mt-0.5">•</span>
+                                      <span>{tip}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+
+                              {/* Add/Remove from Routine Button */}
+                              <div className="mt-4 flex gap-2">
+                                {routine.some(item => item.id === `${selectedMuscle}-${part}-${currentExercise.name}`) ? (
+                                  <button
+                                    onClick={() => removeFromRoutine(`${selectedMuscle}-${part}-${currentExercise.name}`)}
+                                    className="w-full flex items-center justify-center gap-2 bg-rose-600/10 hover:bg-rose-600/20 text-rose-600 border border-rose-600/30 font-bold py-3 px-4 rounded-xl transition-all text-xs font-display"
+                                  >
+                                    <span className="material-symbols-outlined text-sm">remove_circle</span>
+                                    مضاف للجدول (اضغط للحذف)
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => addToRoutine(currentExercise, part)}
+                                    className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all text-xs font-display"
+                                  >
+                                    <span className="material-symbols-outlined text-sm">playlist_add</span>
+                                    إضافة هذا التمرين للجدول
+                                  </button>
                                 )}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                      {exercises.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center p-6 text-center gap-2 relative z-10">
-                          <span className="material-symbols-outlined text-amber-500 text-3xl">warning</span>
-                          <p className="text-sm font-bold text-slate-700 dark:text-slate-300">لا توجد تمارين تطابق الأجهزة المختارة</p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400">يرجى اختيار أجهزة أخرى من القائمة أعلاه لعرض التمارين المقترحة.</p>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 relative z-10">
-                        {exercises.map((ex, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => setSelectedExercises(prev => ({ ...prev, [part]: idx }))}
-                            className={`flex flex-col items-start p-4 rounded-xl border-2 transition-all duration-300 text-right ${currentIndex === idx
-                              ? 'border-primary bg-primary/10 text-primary shadow-md shadow-primary/10'
-                              : 'border-slate-200 dark:border-primary/10 bg-slate-50 dark:bg-primary/5 text-slate-600 dark:text-slate-400 hover:border-primary/30'
-                              }`}
-                          >
-                            <div className="flex w-full items-center justify-between mb-2 gap-2">
-                              <span className="font-bold text-sm leading-tight">
-                                {ex.name}
-                              </span>
-                              {currentIndex === idx ? (
-                                <span className="material-symbols-outlined text-[20px] text-primary shrink-0">check_circle</span>
-                              ) : (
-                                <div className="size-5 rounded-full border-2 border-slate-300 dark:border-primary/30 shrink-0"></div>
-                              )}
+                              </div>
                             </div>
-                            <span className="text-[10px] opacity-70 font-mono tracking-wider">{ex.nameEn}</span>
-                          </button>
-                        ))}
+                          </>
+                        )}
                       </div>
-
-                      {/* Exercise Details Card */}
-                      <div className="mt-4 pt-4 border-t border-slate-100 dark:border-white/5 relative z-10">
-                        <div className="flex items-center justify-between mb-4">
-                          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">تفاصيل التمرين المحدد:</span>
-                          <span className="text-[10px] font-bold bg-primary/10 text-primary px-2.5 py-1 rounded-full">
-                            شدة {currentExercise.intensity}
-                          </span>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
-                          <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-zinc-800/40 border border-slate-100 dark:border-zinc-800">
-                            <span className="material-symbols-outlined text-primary text-sm">schedule</span>
-                            <div>
-                              <p className="text-[10px] text-slate-400">المدة المقدرة</p>
-                              <p className="font-bold text-slate-700 dark:text-slate-200">{currentExercise.durationMinutes} دقيقة</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-zinc-800/40 border border-slate-100 dark:border-zinc-800">
-                            <span className="material-symbols-outlined text-primary text-sm">track_changes</span>
-                            <div>
-                              <p className="text-[10px] text-slate-400">التركيز الدقيق</p>
-                              <p className="font-bold text-slate-700 dark:text-slate-200 truncate">{currentExercise.targetSpecs}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="space-y-2 bg-primary/5 p-4 rounded-xl border border-primary/10">
-                          <h6 className="text-xs font-extrabold text-primary flex items-center gap-1.5 mb-2 font-display">
-                            <span className="material-symbols-outlined text-xs">lightbulb</span>
-                            تعليمات الأداء الصحيح:
-                          </h6>
-                          <ul className="space-y-2">
-                            {currentExercise.tips.map((tip, i) => (
-                              <li key={i} className="text-xs text-slate-600 dark:text-slate-300 flex items-start gap-2 leading-relaxed">
-                                <span className="text-primary font-bold mt-0.5">•</span>
-                                <span>{tip}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        {/* Add/Remove from Routine Button */}
-                        <div className="mt-4 flex gap-2">
-                          {routine.some(item => item.id === `${selectedMuscle}-${part}-${currentExercise.name}`) ? (
-                            <button
-                              onClick={() => removeFromRoutine(`${selectedMuscle}-${part}-${currentExercise.name}`)}
-                              className="w-full flex items-center justify-center gap-2 bg-rose-600/10 hover:bg-rose-600/20 text-rose-600 border border-rose-600/30 font-bold py-3 px-4 rounded-xl transition-all text-xs font-display"
-                            >
-                              <span className="material-symbols-outlined text-sm">remove_circle</span>
-                              مضاف للجدول (اضغط للحذف)
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() => addToRoutine(currentExercise, part)}
-                              className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all text-xs font-display"
-                            >
-                              <span className="material-symbols-outlined text-sm">playlist_add</span>
-                              إضافة هذا التمرين للجدول
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )}
+                    );
+                  })}
+                </div>
+              </section>
+            )}
           </section>
 
           {/* Sets and Reps Configuration */}
@@ -2552,16 +2552,15 @@ export default function MuscleStrengthBuilder() {
 
         {/* Start Workout Button */}
         <div className="fixed bottom-20 left-0 right-0 px-4 py-4 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light dark:via-background-dark to-transparent z-10">
-          <button 
+          <button
             onClick={handleStartRoutine}
             disabled={isStarting || workoutStarted || routine.length === 0}
-            className={`w-full text-white font-bold py-4 rounded-xl shadow-2xl flex items-center justify-center gap-2 transition-all font-display ${
-              workoutStarted 
-                ? 'bg-emerald-600 shadow-emerald-500/40' 
+            className={`w-full text-white font-bold py-4 rounded-xl shadow-2xl flex items-center justify-center gap-2 transition-all font-display ${workoutStarted
+                ? 'bg-emerald-600 shadow-emerald-500/40'
                 : routine.length === 0
                   ? 'bg-slate-400 dark:bg-zinc-800 cursor-not-allowed shadow-none'
                   : 'bg-primary shadow-primary/40 hover:bg-primary/90'
-            }`}
+              }`}
           >
             {isStarting ? (
               <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />

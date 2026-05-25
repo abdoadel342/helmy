@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { handleFirestoreError, OperationType } from '../errorHandling';
 import { Save, Calculator, Target, TrendingUp, Activity, Flame, Utensils, ClipboardList, Trash2, Watch, Scale, Heart, Zap, Smartphone, Link2, RefreshCw, Bluetooth } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
@@ -105,6 +106,7 @@ const getDeviceIcon = (type: string) => {
 
 export default function Profile() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<Partial<UserProfile>>(defaultProfile);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -744,6 +746,28 @@ export default function Profile() {
 
   const availableBrands = Array.from(new Set(AVAILABLE_DEVICES.filter(d => d.type === selectedType).map(d => d.brand)));
   const availableModels = AVAILABLE_DEVICES.filter(d => d.type === selectedType && d.brand === selectedBrand);
+
+  const getProgramRoute = (activity: ActivityLogEntry) => {
+    const name = (activity.program_name || '').toLowerCase();
+    const type = (activity.workout_type || '').toLowerCase();
+
+    if (name.includes('قوة') || name.includes('عضل') || type.includes('muscle')) return '/programs/muscle-strength';
+    if (name.includes('تنشيف') || name.includes('دهون') || type.includes('fat')) return '/programs/fat-loss';
+    if (name.includes('سرعة') || name.includes('speed')) return '/education/training/speed';
+    if (name.includes('بدء') || name.includes('بلوك')) return '/education/training/speed/starting-block';
+    if (name.includes('أقصى') || name.includes('max')) return '/education/training/speed/max-speed';
+    if (name.includes('انفجاري') || name.includes('power')) return '/education/training/speed/explosive-power';
+    if (name.includes('تحمل') || name.includes('endurance')) return '/education/training/speed/speed-endurance';
+    if (name.includes('رشاقة') || name.includes('agility')) return '/education/training/speed/agility';
+    if (name.includes('توازن') || name.includes('balance')) return '/education/training/speed/balance';
+    if (name.includes('توافق') || name.includes('coordination')) return '/education/training/speed/coordination';
+    if (name.includes('بليومتريك') || name.includes('plyo')) return '/education/training/speed/plyometrics';
+    if (name.includes('قصير') || name.includes('short')) return '/education/training/speed/short-sprints';
+    if (name.includes('أطفال') || name.includes('kids')) return '/kids-training';
+    
+    // Default fallback
+    return '/programs';
+  };
 
   if (loading) return (
     <div className="space-y-8 pb-12 animate-pulse">
@@ -1458,7 +1482,14 @@ export default function Profile() {
         ) : activityLog.length > 0 ? (
           <div className="space-y-4">
             {activityLog.map((activity) => (
-              <div key={activity.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div 
+                key={activity.id} 
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).closest('.delete-btn')) return;
+                  navigate(getProgramRoute(activity));
+                }}
+                className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer hover:bg-zinc-800 hover:border-zinc-700 transition-all shadow-sm"
+              >
                 <div>
                   <h3 className="text-white font-bold text-lg mb-1">{activity.program_name || 'تمرين عام'}</h3>
                   <p className="text-zinc-400 text-sm">{activity.day_title || activity.workout_type || 'نشاط غير محدد'}</p>
@@ -1473,8 +1504,11 @@ export default function Profile() {
                     </p>
                   </div>
                   <button
-                    onClick={() => handleDeleteActivity(activity.id)}
-                    className="p-2 text-zinc-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteActivity(activity.id);
+                    }}
+                    className="delete-btn p-2 text-zinc-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 cursor-pointer"
                     title="حذف النشاط"
                   >
                     <Trash2 size={20} />

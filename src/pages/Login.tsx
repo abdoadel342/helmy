@@ -6,6 +6,7 @@ import { signInWithGoogle } from '../firebase';
 import { useAuth } from '../AuthContext';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import DarkVeil from '../components/react-bits/DarkVeil';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -67,11 +68,21 @@ export default function Login() {
 
   return (
     <div className="min-h-screen w-screen bg-[#191022] relative overflow-hidden flex items-center justify-center p-4">
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <DarkVeil
+          hueShift={-20}
+          noiseIntensity={0.08}
+          scanlineIntensity={0.15}
+          speed={0.4}
+          scanlineFrequency={120}
+          warpAmount={0.5}
+        />
+      </div>
       {/* Background gradient effect - coordinated with deep dark purple #191022 and primary #7311d4 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#7311d4]/20 via-[#191022]/80 to-[#191022]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#7311d4]/20 via-[#191022]/80 to-[#191022] pointer-events-none" />
       
       {/* Subtle noise texture overlay */}
-      <div className="absolute inset-0 opacity-[0.03] mix-blend-soft-light" 
+      <div className="absolute inset-0 opacity-[0.03] mix-blend-soft-light pointer-events-none" 
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           backgroundSize: '200px 200px'
