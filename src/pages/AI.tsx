@@ -257,7 +257,7 @@ export default function AI() {
   };
 
   return (
-    <>
+    <div className="flex flex-col h-[100dvh] bg-[#131314] text-[#e3e3e3] font-sans selection:bg-primary/30">
       {isCameraActive && (
         <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4">
            <canvas ref={canvasRef} className="hidden" />
@@ -279,348 +279,358 @@ export default function AI() {
            </div>
         </div>
       )}
-      
-      <FadeContent blur={true} duration={1000} initialOpacity={0}>
-      <div className="space-y-8 pb-12">
-        <header className="flex items-center gap-4 mb-8">
+
+      {/* Minimal Header (Gemini Style) */}
+      <header className="flex items-center justify-between p-3 border-b border-white/5 bg-[#1e1f20] sticky top-0 z-40 shrink-0">
+        <div className="flex items-center gap-3">
           <BackButton />
-          <div>
-            <h1 className="text-4xl font-bold text-white mb-2">
-              <ShinyText text="المدرب الذكي (AI)" disabled={false} speed={3} className="" />
-            </h1>
-            <p className="text-primary/60">أدوات متقدمة مدعومة بالذكاء الاصطناعي لتحسين أدائك وتغذيتك.</p>
-          </div>
-        </header>
-
-        {/* Tabs - Glassmorphic */}
-        <div className="flex gap-4 border-b border-primary/20 pb-4 overflow-x-auto scrollbar-hide">
-          <button onClick={() => setActiveTab('chat')} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-medium transition-all whitespace-nowrap ${activeTab === 'chat' ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-primary/5 text-primary/60 hover:text-white hover:bg-primary/10 border border-primary/10'}`}>
-            <MessageSquare className="w-5 h-5" /> الدردشة والاستشارات
-          </button>
-          <button onClick={() => setActiveTab('form')} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-medium transition-all whitespace-nowrap ${activeTab === 'form' ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-primary/5 text-primary/60 hover:text-white hover:bg-primary/10 border border-primary/10'}`}>
-            <Activity className="w-5 h-5" /> تحليل الأداء (Form)
-          </button>
-          <button onClick={() => setActiveTab('meals')} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-medium transition-all whitespace-nowrap ${activeTab === 'meals' ? 'bg-[#00fcca] text-[#0f172a] shadow-lg shadow-[#00fcca]/30' : 'bg-[#00fcca]/5 text-[#00fcca]/60 hover:text-white hover:bg-[#00fcca]/10 border border-[#00fcca]/10'}`}>
-            <Utensils className="w-5 h-5" /> مبتكر الوجبات
-          </button>
-          <button onClick={() => setActiveTab('tts')} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-medium transition-all whitespace-nowrap ${activeTab === 'tts' ? 'bg-[#e08dff] text-white shadow-lg shadow-[#e08dff]/30' : 'bg-[#e08dff]/5 text-[#e08dff]/60 hover:text-white hover:bg-[#e08dff]/10 border border-[#e08dff]/10'}`}>
-            <Mic className="w-5 h-5" /> المساعد الصوتي
-          </button>
+          <h1 className="text-lg font-bold flex items-center gap-2 text-white">
+             المدرب الذكي <span className="bg-gradient-to-l from-primary to-purple-400 text-transparent bg-clip-text text-sm ml-1">AI</span>
+          </h1>
         </div>
+        {/* Tabs inside a neat container */}
+        <div className="hidden md:flex bg-white/5 rounded-full p-1 border border-white/5">
+          <button onClick={() => setActiveTab('chat')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'chat' ? 'bg-[#282a2c] text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>الدردشة</button>
+          <button onClick={() => setActiveTab('form')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'form' ? 'bg-[#282a2c] text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>تحليل الأداء</button>
+          <button onClick={() => setActiveTab('meals')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'meals' ? 'bg-[#00fcca]/20 text-[#00fcca] shadow-sm' : 'text-[#00fcca]/60 hover:text-[#00fcca] hover:bg-white/5'}`}>الوجبات</button>
+          <button onClick={() => setActiveTab('tts')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'tts' ? 'bg-[#e08dff]/20 text-[#e08dff] shadow-sm' : 'text-[#e08dff]/60 hover:text-[#e08dff] hover:bg-white/5'}`}>مساعد صوتي</button>
+        </div>
+      </header>
 
-        <div className="bg-white/5 dark:bg-primary/5 backdrop-blur-xl border border-primary/10 rounded-3xl p-6 min-h-[500px] shadow-2xl">
-          {activeTab === 'chat' && (
-            <div className="flex flex-col h-full space-y-6">
-              <div className="flex flex-wrap gap-4">
-                <label className="flex items-center gap-2 text-primary/60 text-sm cursor-pointer hover:text-primary transition-colors">
-                  <input type="checkbox" checked={useSearch} onChange={e => {setUseSearch(e.target.checked); setUseMaps(false); setUseFastMode(false);}} className="rounded bg-primary/10 border-primary/20 text-primary focus:ring-primary accent-primary" />
-                  <Search className="w-4 h-4" /> البحث في الويب
-                </label>
-                <label className="flex items-center gap-2 text-primary/60 text-sm cursor-pointer hover:text-primary transition-colors">
-                  <input type="checkbox" checked={useMaps} onChange={e => {setUseMaps(e.target.checked); setUseSearch(false); setUseFastMode(false);}} className="rounded bg-primary/10 border-primary/20 text-primary focus:ring-primary accent-primary" />
-                  <MapPin className="w-4 h-4" /> صالات قريبة (خرائط)
-                </label>
-                <label className="flex items-center gap-2 text-primary/60 text-sm cursor-pointer hover:text-primary transition-colors">
-                  <input type="checkbox" checked={useFastMode} onChange={e => {setUseFastMode(e.target.checked); setUseSearch(false); setUseMaps(false);}} className="rounded bg-primary/10 border-primary/20 text-primary focus:ring-primary accent-primary" />
-                  <Zap className="w-4 h-4" /> رد سريع
-                </label>
-              </div>
-              
-              <div className="flex-1 bg-black/20 rounded-2xl p-4 overflow-y-auto space-y-4 min-h-[300px] max-h-[500px] border border-primary/5 relative custom-scrollbar">
-                {chatHistory.length === 0 && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-primary/40 space-y-4">
-                    <MessageSquare className="w-16 h-16 opacity-20" />
-                    <p>اسألني عن أي شيء يخص التدريب، التغذية، أو الاستشفاء.</p>
-                  </div>
-                )}
-                
-                {chatHistory.map((msg, i) => (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                    key={i} 
-                    className={`flex w-full mb-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div className={`max-w-[85%] rounded-3xl px-5 py-4 shadow-lg backdrop-blur-md ${msg.role === 'user' ? 'bg-gradient-to-br from-primary to-primary/80 text-white rounded-br-none border border-primary/50' : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'}`}>
-                      {msg.image && <img src={msg.image} alt="Uploaded" className="max-w-xs rounded-xl mb-3 border border-white/10 shadow-md" />}
-                      <div className="whitespace-pre-wrap leading-relaxed">{msg.text}</div>
+      {/* Mobile Tabs */}
+      <div className="md:hidden flex gap-2 p-3 overflow-x-auto border-b border-white/5 bg-[#1e1f20] scrollbar-hide shrink-0">
+          <button onClick={() => setActiveTab('chat')} className={`px-4 py-1.5 rounded-full whitespace-nowrap text-sm font-medium transition-colors ${activeTab === 'chat' ? 'bg-[#282a2c] text-white border border-white/10' : 'bg-transparent text-slate-400 hover:text-white'}`}>الدردشة</button>
+          <button onClick={() => setActiveTab('form')} className={`px-4 py-1.5 rounded-full whitespace-nowrap text-sm font-medium transition-colors ${activeTab === 'form' ? 'bg-[#282a2c] text-white border border-white/10' : 'bg-transparent text-slate-400 hover:text-white'}`}>الأداء</button>
+          <button onClick={() => setActiveTab('meals')} className={`px-4 py-1.5 rounded-full whitespace-nowrap text-sm font-medium transition-colors ${activeTab === 'meals' ? 'bg-[#00fcca]/10 text-[#00fcca] border border-[#00fcca]/20' : 'bg-transparent text-[#00fcca]/60 hover:text-[#00fcca]'}`}>الوجبات</button>
+          <button onClick={() => setActiveTab('tts')} className={`px-4 py-1.5 rounded-full whitespace-nowrap text-sm font-medium transition-colors ${activeTab === 'tts' ? 'bg-[#e08dff]/10 text-[#e08dff] border border-[#e08dff]/20' : 'bg-transparent text-[#e08dff]/60 hover:text-[#e08dff]'}`}>الصوت</button>
+      </div>
+
+      <div className="flex-1 overflow-hidden relative flex flex-col bg-[#131314]">
+        {activeTab === 'chat' && (
+          <div className="flex-1 flex flex-col w-full max-w-4xl mx-auto relative">
+            {/* Chat Messages */}
+            <div className="flex-1 overflow-y-auto px-4 md:px-8 py-6 custom-scrollbar flex flex-col gap-6">
+               {chatHistory.length === 0 ? (
+                 <div className="flex-1 flex flex-col items-center justify-center text-center px-4 animate-in fade-in duration-700">
+                    <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-purple-600/20 text-primary rounded-full flex items-center justify-center mb-6 shadow-lg border border-primary/20">
+                      <Zap className="w-10 h-10" />
                     </div>
-                  </motion.div>
-                ))}
-                
-                {chatLoading && (
-                  <div className="flex justify-start mb-4">
-                    <div className="bg-white/5 border border-white/5 rounded-3xl rounded-bl-none px-6 py-4 flex items-center gap-3 shadow-lg">
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 rounded-full bg-primary animate-bounce"></div>
-                        <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <h2 className="text-3xl font-semibold text-white mb-3">كيف يمكنني مساعدتك اليوم؟</h2>
+                    <p className="text-[#a8c7fa] opacity-80 max-w-md">أنا المدرب الذكي، هنا لمساعدتك في تصميم التدريبات، تحسين أدائك، وتنظيم وجباتك.</p>
+                 </div>
+               ) : (
+                 <div className="flex flex-col gap-8 pb-10">
+                   {chatHistory.map((msg, i) => (
+                     <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                       {msg.role === 'user' ? (
+                         <div className="max-w-[85%] md:max-w-[75%] rounded-3xl rounded-tr-sm px-5 py-3 bg-[#333537] text-[#e3e3e3] text-base leading-relaxed">
+                           {msg.image && <img src={msg.image} alt="Uploaded" className="max-w-xs rounded-xl mb-3 object-cover" />}
+                           <div className="whitespace-pre-wrap">{msg.text}</div>
+                         </div>
+                       ) : (
+                         <div className="flex gap-4 w-full">
+                           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-purple-500 shrink-0 flex items-center justify-center shadow-md">
+                             <Zap className="w-4 h-4 text-white" />
+                           </div>
+                           <div className="flex-1 text-[#e3e3e3] text-base leading-relaxed pt-1">
+                             <div className="whitespace-pre-wrap prose prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-[#1e1f20] prose-pre:border prose-pre:border-white/10">{msg.text}</div>
+                           </div>
+                         </div>
+                       )}
+                     </div>
+                   ))}
+                   {chatLoading && (
+                     <div className="flex gap-4 w-full animate-in fade-in">
+                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-purple-500 shrink-0 flex items-center justify-center shadow-md">
+                         <Zap className="w-4 h-4 text-white" />
+                       </div>
+                       <div className="flex items-center gap-1.5 pt-2">
+                         <div className="w-2 h-2 rounded-full bg-primary/80 animate-bounce"></div>
+                         <div className="w-2 h-2 rounded-full bg-primary/80 animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+                         <div className="w-2 h-2 rounded-full bg-primary/80 animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                       </div>
+                     </div>
+                   )}
+                 </div>
+               )}
+            </div>
+
+            {/* Gemini-style Input Bar */}
+            <div className="px-4 pb-6 pt-2 bg-gradient-to-t from-[#131314] via-[#131314] to-transparent shrink-0">
+               <div className="max-w-3xl mx-auto flex flex-col gap-3">
+                 {/* Tool Chips */}
+                 <div className="flex flex-wrap gap-2 px-1">
+                   <label className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold cursor-pointer transition-all ${useSearch ? 'bg-[#004a77] text-[#c2e7ff]' : 'bg-[#1e1f20] text-[#a8c7fa] hover:bg-[#282a2c]'}`}>
+                     <input type="checkbox" checked={useSearch} onChange={e => {setUseSearch(e.target.checked); setUseMaps(false); setUseFastMode(false);}} className="hidden" />
+                     <Search className="w-3.5 h-3.5" /> البحث في الويب
+                   </label>
+                   <label className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold cursor-pointer transition-all ${useMaps ? 'bg-[#004a77] text-[#c2e7ff]' : 'bg-[#1e1f20] text-[#a8c7fa] hover:bg-[#282a2c]'}`}>
+                     <input type="checkbox" checked={useMaps} onChange={e => {setUseMaps(e.target.checked); setUseSearch(false); setUseFastMode(false);}} className="hidden" />
+                     <MapPin className="w-3.5 h-3.5" /> الأماكن القريبة
+                   </label>
+                   <label className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold cursor-pointer transition-all ${useFastMode ? 'bg-[#004a77] text-[#c2e7ff]' : 'bg-[#1e1f20] text-[#a8c7fa] hover:bg-[#282a2c]'}`}>
+                     <input type="checkbox" checked={useFastMode} onChange={e => {setUseFastMode(e.target.checked); setUseSearch(false); setUseMaps(false);}} className="hidden" />
+                     <Zap className="w-3.5 h-3.5" /> أقصى سرعة
+                   </label>
+                 </div>
+
+                 {/* Input Pill */}
+                 <div className="bg-[#1e1f20] rounded-3xl flex flex-col shadow-sm focus-within:bg-[#282a2c] transition-colors relative">
+                    {chatImage && (
+                      <div className="px-4 pt-4 pb-2">
+                        <div className="relative w-fit group">
+                          <img src={`data:${chatImage.mimeType};base64,${chatImage.data}`} alt="Attached" className="h-16 w-16 object-cover rounded-xl border border-white/5" />
+                          <button onClick={() => setChatImage(null)} className="absolute -top-2 -right-2 bg-red-500/90 hover:bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="material-symbols-outlined text-xs">close</span>
+                          </button>
+                        </div>
                       </div>
-                      <span className="text-primary/70 text-sm">جاري التفكير...</span>
+                    )}
+                    
+                    <div className="flex items-end gap-1 px-2 py-2">
+                      <label className="p-3 text-slate-400 hover:text-[#e3e3e3] hover:bg-white/5 rounded-full cursor-pointer transition-colors shrink-0 tooltip" title="رفع صورة">
+                        <Upload className="w-5 h-5" />
+                        <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setChatImage)} />
+                      </label>
+                      <button onClick={() => startCamera('chat')} className="p-3 text-slate-400 hover:text-[#e3e3e3] hover:bg-white/5 rounded-full transition-colors shrink-0 tooltip" title="التقاط صورة">
+                        <Camera className="w-5 h-5" />
+                      </button>
+                      
+                      <textarea 
+                        value={chatInput} 
+                        onChange={e => {
+                          setChatInput(e.target.value);
+                          e.target.style.height = 'auto';
+                          e.target.style.height = Math.min(e.target.scrollHeight, 200) + 'px';
+                        }}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            handleChat();
+                          }
+                        }}
+                        placeholder="أدخل رسالتك هنا..."
+                        className="flex-1 bg-transparent text-[#e3e3e3] placeholder-[#8e918f] py-3 px-3 resize-none focus:outline-none max-h-[200px] overflow-y-auto text-base"
+                        rows={1}
+                        style={{ height: 'auto', minHeight: '48px' }}
+                      />
+                      
+                      <button 
+                        onClick={handleChat} 
+                        disabled={chatLoading || (!chatInput.trim() && !chatImage)} 
+                        className={`p-3 mx-1 mb-1 rounded-full shrink-0 transition-colors flex items-center justify-center ${chatInput.trim() || chatImage ? 'text-[#1e1f20] bg-[#a8c7fa] hover:bg-[#d3e3fd]' : 'text-[#8e918f] bg-transparent'}`}
+                      >
+                        <span className="material-symbols-outlined font-variation-settings-'FILL' 1" style={{ fontSize: '24px', transform: 'rotate(-90deg) translateX(2px)' }}>send</span>
+                      </button>
+                    </div>
+                 </div>
+                 
+                 <div className="text-center mt-1">
+                   <span className="text-xs text-[#8e918f]">قد يعرض الذكاء الاصطناعي معلومات غير دقيقة، يرجى مراجعتها.</span>
+                 </div>
+               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Other Tabs Content */}
+        {activeTab !== 'chat' && (
+          <div className="flex-1 overflow-y-auto px-4 py-6 custom-scrollbar">
+            <div className="max-w-4xl mx-auto space-y-8 pb-12">
+              {activeTab === 'form' && (
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <SpotlightCard className="bg-[#1e1f20] border border-white/5 rounded-3xl p-6 shadow-lg" spotlightColor="rgba(115, 17, 212, 0.15)">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 bg-primary/10 rounded-xl text-primary"><Activity className="w-6 h-6" /></div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white mb-2">محلل الأداء الحركي</h3>
+                        <p className="text-slate-400 leading-relaxed text-sm">قم برفع صورة لتمرينك، وسيقوم الذكاء الاصطناعي بتحليل وضعية جسمك لاكتشاف الأخطاء الشائعة.</p>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <input 
+                        type="text" 
+                        value={formExercise} 
+                        onChange={e => setFormExercise(e.target.value)}
+                        placeholder="اسم التمرين (مثال: سكوات، ديدليفت)..."
+                        className="w-full bg-[#1e1f20] border border-white/5 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-primary/50 transition-colors shadow-sm"
+                      />
+
+                      <div className="border border-dashed border-white/10 bg-[#1e1f20]/50 rounded-3xl p-8 text-center hover:border-primary/30 transition-all relative min-h-[200px] flex items-center justify-center">
+                        {formImage ? (
+                          <div className="relative z-10 w-full flex flex-col items-center">
+                            <img src={formImage.url} alt="Exercise Form" className="max-h-64 rounded-2xl shadow-lg border border-white/5" />
+                            <button onClick={() => setFormImage(null)} className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg">
+                               <span className="material-symbols-outlined text-sm">close</span>
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center gap-4 w-full">
+                            <div className="flex gap-4 w-full">
+                              <button onClick={() => startCamera('form')} className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 p-4 rounded-2xl flex-1 transition-colors text-slate-300">
+                                <Camera className="w-8 h-8 text-primary/80" />
+                                <span className="text-sm font-semibold">الكاميرا</span>
+                              </button>
+                              <label className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 p-4 rounded-2xl flex-1 transition-colors cursor-pointer text-slate-300">
+                                <Upload className="w-8 h-8 text-primary/80" />
+                                <span className="text-sm font-semibold">رفع ملف</span>
+                                <input type="file" accept="image/*,video/mp4" className="hidden" onChange={(e) => handleImageUpload(e, setFormImage)} />
+                              </label>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      <button 
+                        onClick={handleFormAnalysis} 
+                        disabled={formLoading || !formImage} 
+                        className="w-full bg-[#1e1f20] hover:bg-primary/20 text-white disabled:opacity-50 border border-white/5 hover:border-primary/50 px-6 py-4 rounded-2xl font-bold transition-all shadow-sm flex items-center justify-center gap-2"
+                      >
+                        {formLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <Activity className="w-5 h-5 text-primary" />}
+                        {formLoading ? 'جاري التحليل...' : 'بدء التحليل'}
+                      </button>
+                    </div>
+
+                    <div className="bg-[#1e1f20] border border-white/5 rounded-3xl p-6 shadow-sm relative overflow-hidden flex flex-col">
+                      <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2 shrink-0">
+                        <Search className="w-5 h-5 text-primary" /> تقرير الأداء
+                      </h3>
+                      <div className="flex-1 overflow-y-auto custom-scrollbar">
+                        {formAnalysis ? (
+                          <div className="text-[#e3e3e3] whitespace-pre-wrap leading-relaxed text-sm prose prose-invert">
+                            {formAnalysis}
+                          </div>
+                        ) : (
+                          <div className="h-full flex flex-col items-center justify-center text-slate-500 space-y-4 py-10">
+                            <Activity className="w-16 h-16 opacity-20" />
+                            <p className="text-center text-sm">التقرير سيظهر هنا بعد تحليل الصورة.</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                )}
-              </div>
-              
-              {chatImage && (
-                <div className="flex items-center gap-3 text-sm text-primary bg-primary/10 border border-primary/20 px-4 py-3 rounded-2xl w-fit backdrop-blur-md">
-                  <Camera className="w-4 h-4" /> تم إرفاق صورة
-                  <button onClick={() => setChatImage(null)} className="text-red-400 hover:text-red-300 mr-2 bg-red-400/10 px-2 py-1 rounded-lg transition-colors">إزالة</button>
                 </div>
               )}
 
-              <div className="flex gap-3 items-end">
-                <button onClick={() => startCamera('chat')} className="bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary p-4 rounded-2xl cursor-pointer transition-all flex items-center justify-center shrink-0 shadow-lg">
-                  <Camera className="w-6 h-6" />
-                </button>
-                <label className="bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary p-4 rounded-2xl cursor-pointer transition-all flex items-center justify-center shrink-0 shadow-lg">
-                  <Upload className="w-6 h-6" />
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setChatImage)} />
-                </label>
-                <div className="flex-1 relative">
+              {activeTab === 'meals' && (
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <SpotlightCard className="bg-[#1e1f20] border border-white/5 rounded-3xl p-6 shadow-lg" spotlightColor="rgba(0, 252, 202, 0.1)">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 bg-[#00fcca]/10 rounded-xl text-[#00fcca]"><Utensils className="w-6 h-6" /></div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white mb-2">مبتكر الوجبات الذكي</h3>
+                        <p className="text-slate-400 leading-relaxed text-sm">التقط صورة لثلاجتك، وسيبتكر الذكاء الاصطناعي وصفات صحية تتناسب مع أهدافك.</p>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div className="border border-dashed border-white/10 bg-[#1e1f20]/50 rounded-3xl p-8 text-center hover:border-[#00fcca]/30 transition-all relative min-h-[200px] flex items-center justify-center">
+                        {fridgeImage ? (
+                          <div className="relative z-10 w-full flex flex-col items-center">
+                            <img src={fridgeImage.url} alt="Fridge Ingredients" className="max-h-64 rounded-2xl shadow-lg border border-white/5" />
+                            <button onClick={() => setFridgeImage(null)} className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg">
+                               <span className="material-symbols-outlined text-sm">close</span>
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center gap-4 w-full">
+                            <div className="flex gap-4 w-full">
+                              <button onClick={() => startCamera('meals')} className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 p-4 rounded-2xl flex-1 transition-colors text-slate-300">
+                                <Camera className="w-8 h-8 text-[#00fcca]/80" />
+                                <span className="text-sm font-semibold">الكاميرا</span>
+                              </button>
+                              <label className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 p-4 rounded-2xl flex-1 transition-colors cursor-pointer text-slate-300">
+                                <Upload className="w-8 h-8 text-[#00fcca]/80" />
+                                <span className="text-sm font-semibold">رفع ملف</span>
+                                <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setFridgeImage)} />
+                              </label>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      <textarea 
+                        value={mealPreferences} 
+                        onChange={e => setMealPreferences(e.target.value)}
+                        placeholder="تفضيلات إضافية (اختياري)..."
+                        className="w-full bg-[#1e1f20] border border-white/5 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-[#00fcca]/50 min-h-[100px] resize-none shadow-sm text-sm"
+                      />
+
+                      <button 
+                        onClick={handleMealGeneration} 
+                        disabled={mealLoading || (!fridgeImage && !mealPreferences.trim())} 
+                        className="w-full bg-[#1e1f20] hover:bg-[#00fcca]/20 text-white disabled:opacity-50 border border-white/5 hover:border-[#00fcca]/50 px-6 py-4 rounded-2xl font-bold transition-all shadow-sm flex items-center justify-center gap-2"
+                      >
+                        {mealLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <Utensils className="w-5 h-5 text-[#00fcca]" />}
+                        {mealLoading ? 'جاري الابتكار...' : 'ابتكار الوصفات'}
+                      </button>
+                    </div>
+
+                    <div className="bg-[#1e1f20] border border-white/5 rounded-3xl p-6 shadow-sm relative overflow-hidden flex flex-col">
+                      <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2 shrink-0">
+                        <Utensils className="w-5 h-5 text-[#00fcca]" /> الوصفات المقترحة
+                      </h3>
+                      <div className="flex-1 overflow-y-auto custom-scrollbar">
+                        {mealPlan ? (
+                          <div className="text-[#e3e3e3] whitespace-pre-wrap leading-relaxed text-sm prose prose-invert">
+                            {mealPlan}
+                          </div>
+                        ) : (
+                          <div className="h-full flex flex-col items-center justify-center text-slate-500 space-y-4 py-10">
+                            <Utensils className="w-16 h-16 opacity-20" />
+                            <p className="text-center text-sm">الوصفات ستظهر هنا بمجرد رفع الصورة.</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'tts' && (
+                <div className="space-y-6 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <SpotlightCard className="bg-[#1e1f20] border border-white/5 rounded-3xl p-6 shadow-lg text-center" spotlightColor="rgba(224, 141, 255, 0.1)">
+                    <div className="inline-flex p-4 bg-[#e08dff]/10 rounded-full text-[#e08dff] mb-4"><Mic className="w-8 h-8" /></div>
+                    <h3 className="text-xl font-bold text-white mb-2">المساعد الصوتي</h3>
+                    <p className="text-slate-400 text-sm">استمع إلى المقالات والنصوص بدلاً من قراءتها.</p>
+                  </SpotlightCard>
+
                   <textarea 
-                    value={chatInput} 
-                    onChange={e => setChatInput(e.target.value)}
-                    onKeyDown={e => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleChat();
-                      }
-                    }}
-                    placeholder="اكتب سؤالك هنا... (اضغط Enter للإرسال)"
-                    className="w-full bg-black/20 border border-primary/20 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary min-h-[60px] resize-none shadow-inner"
-                    rows={1}
+                    value={ttsText} 
+                    onChange={e => setTtsText(e.target.value)}
+                    placeholder="أدخل النص هنا..."
+                    className="w-full bg-[#1e1f20] border border-white/5 rounded-3xl px-6 py-5 text-[#e3e3e3] focus:outline-none focus:border-[#e08dff]/50 min-h-[250px] resize-none shadow-sm text-base leading-relaxed"
                   />
-                </div>
-                <button 
-                  onClick={handleChat} 
-                  disabled={chatLoading || (!chatInput.trim() && !chatImage)} 
-                  className="bg-primary hover:bg-primary/90 disabled:bg-primary/20 disabled:text-primary/40 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-primary/20 shrink-0 flex items-center gap-2"
-                >
-                  إرسال <Zap className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          )}
 
-          {activeTab === 'form' && (
-            <div className="space-y-6">
-              <SpotlightCard className="bg-primary/5 border border-primary/20 rounded-3xl p-6 shadow-lg" spotlightColor="rgba(115, 17, 212, 0.2)">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/20 rounded-xl text-primary"><Activity className="w-6 h-6" /></div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">محلل الأداء الحركي</h3>
-                    <p className="text-primary/70 leading-relaxed">قم برفع صورة (أو لقطة شاشة من فيديو) لتمرينك، وسيقوم الذكاء الاصطناعي بتحليل وضعية جسمك واكتشاف الأخطاء الشائعة لتقليل خطر الإصابة.</p>
-                  </div>
-                </div>
-              </SpotlightCard>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-6">
-                  <label className="block">
-                    <span className="text-primary/80 font-medium mb-2 block">اسم التمرين (اختياري)</span>
-                    <input 
-                      type="text" 
-                      value={formExercise} 
-                      onChange={e => setFormExercise(e.target.value)}
-                      placeholder="مثال: سكوات، ديدليفت، بنش برس..."
-                      className="w-full bg-black/20 border border-primary/20 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-primary transition-colors shadow-inner"
-                    />
-                  </label>
-
-                  <div className="border-2 border-dashed border-primary/30 rounded-3xl p-8 text-center hover:border-primary hover:bg-primary/5 transition-all relative overflow-hidden group min-h-[250px] flex items-center justify-center">
-                    {formImage ? (
-                      <div className="relative z-10 w-full flex flex-col items-center">
-                        <img src={formImage.url} alt="Exercise Form" className="max-h-64 rounded-2xl shadow-2xl border border-white/10" />
-                        <button onClick={() => setFormImage(null)} className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-transform hover:scale-110">إزالة</button>
-                      </div>
+                  <div className="flex gap-4">
+                    {isPlaying ? (
+                      <button 
+                        onClick={stopTTS} 
+                        className="w-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 px-6 py-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-2"
+                      >
+                        <div className="w-3 h-3 bg-current rounded-sm animate-pulse"></div> إيقاف
+                      </button>
                     ) : (
-                      <div className="flex flex-col items-center gap-6 relative z-10 w-full">
-                        <div className="flex flex-wrap justify-center gap-8 w-full">
-                          <button onClick={() => startCamera('form')} className="flex flex-col items-center gap-3 p-4 rounded-2xl hover:bg-primary/10 transition-colors group/btn flex-1 min-w-[120px]">
-                            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover/btn:scale-110 group-hover/btn:bg-primary group-hover/btn:text-white transition-all shadow-inner border border-primary/20">
-                              <Camera className="w-8 h-8" />
-                            </div>
-                            <span className="text-white font-bold block">فتح الكاميرا</span>
-                          </button>
-
-                          <div className="hidden sm:block w-px bg-primary/20"></div>
-
-                          <label className="cursor-pointer flex flex-col items-center gap-3 p-4 rounded-2xl hover:bg-primary/10 transition-colors group/btn flex-1 min-w-[120px]">
-                            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover/btn:scale-110 group-hover/btn:bg-primary group-hover/btn:text-white transition-all shadow-inner border border-primary/20">
-                              <Upload className="w-8 h-8" />
-                            </div>
-                            <span className="text-white font-bold block">رفع ملف</span>
-                            <input type="file" accept="image/*,video/mp4" className="hidden" onChange={(e) => handleImageUpload(e, setFormImage)} />
-                          </label>
-                        </div>
-                        <span className="text-primary/60 text-sm block mt-2">يدعم التقاط حي مباشر أو رفع JPG/PNG</span>
-                      </div>
+                      <button 
+                        onClick={handleTTS} 
+                        disabled={!ttsText.trim()} 
+                        className="w-full bg-[#1e1f20] hover:bg-[#e08dff]/20 text-white disabled:opacity-50 border border-white/5 hover:border-[#e08dff]/50 px-6 py-4 rounded-2xl font-bold transition-all shadow-sm flex items-center justify-center gap-2"
+                      >
+                        <PlayCircle className="w-5 h-5 text-[#e08dff]" /> استماع
+                      </button>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-                  </div>
-
-                  <button 
-                    onClick={handleFormAnalysis} 
-                    disabled={formLoading || !formImage} 
-                    className="w-full bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 disabled:from-primary/20 disabled:to-primary/20 disabled:text-primary/40 text-white px-6 py-5 rounded-2xl font-bold transition-all shadow-lg shadow-primary/25 flex items-center justify-center gap-3 text-lg"
-                  >
-                    {formLoading ? <><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> جاري التحليل الميكانيكي...</> : <><Activity className="w-6 h-6" /> بدء التحليل</>}
-                  </button>
-                </div>
-
-                <div className="bg-black/20 border border-primary/10 rounded-3xl p-8 min-h-[400px] shadow-inner relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full pointer-events-none"></div>
-                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 relative z-10">
-                    <Search className="w-6 h-6 text-primary" /> تقرير الأداء
-                  </h3>
-                  {formAnalysis ? (
-                    <div className="text-slate-300 whitespace-pre-wrap leading-relaxed relative z-10 bg-white/5 p-6 rounded-2xl border border-white/5">
-                      {formAnalysis}
-                    </div>
-                  ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-primary/30 space-y-6 relative z-10">
-                      <div className="relative">
-                        <PlayCircle className="w-24 h-24" />
-                        <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full"></div>
-                      </div>
-                      <p className="text-lg text-center max-w-xs">التقرير سيظهر هنا بعد تحليل الصورة.</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'meals' && (
-            <div className="space-y-6">
-              <SpotlightCard className="bg-[#00fcca]/5 border border-[#00fcca]/20 rounded-3xl p-6 shadow-lg" spotlightColor="rgba(0, 252, 202, 0.15)">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-[#00fcca]/20 rounded-xl text-[#00fcca]"><Utensils className="w-6 h-6" /></div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">مبتكر الوجبات الذكي</h3>
-                    <p className="text-[#00fcca]/70 leading-relaxed">التقط صورة لمكونات ثلاجتك، وسيقوم الذكاء الاصطناعي بابتكار وصفات صحية ولذيذة تتناسب مع أهدافك.</p>
                   </div>
                 </div>
-              </SpotlightCard>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-6">
-                  <div className="border-2 border-dashed border-[#00fcca]/30 rounded-3xl p-8 text-center hover:border-[#00fcca] hover:bg-[#00fcca]/5 transition-all relative overflow-hidden group min-h-[250px] flex items-center justify-center">
-                    {fridgeImage ? (
-                      <div className="relative z-10 w-full flex flex-col items-center">
-                        <img src={fridgeImage.url} alt="Fridge Ingredients" className="max-h-64 rounded-2xl shadow-2xl border border-white/10" />
-                        <button onClick={() => setFridgeImage(null)} className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-transform hover:scale-110">إزالة</button>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col items-center gap-6 relative z-10 w-full">
-                        <div className="flex flex-wrap justify-center gap-8 w-full">
-                          <button onClick={() => startCamera('meals')} className="flex flex-col items-center gap-3 p-4 rounded-2xl hover:bg-[#00fcca]/10 transition-colors group/btn flex-1 min-w-[120px]">
-                            <div className="w-16 h-16 bg-[#00fcca]/10 rounded-full flex items-center justify-center text-[#00fcca] group-hover/btn:scale-110 group-hover/btn:bg-[#00fcca] group-hover/btn:text-slate-900 transition-all shadow-inner border border-[#00fcca]/20">
-                              <Camera className="w-8 h-8" />
-                            </div>
-                            <span className="text-white font-bold block">فتح الكاميرا</span>
-                          </button>
-
-                          <div className="hidden sm:block w-px bg-[#00fcca]/20"></div>
-
-                          <label className="cursor-pointer flex flex-col items-center gap-3 p-4 rounded-2xl hover:bg-[#00fcca]/10 transition-colors group/btn flex-1 min-w-[120px]">
-                            <div className="w-16 h-16 bg-[#00fcca]/10 rounded-full flex items-center justify-center text-[#00fcca] group-hover/btn:scale-110 group-hover/btn:bg-[#00fcca] group-hover/btn:text-slate-900 transition-all shadow-inner border border-[#00fcca]/20">
-                              <Upload className="w-8 h-8" />
-                            </div>
-                            <span className="text-white font-bold block">رفع ملف</span>
-                            <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setFridgeImage)} />
-                          </label>
-                        </div>
-                        <span className="text-[#00fcca]/60 text-sm block mt-2">أو صورة لداخل الثلاجة بالكامل</span>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#00fcca]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-                  </div>
-
-                  <label className="block">
-                    <span className="text-[#00fcca]/80 font-medium mb-2 block">تفضيلات إضافية (اختياري)</span>
-                    <textarea 
-                      value={mealPreferences} 
-                      onChange={e => setMealPreferences(e.target.value)}
-                      placeholder="مثال: أريد وجبة عالية البروتين بدون منتجات ألبان..."
-                      className="w-full bg-black/20 border border-[#00fcca]/20 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-[#00fcca] min-h-[120px] resize-none shadow-inner"
-                    />
-                  </label>
-
-                  <button 
-                    onClick={handleMealGeneration} 
-                    disabled={mealLoading || (!fridgeImage && !mealPreferences.trim())} 
-                    className="w-full bg-gradient-to-r from-[#00fcca] to-teal-500 hover:from-[#00fcca]/90 hover:to-teal-500/90 text-slate-900 disabled:opacity-50 disabled:cursor-not-allowed px-6 py-5 rounded-2xl font-bold transition-all shadow-lg shadow-[#00fcca]/25 flex items-center justify-center gap-3 text-lg"
-                  >
-                    {mealLoading ? <><div className="w-5 h-5 border-2 border-slate-900/30 border-t-slate-900 rounded-full animate-spin"></div> جاري الابتكار...</> : <><Utensils className="w-6 h-6" /> ابتكار الوصفات</>}
-                  </button>
-                </div>
-
-                <div className="bg-black/20 border border-[#00fcca]/10 rounded-3xl p-8 min-h-[400px] shadow-inner relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-[#00fcca]/10 blur-[100px] rounded-full pointer-events-none"></div>
-                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 relative z-10">
-                    <Utensils className="w-6 h-6 text-[#00fcca]" /> الوصفات المقترحة
-                  </h3>
-                  {mealPlan ? (
-                    <div className="text-slate-300 whitespace-pre-wrap leading-relaxed relative z-10 bg-white/5 p-6 rounded-2xl border border-white/5">
-                      {mealPlan}
-                    </div>
-                  ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-[#00fcca]/30 space-y-6 relative z-10">
-                      <div className="relative">
-                        <Utensils className="w-24 h-24" />
-                        <div className="absolute inset-0 bg-[#00fcca]/20 blur-xl rounded-full"></div>
-                      </div>
-                      <p className="text-lg text-center max-w-xs">الوصفات ستظهر هنا بمجرد رفع الصورة.</p>
-                    </div>
-                  )}
-                </div>
-              </div>
+              )}
             </div>
-          )}
-
-          {activeTab === 'tts' && (
-            <div className="space-y-8 max-w-3xl mx-auto">
-              <SpotlightCard className="bg-[#e08dff]/5 border border-[#e08dff]/20 rounded-3xl p-6 shadow-lg text-center" spotlightColor="rgba(224, 141, 255, 0.15)">
-                <div className="inline-flex p-4 bg-[#e08dff]/20 rounded-full text-[#e08dff] mb-4"><Mic className="w-8 h-8" /></div>
-                <h3 className="text-2xl font-bold text-white mb-2">المساعد الصوتي</h3>
-                <p className="text-[#e08dff]/70 text-lg">حول أي نص أو مقال رياضي إلى مقطع صوتي نقي لتستمع إليه أثناء تمرينك.</p>
-              </SpotlightCard>
-
-              <div className="space-y-6">
-                <textarea 
-                  value={ttsText} 
-                  onChange={e => setTtsText(e.target.value)}
-                  placeholder="أدخل النص هنا للبدء في التحويل..."
-                  className="w-full bg-black/20 border border-[#e08dff]/20 rounded-3xl px-6 py-5 text-white focus:outline-none focus:border-[#e08dff] focus:ring-1 focus:ring-[#e08dff] min-h-[200px] resize-none shadow-inner text-lg leading-relaxed"
-                />
-              </div>
-
-              <div className="flex gap-4">
-                {isPlaying ? (
-                  <button 
-                    onClick={stopTTS} 
-                    className="w-full bg-red-500/20 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/30 px-6 py-5 rounded-2xl font-bold transition-all shadow-lg flex items-center justify-center gap-3 text-xl"
-                  >
-                    <div className="w-4 h-4 bg-current rounded-sm animate-pulse"></div> إيقاف الاستماع
-                  </button>
-                ) : (
-                  <button 
-                    onClick={handleTTS} 
-                    disabled={!ttsText.trim()} 
-                    className="w-full bg-gradient-to-r from-[#e08dff] to-purple-500 hover:opacity-90 disabled:opacity-50 text-white px-6 py-5 rounded-2xl font-bold transition-all shadow-lg shadow-[#e08dff]/25 flex items-center justify-center gap-3 text-xl"
-                  >
-                    <PlayCircle className="w-7 h-7" /> استماع للنص
-                  </button>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-    </FadeContent>
-    </>
+    </div>
   );
 }

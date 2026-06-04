@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "login": "Login",
+    "startNow": "Start Now",
+    "home": "Home",
+    "features": "Features",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "contact": "Contact Us"
+  },
+  "landing": {
+    "heroSubtitle": "Your athletic future starts here",
+    "heroTitle1": "Design your body.",
+    "heroTitle2": "Smart and evolved.",
+    "heroDesc": "A professional app combining science, technology, and advanced training methods to help you build muscle, lose fat, and track your progress with absolute precision.",
+    "startFree": "Start your journey for free",
+    "seeHowItWorks": "See how it works",
+    "burnRate": "Burn Rate",
+    "todaysWorkout": "Today's Workout",
+    "featuresTitle": "Everything you need to reach your goal",
+    "featuresSubtitle": "Professional tools specifically designed to give you complete control over your training and nutrition.",
+    "f1Title": "Muscle Building",
+    "f1Desc": "Advanced training programs based on biomechanics to effectively increase muscle mass.",
+    "f2Title": "Fat Loss",
+    "f2Desc": "Precise plans for fat burning while preserving muscle mass through HIIT and cardio systems.",
+    "f3Title": "Workout Tracking",
+    "f3Desc": "Log your weights, reps, and RPE to ensure continuous Progressive Overload.",
+    "f4Title": "Calorie Tracking",
+    "f4Desc": "Accurate calculators and food substitution systems to easily hit your nutritional targets."
+  }
+}

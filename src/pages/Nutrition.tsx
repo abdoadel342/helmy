@@ -331,12 +331,12 @@ export default function Nutrition() {
   );
 
   return (
-    <div className="flex flex-col min-h-screen text-right" dir="rtl">
+    <div className="flex flex-col min-h-screen text-right" dir="rtl" style={{ fontFamily: 'var(--font-body)' }}>
       {/* Header */}
-      <header className="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/10">
+      <header className="sticky top-0 z-50 flex items-center glass p-4 border-b border-primary/10">
         <BackButton />
         <div className="flex-1 text-center">
-          <h1 className="text-xl font-bold tracking-tight">التغذية الرياضية</h1>
+          <h1 className="text-xl font-bold tracking-tight animate-text-glow" style={{ fontFamily: 'var(--font-heading)' }}>التغذية الرياضية</h1>
         </div>
         <div className="size-10"></div> {/* Spacer for symmetry */}
       </header>
@@ -354,7 +354,7 @@ export default function Nutrition() {
               />
               <div className="absolute bottom-6 right-6 left-6 z-20 md:p-4">
                 <span className="bg-primary text-white text-xs font-bold px-3 py-1 rounded inline-block mb-3 shadow-lg">جديد</span>
-                <h2 className="text-white text-3xl md:text-5xl font-black mb-2">وقود الأبطال</h2>
+                <h2 className="text-white text-3xl md:text-5xl font-black mb-2" style={{ fontFamily: 'var(--font-heading)' }}>وقود الأبطال</h2>
                 <p className="text-slate-200 text-sm md:text-lg opacity-90 max-w-2xl">دليلك الشامل للتغذية الرياضية المتقدمة والاستشفاء العضلي</p>
               </div>
             </div>
@@ -377,7 +377,7 @@ export default function Nutrition() {
                   <span className="material-symbols-outlined text-3xl">restaurant_menu</span>
                 </div>
                 <div className="flex-1 min-w-0 text-right">
-                  <h3 className="font-black text-xl leading-tight text-slate-900 dark:text-white">خطط التغذية الرياضية</h3>
+                  <h3 className="font-black text-xl leading-tight text-slate-900 dark:text-white" style={{ fontFamily: 'var(--font-heading)' }}>خطط التغذية الرياضية</h3>
                   <div className="flex flex-wrap items-center gap-2 mt-1.5 justify-start">
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary">4 خطط أساسية</span>
                     <span className="text-[10px] text-slate-500 dark:text-slate-400">خطط لبناء العضلات، التنشيف، والأداء الرياضي العالي</span>

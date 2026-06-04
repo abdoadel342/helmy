@@ -152,7 +152,7 @@ export default function Training() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0e0e0e] font-display text-white selection:bg-[#00fcca]/30">
+    <div className="flex flex-col min-h-screen bg-[#0e0e0e] text-white selection:bg-[#00fcca]/30" style={{ fontFamily: 'var(--font-body)' }}>
       {/* Ambient Glow Effects */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff928a]/5 rounded-full blur-[150px]"></div>
@@ -160,11 +160,11 @@ export default function Training() {
       </div>
 
       {/* Top App Bar */}
-      <header className="bg-[#0e0e0e]/70 backdrop-blur-xl border-b border-white/5 p-4 sticky top-0 z-50">
+      <header className="glass border-b border-white/5 p-4 sticky top-0 z-50">
         <div className="flex items-center max-w-5xl mx-auto">
           <BackButton />
-          <h2 className="text-white text-lg font-bold leading-tight tracking-tight flex-1 mr-4">
-            <span className="bg-gradient-to-l from-[#ff928a] to-[#e08dff] bg-clip-text text-transparent">التدريب الرياضي</span>
+          <h2 className="text-white text-lg font-bold leading-tight tracking-tight flex-1 mr-4" style={{ fontFamily: 'var(--font-heading)' }}>
+            <span className="bg-gradient-to-l from-[#ff928a] to-[#e08dff] bg-clip-text text-transparent animate-gradient-shift">التدريب الرياضي</span>
           </h2>
           <button className="text-[#00fcca] flex size-10 shrink-0 items-center justify-center cursor-pointer hover:bg-[#00fcca]/10 rounded-full transition-colors">
             <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>share</span>
@@ -186,7 +186,7 @@ export default function Training() {
                 <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-[#ff928a] to-[#e08dff] text-white text-xs font-bold rounded-full mb-4 shadow-lg">
                   <ShinyText text="دليل المحترفين والمدربين" disabled={false} speed={3} className="text-white" />
                 </span>
-                <h1 className="text-3xl md:text-5xl font-extrabold leading-tight text-white mb-3 max-w-xl">
+                <h1 className="text-3xl md:text-5xl font-extrabold leading-tight text-white mb-3 max-w-xl animate-text-glow" style={{ fontFamily: 'var(--font-heading)' }}>
                   استراتيجيات التدريب الرياضي الحديث
                 </h1>
                 <p className="text-[#adaaaa] text-sm md:text-base max-w-lg leading-relaxed">
@@ -207,7 +207,7 @@ export default function Training() {
                 { icon: 'trending_up', label: 'التعويض الزائد', value: '100%', color: '#e08dff' },
                 { icon: 'model_training', label: 'مراحل تدريبية', value: '3', color: '#00fcca' }
               ].map((stat, i) => (
-                <div key={i} className="bg-[#131313] border border-white/5 rounded-2xl p-4 text-center hover:border-white/10 transition-colors group">
+                <div key={i} className="web-card !bg-[#131313] p-4 text-center group stagger-item">
                   <span className="material-symbols-outlined text-2xl mb-2 block transition-transform group-hover:scale-110" style={{ color: stat.color, fontVariationSettings: "'FILL' 1" }}>{stat.icon}</span>
                   <p className="text-2xl font-black text-white">{stat.value}</p>
                   <p className="text-[10px] text-[#adaaaa] uppercase tracking-widest mt-1">{stat.label}</p>
@@ -221,7 +221,7 @@ export default function Training() {
         <div className="max-w-5xl mx-auto px-4 mt-10 space-y-4">
           {sections.map((section, sectionIdx) => (
             <FadeContent key={section.id} blur={true} duration={800} initialOpacity={0}>
-              <div className="rounded-3xl overflow-hidden border border-white/5 bg-[#131313] transition-all duration-300 hover:border-white/10">
+              <div className="web-card !bg-[#131313] overflow-hidden">
                 {/* Section Header */}
                 <button
                   onClick={() => toggleSection(section.id)}
@@ -231,7 +231,7 @@ export default function Training() {
                     <span className="material-symbols-outlined text-2xl" style={{ color: section.color, fontVariationSettings: "'FILL' 1" }}>{section.icon}</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-lg text-white">{section.title}</h3>
+                    <h3 className="font-bold text-lg text-white" style={{ fontFamily: 'var(--font-heading)' }}>{section.title}</h3>
                     <p className="text-[#adaaaa] text-xs mt-0.5">{section.subtitle}</p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">

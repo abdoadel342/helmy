@@ -15,11 +15,11 @@ export default function Anatomy() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100" style={{ fontFamily: 'var(--font-body)' }}>
       {/* Top Navigation */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between p-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-xl border-b border-primary/10">
+      <nav className="sticky top-0 z-50 flex items-center justify-between p-4 glass border-b border-primary/10">
         <BackButton />
-        <h1 className="text-lg font-bold tracking-tight text-primary">HELMY Anatomy</h1>
+        <h1 className="text-lg font-bold tracking-tight text-primary animate-text-glow" style={{ fontFamily: 'var(--font-heading)' }}>HELMY Anatomy</h1>
         <div className="size-10"></div> {/* Spacer for balance */}
       </nav>
 
@@ -36,7 +36,7 @@ export default function Anatomy() {
             <span className="inline-block py-1 px-3 mb-4 rounded-full bg-primary/20 text-primary border border-primary/30 text-xs font-bold tracking-widest uppercase">
               Biomechanics & Structure
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-3 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-3 leading-tight animate-text-glow" style={{ fontFamily: 'var(--font-heading)' }}>
               <SplitText text="تشريح الجهاز العضلي" delay={50} className="text-white" />
             </h2>
             <p className="text-slate-300 font-medium text-sm md:text-base max-w-xl leading-relaxed">
@@ -57,7 +57,7 @@ export default function Anatomy() {
               <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
                 <span className="material-symbols-outlined text-primary text-2xl">science</span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-black">ميكانيكية الانقباض العضلي</h3>
+              <h3 className="text-2xl md:text-3xl font-black" style={{ fontFamily: 'var(--font-heading)' }}>ميكانيكية الانقباض العضلي</h3>
             </div>
 
             <div className="mb-8">
@@ -103,7 +103,7 @@ export default function Anatomy() {
               <div className="w-12 h-12 bg-rose-500/10 rounded-xl flex items-center justify-center">
                 <span className="material-symbols-outlined text-rose-500 text-2xl">biotech</span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-black">تصنيف الألياف العضلية المتقدم</h3>
+              <h3 className="text-2xl md:text-3xl font-black" style={{ fontFamily: 'var(--font-heading)' }}>تصنيف الألياف العضلية المتقدم</h3>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -165,7 +165,7 @@ export default function Anatomy() {
               <div className="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center">
                 <span className="material-symbols-outlined text-amber-500 text-2xl">accessibility_new</span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-black">الدليل التشريحي للمجموعات العضلية</h3>
+              <h3 className="text-2xl md:text-3xl font-black" style={{ fontFamily: 'var(--font-heading)' }}>الدليل التشريحي للمجموعات العضلية</h3>
             </div>
             
             <div className="space-y-4">

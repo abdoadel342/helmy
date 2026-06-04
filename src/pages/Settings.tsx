@@ -25,6 +25,9 @@ export default function Settings() {
     weight: 75,
     language: 'ar',
     notifications: true,
+    unit: 'kg',
+    aiVoice: true,
+    aiStrictness: 'moderate'
   });
 
   const [bmi, setBmi] = useState(0);
@@ -130,7 +133,10 @@ export default function Settings() {
       let updatedData: any = {
         settings: {
           language: settings.language,
-          notifications: settings.notifications
+          notifications: settings.notifications,
+          unit: settings.unit,
+          aiVoice: settings.aiVoice,
+          aiStrictness: settings.aiStrictness
         }
       };
 
@@ -157,24 +163,6 @@ export default function Settings() {
     }
   };
 
-  const handleSyncPrograms = async () => {
-    setSyncing(true);
-    setSyncSuccess(false);
-    try {
-      // Sync programsData to Firestore
-      for (const program of programsData) {
-        await setDoc(doc(db, 'programs', program.program_id), program);
-      }
-      
-      setSyncSuccess(true);
-      setTimeout(() => setSyncSuccess(false), 3000);
-    } catch (error) {
-      console.error("Error syncing programs:", error);
-      alert(isAr ? "حدث خطأ أثناء المزامنة" : "An error occurred during synchronization");
-    } finally {
-      setSyncing(false);
-    }
-  };
 
   const getBmiCategory = (bmi: number) => {
     if (bmi < 18.5) return { label: isAr ? 'نقص في الوزن' : 'Underweight', color: 'text-blue-400' };
@@ -241,25 +229,36 @@ export default function Settings() {
       className="space-y-8 pb-12"
     >
       <header className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-purple-900/30 flex items-center justify-center border border-purple-500/30 group hover:bg-purple-900/50 hover:border-purple-500/50 transition-colors cursor-pointer">
+        <div className="w-12 h-12 rounded-2xl bg-purple-900/30 flex items-center justify-center border border-purple-500/30 group hover:bg-purple-900/50 hover:border-purple-500/50 transition-colors cursor-pointer glow-ring">
           <SettingsIcon className="w-6 h-6 text-purple-400 group-hover:scale-110 transition-transform duration-300" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-white mb-1">{isAr ? 'الإعدادات' : 'Settings'}</h1>
-          <p className="text-zinc-400">{isAr ? 'تخصيص تجربتك وتحديث بياناتك الجسدية' : 'Customize your experience and update physical details'}</p>
+          <h1 className="text-3xl font-bold text-white mb-1 animate-text-glow" style={{ fontFamily: 'var(--font-heading)' }}>{isAr ? 'الإعدادات' : 'Settings'}</h1>
+          <p className="text-zinc-400" style={{ fontFamily: 'var(--font-body)' }}>{isAr ? 'تخصيص تجربتك وتحديث بياناتك الجسدية' : 'Customize your experience and update physical details'}</p>
         </div>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Physical Data */}
         <div className="bg-zinc-950 p-8 rounded-3xl border border-zinc-800 space-y-6">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
+          <h2 className="text-xl font-bold text-white flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)' }}>
             <Activity className="w-5 h-5 text-purple-500" /> {isAr ? 'البيانات الجسدية' : 'Physical Details'}
           </h2>
           
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-zinc-400">{isAr ? 'الطول (سم)' : 'Height (cm)'}</label>
+              <label className="text-sm font-medium text-zinc-400">{isAr ? 'وحدة القياس' : 'Unit'}</label>
+              <select 
+                value={settings.unit}
+                onChange={e => setSettings({...settings, unit: e.target.value})}
+                className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              >
+                <option value="kg">{isAr ? 'كيلوجرام (Kg)' : 'Kilograms (Kg)'}</option>
+                <option value="lbs">{isAr ? 'باوند (Lbs)' : 'Pounds (Lbs)'}</option>
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-zinc-400">{isAr ? `الطول (سم)` : 'Height (cm)'}</label>
               <input 
                 type="number" 
                 value={settings.height} 
@@ -268,7 +267,7 @@ export default function Settings() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-zinc-400">{isAr ? 'الوزن (كجم)' : 'Weight (kg)'}</label>
+              <label className="text-sm font-medium text-zinc-400">{isAr ? `الوزن (${settings.unit === 'kg' ? 'كجم' : 'باوند'})` : `Weight (${settings.unit})`}</label>
               <input 
                 type="number" 
                 value={settings.weight} 
@@ -291,7 +290,7 @@ export default function Settings() {
 
         {/* App Preferences */}
         <div className="bg-zinc-950 p-8 rounded-3xl border border-zinc-800 space-y-6">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
+          <h2 className="text-xl font-bold text-white flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)' }}>
             <SettingsIcon className="w-5 h-5 text-purple-500" /> {isAr ? 'تفضيلات التطبيق' : 'App Preferences'}
           </h2>
 
@@ -339,39 +338,60 @@ export default function Settings() {
           </div>
         </div>
 
-        {/* Data Sync */}
+        {/* AI Coach Settings */}
         <div className="bg-zinc-950 p-8 rounded-3xl border border-zinc-800 space-y-6 lg:col-span-2">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <RefreshCw className="w-5 h-5 text-purple-500" /> {isAr ? 'مزامنة البيانات' : 'Data Synchronization'}
+            <Activity className="w-5 h-5 text-purple-500" /> {isAr ? 'إعدادات المدرب الذكي (AI Coach)' : 'AI Coach Settings'}
           </h2>
-          <p className="text-zinc-400 text-sm">
+          <p className="text-zinc-400 text-sm mb-6">
             {isAr 
-              ? 'قم بمزامنة برامج التدريب (التضخيم، السرعة، المرونة) من قاعدة البيانات لملء القوائم تلقائياً.' 
-              : 'Sync training programs (Hypertrophy, Speed, Flexibility) from the database to automatically populate lists.'}
+              ? 'تخصيص تجربة التدريب والتحليل الحركي الخاصة بالمدرب الذكي.' 
+              : 'Customize the AI coach training and kinetic analysis experience.'}
           </p>
           
-          <button 
-            onClick={handleSyncPrograms}
-            disabled={syncing}
-            className={`w-full py-4 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 ${
-              syncSuccess 
-                ? 'bg-green-600/20 text-green-500 border border-green-500/50' 
-                : 'bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-800'
-            }`}
-          >
-            {syncing ? (
-              <RefreshCw className="w-5 h-5 animate-spin" />
-            ) : syncSuccess ? (
-              <CheckCircle2 className="w-5 h-5" />
-            ) : (
-              <RefreshCw className="w-5 h-5" />
-            )}
-            {syncing 
-              ? (isAr ? 'جاري المزامنة...' : 'Syncing...') 
-              : syncSuccess 
-                ? (isAr ? 'تمت المزامنة بنجاح!' : 'Synced successfully!') 
-                : (isAr ? 'مزامنة البرامج التدريبية' : 'Sync Training Programs')}
-          </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex items-center justify-between p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800/50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-purple-400">graphic_eq</span>
+                </div>
+                <div>
+                  <p className="text-white font-medium">{isAr ? 'التوجيه الصوتي' : 'Voice Feedback'}</p>
+                  <p className="text-xs text-zinc-500">{isAr ? 'تفعيل نصائح المدرب الصوتية' : 'Enable coach voice tips'}</p>
+                </div>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  className="sr-only peer"
+                  checked={settings.aiVoice}
+                  onChange={e => setSettings({...settings, aiVoice: e.target.checked})}
+                />
+                <div className="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-500"></div>
+              </label>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800/50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-purple-400">school</span>
+                </div>
+                <div>
+                  <p className="text-white font-medium">{isAr ? 'أسلوب المدرب' : 'Coach Strictness'}</p>
+                  <p className="text-xs text-zinc-500">{isAr ? 'درجة صرامة تقييم الأداء' : 'Performance evaluation strictness'}</p>
+                </div>
+              </div>
+              <select 
+                value={settings.aiStrictness}
+                onChange={e => setSettings({...settings, aiStrictness: e.target.value})}
+                className="bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500"
+              >
+                <option value="easy">{isAr ? 'متساهل للمبتدئين' : 'Beginner Friendly'}</option>
+                <option value="moderate">{isAr ? 'معتدل (موصى به)' : 'Moderate (Recommended)'}</option>
+                <option value="strict">{isAr ? 'صارم ومتقدم' : 'Strict & Advanced'}</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         {/* Danger Zone */}
