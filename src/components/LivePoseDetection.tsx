@@ -29,6 +29,10 @@ export default function LivePoseDetection({ className, hideCapture, hideOverlayU
     const ctx = combinedCanvas.getContext('2d');
     
     if (ctx) {
+      // Mirror context so the captured image matches the CSS-mirrored preview
+      ctx.translate(combinedCanvas.width, 0);
+      ctx.scale(-1, 1);
+      
       // Draw video frame first
       ctx.drawImage(videoRef.current, 0, 0, combinedCanvas.width, combinedCanvas.height);
       // Draw the AR overlay on top
@@ -66,15 +70,13 @@ export default function LivePoseDetection({ className, hideCapture, hideOverlayU
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           try {
             const stream = await navigator.mediaDevices.getUserMedia({
-              video: { facingMode: 'user' },
+              video: { facingMode: { ideal: 'user' } },
             });
             if (videoRef.current) {
               videoRef.current.srcObject = stream;
-              videoRef.current.onloadedmetadata = () => {
-                videoRef.current?.play();
-                setIsReady(true);
-                detectPose();
-              };
+              videoRef.current.play().catch(e => console.error("Play error:", e));
+              setIsReady(true);
+              detectPose();
             }
           } catch (err: any) {
             console.error("Error accessing webcam:", err);
@@ -207,13 +209,13 @@ export default function LivePoseDetection({ className, hideCapture, hideOverlayU
       
       <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover -scale-x-100"
         playsInline
         muted
       />
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full object-cover z-10"
+        className="absolute inset-0 w-full h-full object-cover z-10 -scale-x-100"
       />
 
       {/* UI Overlay */}

@@ -7,27 +7,20 @@ interface AuthContextType {
   loading: boolean;
 }
 
-const mockUser = {
-  uid: 'mock-user-123',
-  email: 'hero@helmy.com',
-  displayName: 'بطل حلمي',
-  photoURL: 'https://api.dicebear.com/7.x/avataaars/svg?seed=HelmyHero',
-} as User;
-
-const AuthContext = createContext<AuthContextType>({ user: mockUser, loading: false });
+const AuthContext = createContext<AuthContextType>({ user: null, loading: true });
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(mockUser);
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
       } else {
-        setUser(mockUser);
+        setUser(null);
       }
       setLoading(false);
     });

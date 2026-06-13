@@ -11,13 +11,14 @@ type Exercise = { name: string; sets: number; reps: string; rest: string; muscle
 type DayPlan = { title: string; exercises: Exercise[] };
 type ProgramType = {
   id: string; name: string; desc: string; icon: string; color: string;
-  duration: string; level: string; frequency: string; days: DayPlan[];
+  image?: string; duration: string; level: string; frequency: string; days: DayPlan[];
 };
 
 const programs: ProgramType[] = [
   {
     id: 'ppl', name: 'Push / Pull / Legs', icon: 'exercise',
-    color: '#e08dff', duration: '8 أسابيع', level: 'متوسط - متقدم', frequency: '6 أيام/أسبوع',
+    color: '#e08dff', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2000&auto=format&fit=crop',
+    duration: '8 أسابيع', level: 'متوسط - متقدم', frequency: '6 أيام/أسبوع',
     desc: 'نظام تقسيم عضلي يركز على تجميع العضلات حسب وظيفتها الحركية (دفع، سحب، أرجل) لتحقيق أقصى تحفيز عضلي مع راحة كافية.',
     days: [
       { title: 'يوم الدفع (Push)', exercises: [
@@ -51,7 +52,8 @@ const programs: ProgramType[] = [
   },
   {
     id: 'ul', name: 'Upper / Lower', icon: 'swap_vert',
-    color: '#00fcca', duration: '6 أسابيع', level: 'مبتدئ - متوسط', frequency: '4 أيام/أسبوع',
+    color: '#00fcca', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop',
+    duration: '6 أسابيع', level: 'مبتدئ - متوسط', frequency: '4 أيام/أسبوع',
     desc: 'تقسيم بسيط وفعال بين الجزء العلوي والسفلي، مثالي لمن يبحث عن تكرار تدريبي عالٍ مع توازن في الراحة.',
     days: [
       { title: 'الجزء العلوي (Upper)', exercises: [
@@ -74,7 +76,8 @@ const programs: ProgramType[] = [
   },
   {
     id: 'fb', name: 'Full Body', icon: 'accessibility_new',
-    color: '#f97316', duration: '4 أسابيع', level: 'مبتدئ', frequency: '3 أيام/أسبوع',
+    color: '#f97316', image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2000&auto=format&fit=crop',
+    duration: '4 أسابيع', level: 'مبتدئ', frequency: '3 أيام/أسبوع',
     desc: 'برنامج شامل يستهدف جميع المجموعات العضلية في كل جلسة تدريبية، مثالي للمبتدئين ولتعزيز اللياقة العامة.',
     days: [
       { title: 'تمرين الجسم الكامل - يوم A', exercises: [
@@ -218,27 +221,31 @@ export default function MuscleBuilding() {
     return (
       <FadeContent blur duration={400} easing="ease-out" initialOpacity={0}>
         <div className="relative flex flex-col min-h-screen pb-32 bg-[#0e0e0e] text-white font-display antialiased">
-          <header className="sticky top-0 z-50 flex items-center gap-4 px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5">
-            <BackButton onClick={() => setSelectedProgram(null)} />
-            <h1 className="text-lg font-bold truncate">
+          <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 mb-4 -mx-4 md:-mx-8">
+            <div className="w-10 flex justify-start"><BackButton onClick={() => setSelectedProgram(null)} /></div>
+            <h1 className="text-lg font-bold truncate flex-1 text-center flex justify-center">
               <GradientText colors={['#e08dff','#bc00fb','#e08dff']} animationSpeed={6} showBorder={false}>
                 {selectedProgram.name}
               </GradientText>
             </h1>
+            <div className="w-10"></div>
           </header>
 
-          <div className="mx-4 mt-4 rounded-3xl overflow-hidden p-6 relative" style={{ background: `linear-gradient(135deg, ${selectedProgram.color}20, ${selectedProgram.color}05)` }}>
-            <div className="absolute top-4 left-4 w-20 h-20 rounded-full blur-3xl" style={{ backgroundColor: selectedProgram.color, opacity: 0.15 }} />
-            <div className="relative z-10 flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ backgroundColor: `${selectedProgram.color}20`, color: selectedProgram.color }}>
+          <div className="rounded-3xl overflow-hidden p-6 relative shadow-2xl min-h-[180px] flex flex-col justify-end mb-8">
+            <div className="absolute inset-0 bg-cover bg-center transition-all duration-500" style={{ backgroundImage: `url('${selectedProgram.image}')` }} />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/80 to-transparent" />
+            <div className="absolute top-4 left-4 w-24 h-24 rounded-full blur-3xl transition-all duration-500" style={{ backgroundColor: selectedProgram.color, opacity: 0.4 }} />
+            
+            <div className="relative z-10 flex items-end gap-4 mb-4">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shrink-0 transition-all duration-500" style={{ backgroundColor: `${selectedProgram.color}40`, color: selectedProgram.color, backdropFilter: 'blur(8px)' }}>
                 <span className="material-symbols-outlined text-3xl">{selectedProgram.icon}</span>
               </div>
-              <div>
-                <h2 className="text-xl font-extrabold">{selectedProgram.name}</h2>
-                <p className="text-sm text-[#adaaaa]">{selectedProgram.desc.slice(0, 60)}...</p>
+              <div className="flex-1 pb-1">
+                <h2 className="text-xl font-extrabold text-white mb-1">{selectedProgram.name}</h2>
+                <p className="text-xs text-gray-300 line-clamp-2 leading-relaxed">{selectedProgram.desc}</p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="relative z-10 flex flex-wrap gap-2">
               {[
                 { icon: 'schedule', label: selectedProgram.duration },
                 { icon: 'bar_chart', label: selectedProgram.level },
@@ -567,14 +574,13 @@ export default function MuscleBuilding() {
     <FadeContent blur duration={600} easing="ease-out" initialOpacity={0}>
       <div className="relative flex flex-col min-h-screen pb-32 bg-[#0e0e0e] text-white font-display antialiased">
         <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5">
-          <div className="flex items-center gap-4">
-            <BackButton />
-            <h1 className="text-xl font-extrabold">
-              <GradientText colors={['#e08dff','#bc00fb','#e08dff']} animationSpeed={6} showBorder={false}>
-                برامج بناء العضلات
-              </GradientText>
-            </h1>
-          </div>
+          <div className="w-10 flex justify-start"><BackButton /></div>
+          <h1 className="text-xl font-extrabold truncate flex-1 text-center flex justify-center">
+            <GradientText colors={['#e08dff','#bc00fb','#e08dff']} animationSpeed={6} showBorder={false}>
+              برامج بناء العضلات
+            </GradientText>
+          </h1>
+          <div className="w-10"></div>
         </header>
 
         <div className="mx-4 mt-4 relative rounded-3xl overflow-hidden">

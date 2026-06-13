@@ -18,9 +18,6 @@ export default function NutritionPlan() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="text-slate-900 dark:text-white size-10 flex items-center justify-center rounded-full hover:bg-primary/10">
-            <span className="material-symbols-outlined">share</span>
-          </button>
         </div>
       </header>
 

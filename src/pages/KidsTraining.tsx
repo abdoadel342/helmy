@@ -6,6 +6,7 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { StarBorder } from '../components/react-bits/StarBorder';
+import GradientText from '../components/react-bits/GradientText';
 
 type Tab = 'profile' | 'schedule' | 'games' | 'brain' | 'chat';
 
@@ -389,26 +390,32 @@ export default function KidsTraining() {
   );
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-x-hidden font-display">
-      <header className="flex items-center bg-background-light dark:bg-background-dark p-4 sticky top-0 z-10 border-b border-amber-500/10 backdrop-blur-md">
-        <BackButton />
-        <h1 className="text-xl font-bold leading-tight tracking-tight flex-1 mr-4">برنامج تدريب الأطفال</h1>
-        <span className="material-symbols-outlined text-amber-500 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>child_care</span>
+    <div className="dark relative flex min-h-screen w-full flex-col bg-[#0e0e0e] text-white overflow-x-hidden font-display">
+      <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 mb-4 -mx-4 md:-mx-8">
+        <div className="w-10 flex justify-start"><BackButton /></div>
+        <h1 className="text-lg font-bold truncate flex-1 text-center flex justify-center">
+          <GradientText colors={['#f59e0b','#fbbf24','#f59e0b']} animationSpeed={6} showBorder={false}>
+            برنامج تدريب الأطفال
+          </GradientText>
+        </h1>
+        <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 pb-12 max-w-2xl mx-auto w-full">
+      <main className="flex-1 pb-12 w-full">
         {/* Hero */}
         <FadeContent blur duration={1000} initialOpacity={0}>
-          <div className="px-4 py-4">
-            <div className="w-full aspect-[2/1] bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl relative group shadow-2xl border border-amber-500/20"
-              style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=2000&auto=format&fit=crop")' }}>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-              <div className="relative p-6">
-                <span className="inline-block px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full mb-2">
-                  <ShinyText text="KIDS PROGRAM" disabled={false} speed={3} className="text-white" />
-                </span>
-                <h2 className="text-white text-2xl font-bold">تدريب ذكي لأبطال المستقبل</h2>
-                <p className="text-white/70 text-sm mt-1">اختر الألعاب المناسبة لطفلك وشاهد المدرب يبرمجها بذكاء</p>
+          <div className="rounded-3xl overflow-hidden p-6 relative shadow-2xl min-h-[180px] flex flex-col justify-end mb-8">
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=2000&auto=format&fit=crop')` }} />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/80 to-transparent" />
+            <div className="absolute top-4 left-4 w-24 h-24 rounded-full blur-3xl" style={{ backgroundColor: '#f59e0b', opacity: 0.3 }} />
+            
+            <div className="relative z-10 flex items-end gap-4 mb-4">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shrink-0" style={{ backgroundColor: `#f59e0b40`, color: '#f59e0b', backdropFilter: 'blur(8px)' }}>
+                <span className="material-symbols-outlined text-3xl">child_care</span>
+              </div>
+              <div className="flex-1 pb-1">
+                <h2 className="text-xl font-extrabold text-white mb-1">تدريب ذكي لأبطال المستقبل</h2>
+                <p className="text-xs text-gray-300">شاهد المدرب يبرمج الألعاب بذكاء</p>
               </div>
             </div>
           </div>

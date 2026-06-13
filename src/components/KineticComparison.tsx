@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, BrainCircuit, Target, Send, User, RotateCcw, Image as ImageIcon, History, CheckCircle2, Activity } from 'lucide-react';
+import { Camera, BrainCircuit, Target, Send, User, RotateCcw, Image as ImageIcon, History, CircleCheck, Activity, Upload } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { useAuth } from '../AuthContext';
+import { db } from '../firebase';
+import { collection, addDoc, getDocs, query, orderBy, serverTimestamp } from 'firebase/firestore';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -42,22 +45,65 @@ export default function KineticComparison() {
   const [goalsHistory, setGoalsHistory] = useState<Goal[]>([]);
   const [selectedGoal, setSelectedGoal] = useState<string>('');
   
+  const { user } = useAuth();
+  
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
+  // Fetch Goals from Firestore
+  useEffect(() => {
+    if (!user) return;
+    const fetchGoals = async () => {
+      try {
+        const q = query(
+          collection(db, 'users', user.uid, 'performance_goals'),
+          orderBy('createdAt', 'desc')
+        );
+        const snapshot = await getDocs(q);
+        const fetchedGoals = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as Goal[];
+        setGoalsHistory(fetchedGoals);
+      } catch (error) {
+        console.error("Error fetching goals:", error);
+      }
+    };
+    fetchGoals();
+  }, [user, activeTab]);
+
   // Initialize camera
   useEffect(() => {
+    let isActive = true;
     const startCamera = async () => {
       if (activeTab === 'chat' && !capturedImage) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            alert("الكاميرا غير مدعومة في متصفحك أو تتطلب اتصالاً آمناً (HTTPS). يمكنك استخدام خيار 'رفع ملف' كبديل.");
+            return;
+          }
+          const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'user' } } });
+          if (!isActive) {
+            stream.getTracks().forEach(track => track.stop());
+            return;
+          }
           streamRef.current = stream;
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
+            videoRef.current.play().catch(e => console.error("Error playing video:", e));
+          } else {
+            // In case ref isn't attached yet, wait a bit
+            setTimeout(() => {
+              if (videoRef.current && isActive) {
+                videoRef.current.srcObject = stream;
+                videoRef.current.play().catch(e => console.error("Error playing video:", e));
+              }
+            }, 200);
           }
         } catch (err) {
           console.error("Camera error:", err);
+          alert("تعذر الوصول إلى الكاميرا. يرجى التأكد من منح الصلاحيات.");
         }
       }
     };
@@ -65,8 +111,10 @@ export default function KineticComparison() {
     startCamera();
 
     return () => {
+      isActive = false;
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
+        streamRef.current = null;
       }
     };
   }, [capturedImage, activeTab]);
@@ -83,6 +131,9 @@ export default function KineticComparison() {
     canvas.height = videoRef.current.videoHeight;
     const ctx = canvas.getContext('2d');
     if (ctx) {
+      // Mirror context so the captured image matches the CSS-mirrored preview
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
       ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
       setCapturedImage(canvas.toDataURL('image/jpeg', 0.9));
       
@@ -99,6 +150,27 @@ export default function KineticComparison() {
           text: 'تم التقاط الصورة بنجاح! جاري تحليل الأبعاد... كيف يمكنني مساعدتك بخصوص هذه الوضعية؟'
         }]);
       }, 500);
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setCapturedImage(event.target?.result as string);
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach(track => track.stop());
+        }
+        setTimeout(() => {
+          setMessages(prev => [...prev, {
+            id: Date.now().toString(),
+            sender: 'ai',
+            text: 'تم رفع الصورة بنجاح! جاري تحليل الأبعاد... كيف يمكنني مساعدتك بخصوص هذه الوضعية؟'
+          }]);
+        }, 500);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -128,17 +200,34 @@ export default function KineticComparison() {
     }, 1500 + Math.random() * 1000);
   };
 
-  const handleAddGoal = () => {
+  const handleAddGoal = async () => {
     if (!selectedGoal) return;
-    const newGoal: Goal = {
-      id: Date.now().toString(),
+    const newGoalData = {
       title: selectedGoal,
       status: 'in-progress',
       date: new Date().toISOString().split('T')[0],
-      metric: 'قياس جديد'
+      metric: 'قياس جديد',
+      createdAt: serverTimestamp()
     };
+    
+    // Optimistic UI update
+    const tempId = Date.now().toString();
+    const newGoal: Goal = {
+      id: tempId,
+      ...newGoalData,
+      createdAt: new Date()
+    } as any;
     setGoalsHistory([newGoal, ...goalsHistory]);
     setSelectedGoal('');
+
+    if (user) {
+      try {
+        const docRef = await addDoc(collection(db, 'users', user.uid, 'performance_goals'), newGoalData);
+        setGoalsHistory(prev => prev.map(g => g.id === tempId ? { ...g, id: docRef.id } : g));
+      } catch (error) {
+        console.error("Error saving goal:", error);
+      }
+    }
   };
 
   return (
@@ -193,17 +282,17 @@ export default function KineticComparison() {
                       autoPlay 
                       playsInline 
                       muted 
-                      className="w-full h-full object-cover rounded-2xl"
+                      className="w-full h-full object-cover rounded-2xl -scale-x-100"
                     />
                     
                     {/* Camera UI Overlay */}
                     <div className="absolute inset-0 pointer-events-none border-2 border-dashed border-white/20 rounded-2xl m-4"></div>
                     <div className="absolute top-8 right-8 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-white font-bold text-sm flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-                      الكاميرا جاهزة
+                      الكاميرا جاهزة (أو قم برفع صورة)
                     </div>
 
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4">
                       <button 
                         onClick={capturePhoto}
                         className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border-4 border-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-2xl"
@@ -213,6 +302,14 @@ export default function KineticComparison() {
                           <Camera className="w-6 h-6 text-white" />
                         </div>
                       </button>
+
+                      <label 
+                        className="w-14 h-14 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-md border border-white/20 flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-2xl cursor-pointer"
+                        title="رفع صورة من الجهاز"
+                      >
+                        <Upload className="w-5 h-5 text-white" />
+                        <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                      </label>
                     </div>
                   </>
                 ) : (
@@ -378,7 +475,7 @@ export default function KineticComparison() {
                         goal.status === 'in-progress' ? "bg-amber-500/20 border-amber-500/30" :
                         "bg-red-500/20 border-red-500/30"
                       )}>
-                        {goal.status === 'completed' ? <CheckCircle2 className="w-5 h-5 text-green-500" /> :
+                        {goal.status === 'completed' ? <CircleCheck className="w-5 h-5 text-green-500" /> :
                          goal.status === 'in-progress' ? <Activity className="w-5 h-5 text-amber-500" /> :
                          <Target className="w-5 h-5 text-red-500" />}
                       </div>

@@ -7,6 +7,9 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { usePersistentState } from '../hooks/usePersistentState';
+import { useAuth } from '../AuthContext';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 declare global {
   interface Window {
@@ -18,6 +21,7 @@ declare global {
 }
 
 export default function AI() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'chat' | 'form' | 'meals' | 'tts'>('chat');
   
   // Chat State
@@ -34,6 +38,7 @@ export default function AI() {
   const [formExercise, setFormExercise] = useState('');
   const [formAnalysis, setFormAnalysis] = useState<string | null>(null);
   const [formLoading, setFormLoading] = useState(false);
+  const [savingForm, setSavingForm] = useState(false);
 
   // Camera State
   const [isCameraActive, setIsCameraActive] = useState(false);
@@ -44,15 +49,31 @@ export default function AI() {
   const startCamera = async (target: 'chat' | 'form' | 'meals') => {
     setCameraTarget(target);
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert("الكاميرا غير مدعومة في متصفحك أو تتطلب اتصالاً آمناً (HTTPS). يمكنك استخدام خيار 'رفع ملف' كبديل.");
+        setCameraTarget(null);
+        return;
       }
+      
+      // Request stream FIRST to trigger permission prompt before showing the camera UI
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'user' } } });
+      
+      // Mount the video element
       setIsCameraActive(true);
+      
+      // Wait for React to render the video element and attach the ref
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          // Explicitly call play to ensure video starts
+          videoRef.current.play().catch(e => console.error("Error playing video:", e));
+        }
+      }, 150); // Increased timeout to ensure render is complete
     } catch (err) {
       console.error("Error accessing camera: ", err);
       alert("تعذر الوصول إلى الكاميرا. يرجى التأكد من منح الصلاحيات.");
+      setIsCameraActive(false);
+      setCameraTarget(null);
     }
   };
 
@@ -72,6 +93,11 @@ export default function AI() {
       if (context) {
         canvasRef.current.width = videoRef.current.videoWidth;
         canvasRef.current.height = videoRef.current.videoHeight;
+        
+        // Mirror context so the captured image matches the CSS-mirrored preview
+        context.translate(canvasRef.current.width, 0);
+        context.scale(-1, 1);
+        
         context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
         const dataUrl = canvasRef.current.toDataURL('image/jpeg', 0.8);
         const imageObj = {
@@ -190,6 +216,25 @@ export default function AI() {
     }
   };
 
+  const handleSaveFormAnalysis = async () => {
+    if (!user || !formAnalysis) return;
+    setSavingForm(true);
+    try {
+      await addDoc(collection(db, 'users', user.uid, 'form_analysis'), {
+        exercise: formExercise || 'تمرين غير محدد',
+        analysis: formAnalysis,
+        date: new Date().toISOString().split('T')[0],
+        createdAt: serverTimestamp()
+      });
+      alert('تم حفظ تقرير الأداء في ملفك الشخصي بنجاح!');
+    } catch (error) {
+      console.error("Error saving form analysis:", error);
+      alert('حدث خطأ أثناء حفظ التقرير.');
+    } finally {
+      setSavingForm(false);
+    }
+  };
+
   const handleMealGeneration = async () => {
     if (!fridgeImage && !mealPreferences.trim()) {
       alert("الرجاء رفع صورة للمكونات أو كتابة تفضيلاتك.");
@@ -259,23 +304,18 @@ export default function AI() {
   return (
     <div className="flex flex-col h-[100dvh] bg-[#131314] text-[#e3e3e3] font-sans selection:bg-primary/30">
       {isCameraActive && (
-        <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] bg-black flex flex-col">
            <canvas ref={canvasRef} className="hidden" />
-           <div className="w-full max-w-lg bg-zinc-900 rounded-3xl p-4 border border-primary/20 shadow-2xl flex flex-col items-center gap-4">
-             <div className="w-full bg-black rounded-2xl overflow-hidden shadow-inner relative min-h-[300px]">
-               <video ref={videoRef} className="w-full h-full object-cover" playsInline autoPlay muted />
-               <div className="absolute top-4 left-4 bg-red-500/80 backdrop-blur text-white text-xs px-3 py-1 rounded-full animate-pulse flex items-center gap-1">
-                 <div className="w-2 h-2 bg-white rounded-full"></div> LIVE
-               </div>
-             </div>
-             <div className="flex gap-4 w-full">
-               <button onClick={capturePhoto} className="flex-1 bg-primary hover:bg-primary/90 text-white px-6 py-4 rounded-2xl font-bold shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transition-all">
-                 <Camera className="w-6 h-6" /> التقاط صورة
-               </button>
-               <button onClick={stopCamera} className="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 px-8 py-4 rounded-2xl font-bold transition-all">
-                 إلغاء
-               </button>
-             </div>
+           <div className="flex-1 relative bg-black overflow-hidden">
+             <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover -scale-x-100" playsInline autoPlay muted />
+           </div>
+           <div className="p-6 bg-[#131314] border-t border-white/10 flex gap-4 w-full shrink-0 pb-10">
+             <button onClick={capturePhoto} className="flex-1 bg-primary hover:bg-primary/90 text-white px-6 py-4 rounded-2xl font-bold shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transition-all">
+               <Camera className="w-6 h-6" /> التقاط صورة
+             </button>
+             <button onClick={stopCamera} className="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 px-8 py-4 rounded-2xl font-bold transition-all">
+               إلغاء
+             </button>
            </div>
         </div>
       )}
@@ -500,8 +540,17 @@ export default function AI() {
                       </h3>
                       <div className="flex-1 overflow-y-auto custom-scrollbar">
                         {formAnalysis ? (
-                          <div className="text-[#e3e3e3] whitespace-pre-wrap leading-relaxed text-sm prose prose-invert">
-                            {formAnalysis}
+                          <div className="flex flex-col h-full">
+                            <div className="text-[#e3e3e3] whitespace-pre-wrap leading-relaxed text-sm prose prose-invert flex-1 mb-4">
+                              {formAnalysis}
+                            </div>
+                            <button
+                              onClick={handleSaveFormAnalysis}
+                              disabled={savingForm || !user}
+                              className="w-full mt-auto bg-primary/20 hover:bg-primary/30 text-primary font-bold py-3 rounded-xl transition-colors border border-primary/20"
+                            >
+                              {savingForm ? 'جاري الحفظ...' : user ? 'حفظ التقرير في ملفي الشخصي' : 'يجب تسجيل الدخول لحفظ التقرير'}
+                            </button>
                           </div>
                         ) : (
                           <div className="h-full flex flex-col items-center justify-center text-slate-500 space-y-4 py-10">

@@ -1,322 +1,717 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FadeContent } from '../components/react-bits/FadeContent';
 import { SpotlightCard } from '../components/react-bits/SpotlightCard';
 import { ShinyText } from '../components/react-bits/ShinyText';
 import { BackButton } from '../components/BackButton';
 
+const macroSections = [
+  {
+    id: 'carbs',
+    icon: 'bakery_dining',
+    title: 'الكربوهيدرات (Carbohydrates)',
+    subtitle: 'وقود الأداء الأول والمفضل للجسم',
+    color: '#ff928a',
+    content: [
+      {
+        heading: 'ما هي الكربوهيدرات ولماذا هي مهمة؟',
+        text: 'الكربوهيدرات هي المصدر الأساسي والمفضل للطاقة في الجسم البشري. يتم تخزينها على شكل غليكوجين في العضلات (300-400 جم) والكبد (75-100 جم)، وتوفر 4 سعرات حرارية لكل جرام. أثناء التمرين عالي الشدة، يعتمد الجسم بنسبة تصل إلى 80-100% على الكربوهيدرات كوقود أساسي. نفاد مخازن الغليكوجين يعني "ضرب الجدار" (Hitting the Wall) — وهو انهيار مفاجئ في الأداء يُعرف لدى العدائين بـ "The Bonk".'
+      },
+      {
+        heading: 'تصنيف الكربوهيدرات',
+        text: 'تُصنف الكربوهيدرات إلى ثلاثة أنواع: 1) السكريات البسيطة (Monosaccharides): مثل الجلوكوز والفركتوز والجالاكتوز — سريعة الامتصاص وترفع سكر الدم بسرعة. 2) السكريات الثنائية (Disaccharides): مثل السكروز (سكر المائدة) واللاكتوز (سكر الحليب) والمالتوز. 3) السكريات المعقدة (Polysaccharides): مثل النشا والغليكوجين والألياف — بطيئة الهضم وتوفر طاقة مستدامة ومستقرة.'
+      },
+      {
+        heading: 'المؤشر الغلايسيمي (Glycemic Index - GI)',
+        text: 'مقياس يُصنف الأطعمة حسب سرعة رفعها لسكر الدم من 0 إلى 100. الأطعمة عالية الـ GI (فوق 70): مثل الخبز الأبيض والأرز الأبيض والبطاطس — مثالية فوراً بعد التمرين لملء الغليكوجين بسرعة. الأطعمة منخفضة الـ GI (أقل من 55): مثل الشوفان والبطاطا الحلوة والبقوليات — مثالية قبل التمرين بـ 2-3 ساعات لتوفير طاقة ثابتة دون ارتفاع الإنسولين المفاجئ.'
+      },
+      {
+        heading: 'الاحتياج اليومي حسب نوع الرياضي',
+        text: 'رياضات خفيفة/مهارية (الجولف، الرماية): 3-5 جم/كجم من وزن الجسم يومياً. تدريب معتدل (60-90 دقيقة/يوم): 5-7 جم/كجم. تدريب عالي الشدة (1-3 ساعات/يوم): 6-10 جم/كجم. رياضيو التحمل الفائق (ماراثون، ترايثلون): 8-12 جم/كجم. مثال: رياضي وزنه 80 كجم يتدرب بشدة عالية يحتاج 480-800 جم كربوهيدرات يومياً.'
+      },
+      {
+        heading: 'تحميل الكربوهيدرات (Carb Loading)',
+        text: 'استراتيجية تغذوية تهدف لزيادة مخازن الغليكوجين العضلي بنسبة 25-100% قبل المنافسات المطولة (أطول من 90 دقيقة). البروتوكول الحديث: زيادة تناول الكربوهيدرات إلى 10-12 جم/كجم/يوم لمدة 36-48 ساعة قبل الحدث مع تقليل حجم التدريب. يمكن أن يُحسن الأداء بنسبة 2-3% في أحداث التحمل.'
+      },
+      {
+        heading: 'توقيت التناول الأمثل (Nutrient Timing)',
+        text: 'قبل التمرين (2-4 ساعات): وجبة غنية بالكربوهيدرات المعقدة منخفضة الألياف (1-4 جم/كجم). أثناء التمرين (أطول من 60 دقيقة): 30-60 جم كربوهيدرات/ساعة من مصادر سريعة (مشروبات رياضية، جل). بعد التمرين (خلال 30-60 دقيقة): 1-1.2 جم/كجم كربوهيدرات سريعة لاستغلال "النافذة الأنابولية" وتعويض الغليكوجين.'
+      },
+      {
+        heading: 'أفضل المصادر الغذائية',
+        text: 'مصادر معقدة (يومية): الشوفان، الأرز البني، البطاطا الحلوة، الكينوا، البرغل، خبز الحبوب الكاملة، الفاصوليا والعدس. مصادر سريعة (حول التمرين): الموز، التمر، العسل، الأرز الأبيض، عصير الفواكه الطبيعي. الألياف: الخضروات الورقية، البروكلي، التفاح — ضرورية لصحة الجهاز الهضمي (25-38 جم/يوم) لكن يُفضل تجنبها قبل التمرين مباشرة لتجنب الانتفاخ.'
+      }
+    ]
+  },
+  {
+    id: 'protein',
+    icon: 'egg_alt',
+    title: 'البروتينات (Proteins)',
+    subtitle: 'لبنة بناء وإصلاح الأنسجة العضلية',
+    color: '#00fcca',
+    content: [
+      {
+        heading: 'ما هي البروتينات ولماذا هي حيوية؟',
+        text: 'البروتينات هي جزيئات كبيرة تتكون من سلاسل من الأحماض الأمينية (20 حمضاً أمينياً). تُعتبر المكون الهيكلي الأساسي للعضلات والأوتار والأربطة والجلد والشعر والأظافر. توفر 4 سعرات حرارية لكل جرام. وظائفها تتجاوز البناء العضلي لتشمل: تصنيع الإنزيمات والهرمونات (مثل الإنسولين وهرمون النمو)، دعم الجهاز المناعي (الأجسام المضادة)، نقل الأكسجين (الهيموجلوبين)، والحفاظ على توازن السوائل.'
+      },
+      {
+        heading: 'الأحماض الأمينية الأساسية مقابل غير الأساسية',
+        text: '9 أحماض أمينية أساسية (EAAs) لا يستطيع الجسم تصنيعها ويجب الحصول عليها من الغذاء: هيستيدين، إيزولوسين، لوسين، ليسين، ميثيونين، فينيل ألانين، ثريونين، تريبتوفان، وفالين. الأحماض الأمينية المتفرعة السلسلة (BCAAs): لوسين وإيزولوسين وفالين — تُشكل 35% من البروتين العضلي. اللوسين (Leucine) هو المحفز الرئيسي لمسار mTOR المسؤول عن تخليق البروتين العضلي (MPS)، والجرعة المثلى "عتبة اللوسين" هي 2.5-3 جم لكل وجبة.'
+      },
+      {
+        heading: 'الاحتياج اليومي حسب الهدف',
+        text: 'الشخص العادي غير الرياضي: 0.8 جم/كجم/يوم. رياضي التحمل: 1.2-1.4 جم/كجم/يوم. رياضي القوة والبناء العضلي: 1.6-2.2 جم/كجم/يوم. خلال فترة تخفيض الدهون (Cutting): 2.3-3.1 جم/كجم/يوم من الكتلة الخالية من الدهون — الزيادة في البروتين تحمي من خسارة العضلات أثناء العجز السعري. مثال: رياضي وزنه 80 كجم في مرحلة بناء يحتاج 128-176 جم بروتين يومياً.'
+      },
+      {
+        heading: 'توزيع البروتين على الوجبات',
+        text: 'الأبحاث الحديثة تُظهر أن توزيع البروتين على 4-6 وجبات (كل 3-4 ساعات) بكمية 20-40 جم لكل وجبة أكثر فعالية من تناوله في وجبة واحدة ضخمة. السبب: يوجد سقف لمعدل تخليق البروتين العضلي (MPS) في الوجبة الواحدة. تناول البروتين قبل النوم (30-40 جم كازين) يُحسّن التعافي الليلي بنسبة تصل إلى 22% وفقاً لدراسة جامعة ماستريخت.'
+      },
+      {
+        heading: 'جودة البروتين ومقياس DIAAS',
+        text: 'ليست كل البروتينات متساوية! مقياس DIAAS (Digestible Indispensable Amino Acid Score) هو المعيار الذهبي الحالي لتقييم جودة البروتين: بروتين الحليب/الواي: DIAAS = 1.18 (ممتاز). البيض الكامل: DIAAS = 1.13 (ممتاز). صدر الدجاج: DIAAS = 1.08 (ممتاز). بروتين الصويا: DIAAS = 0.90 (جيد). البازلاء: DIAAS = 0.82 (جيد). الأرز: DIAAS = 0.59 (منخفض). نصيحة: الجمع بين مصادر نباتية (أرز + بازلاء) يرفع الجودة الإجمالية للبروتين.'
+      },
+      {
+        heading: 'أنواع مكملات البروتين',
+        text: 'بروتين الواي (Whey Protein): سريع الامتصاص (20-30 دقيقة)، غني باللوسين — مثالي بعد التمرين مباشرة. الكازين (Casein): بطيء الامتصاص (6-7 ساعات)، يُشكل هلاماً في المعدة — مثالي قبل النوم. بروتين البيض (Egg Protein): امتصاص متوسط السرعة، خالي من اللاكتوز. البروتين النباتي المختلط: مناسب للنباتيين، يُفضل الجمع بين البازلاء والأرز لتكامل الأحماض الأمينية.'
+      },
+      {
+        heading: 'الحالات التي تزيد الاحتياج للبروتين',
+        text: '1) فترة العجز السعري/التنشيف: لحماية الكتلة العضلية من الهدم (Catabolism). 2) المبتدئون في التدريب: لديهم معدل أعلى من تخليق البروتين العضلي (Newbie Gains). 3) الإصابات وإعادة التأهيل: البروتين ضروري لترميم الأنسجة والأوتار. 4) كبار السن (فوق 50 عاماً): يعانون من "مقاومة الأنابوليزم" ويحتاجون جرعات أعلى (40 جم/وجبة). 5) رياضيات الإناث في فترة الحيض: تزداد الحاجة بسبب ارتفاع هدم البروتين.'
+      }
+    ]
+  },
+  {
+    id: 'fats',
+    icon: 'opacity',
+    title: 'الدهون (Fats / Lipids)',
+    subtitle: 'الوقود الاحتياطي ومنظم الهرمونات',
+    color: '#e08dff',
+    content: [
+      {
+        heading: 'لماذا الدهون ضرورية للرياضيين؟',
+        text: 'الدهون ليست عدواً بل حليفاً استراتيجياً! توفر 9 سعرات حرارية لكل جرام (أعلى كثافة طاقة بين المغذيات الكبرى). وظائفها الحيوية: تصنيع هرمونات الستيرويد (التستوستيرون، الإستروجين، الكورتيزول)، امتصاص الفيتامينات الذائبة في الدهون (A, D, E, K)، حماية الأعضاء الداخلية وعزل الجسم حرارياً، تكوين الأغشية الخلوية، وتوفير طاقة مستدامة للتمارين منخفضة إلى متوسطة الشدة (أقل من 65% من VO2max).'
+      },
+      {
+        heading: 'تصنيف الدهون: المشبعة مقابل غير المشبعة',
+        text: 'الدهون المشبعة (Saturated): صلبة في درجة حرارة الغرفة، مصادرها حيوانية غالباً (الزبدة، اللحوم الدهنية، زيت جوز الهند). يجب ألا تتجاوز 10% من إجمالي السعرات. الدهون الأحادية غير المشبعة (MUFA): زيت الزيتون، الأفوكادو، اللوز — تُحسّن صحة القلب وتقلل الالتهاب. الدهون المتعددة غير المشبعة (PUFA): تشمل أوميغا-3 وأوميغا-6 — أحماض دهنية أساسية لا يُنتجها الجسم. الدهون المتحولة (Trans Fats): أخطر الأنواع! توجد في الأطعمة المقلية والمعالجة — يجب تجنبها تماماً.'
+      },
+      {
+        heading: 'أوميغا-3: السلاح السري لمكافحة الالتهاب',
+        text: 'الأوميغا-3 (EPA و DHA) هي الأكثر أهمية للرياضيين. الفوائد: تقليل الالتهاب العضلي بعد التمرين (DOMS) بنسبة 15-20%، تحسين مرونة الأغشية الخلوية مما يُسرّع توصيل المغذيات، دعم صحة المفاصل والأوتار، تحسين وظائف الدماغ والمزاج ومقاومة الاكتئاب. الجرعة الموصى بها: 1-3 جم EPA+DHA يومياً. أفضل المصادر: السلمون، الماكريل، السردين، بذور الكتان، الجوز. نسبة أوميغا-6 إلى أوميغا-3: يجب أن تكون 2:1 إلى 4:1 (النظام الغذائي الغربي غالباً 15:1 — وهو مُسبب للالتهاب المزمن!).'
+      },
+      {
+        heading: 'الاحتياج اليومي وأفضل المصادر',
+        text: 'الاحتياج العام: 20-35% من إجمالي السعرات الحرارية اليومية. لا يجب أن ينخفض تناول الدهون عن 15-20% لتجنب اضطراب الهرمونات. مثال: رياضي يتناول 3000 سعرة يحتاج 67-117 جم دهون يومياً. أفضل المصادر: زيت الزيتون البكر، الأفوكادو، المكسرات (اللوز، الجوز، الكاجو)، بذور الكتان والشيا، الأسماك الدهنية، صفار البيض، الشوكولاتة الداكنة (فوق 70%).'
+      },
+      {
+        heading: 'الحالات التي تزيد أهمية الدهون',
+        text: '1) رياضيو التحمل الفائق: الدهون هي الوقود الأساسي في السباقات الطويلة (Ultra-endurance). 2) اللاعبون الذين يعانون من انخفاض التستوستيرون: الدهون الصحية ترفع الإنتاج الهرموني بنسبة 10-15%. 3) المناخ البارد: الدهون تزيد العزل الحراري وتوفر طاقة كثيفة. 4) فترة البناء العضلي (Bulking): إضافة الدهون الصحية تُسهّل الوصول لفائض السعرات المطلوب. 5) الرياضيات: الدهون ضرورية لانتظام الدورة الشهرية ومنع متلازمة RED-S.'
+      }
+    ]
+  },
+  {
+    id: 'water',
+    icon: 'water_drop',
+    title: 'الماء والترطيب (Hydration)',
+    subtitle: 'العنصر الأكثر تأثيراً والأقل تقديراً',
+    color: '#00fcca',
+    content: [
+      {
+        heading: 'لماذا الماء هو العنصر الأهم؟',
+        text: 'يُشكل الماء 60% من وزن الجسم و75% من وزن العضلات. فقدان 2% فقط من وزن الجسم كسوائل يُقلل الأداء البدني بنسبة 10-20%! وفقدان 5% يُمكن أن يُخفض القدرة على العمل بنسبة 30%. وظائف الماء: تنظيم حرارة الجسم عبر التعرق، نقل المغذيات والأكسجين للخلايا، تزييت المفاصل (السائل الزليلي)، التخلص من الفضلات الأيضية (حمض اللاكتيك واليوريا)، والحفاظ على حجم الدم وضغطه.'
+      },
+      {
+        heading: 'كمية الماء المطلوبة يومياً',
+        text: 'القاعدة العامة: 35-40 مل لكل كجم من وزن الجسم يومياً. رياضي 80 كجم = 2.8 - 3.2 لتر يومياً (بدون احتساب التمرين). أثناء التمرين: 400-800 مل/ساعة حسب شدة التعرق ودرجة الحرارة. بعد التمرين: 1.5 لتر لكل 1 كجم مفقود من الوزن. مؤشر الترطيب الأسهل: لون البول — الأصفر الفاتح (لون عصير الليمون) يدل على ترطيب جيد، والأصفر الداكن يعني جفاف.'
+      },
+      {
+        heading: 'الإلكتروليتات والأملاح المعدنية',
+        text: 'التعرق لا يفقدك الماء فقط بل أملاحاً حيوية! الصوديوم: أهم الإلكتروليتات المفقودة (200-1800 مجم/لتر عرق). البوتاسيوم: ضروري لانقباض العضلات ومنع التشنجات. المغنيسيوم: مفقود بكميات صغيرة لكنه حاسم لوظيفة الأعصاب. في التمارين التي تتجاوز 60-90 دقيقة أو في الحرارة العالية: استخدم مشروباً رياضياً يحتوي على 400-800 مجم صوديوم/لتر + 3-8% كربوهيدرات.'
+      },
+      {
+        heading: 'نقص الصوديوم المخاطر (Hyponatremia)',
+        text: 'خطر حقيقي وقاتل يُصيب من يشربون كميات مفرطة من الماء بدون إلكتروليتات أثناء سباقات التحمل الطويلة. يحدث عندما ينخفض تركيز الصوديوم في الدم عن 135 مللي مول/لتر. الأعراض: صداع، غثيان، ارتباك، وفي الحالات الشديدة — تورم الدماغ والوفاة. الوقاية: لا تشرب أكثر مما تفقد بالتعرق، وأضف الأملاح للمشروبات في السباقات الطويلة.'
+      }
+    ]
+  }
+];
+
+const vitaminSections = [
+  {
+    id: 'fat-soluble',
+    icon: 'science',
+    title: 'الفيتامينات الذائبة في الدهون',
+    subtitle: 'A, D, E, K — تُخزَّن في الكبد والأنسجة الدهنية',
+    color: '#ff928a',
+    content: [
+      {
+        heading: 'فيتامين A (الريتينول / بيتا كاروتين)',
+        text: 'الفائدة: ضروري لصحة البصر (خاصة الرؤية الليلية)، تقوية جهاز المناعة، نمو الخلايا وتجددها، وصحة الجلد والأغشية المخاطية. للرياضيين: يُسرّع ترميم الأنسجة المتضررة من التمارين المكثفة ويدعم الاستجابة المناعية التي تنخفض بعد التمارين الشاقة. الاحتياج اليومي: 900 ميكروجرام للرجال، 700 ميكروجرام للنساء. أفضل المصادر: الكبد، البطاطا الحلوة، الجزر، السبانخ، المانجو، صفار البيض. الحالات التي تزيد الاحتياج: الرياضيون الذين يتدربون في الهواء الطلق (تعرض لأشعة الشمس والتلوث)، فترات التدريب المكثف، وأمراض الجهاز الهضمي.'
+      },
+      {
+        heading: 'فيتامين D (كوليكالسيفيرول)',
+        text: 'الفائدة: "فيتامين الشمس" — يعمل كهرمون أكثر من كونه فيتامين! ضروري لامتصاص الكالسيوم وبناء العظام، تنظيم المناعة، وتقوية الانقباض العضلي. للرياضيين: نقصه (أقل من 30 نانوجرام/مل) مرتبط بزيادة خطر الإصابات بنسبة 3.6 أضعاف! أظهرت الأبحاث أن مستويات كافية (40-60 نانوجرام/مل) تُحسّن قوة العضلات وسرعة التعافي وتقلل من كسور الإجهاد. الاحتياج اليومي: 600-2000 وحدة دولية (IU)، وقد يحتاج الرياضيون 4000-5000 IU. المصادر: أشعة الشمس (15-20 دقيقة يومياً)، الأسماك الدهنية، صفار البيض، الفطر المعرض للشمس. تحذير: أكثر من 60% من الرياضيين في الشرق الأوسط يعانون من نقص فيتامين D رغم وفرة الشمس بسبب قلة التعرض المباشر!'
+      },
+      {
+        heading: 'فيتامين E (توكوفيرول)',
+        text: 'الفائدة: أقوى مضاد أكسدة ذائب في الدهون! يحمي أغشية الخلايا من التلف التأكسدي الناتج عن الجذور الحرة (Free Radicals) التي تتولد أثناء التمرين المكثف. للرياضيين: يُقلل من تلف العضلات الناتج عن التمارين الشاقة (خاصة اللامركزية)، يُحسّن تدفق الدم عبر حماية بطانة الأوعية الدموية، ويدعم صحة الجلد المعرض لأشعة الشمس. الاحتياج اليومي: 15 مجم (22.4 IU). المصادر: زيت عباد الشمس، اللوز، البندق، بذور عباد الشمس، السبانخ، الأفوكادو. تحذير: الإفراط في مكملات فيتامين E (أكثر من 400 IU) قد يكون ضاراً ويتداخل مع تكيفات التمرين!'
+      },
+      {
+        heading: 'فيتامين K (فيلوكينون / ميناكينون)',
+        text: 'الفائدة: ضروري لتخثر الدم (يمنع النزيف المفرط)، وبناء العظام عبر تفعيل بروتين الأوستيوكالسين (Osteocalcin). يوجد بنوعين: K1 (نباتي — في الخضروات الورقية) و K2 (حيواني/بكتيري — في الأجبان المخمرة والناتو). للرياضيين: يعمل بالتآزر مع فيتامين D والكالسيوم لبناء عظام قوية ومقاومة للكسور. أظهرت الأبحاث أن K2 يُوجّه الكالسيوم إلى العظام بدلاً من ترسبه في الشرايين. الاحتياج اليومي: 120 ميكروجرام للرجال، 90 للنساء. المصادر: الكالي، السبانخ، البروكلي، الكبد، صفار البيض، الأجبان المعتقة.'
+      }
+    ]
+  },
+  {
+    id: 'water-soluble',
+    icon: 'local_pharmacy',
+    title: 'الفيتامينات الذائبة في الماء',
+    subtitle: 'مجموعة B المركبة وفيتامين C — لا تُخزَّن في الجسم',
+    color: '#00fcca',
+    content: [
+      {
+        heading: 'فيتامين B1 (الثيامين)',
+        text: 'الفائدة: مفتاح تحويل الكربوهيدرات إلى طاقة (ATP) عبر دورة كريبس. ضروري لوظيفة الجهاز العصبي ونقل الإشارات العصبية للعضلات. نقصه يسبب: التعب المزمن، ضعف العضلات، وفي الحالات الشديدة مرض البري بري. الاحتياج: 1.2 مجم/يوم. المصادر: الحبوب الكاملة، لحم الخنزير، البقوليات، بذور عباد الشمس. الحالات التي تزيد الاحتياج: النظام الغذائي الغني بالكربوهيدرات، فترات التدريب المكثف.'
+      },
+      {
+        heading: 'فيتامين B2 (الريبوفلافين)',
+        text: 'الفائدة: عامل مساعد أساسي في تفاعلات إنتاج الطاقة من الدهون والكربوهيدرات (FAD و FMN). يدعم صحة الجلد والعيون وإنتاج كريات الدم الحمراء. نقصه يسبب: تشقق زوايا الفم، التهاب اللسان، وحساسية العيون للضوء. الاحتياج: 1.3 مجم/يوم. المصادر: الحليب ومشتقاته، البيض، اللحوم، اللوز، السبانخ. للرياضيين: الاحتياج يزداد عند الرياضيين بنسبة 20-60% مقارنة بغير الرياضيين.'
+      },
+      {
+        heading: 'فيتامين B3 (النياسين)',
+        text: 'الفائدة: يشارك في أكثر من 400 تفاعل إنزيمي! أساسي في إنتاج الطاقة عبر NAD+ و NADP+، وإصلاح الحمض النووي (DNA)، وتنظيم الكوليسترول. نقصه يسبب: الإسهال، التهاب الجلد، والاكتئاب (مرض البلاغرا). الاحتياج: 16 مجم/يوم للرجال، 14 للنساء. المصادر: صدر الدجاج، التونة، الفول السوداني، الفطر، البازلاء. تحذير: الجرعات العلاجية العالية (أكثر من 500 مجم) تسبب "احمرار النياسين" (Niacin Flush).'
+      },
+      {
+        heading: 'فيتامين B5 (حمض البانتوثينيك)',
+        text: 'الفائدة: جزء من الإنزيم المساعد A (Coenzyme A) الذي يدخل في أكثر من 70 مساراً أيضياً! ضروري لتصنيع الأحماض الدهنية والكوليسترول والهرمونات الستيرويدية، وإنتاج الطاقة من جميع المغذيات الكبرى. نقصه نادر لكنه يسبب: إرهاق شديد وتنميل في الأطراف. الاحتياج: 5 مجم/يوم. المصادر: الكبد، الفطر، الأفوكادو، البيض، الدجاج، البروكلي.'
+      },
+      {
+        heading: 'فيتامين B6 (البيريدوكسين)',
+        text: 'الفائدة: محوري في أيض الأحماض الأمينية (أكثر من 100 تفاعل إنزيمي)، تصنيع الناقلات العصبية (السيروتونين والدوبامين)، إنتاج الهيموجلوبين، وتحويل الغليكوجين إلى جلوكوز. للرياضيين: ضروري للاستفادة القصوى من البروتين المتناول ولدعم وظيفة المناعة بعد التمرين المكثف. نقصه يسبب: أنيميا، اكتئاب، ضعف المناعة. الاحتياج: 1.3-1.7 مجم/يوم. المصادر: الدجاج، السلمون، البطاطس، الموز، الحمص.'
+      },
+      {
+        heading: 'فيتامين B7 (البيوتين)',
+        text: 'الفائدة: عامل مساعد أساسي لإنزيمات الكربوكسيليز المسؤولة عن أيض الدهون والكربوهيدرات وبعض الأحماض الأمينية. يُعرف بـ "فيتامين الجمال" لدوره في صحة الشعر والأظافر والجلد. نقصه يسبب: تساقط الشعر، هشاشة الأظافر، والتهابات جلدية. الاحتياج: 30 ميكروجرام/يوم. المصادر: صفار البيض (المطبوخ)، الكبد، السلمون، المكسرات، البطاطا الحلوة. تحذير: تناول بياض البيض النيء بكميات كبيرة يمنع امتصاص البيوتين بسبب بروتين الأفيدين!'
+      },
+      {
+        heading: 'فيتامين B9 (حمض الفوليك)',
+        text: 'الفائدة: ضروري لتصنيع وإصلاح الحمض النووي (DNA) وانقسام الخلايا، إنتاج كريات الدم الحمراء، وأيض الهوموسيستين (مستوياته العالية مرتبطة بأمراض القلب). للرياضيين: يدعم إنتاج خلايا الدم الحمراء مما يُحسّن نقل الأكسجين للعضلات. ضروري جداً للرياضيات الحوامل. نقصه يسبب: أنيميا ضخمة الأرومات، إرهاق شديد. الاحتياج: 400 ميكروجرام/يوم. المصادر: الخضروات الورقية الداكنة (السبانخ، الكالي)، البقوليات، الهليون، الأفوكادو، البروكلي.'
+      },
+      {
+        heading: 'فيتامين B12 (الكوبالامين)',
+        text: 'الفائدة: ضروري لتكوين كريات الدم الحمراء، وظيفة الجهاز العصبي المركزي (حماية غلاف الميالين)، تصنيع الحمض النووي، وأيض الطاقة. للرياضيين: نقصه يُسبب تعباً مزمناً وأنيميا تُدمر القدرة على نقل الأكسجين — كارثة لرياضيي التحمل! الاحتياج: 2.4 ميكروجرام/يوم. المصادر: اللحوم الحمراء، الكبد، الأسماك، البيض، منتجات الألبان. تحذير حرج: فيتامين B12 موجود فقط في المصادر الحيوانية! الرياضيون النباتيون (Vegans) يجب أن يتناولوا مكملات B12 وجوباً لتجنب تلف الأعصاب الدائم.'
+      },
+      {
+        heading: 'فيتامين C (حمض الأسكوربيك)',
+        text: 'الفائدة: أقوى مضاد أكسدة ذائب في الماء! ضروري لتصنيع الكولاجين (البروتين الهيكلي للأوتار والأربطة والجلد والغضاريف)، امتصاص الحديد غير الهيمي، تقوية المناعة، وحماية الخلايا من الإجهاد التأكسدي. للرياضيين: تناول 200-500 مجم قبل 30-60 دقيقة من التمرين مع الجيلاتين (15 جم) يُعزز تصنيع الكولاجين في الأوتار والأربطة بنسبة تصل إلى 70%! يُقلل من مدة وشدة نزلات البرد لدى الرياضيين الذين يتدربون بشدة عالية. نقصه يسبب: بطء التئام الجروح، نزيف اللثة، وفي الحالات الشديدة الإسقربوط. الاحتياج: 90 مجم/يوم (الرياضيون: 200-500 مجم). المصادر: الفلفل الأحمر، الجوافة، الكيوي، البرتقال، الفراولة، البروكلي. تحذير: الجرعات العالية جداً (أكثر من 1000 مجم) من فيتامين C بعد التمرين مباشرة قد تُضعف التكيفات التدريبية عبر إزالة الإشارات التأكسدية اللازمة للتكيف!'
+      }
+    ]
+  }
+];
+
+const mineralSections = [
+  {
+    id: 'major-minerals',
+    icon: 'diamond',
+    title: 'المعادن الكبرى (Macro-minerals)',
+    subtitle: 'الكالسيوم، المغنيسيوم، البوتاسيوم، الفوسفور، الصوديوم',
+    color: '#e08dff',
+    content: [
+      {
+        heading: 'الكالسيوم (Calcium)',
+        text: 'الفائدة: المعدن الأكثر وفرة في الجسم! 99% منه في العظام والأسنان والـ 1% الباقي ضروري لانقباض العضلات، نقل الإشارات العصبية، تخثر الدم، وإفراز الهرمونات. للرياضيين: ضروري لمنع كسور الإجهاد (Stress Fractures) خاصة لدى العداءات الإناث. يعمل بالتآزر مع فيتامين D و K2. الاحتياج: 1000-1300 مجم/يوم. المصادر: الحليب والزبادي، الجبن، السردين بالعظام، البروكلي، اللوز، التوفو، الخضروات الورقية. الحالات التي تزيد الاحتياج: الرياضيات اللواتي يعانين من انقطاع الدورة (Amenorrhea)، الرياضيون النباتيون، كبار السن.'
+      },
+      {
+        heading: 'المغنيسيوم (Magnesium)',
+        text: 'الفائدة: "المعدن الرئيسي" — يشارك في أكثر من 600 تفاعل إنزيمي! ضروري لإنتاج الطاقة (ATP)، تقلص واسترخاء العضلات، تنظيم الجهاز العصبي، تصنيع البروتين، وتنظيم سكر الدم. للرياضيين: نقصه يُسبب تشنجات عضلية، ضعف الأداء، وأرق. الدراسات أظهرت أن مكملات المغنيسيوم تُحسّن القوة العضلية بنسبة 2-3%. يُفقد عبر التعرق (3-24 مجم/لتر). الاحتياج: 400-420 مجم/يوم للرجال، 310-320 للنساء. المصادر: الشوكولاتة الداكنة، اللوز، الكاجو، السبانخ، الأفوكادو، الموز، بذور اليقطين. النوع الأفضل كمكمل: مغنيسيوم غلايسينات (أعلى امتصاصاً وأقل تأثيراً على المعدة).'
+      },
+      {
+        heading: 'البوتاسيوم (Potassium)',
+        text: 'الفائدة: إلكتروليت أساسي يعمل مع الصوديوم لتنظيم توازن السوائل، ضروري لانقباض العضلات (بما في ذلك عضلة القلب!)، نقل الإشارات العصبية، وخفض ضغط الدم. للرياضيين: نقصه يُسبب ضعف العضلات وعدم انتظام ضربات القلب والتشنجات. يُفقد بكميات كبيرة عبر التعرق الغزير. الاحتياج: 2600-3400 مجم/يوم. المصادر: الموز، البطاطا الحلوة، الأفوكادو، السبانخ، الفاصوليا البيضاء، عصير البرتقال، الطماطم، ماء جوز الهند.'
+      },
+      {
+        heading: 'الفوسفور (Phosphorus)',
+        text: 'الفائدة: ثاني أكثر المعادن وفرة في الجسم. جزء هيكلي من العظام والأسنان (85%) ومن جزيء الطاقة ATP والأحماض النووية (DNA/RNA) وأغشية الخلايا (الفوسفوليبيدات). للرياضيين: محوري في كل تفاعل طاقة! بدون فوسفور لا يوجد ATP ولا CP ولا طاقة عضلية. يُساعد في تنظيم درجة حموضة الدم (Buffer System). الاحتياج: 700 مجم/يوم. المصادر: اللحوم، الدواجن، الأسماك، البيض، منتجات الألبان، المكسرات، البقوليات. نادراً ما يحدث نقص لأنه متوفر في معظم الأطعمة.'
+      },
+      {
+        heading: 'الصوديوم (Sodium)',
+        text: 'الفائدة: الإلكتروليت الأساسي لتنظيم حجم السوائل خارج الخلايا وضغط الدم، نقل الإشارات العصبية، وامتصاص الجلوكوز والأحماض الأمينية في الأمعاء. للرياضيين: يُفقد بكثرة عبر التعرق (500-2300 مجم/لتر حسب معدل التعرق). الرياضيون "المتعرقون المالحون" (بقع بيضاء على الملابس) يفقدون كميات أكبر. نقصه أثناء التمرين الطويل يُسبب Hyponatremia (خطر على الحياة). الاحتياج: 1500-2300 مجم/يوم للعامة. الرياضيون قد يحتاجون 3000-5000+ مجم في أيام التمرين المكثف. المصادر: ملح الطعام، المخللات، المرق، الأجبان، الزيتون.'
+      }
+    ]
+  },
+  {
+    id: 'trace-minerals',
+    icon: 'genetics',
+    title: 'المعادن الصغرى (Trace Minerals)',
+    subtitle: 'الحديد، الزنك، السيلينيوم، اليود، الكروميوم، النحاس',
+    color: '#ff928a',
+    content: [
+      {
+        heading: 'الحديد (Iron)',
+        text: 'الفائدة: عنصر الأكسجين! جزء أساسي من الهيموجلوبين (نقل O2 في الدم) والميوجلوبين (تخزين O2 في العضلات). ضروري لإنتاج الطاقة الهوائية وتصنيع بعض الإنزيمات. للرياضيين: أنيميا نقص الحديد تُدمر الأداء الهوائي! يُفقد الحديد عبر: التعرق، تدمير كريات الدم في القدم أثناء الجري (Foot-Strike Hemolysis)، الدورة الشهرية لدى الرياضيات. نوعان: حديد هيمي (حيواني — امتصاص 15-35%) وغير هيمي (نباتي — امتصاص 2-20%). الاحتياج: 8 مجم للرجال، 18 مجم للنساء. العدائين قد يحتاجون 70% إضافية. المصادر: الكبد، اللحم البقري، المحار، العدس، السبانخ، الحمص. نصيحة: تناول فيتامين C مع مصادر الحديد النباتي يُضاعف الامتصاص 3-6 أضعاف! تجنب الشاي والقهوة مع وجبات الحديد.'
+      },
+      {
+        heading: 'الزنك (Zinc)',
+        text: 'الفائدة: ضروري لعمل أكثر من 300 إنزيم! يدعم: جهاز المناعة (خط الدفاع الأول)، تصنيع البروتين والتئام الجروح، إنتاج التستوستيرون وهرمون النمو (GH)، حاسة الذوق والشم. للرياضيين: نقصه يُقلل إنتاج التستوستيرون بنسبة 28% خلال 20 أسبوعاً! يُفقد عبر التعرق والبول. الاحتياج: 11 مجم للرجال، 8 مجم للنساء. المصادر: المحار (الأعلى على الإطلاق!)، لحم البقر، بذور اليقطين، الكاجو، الحمص، الزبادي. الحالات التي تزيد الاحتياج: فترات التدريب المكثف، النظام الغذائي النباتي (الفيتات في الحبوب تُقلل امتصاص الزنك).'
+      },
+      {
+        heading: 'السيلينيوم (Selenium)',
+        text: 'الفائدة: مضاد أكسدة قوي عبر إنزيم الغلوتاثيون بيروكسيديز (GPx)، يحمي الخلايا من الإجهاد التأكسدي. ضروري لوظيفة الغدة الدرقية (تحويل T4 إلى T3 النشط)، ودعم المناعة، وصحة الإنجاب. للرياضيين: يُعزز قدرة الجسم على التعامل مع الإجهاد التأكسدي الناتج عن التمرين المكثف. الاحتياج: 55 ميكروجرام/يوم. المصادر: جوز البرازيل (حبة واحدة تكفي الاحتياج اليومي!)، التونة، السردين، البيض، بذور عباد الشمس. تحذير: السمية ممكنة فوق 400 ميكروجرام/يوم — لا تفرط في جوز البرازيل!'
+      },
+      {
+        heading: 'اليود (Iodine)',
+        text: 'الفائدة: ضروري حصرياً لتصنيع هرمونات الغدة الدرقية (T3 و T4) التي تتحكم في معدل الأيض الأساسي وحرق السعرات. للرياضيين: نقصه يُبطئ الأيض مما يُسبب زيادة الوزن والخمول وصعوبة فقدان الدهون رغم التدريب. الاحتياج: 150 ميكروجرام/يوم. المصادر: ملح الطعام المدعم باليود، الأعشاب البحرية، الأسماك البحرية، الروبيان، البيض، منتجات الألبان.'
+      },
+      {
+        heading: 'الكروميوم (Chromium)',
+        text: 'الفائدة: يُعزز عمل الإنسولين ويُحسّن حساسية الخلايا له، مما يُساعد في تنظيم سكر الدم ونقل الجلوكوز والأحماض الأمينية إلى العضلات. للرياضيين: قد يُساعد في تحسين تكوين الجسم (زيادة الكتلة العضلية وتقليل الدهون) عند الجمع مع التدريب، خاصة لمن يعانون من مقاومة الإنسولين. الاحتياج: 25-35 ميكروجرام/يوم. المصادر: البروكلي، العنب، عصير البرتقال، لحم الديك الرومي، البطاطس.'
+      },
+      {
+        heading: 'النحاس (Copper)',
+        text: 'الفائدة: ضروري لتصنيع كريات الدم الحمراء (مع الحديد)، إنتاج الطاقة في الميتوكوندريا، تكوين الكولاجين والإيلاستين (صحة الأوتار والأربطة)، وحماية الخلايا من الأكسدة عبر إنزيم SOD. للرياضيين: يدعم إنتاج الطاقة الهوائية وصحة الأنسجة الضامة التي تحمي المفاصل. الاحتياج: 900 ميكروجرام/يوم. المصادر: الكبد، المحار، الكاجو، بذور عباد الشمس، الشوكولاتة الداكنة، الفطر.'
+      }
+    ]
+  }
+];
+
 export default function SportsNutrition() {
   const navigate = useNavigate();
+  const [expandedMacro, setExpandedMacro] = useState<string | null>('carbs');
+  const [expandedVitamin, setExpandedVitamin] = useState<string | null>(null);
+  const [expandedMineral, setExpandedMineral] = useState<string | null>(null);
+  const [expandedContent, setExpandedContent] = useState<Record<string, boolean>>({});
+
+  const toggleContent = (key: string) => {
+    setExpandedContent(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const renderSections = (
+    sections: typeof macroSections,
+    expanded: string | null,
+    setExpanded: React.Dispatch<React.SetStateAction<string | null>>,
+    prefix: string
+  ) => (
+    <div className="space-y-4">
+      {sections.map((section) => (
+        <FadeContent key={section.id} blur={true} duration={800} initialOpacity={0}>
+          <div className="web-card !bg-[#131313] overflow-hidden">
+            <button
+              onClick={() => setExpanded(prev => prev === section.id ? null : section.id)}
+              className="w-full flex items-center gap-4 p-5 md:p-6 text-right transition-colors hover:bg-white/[0.02]"
+            >
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-300" style={{ backgroundColor: `${section.color}15` }}>
+                <span className="material-symbols-outlined text-2xl" style={{ color: section.color, fontVariationSettings: "'FILL' 1" }}>{section.icon}</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-bold text-lg text-white" style={{ fontFamily: 'var(--font-heading)' }}>{section.title}</h3>
+                <p className="text-[#adaaaa] text-xs mt-0.5">{section.subtitle}</p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${section.color}15`, color: section.color }}>
+                  {section.content.length} مواضيع
+                </span>
+                <span
+                  className="material-symbols-outlined text-[#adaaaa] transition-transform duration-300"
+                  style={{ transform: expanded === section.id ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                >expand_more</span>
+              </div>
+            </button>
+
+            {expanded === section.id && (
+              <div className="px-5 md:px-6 pb-5 md:pb-6 space-y-3">
+                <div className="h-px bg-gradient-to-l from-transparent via-white/10 to-transparent mb-4"></div>
+                {section.content.map((item, itemIdx) => {
+                  const key = `${prefix}-${section.id}-${itemIdx}`;
+                  const isOpen = expandedContent[key];
+                  return (
+                    <div
+                      key={itemIdx}
+                      className="rounded-2xl border border-white/5 bg-[#0e0e0e] overflow-hidden transition-all duration-300 hover:border-white/10"
+                    >
+                      <button
+                        onClick={() => toggleContent(key)}
+                        className="w-full flex items-center gap-3 p-4 text-right"
+                      >
+                        <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: `${section.color}10` }}>
+                          <span className="text-sm font-black" style={{ color: section.color }}>{itemIdx + 1}</span>
+                        </div>
+                        <span className="flex-1 text-sm font-semibold text-white">{item.heading}</span>
+                        <span
+                          className="material-symbols-outlined text-lg transition-transform duration-300"
+                          style={{ color: section.color, transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                        >expand_more</span>
+                      </button>
+                      {isOpen && (
+                        <div className="px-4 pb-4">
+                          <div className="h-px bg-white/5 mb-3"></div>
+                          <p className="text-[#adaaaa] text-sm leading-[1.9] pr-11">{item.text}</p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </FadeContent>
+      ))}
+    </div>
+  );
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
-      {/* Header Section */}
-      <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/20">
-        <div className="flex items-center p-4 justify-between max-w-2xl mx-auto w-full">
-          <BackButton />
-          <h1 className="text-slate-900 dark:text-white text-lg font-bold flex-1 text-center">تغذية الرياضيين</h1>
-          <button className="text-slate-900 dark:text-white hover:bg-primary/20 p-2 rounded-full transition-colors">
-            <span className="material-symbols-outlined">share</span>
-          </button>
+    <div className="flex flex-col min-h-screen bg-[#0e0e0e] text-white selection:bg-[#ff928a]/30" style={{ fontFamily: 'var(--font-body)' }}>
+      {/* Ambient Glow Effects */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-1/4 -right-40 w-96 h-96 bg-[#ff928a]/5 rounded-full blur-[150px]"></div>
+        <div className="absolute bottom-1/3 -left-40 w-96 h-96 bg-[#00fcca]/5 rounded-full blur-[150px]"></div>
+        <div className="absolute top-2/3 right-1/4 w-64 h-64 bg-[#e08dff]/5 rounded-full blur-[150px]"></div>
+      </div>
+
+      {/* Top App Bar */}
+      <header className="glass border-b border-white/5 p-4 sticky top-0 z-50">
+        <div className="flex items-center max-w-5xl mx-auto">
+          <div className="w-10 flex justify-start"><BackButton /></div>
+          <h2 className="text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center flex justify-center" style={{ fontFamily: 'var(--font-heading)' }}>
+            <span className="bg-gradient-to-l from-[#ff928a] to-[#00fcca] bg-clip-text text-transparent animate-gradient-shift">تغذية الرياضيين</span>
+          </h2>
+          <div className="w-10"></div>
         </div>
       </header>
 
-      <main className="flex-1 max-w-2xl mx-auto w-full pb-24">
-        {/* Hero Image */}
+      <div className="flex-1 pb-20 relative z-10">
+        {/* Hero Section */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <div className="px-4 py-4">
-            <div className="relative h-56 w-full overflow-hidden rounded-xl shadow-2xl group">
-              <img 
-                alt="Sports Nutrition" 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
-              <div className="absolute bottom-4 right-4">
-                <span className="bg-primary px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider inline-block">
-                  <ShinyText text="دليل شامل" disabled={false} speed={3} className="text-white" />
+          <div className="max-w-5xl mx-auto px-4 pt-6">
+            <div
+              className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-3xl min-h-[280px] md:min-h-[360px] relative group shadow-2xl border border-white/10"
+              style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1200&q=80")' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/50 to-transparent"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-[#ff928a]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="relative p-8 z-10">
+                <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-[#ff928a] to-[#00fcca] text-white text-xs font-bold rounded-full mb-4 shadow-lg">
+                  <ShinyText text="الموسوعة الشاملة للتغذية الرياضية" disabled={false} speed={3} className="text-white" />
                 </span>
+                <h1 className="text-3xl md:text-5xl font-extrabold leading-tight text-white mb-3 max-w-xl animate-text-glow" style={{ fontFamily: 'var(--font-heading)' }}>
+                  علم تغذية الرياضيين
+                </h1>
+                <p className="text-[#adaaaa] text-sm md:text-base max-w-lg leading-relaxed">
+                  دليل متكامل يغطي المغذيات الكبرى والصغرى، الفيتامينات والمعادن، بتفاصيل الفائدة والجرعة وأفضل المصادر لكل عنصر.
+                </p>
               </div>
+            </div>
+          </div>
+        </FadeContent>
+
+        {/* Quick Stats Grid */}
+        <FadeContent blur={true} duration={1000} initialOpacity={0}>
+          <div className="max-w-5xl mx-auto px-4 mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {[
+                { icon: 'nutrition', label: 'المغذيات الكبرى', value: '4', color: '#ff928a' },
+                { icon: 'science', label: 'الفيتامينات', value: '13', color: '#00fcca' },
+                { icon: 'diamond', label: 'المعادن', value: '11', color: '#e08dff' },
+                { icon: 'water_drop', label: 'الترطيب', value: 'H₂O', color: '#00fcca' }
+              ].map((stat, i) => (
+                <div key={i} className="web-card !bg-[#131313] p-4 text-center group stagger-item">
+                  <span className="material-symbols-outlined text-2xl mb-2 block transition-transform group-hover:scale-110" style={{ color: stat.color, fontVariationSettings: "'FILL' 1" }}>{stat.icon}</span>
+                  <p className="text-xl font-black text-white font-mono">{stat.value}</p>
+                  <p className="text-[10px] text-[#adaaaa] uppercase tracking-widest mt-1">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
         </FadeContent>
 
         {/* Navigation Tabs */}
         <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <div className="px-4 mb-6">
-            <div className="flex border-b border-primary/20 overflow-x-auto no-scrollbar">
-              <button className="border-b-2 border-primary px-4 py-3 text-sm font-bold text-primary shrink-0">المغذيات</button>
-              <button onClick={() => navigate('/nutrition/calculator')} className="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-slate-500 dark:text-slate-400 shrink-0 hover:text-primary transition-colors">حساب الطاقة</button>
-              <button onClick={() => navigate('/nutrition/systems')} className="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-slate-500 dark:text-slate-400 shrink-0 hover:text-primary transition-colors">الأنظمة الغذائية</button>
+          <div className="max-w-5xl mx-auto px-4 mt-8">
+            <div className="flex border-b border-white/10 overflow-x-auto no-scrollbar">
+              <button className="border-b-2 border-[#ff928a] px-4 py-3 text-sm font-bold text-[#ff928a] shrink-0">المغذيات</button>
+              <button onClick={() => navigate('/nutrition/calculator')} className="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-[#adaaaa] shrink-0 hover:text-white transition-colors">حساب الطاقة</button>
+              <button onClick={() => navigate('/nutrition/systems')} className="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-[#adaaaa] shrink-0 hover:text-white transition-colors">الأنظمة الغذائية</button>
             </div>
           </div>
         </FadeContent>
 
-        {/* Macronutrients Section */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="px-4 space-y-4 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="material-symbols-outlined text-primary">nutrition</span>
-              المغذيات الكبرى (Macros)
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <SpotlightCard className="p-4 rounded-xl border-r-4 border-r-orange-500 bg-primary/5 border border-primary/10" spotlightColor="rgba(249, 115, 22, 0.15)">
-                <div className="w-full h-24 rounded-lg overflow-hidden mb-3">
-                  <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80" alt="Carbohydrates" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex justify-between items-start mb-2">
-                  <span className="material-symbols-outlined text-orange-500">bakery_dining</span>
-                  <span className="text-xs font-bold text-orange-500">4 سعرات/جم</span>
-                </div>
-                <h3 className="font-bold text-slate-900 dark:text-white">الكربوهيدرات</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">المصدر الأساسي للطاقة وتحويل الغليكوجين في العضلات.</p>
-              </SpotlightCard>
-              
-              <SpotlightCard className="p-4 rounded-xl border-r-4 border-r-blue-500 bg-primary/5 border border-primary/10" spotlightColor="rgba(59, 130, 246, 0.15)">
-                <div className="w-full h-24 rounded-lg overflow-hidden mb-3">
-                  <img src="https://images.unsplash.com/photo-1529863149613-51b27f74243c?auto=format&fit=crop&w=400&q=80" alt="Proteins" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex justify-between items-start mb-2">
-                  <span className="material-symbols-outlined text-blue-500">egg_alt</span>
-                  <span className="text-xs font-bold text-blue-500">4 سعرات/جم</span>
-                </div>
-                <h3 className="font-bold text-slate-900 dark:text-white">البروتينات</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">بناء الأنسجة العضلية وترميمها بعد المجهود البدني.</p>
-              </SpotlightCard>
+        <div className="max-w-5xl mx-auto px-4 mt-10 space-y-12">
 
-              <SpotlightCard className="p-4 rounded-xl border-r-4 border-r-yellow-500 bg-primary/5 border border-primary/10" spotlightColor="rgba(234, 179, 8, 0.15)">
-                <div className="w-full h-24 rounded-lg overflow-hidden mb-3">
-                  <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" alt="Fats" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex justify-between items-start mb-2">
-                  <span className="material-symbols-outlined text-yellow-500">opacity</span>
-                  <span className="text-xs font-bold text-yellow-500">9 سعرات/جم</span>
-                </div>
-                <h3 className="font-bold text-slate-900 dark:text-white">الدهون</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">تنظيم الهرمونات وتوفير طاقة مستدامة للتمارين الطويلة.</p>
-              </SpotlightCard>
-            </div>
-          </section>
-        </FadeContent>
-
-        {/* Classification Info */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <div className="px-4 mb-8">
-            <div className="bg-primary/10 p-4 rounded-xl border border-primary/20">
-              <h3 className="text-primary font-bold mb-2">تصنيف المغذيات</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center gap-2">
-                  <span className="size-2 bg-primary rounded-full"></span>
-                  <p><span className="font-bold">المغذيات الكبرى:</span> تُقاس بالجرام.</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="size-2 bg-primary rounded-full"></span>
-                  <p><span className="font-bold">المغذيات الصغرى:</span> فيتامينات ومعادن (ملجم/ميكروجم).</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="size-2 bg-blue-400 rounded-full"></span>
-                  <p><span className="font-bold">الماء:</span> العنصر الحيوي لترطيب الخلايا والأداء البدني.</p>
-                </div>
+          {/* ═══════════════════════════════════════ */}
+          {/* SECTION 1: MACRONUTRIENTS */}
+          {/* ═══════════════════════════════════════ */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-[#ff928a]/10 flex items-center justify-center">
+                <span className="material-symbols-outlined text-xl text-[#ff928a]" style={{ fontVariationSettings: "'FILL' 1" }}>nutrition</span>
+              </div>
+              <div>
+                <h2 className="text-2xl font-black text-white" style={{ fontFamily: 'var(--font-heading)' }}>المغذيات الكبرى (Macronutrients)</h2>
+                <p className="text-xs text-[#adaaaa] mt-1">الكربوهيدرات، البروتينات، الدهون، والماء — العناصر المطلوبة بكميات كبيرة يومياً</p>
               </div>
             </div>
-          </div>
-        </FadeContent>
+          </FadeContent>
 
-        {/* Energy Calculations */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="px-4 space-y-4 mb-8">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary">calculate</span>
+          {/* Macro Cards Overview */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <SpotlightCard className="p-5 rounded-2xl border-r-4 border-r-orange-500 bg-[#131313] border border-white/5" spotlightColor="rgba(249, 115, 22, 0.15)">
+                <div className="flex justify-between items-start mb-3">
+                  <span className="material-symbols-outlined text-orange-500 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>bakery_dining</span>
+                  <span className="text-xs font-bold text-orange-500 bg-orange-500/10 px-2 py-1 rounded-md">4 سعرات/جم</span>
+                </div>
+                <h3 className="font-bold text-white text-lg">الكربوهيدرات</h3>
+                <p className="text-xs text-[#adaaaa] mt-1 leading-relaxed">وقود الجسم الأول. تُخزن كغليكوجين وتوفر الطاقة الفورية للتمارين عالية الشدة.</p>
+                <div className="mt-3 text-[10px] text-orange-500 font-bold">3-12 جم/كجم/يوم حسب النشاط</div>
+              </SpotlightCard>
+              
+              <SpotlightCard className="p-5 rounded-2xl border-r-4 border-r-blue-500 bg-[#131313] border border-white/5" spotlightColor="rgba(59, 130, 246, 0.15)">
+                <div className="flex justify-between items-start mb-3">
+                  <span className="material-symbols-outlined text-blue-500 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>egg_alt</span>
+                  <span className="text-xs font-bold text-blue-500 bg-blue-500/10 px-2 py-1 rounded-md">4 سعرات/جم</span>
+                </div>
+                <h3 className="font-bold text-white text-lg">البروتينات</h3>
+                <p className="text-xs text-[#adaaaa] mt-1 leading-relaxed">لبنة البناء العضلي. تصنع الإنزيمات والهرمونات وتدعم المناعة والتعافي.</p>
+                <div className="mt-3 text-[10px] text-blue-500 font-bold">1.6-2.2 جم/كجم/يوم للرياضيين</div>
+              </SpotlightCard>
+
+              <SpotlightCard className="p-5 rounded-2xl border-r-4 border-r-yellow-500 bg-[#131313] border border-white/5" spotlightColor="rgba(234, 179, 8, 0.15)">
+                <div className="flex justify-between items-start mb-3">
+                  <span className="material-symbols-outlined text-yellow-500 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>opacity</span>
+                  <span className="text-xs font-bold text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded-md">9 سعرات/جم</span>
+                </div>
+                <h3 className="font-bold text-white text-lg">الدهون</h3>
+                <p className="text-xs text-[#adaaaa] mt-1 leading-relaxed">وقود التحمل ومنظم الهرمونات. ضرورية لامتصاص الفيتامينات وصحة الأغشية.</p>
+                <div className="mt-3 text-[10px] text-yellow-500 font-bold">20-35% من إجمالي السعرات</div>
+              </SpotlightCard>
+            </div>
+          </FadeContent>
+
+          {renderSections(macroSections, expandedMacro, setExpandedMacro, 'macro')}
+
+          {/* ═══════════════════════════════════════ */}
+          {/* SECTION 2: VITAMINS */}
+          {/* ═══════════════════════════════════════ */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <div className="flex items-center gap-3 mb-6 mt-4">
+              <div className="w-10 h-10 rounded-xl bg-[#00fcca]/10 flex items-center justify-center">
+                <span className="material-symbols-outlined text-xl text-[#00fcca]" style={{ fontVariationSettings: "'FILL' 1" }}>science</span>
+              </div>
+              <div>
+                <h2 className="text-2xl font-black text-white" style={{ fontFamily: 'var(--font-heading)' }}>الفيتامينات (Vitamins)</h2>
+                <p className="text-xs text-[#adaaaa] mt-1">13 فيتامين أساسي: 4 ذائبة في الدهون و 9 ذائبة في الماء — محفزات كيميائية لا غنى عنها</p>
+              </div>
+            </div>
+          </FadeContent>
+
+          {/* Vitamin Classification Info */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <div className="bg-[#131313] p-5 rounded-2xl border border-white/5 relative overflow-hidden mb-6">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-[#00fcca]/10 rounded-full blur-3xl pointer-events-none"></div>
+              <h3 className="text-[#00fcca] font-bold mb-3">هل تعلم؟</h3>
+              <p className="text-[#adaaaa] text-sm leading-[1.9]">
+                الفيتامينات الذائبة في الدهون (A, D, E, K) تُخزَّن في الكبد والأنسجة الدهنية لأسابيع — لذلك الإفراط فيها قد يُسبب التسمم! أما الذائبة في الماء (B المركب و C) فتُطرح يومياً عبر البول — لذلك يجب تجديدها يومياً من الغذاء. الرياضيون يحتاجون فيتامينات أكثر بنسبة 20-100% مقارنة بغير الرياضيين بسبب زيادة معدل الأيض والإجهاد التأكسدي والتعرق.
+              </p>
+            </div>
+          </FadeContent>
+
+          {renderSections(vitaminSections, expandedVitamin, setExpandedVitamin, 'vitamin')}
+
+          {/* ═══════════════════════════════════════ */}
+          {/* SECTION 3: MINERALS */}
+          {/* ═══════════════════════════════════════ */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <div className="flex items-center gap-3 mb-6 mt-4">
+              <div className="w-10 h-10 rounded-xl bg-[#e08dff]/10 flex items-center justify-center">
+                <span className="material-symbols-outlined text-xl text-[#e08dff]" style={{ fontVariationSettings: "'FILL' 1" }}>diamond</span>
+              </div>
+              <div>
+                <h2 className="text-2xl font-black text-white" style={{ fontFamily: 'var(--font-heading)' }}>المعادن (Minerals)</h2>
+                <p className="text-xs text-[#adaaaa] mt-1">11 معدن أساسي: 5 كبرى و 6 صغرى — هيكل العظام وشرارة العضلات</p>
+              </div>
+            </div>
+          </FadeContent>
+
+          {renderSections(mineralSections, expandedMineral, setExpandedMineral, 'mineral')}
+
+          {/* ═══════════════════════════════════════ */}
+          {/* SECTION 4: ENERGY CALCULATIONS */}
+          {/* ═══════════════════════════════════════ */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <section className="space-y-4">
+              <h2 className="text-xl font-bold text-white flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)' }}>
+                <span className="material-symbols-outlined text-[#00fcca]">calculate</span>
                 حسابات الطاقة والتمثيل الغذائي
               </h2>
-            </div>
-            
-            <Link to="/nutrition/calculator" className="bg-primary text-white rounded-xl p-4 flex gap-4 items-center block hover:bg-primary/90 transition-colors shadow-md shadow-primary/20 mb-4">
-              <div className="size-12 bg-white/20 rounded-full flex items-center justify-center shrink-0">
-                <span className="material-symbols-outlined text-2xl text-white">calculate</span>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-lg">حاسبة الطاقة الذكية</h3>
-                <p className="text-xs text-white/80">احسب احتياجك اليومي من السعرات الحرارية بدقة</p>
-              </div>
-              <span className="material-symbols-outlined text-white/50">arrow_back_ios</span>
-            </Link>
-
-            <div className="bg-white dark:bg-background-dark border border-black/5 dark:border-white/5 rounded-xl overflow-hidden shadow-sm">
-              <div className="p-4 bg-slate-50 dark:bg-white/5 border-b border-black/5 dark:border-white/5">
-                <h3 className="font-bold">مكونات استهلاك الطاقة اليومي (TEE)</h3>
-              </div>
-              <div className="w-full h-36 overflow-hidden border-b border-black/5 dark:border-white/5">
-                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="Energy Expenditure Metabolism" className="w-full h-full object-cover" />
-              </div>
-              <div className="p-4 space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                    <span className="text-primary font-bold">60%</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold">BMR (معدل الأيض الأساسي)</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">الطاقة المستهلكة في وقت الراحة (Harris-Benedict / Mifflin).</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                    <span className="text-primary font-bold">10%</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold">TEF (التأثير الحراري للطعام)</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">الطاقة اللازمة لهضم وامتصاص الغذاء.</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                    <span className="text-primary font-bold">30%</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold">PAL (مستوى النشاط البدني)</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">عامل ضرب النشاط (1.2 خامل إلى 2.0 رياضي محترف).</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </FadeContent>
-
-        {/* Body Types */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="px-4 space-y-4 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">أنماط الجسم وتوزيع المغذيات</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <SpotlightCard className="p-4 rounded-xl text-center bg-primary/5 border border-primary/10" spotlightColor="rgba(115, 17, 212, 0.15)">
-                <span className="material-symbols-outlined text-primary mb-2">person_outline</span>
-                <h4 className="font-bold text-sm">Ectomorph</h4>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-2">نحيف، حرق سريع</p>
-                <div className="bg-primary/20 px-2 py-1 rounded text-[10px] font-bold text-primary dark:text-white">55% كربوهيدرات</div>
-              </SpotlightCard>
               
-              <SpotlightCard className="p-4 rounded-xl text-center bg-primary/5 border-primary/40 ring-1 ring-primary/40" spotlightColor="rgba(115, 17, 212, 0.15)">
-                <span className="material-symbols-outlined text-primary mb-2">accessibility_new</span>
-                <h4 className="font-bold text-sm">Mesomorph</h4>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-2">عضلي، حرق متوازن</p>
-                <div className="bg-primary/20 px-2 py-1 rounded text-[10px] font-bold text-primary dark:text-white">40% كربوهيدرات</div>
-              </SpotlightCard>
-              
-              <SpotlightCard className="p-4 rounded-xl text-center bg-primary/5 border border-primary/10" spotlightColor="rgba(115, 17, 212, 0.15)">
-                <span className="material-symbols-outlined text-primary mb-2">person_add</span>
-                <h4 className="font-bold text-sm">Endomorph</h4>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-2">ممتلئ، حرق بطيء</p>
-                <div className="bg-primary/20 px-2 py-1 rounded text-[10px] font-bold text-primary dark:text-white">25% كربوهيدرات</div>
-              </SpotlightCard>
-            </div>
-          </section>
-        </FadeContent>
+              <Link to="/nutrition/calculator" className="bg-gradient-to-r from-[#00fcca] to-[#00d0a8] text-[#0e0e0e] rounded-2xl p-5 flex gap-4 items-center block hover:opacity-90 transition-opacity shadow-[0_0_30px_rgba(0,252,202,0.2)] mb-6">
+                <div className="size-12 bg-[#0e0e0e]/10 rounded-full flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-2xl text-[#0e0e0e]">calculate</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-lg">حاسبة الطاقة الذكية</h3>
+                  <p className="text-xs text-[#0e0e0e]/80 font-medium">احسب احتياجك اليومي من السعرات الحرارية بدقة</p>
+                </div>
+                <span className="material-symbols-outlined text-[#0e0e0e]/50">arrow_back_ios</span>
+              </Link>
 
-        {/* Portion Sizes */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="px-4 space-y-4 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">تقدير الحصص باليد</h2>
-            <div className="w-full aspect-[21/9] rounded-xl overflow-hidden mb-3 border border-primary/10 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=600&q=80" alt="Healthy portions estimation" className="w-full h-full object-cover" />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <SpotlightCard className="flex items-center gap-3 p-3 bg-primary/5 border border-primary/10 rounded-lg" spotlightColor="rgba(115, 17, 212, 0.15)">
-                <span className="material-symbols-outlined text-primary">front_hand</span>
-                <div>
-                  <p className="text-xs font-bold">راحة اليد</p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400">حصص البروتين</p>
+              <div className="bg-[#131313] border border-white/5 rounded-2xl overflow-hidden shadow-sm">
+                <div className="p-4 border-b border-white/5">
+                  <h3 className="font-bold text-white">مكونات استهلاك الطاقة اليومي (TEE)</h3>
                 </div>
-              </SpotlightCard>
-              <SpotlightCard className="flex items-center gap-3 p-3 bg-primary/5 border border-primary/10 rounded-lg" spotlightColor="rgba(115, 17, 212, 0.15)">
-                <span className="material-symbols-outlined text-primary">back_hand</span>
-                <div>
-                  <p className="text-xs font-bold">قبضة اليد</p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400">حصص النشويات</p>
+                <div className="p-5 space-y-5">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-xl bg-[#ff928a]/10 flex items-center justify-center shrink-0 border border-[#ff928a]/20">
+                      <span className="text-[#ff928a] font-black">60%</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-white">BMR (معدل الأيض الأساسي)</p>
+                      <p className="text-xs text-[#adaaaa] mt-1">الطاقة المستهلكة في وقت الراحة (Harris-Benedict / Mifflin).</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-xl bg-[#ff928a]/10 flex items-center justify-center shrink-0 border border-[#ff928a]/20">
+                      <span className="text-[#ff928a] font-black">10%</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-white">TEF (التأثير الحراري للطعام)</p>
+                      <p className="text-xs text-[#adaaaa] mt-1">الطاقة اللازمة لهضم وامتصاص الغذاء.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-xl bg-[#ff928a]/10 flex items-center justify-center shrink-0 border border-[#ff928a]/20">
+                      <span className="text-[#ff928a] font-black">30%</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-white">PAL (مستوى النشاط البدني)</p>
+                      <p className="text-xs text-[#adaaaa] mt-1">عامل ضرب النشاط (1.2 خامل إلى 2.0 رياضي محترف).</p>
+                    </div>
+                  </div>
                 </div>
-              </SpotlightCard>
-              <SpotlightCard className="flex items-center gap-3 p-3 bg-primary/5 border border-primary/10 rounded-lg" spotlightColor="rgba(115, 17, 212, 0.15)">
-                <span className="material-symbols-outlined text-primary">thumb_up</span>
-                <div>
-                  <p className="text-xs font-bold">الإبهام</p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400">حصص الدهون</p>
-                </div>
-              </SpotlightCard>
-              <SpotlightCard className="flex items-center gap-3 p-3 bg-primary/5 border border-primary/10 rounded-lg" spotlightColor="rgba(115, 17, 212, 0.15)">
-                <span className="material-symbols-outlined text-primary">pan_tool_alt</span>
-                <div>
-                  <p className="text-xs font-bold">كفة اليد</p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400">الخضروات</p>
-                </div>
-              </SpotlightCard>
-            </div>
-          </section>
-        </FadeContent>
+              </div>
+            </section>
+          </FadeContent>
 
-        {/* Interactive Meal Planning Outline */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="px-4 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">خارطة تخطيط الوجبات</h2>
-            <div className="space-y-2">
-              <details className="bg-slate-50 dark:bg-white/5 rounded-lg overflow-hidden group border border-black/5 dark:border-white/5">
-                <summary className="p-4 cursor-pointer font-bold list-none flex justify-between items-center group-open:bg-primary/10 dark:group-open:bg-primary/20">
-                  <span>1. أساسيات التغذية</span>
-                  <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
-                </summary>
-                <div className="p-4 text-sm text-slate-600 dark:text-slate-400 bg-white dark:bg-transparent">تعلم الفرق بين السعرات الحرارية والقيمة الغذائية وكيفية قراءة الملصقات الغذائية.</div>
-              </details>
+          {/* ═══════════════════════════════════════ */}
+          {/* SECTION 5: BODY TYPES */}
+          {/* ═══════════════════════════════════════ */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <section className="space-y-4">
+              <h2 className="text-xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>أنماط الجسم وتوزيع المغذيات</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <SpotlightCard className="p-5 rounded-2xl text-center bg-[#131313] border border-white/5" spotlightColor="rgba(224, 141, 255, 0.15)">
+                  <span className="material-symbols-outlined text-[#e08dff] mb-3 text-3xl">person_outline</span>
+                  <h4 className="font-bold text-sm text-white">Ectomorph</h4>
+                  <p className="text-[10px] text-[#adaaaa] mb-3">نحيف، حرق سريع</p>
+                  <div className="space-y-1.5 text-[10px] text-[#adaaaa]">
+                    <div className="bg-orange-500/10 px-3 py-1.5 rounded-lg font-bold text-orange-500">55% كربوهيدرات</div>
+                    <div className="bg-blue-500/10 px-3 py-1.5 rounded-lg font-bold text-blue-500">25% بروتين</div>
+                    <div className="bg-yellow-500/10 px-3 py-1.5 rounded-lg font-bold text-yellow-500">20% دهون</div>
+                  </div>
+                </SpotlightCard>
+                
+                <SpotlightCard className="p-5 rounded-2xl text-center bg-[#131313] border border-white/5" spotlightColor="rgba(224, 141, 255, 0.15)">
+                  <span className="material-symbols-outlined text-[#e08dff] mb-3 text-3xl">accessibility_new</span>
+                  <h4 className="font-bold text-sm text-white">Mesomorph</h4>
+                  <p className="text-[10px] text-[#adaaaa] mb-3">عضلي، حرق متوازن</p>
+                  <div className="space-y-1.5 text-[10px] text-[#adaaaa]">
+                    <div className="bg-orange-500/10 px-3 py-1.5 rounded-lg font-bold text-orange-500">40% كربوهيدرات</div>
+                    <div className="bg-blue-500/10 px-3 py-1.5 rounded-lg font-bold text-blue-500">30% بروتين</div>
+                    <div className="bg-yellow-500/10 px-3 py-1.5 rounded-lg font-bold text-yellow-500">30% دهون</div>
+                  </div>
+                </SpotlightCard>
+                
+                <SpotlightCard className="p-5 rounded-2xl text-center bg-[#131313] border border-white/5" spotlightColor="rgba(224, 141, 255, 0.15)">
+                  <span className="material-symbols-outlined text-[#e08dff] mb-3 text-3xl">person_add</span>
+                  <h4 className="font-bold text-sm text-white">Endomorph</h4>
+                  <p className="text-[10px] text-[#adaaaa] mb-3">ممتلئ، حرق بطيء</p>
+                  <div className="space-y-1.5 text-[10px] text-[#adaaaa]">
+                    <div className="bg-orange-500/10 px-3 py-1.5 rounded-lg font-bold text-orange-500">25% كربوهيدرات</div>
+                    <div className="bg-blue-500/10 px-3 py-1.5 rounded-lg font-bold text-blue-500">35% بروتين</div>
+                    <div className="bg-yellow-500/10 px-3 py-1.5 rounded-lg font-bold text-yellow-500">40% دهون</div>
+                  </div>
+                </SpotlightCard>
+              </div>
+            </section>
+          </FadeContent>
 
-              <details className="bg-slate-50 dark:bg-white/5 rounded-lg overflow-hidden group border border-black/5 dark:border-white/5">
-                <summary className="p-4 cursor-pointer font-bold list-none flex justify-between items-center group-open:bg-primary/10 dark:group-open:bg-primary/20">
-                  <span>3. خرافات الأنظمة الغذائية</span>
-                  <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
-                </summary>
-                <div className="p-4 text-sm text-slate-600 dark:text-slate-400 bg-white dark:bg-transparent">الحقيقة وراء الديتوكس، قطع الكربوهيدرات، والمكملات السحرية.</div>
-              </details>
-            </div>
-          </section>
-        </FadeContent>
+          {/* ═══════════════════════════════════════ */}
+          {/* SECTION 6: PORTION SIZES */}
+          {/* ═══════════════════════════════════════ */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <section className="space-y-4">
+              <h2 className="text-xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>تقدير الحصص باليد</h2>
+              <div className="grid grid-cols-2 gap-3">
+                <SpotlightCard className="flex items-center gap-3 p-4 bg-[#131313] border border-white/5 rounded-2xl" spotlightColor="rgba(0, 252, 202, 0.15)">
+                  <span className="material-symbols-outlined text-[#00fcca]">front_hand</span>
+                  <div>
+                    <p className="text-sm font-bold text-white">راحة اليد</p>
+                    <p className="text-[10px] text-[#adaaaa]">حصة بروتين (20-30 جم)</p>
+                  </div>
+                </SpotlightCard>
+                <SpotlightCard className="flex items-center gap-3 p-4 bg-[#131313] border border-white/5 rounded-2xl" spotlightColor="rgba(0, 252, 202, 0.15)">
+                  <span className="material-symbols-outlined text-[#00fcca]">back_hand</span>
+                  <div>
+                    <p className="text-sm font-bold text-white">قبضة اليد</p>
+                    <p className="text-[10px] text-[#adaaaa]">حصة نشويات (30-40 جم)</p>
+                  </div>
+                </SpotlightCard>
+                <SpotlightCard className="flex items-center gap-3 p-4 bg-[#131313] border border-white/5 rounded-2xl" spotlightColor="rgba(0, 252, 202, 0.15)">
+                  <span className="material-symbols-outlined text-[#00fcca]">thumb_up</span>
+                  <div>
+                    <p className="text-sm font-bold text-white">الإبهام</p>
+                    <p className="text-[10px] text-[#adaaaa]">حصة دهون (7-12 جم)</p>
+                  </div>
+                </SpotlightCard>
+                <SpotlightCard className="flex items-center gap-3 p-4 bg-[#131313] border border-white/5 rounded-2xl" spotlightColor="rgba(0, 252, 202, 0.15)">
+                  <span className="material-symbols-outlined text-[#00fcca]">pan_tool_alt</span>
+                  <div>
+                    <p className="text-sm font-bold text-white">كفة اليد</p>
+                    <p className="text-[10px] text-[#adaaaa]">الخضروات (حرة الكمية)</p>
+                  </div>
+                </SpotlightCard>
+              </div>
+            </section>
+          </FadeContent>
 
-        {/* Smart Tip CTA */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <div className="px-4 mb-8">
-            <div className="bg-gradient-to-r from-primary to-purple-800 p-6 rounded-2xl shadow-lg relative overflow-hidden">
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-white">lightbulb</span>
-                  <h3 className="text-white font-bold">نصيحة ذكية</h3>
-                </div>
-                <p className="text-white/90 text-sm leading-relaxed mb-4">
-                  تخطيط الوجبات المسبق (Meal Prep) هو المفتاح الحقيقي للاستمرارية. ابدأ بتجهيز وجبتين ليوم غدٍ وستلاحظ الفرق في طاقتك والتزامك.
+          {/* ═══════════════════════════════════════ */}
+          {/* HIGHLIGHT CALLOUT */}
+          {/* ═══════════════════════════════════════ */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <div className="bg-gradient-to-br from-[#00fcca]/20 to-[#0e0e0e] rounded-3xl p-8 md:p-10 relative overflow-hidden border border-[#00fcca]/30 flex flex-col md:flex-row items-center gap-6 shadow-[0_10px_40px_rgba(0,252,202,0.1)]">
+              <div className="w-20 h-20 rounded-full bg-[#00fcca]/20 flex items-center justify-center shrink-0 border border-[#00fcca]/50 shadow-[0_0_30px_rgba(0,252,202,0.3)]">
+                <span className="material-symbols-outlined text-4xl text-[#00fcca]">auto_awesome</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">القاعدة الذهبية للتغذية الرياضية</h3>
+                <p className="text-[#adaaaa] text-sm leading-relaxed italic border-r-2 border-[#00fcca] pr-4 mt-2">
+                  "لا يوجد مكمل غذائي يُعوّض عن نظام غذائي سيئ! 90% من نتائجك تأتي من الطعام الحقيقي الكامل: البروتين الكافي، الكربوهيدرات في التوقيت الصحيح، الدهون الصحية، والترطيب المستمر. المكملات هي الـ 10% الأخيرة — وليست البداية."
                 </p>
-                <button className="bg-white text-primary px-6 py-2 rounded-full text-sm font-bold shadow-md hover:bg-slate-100 transition-colors">ابدأ الآن</button>
-              </div>
-              <span className="material-symbols-outlined absolute -bottom-4 -left-4 text-white/10 text-9xl">tips_and_updates</span>
-            </div>
-          </div>
-        </FadeContent>
-
-        {/* Healthy Limits Footer Info */}
-        <FadeContent blur={true} duration={1000} initialOpacity={0}>
-          <section className="px-4 mb-12">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 border border-black/10 dark:border-white/10 rounded-xl bg-slate-50 dark:bg-white/5">
-                <p className="text-xs text-slate-500 dark:text-slate-400">السكر المضاف</p>
-                <p className="text-lg font-bold text-red-500 dark:text-red-400">&lt; 10%</p>
-              </div>
-              <div className="p-4 border border-black/10 dark:border-white/10 rounded-xl bg-slate-50 dark:bg-white/5">
-                <p className="text-xs text-slate-500 dark:text-slate-400">الصوديوم اليومي</p>
-                <p className="text-lg font-bold text-yellow-600 dark:text-yellow-400">2300mg</p>
               </div>
             </div>
-            <div className="mt-4 p-4 border border-primary/20 rounded-xl bg-primary/5 text-center">
-              <p className="text-sm font-bold">النشاط البدني الموصى به</p>
-              <p className="text-primary font-bold text-xl">150 - 300 دقيقة / أسبوع</p>
-            </div>
-          </section>
-        </FadeContent>
-      </main>
+          </FadeContent>
 
+          {/* Healthy Limits Footer Info */}
+          <FadeContent blur={true} duration={1000} initialOpacity={0}>
+            <section className="mb-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-5 border border-white/5 rounded-2xl bg-[#131313] text-center">
+                  <p className="text-xs text-[#adaaaa] mb-1">السكر المضاف</p>
+                  <p className="text-xl font-black text-[#ff928a]">&lt; 10%</p>
+                </div>
+                <div className="p-5 border border-white/5 rounded-2xl bg-[#131313] text-center">
+                  <p className="text-xs text-[#adaaaa] mb-1">الصوديوم اليومي</p>
+                  <p className="text-xl font-black text-[#e08dff]">2300mg</p>
+                </div>
+              </div>
+              <div className="mt-4 p-5 border border-[#00fcca]/20 rounded-2xl bg-[#00fcca]/5 text-center shadow-[0_0_20px_rgba(0,252,202,0.05)]">
+                <p className="text-sm font-bold text-white mb-1">النشاط البدني الموصى به</p>
+                <p className="text-[#00fcca] font-black text-2xl font-mono">150 - 300<span className="text-sm mr-2 font-body text-[#00fcca]/80">دقيقة / أسبوع</span></p>
+              </div>
+            </section>
+          </FadeContent>
 
+        </div>
+      </div>
     </div>
   );
 }

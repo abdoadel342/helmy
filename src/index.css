@@ -35,6 +35,8 @@
   }
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ══════════════════════════════════════════════════════════
    🔤 TYPOGRAPHY SYSTEM
    ══════════════════════════════════════════════════════════ */
@@ -48,8 +50,6 @@
 body {
   font-family: var(--font-body);
   direction: rtl;
-  background: #0f172a;
-  color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './AuthContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -26,17 +26,9 @@ import FatLossPlan from './pages/FatLossPlan';
 import Recipes from './pages/Recipes';
 import AI from './pages/AI';
 import Telemetry from './pages/Telemetry';
+import Team from './pages/Team';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
-import StartingBlock from './pages/StartingBlock';
-import MaxSpeed from './pages/MaxSpeed';
-import ExplosivePower from './pages/ExplosivePower';
-import SpeedEndurance from './pages/SpeedEndurance';
-import AgilityTraining from './pages/AgilityTraining';
-import BalanceTraining from './pages/BalanceTraining';
-import NeuromuscularCoordination from './pages/NeuromuscularCoordination';
-import PlyometricsTraining from './pages/PlyometricsTraining';
-import ShortSprints from './pages/ShortSprints';
 import DarkVeil from './components/react-bits/DarkVeil';
 import KidsTraining from './pages/KidsTraining';
 
@@ -87,6 +79,16 @@ import MuscleStrengthBuilder from './pages/MuscleStrengthBuilder';
 import MuscleBuilding from './pages/MuscleBuilding';
 import FatLossProgram from './pages/FatLossProgram';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <AuthProvider>
@@ -101,6 +103,7 @@ export default function App() {
         />
       </div>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
@@ -117,15 +120,6 @@ export default function App() {
             <Route path="education/psychology" element={<Psychology />} />
             <Route path="education/training" element={<Training />} />
             <Route path="education/training/speed" element={<SpeedProgram />} />
-            <Route path="education/training/speed/starting-block" element={<StartingBlock />} />
-            <Route path="education/training/speed/max-speed" element={<MaxSpeed />} />
-            <Route path="education/training/speed/explosive-power" element={<ExplosivePower />} />
-            <Route path="education/training/speed/speed-endurance" element={<SpeedEndurance />} />
-            <Route path="education/training/speed/agility" element={<AgilityTraining />} />
-            <Route path="education/training/speed/balance" element={<BalanceTraining />} />
-            <Route path="education/training/speed/coordination" element={<NeuromuscularCoordination />} />
-            <Route path="education/training/speed/plyometrics" element={<PlyometricsTraining />} />
-            <Route path="education/training/speed/short-sprints" element={<ShortSprints />} />
             <Route path="nutrition" element={<Nutrition />} />
             <Route path="nutrition/systems" element={<DietarySystems />} />
             <Route path="nutrition/systems/mediterranean" element={<MediterraneanDiet />} />
@@ -140,6 +134,7 @@ export default function App() {
             <Route path="nutrition/recipes" element={<Recipes />} />
             <Route path="ai" element={<AI />} />
             <Route path="kids-training" element={<KidsTraining />} />
+            <Route path="team" element={<Team />} />
             <Route path="telemetry" element={<Telemetry />} />
             <Route path="settings" element={<Settings />} />
           </Route>

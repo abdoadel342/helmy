@@ -4,6 +4,7 @@ import { FadeContent } from '../components/react-bits/FadeContent';
 import { BackButton } from '../components/BackButton';
 import { useStartWorkout } from '../useStartWorkout';
 import { usePersistentState } from '../hooks/usePersistentState';
+import GradientText from '../components/react-bits/GradientText';
 
 const partsMap: Record<string, string[]> = {
   'الصدر': ['العلوي (الترقوي)', 'الأوسط (القصي)', 'السفلي (البطني)', 'الداخلي (متقاطع)'],
@@ -1983,22 +1984,32 @@ export default function MuscleStrengthBuilder() {
 
   return (
     <FadeContent blur={true} duration={600} easing="ease-out" initialOpacity={0}>
-      <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden pb-48 bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased font-display">
+      <div className="dark relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden pb-48 bg-[#0e0e0e] text-white antialiased font-display">
 
         {/* Header */}
-        <header className="flex items-center justify-between p-4 sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
-          <BackButton />
-          <h1 className="text-xl font-bold tracking-tight text-center flex-1">برنامج القوة العضلية</h1>
-          <div className="size-10"></div> {/* Spacer for symmetry */}
+        <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 mb-4 -mx-4 md:-mx-8">
+          <div className="w-10 flex justify-start"><BackButton /></div>
+          <h1 className="text-lg font-bold truncate flex-1 text-center flex justify-center">
+            <GradientText colors={['#3b82f6','#60a5fa','#3b82f6']} animationSpeed={6} showBorder={false}>
+              برنامج القوة العضلية
+            </GradientText>
+          </h1>
+          <div className="w-10"></div>
         </header>
 
         {/* Hero Section */}
-        <div className="px-4 py-6">
-          <div className="relative h-48 w-full overflow-hidden rounded-xl bg-gradient-to-br from-primary to-primary/40 p-6 flex flex-col justify-end">
-            <div className="relative z-10 font-display">
-              <span className="bg-white/20 backdrop-blur-sm text-white text-xs px-2 py-1 rounded mb-2 inline-block">مستوى متقدم</span>
-              <h2 className="text-2xl font-bold text-white leading-tight">تحدي تضخيم العضلات</h2>
-              <p className="text-white/80 text-sm">برنامج مكثف لمدة ٨ أسابيع</p>
+        <div className="rounded-3xl overflow-hidden p-6 relative shadow-2xl min-h-[180px] flex flex-col justify-end mb-8">
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop')` }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/80 to-transparent" />
+          <div className="absolute top-4 left-4 w-24 h-24 rounded-full blur-3xl" style={{ backgroundColor: '#3b82f6', opacity: 0.3 }} />
+          
+          <div className="relative z-10 flex items-end gap-4 mb-4">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shrink-0" style={{ backgroundColor: `#3b82f640`, color: '#3b82f6', backdropFilter: 'blur(8px)' }}>
+              <span className="material-symbols-outlined text-3xl">fitness_center</span>
+            </div>
+            <div className="flex-1 pb-1">
+              <h2 className="text-xl font-extrabold text-white mb-1">برنامج القوة العضلية</h2>
+              <p className="text-xs text-gray-300">منشئ التمارين المخصص</p>
             </div>
           </div>
         </div>

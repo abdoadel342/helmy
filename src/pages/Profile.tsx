@@ -5,7 +5,7 @@ import { db } from '../firebase';
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { handleFirestoreError, OperationType } from '../errorHandling';
-import { Save, Calculator, Target, TrendingUp, Activity, Flame, Utensils, ClipboardList, Trash2, Watch, Scale, Heart, Zap, Smartphone, Link2, RefreshCw, Bluetooth } from 'lucide-react';
+import { Save, Calculator, Target, TrendingUp, Activity, Flame, Utensils, ClipboardList, Trash2, Watch, Scale, Heart, Zap, Smartphone, Link2, RefreshCw, Bluetooth, BrainCircuit, CircleCheck } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { BackButton } from '../components/BackButton';
 
@@ -113,6 +113,10 @@ export default function Profile() {
 
   const [activityLog, setActivityLog] = useState<ActivityLogEntry[]>([]);
   const [loadingLog, setLoadingLog] = useState(true);
+
+  // New states for Analytics and AI Reports
+  const [performanceGoals, setPerformanceGoals] = useState<any[]>([]);
+  const [formAnalysisLogs, setFormAnalysisLogs] = useState<any[]>([]);
 
   const [devices, setDevices] = useState<ConnectedDevice[]>([]);
   const [syncingId, setSyncingId] = useState<string | null>(null);
@@ -629,8 +633,38 @@ export default function Profile() {
       }
     };
 
+    const fetchPerformanceGoals = async () => {
+      if (!user?.uid) return;
+      try {
+        const q = query(
+          collection(db, 'users', user.uid, 'performance_goals'),
+          orderBy('createdAt', 'desc')
+        );
+        const snapshot = await getDocs(q);
+        setPerformanceGoals(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      } catch (error) {
+        console.error("Error fetching performance goals:", error);
+      }
+    };
+
+    const fetchFormAnalysisLogs = async () => {
+      if (!user?.uid) return;
+      try {
+        const q = query(
+          collection(db, 'users', user.uid, 'form_analysis'),
+          orderBy('createdAt', 'desc')
+        );
+        const snapshot = await getDocs(q);
+        setFormAnalysisLogs(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      } catch (error) {
+        console.error("Error fetching form analysis logs:", error);
+      }
+    };
+
     fetchProfile();
     fetchActivityLog();
+    fetchPerformanceGoals();
+    fetchFormAnalysisLogs();
   }, [user]);
 
   const handleDeleteActivity = async (activityId: string) => {
@@ -1521,6 +1555,82 @@ export default function Profile() {
           <div className="text-center py-12 bg-zinc-900/50 rounded-2xl border border-zinc-800/50">
             <Activity className="w-12 h-12 text-zinc-600 mx-auto mb-3" />
             <p className="text-zinc-400">لا يوجد أنشطة مسجلة حتى الآن.</p>
+          </div>
+        )}
+      </div>
+
+      {/* تقارير الأداء الذكية (Form Analysis) */}
+      <div className="bg-zinc-950 p-8 rounded-3xl border border-zinc-800 mt-8">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <BrainCircuit className="w-6 h-6 text-purple-500" />
+            <h2 className="text-2xl font-bold text-white">تقارير الأداء الذكية</h2>
+          </div>
+        </div>
+
+        {formAnalysisLogs.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {formAnalysisLogs.map((log) => (
+              <div key={log.id} className="bg-zinc-900/80 border border-purple-500/10 hover:border-purple-500/30 rounded-2xl p-5 transition-all">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="text-white font-bold">{log.exercise}</h3>
+                  <span className="text-xs text-zinc-500 bg-black/40 px-2 py-1 rounded-md">{log.date}</span>
+                </div>
+                <div className="text-zinc-400 text-sm leading-relaxed whitespace-pre-wrap max-h-32 overflow-y-auto custom-scrollbar pr-2">
+                  {log.analysis}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 bg-zinc-900/50 rounded-2xl border border-zinc-800/50">
+            <BrainCircuit className="w-12 h-12 text-zinc-600 mx-auto mb-3" />
+            <p className="text-zinc-400">لا يوجد تقارير أداء محفوظة. استخدم المدرب الذكي لتحليل تمرينك.</p>
+          </div>
+        )}
+      </div>
+
+      {/* سجل أهداف الأداء (Performance Goals) */}
+      <div className="bg-zinc-950 p-8 rounded-3xl border border-zinc-800 mt-8">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <Target className="w-6 h-6 text-rose-500" />
+            <h2 className="text-2xl font-bold text-white">أهداف الأداء والتكنيك</h2>
+          </div>
+        </div>
+
+        {performanceGoals.length > 0 ? (
+          <div className="space-y-4">
+            {performanceGoals.map((goal) => (
+              <div key={goal.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
+                    goal.status === 'completed' ? 'bg-green-500/20 border-green-500/30' :
+                    goal.status === 'in-progress' ? 'bg-amber-500/20 border-amber-500/30' :
+                    'bg-red-500/20 border-red-500/30'
+                  }`}>
+                    {goal.status === 'completed' ? <CircleCheck className="w-5 h-5 text-green-500" /> :
+                     goal.status === 'in-progress' ? <Activity className="w-5 h-5 text-amber-500" /> :
+                     <Target className="w-5 h-5 text-red-500" />}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white text-lg">{goal.title}</h4>
+                    <p className="text-zinc-500 text-xs mt-1">تاريخ التسجيل: {goal.date}</p>
+                  </div>
+                </div>
+                <div className={`text-sm font-bold ${
+                  goal.status === 'completed' ? 'text-green-400' :
+                  goal.status === 'in-progress' ? 'text-amber-400' : 'text-red-400'
+                }`}>
+                  {goal.status === 'completed' ? 'مكتمل' : goal.status === 'in-progress' ? 'قيد التحسين' : 'لم يكتمل'}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 bg-zinc-900/50 rounded-2xl border border-zinc-800/50">
+            <Target className="w-12 h-12 text-zinc-600 mx-auto mb-3" />
+            <p className="text-zinc-400">لم تقم بتسجيل أي أهداف أداء حتى الآن.</p>
           </div>
         )}
       </div>

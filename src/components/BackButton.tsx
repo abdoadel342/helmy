@@ -7,6 +7,8 @@ interface BackButtonProps {
   onClick?: () => void;
 }
 
+import { ArrowRight, ArrowLeft } from 'lucide-react';
+
 export function BackButton({ className = '', onClick }: BackButtonProps) {
   const navigate = useNavigate();
   const { language } = useLanguage();
@@ -25,9 +27,7 @@ export function BackButton({ className = '', onClick }: BackButtonProps) {
       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-200 dark:bg-primary/20 text-slate-900 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-primary/30 transition-colors cursor-pointer ${className}`}
       aria-label="الرجوع"
     >
-      <span className="material-symbols-outlined">
-        {language === 'ar' ? 'arrow_forward' : 'arrow_back'}
-      </span>
+      {language === 'ar' ? <ArrowRight className="w-5 h-5" /> : <ArrowLeft className="w-5 h-5" />}
     </button>
   );
 }

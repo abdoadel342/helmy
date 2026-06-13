@@ -11,13 +11,14 @@ type Exercise = { name: string; sets: number; reps: string; rest: string; muscle
 type DayPlan = { title: string; exercises: Exercise[] };
 type ProgramType = {
   id: string; name: string; nameAr: string; desc: string; icon: string; color: string;
-  duration: string; level: string; frequency: string; cardio: string; days: DayPlan[];
+  image?: string; duration: string; level: string; frequency: string; cardio: string; days: DayPlan[];
 };
 
 const programs: ProgramType[] = [
   {
     id: 'beginner', name: 'Beginner', nameAr: 'المبتدئ', icon: 'hiking',
-    color: '#00fcca', duration: '4 أسابيع', level: 'مبتدئ', frequency: '3 أيام/أسبوع', cardio: '20 دقيقة مشي سريع',
+    color: '#00fcca', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2000&auto=format&fit=crop',
+    duration: '4 أسابيع', level: 'مبتدئ', frequency: '3 أيام/أسبوع', cardio: '20 دقيقة مشي سريع',
     desc: 'برنامج لطيف يجمع بين تمارين المقاومة والكارديو منخفض الشدة لبدء رحلة خسارة الدهون بأمان وبناء عادات تدريبية صحية.',
     days: [
       { title: 'يوم A — جسم كامل + كارديو', exercises: [
@@ -40,7 +41,8 @@ const programs: ProgramType[] = [
   },
   {
     id: 'intermediate', name: 'Intermediate', nameAr: 'المتوسط', icon: 'local_fire_department',
-    color: '#e08dff', duration: '6 أسابيع', level: 'متوسط', frequency: '4-5 أيام/أسبوع', cardio: 'HIIT + LISS',
+    color: '#e08dff', image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2000&auto=format&fit=crop',
+    duration: '6 أسابيع', level: 'متوسط', frequency: '4-5 أيام/أسبوع', cardio: 'HIIT + LISS',
     desc: 'يجمع بين تدريبات المقاومة المركبة و HIIT لتسريع عملية الأيض وحرق الدهون مع الحفاظ على الكتلة العضلية.',
     days: [
       { title: 'يوم الجزء العلوي + HIIT', exercises: [
@@ -71,7 +73,8 @@ const programs: ProgramType[] = [
   },
   {
     id: 'advanced', name: 'Advanced', nameAr: 'المتقدم', icon: 'whatshot',
-    color: '#ff6b6b', duration: '8 أسابيع', level: 'متقدم', frequency: '5-6 أيام/أسبوع', cardio: 'HIIT مكثف + تدريب دوائر',
+    color: '#ff6b6b', image: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=2000&auto=format&fit=crop',
+    duration: '8 أسابيع', level: 'متقدم', frequency: '5-6 أيام/أسبوع', cardio: 'HIIT مكثف + تدريب دوائر',
     desc: 'برنامج عالي الكثافة يجمع بين التدريب الدوائري والسوبرسيت و HIIT المكثف لتحقيق أقصى حرق للدهون والوصول لنسبة دهون منخفضة.',
     days: [
       { title: 'يوم دفع + HIIT مكثف', exercises: [
@@ -238,28 +241,32 @@ export default function FatLossProgram() {
     return (
       <FadeContent blur duration={400} easing="ease-out" initialOpacity={0}>
         <div className="relative flex flex-col min-h-screen pb-32 bg-[#0e0e0e] text-white font-display antialiased">
-          <header className="sticky top-0 z-50 flex items-center gap-4 px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5">
-            <BackButton onClick={() => setSelectedProgram(null)} />
-            <h1 className="text-lg font-bold truncate">
+          <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 mb-4 -mx-4 md:-mx-8">
+            <div className="w-10 flex justify-start"><BackButton onClick={() => setSelectedProgram(null)} /></div>
+            <h1 className="text-lg font-bold truncate flex-1 text-center flex justify-center">
               <GradientText colors={['#ff6b6b','#e08dff','#ff6b6b']} animationSpeed={6} showBorder={false}>
-                {selectedProgram.nameAr} — Fat Loss
+                {selectedProgram.nameAr}
               </GradientText>
             </h1>
+            <div className="w-10"></div>
           </header>
 
           {/* Program Info Banner */}
-          <div className="mx-4 mt-4 rounded-3xl overflow-hidden p-6 relative" style={{ background: `linear-gradient(135deg, ${selectedProgram.color}20, ${selectedProgram.color}05)` }}>
-            <div className="absolute top-4 left-4 w-24 h-24 rounded-full blur-3xl" style={{ backgroundColor: selectedProgram.color, opacity: 0.12 }} />
-            <div className="relative z-10 flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ backgroundColor: `${selectedProgram.color}20`, color: selectedProgram.color }}>
+          <div className="rounded-3xl overflow-hidden p-6 relative shadow-2xl min-h-[180px] flex flex-col justify-end mb-8">
+            <div className="absolute inset-0 bg-cover bg-center transition-all duration-500" style={{ backgroundImage: `url('${selectedProgram.image}')` }} />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/80 to-transparent" />
+            <div className="absolute top-4 left-4 w-24 h-24 rounded-full blur-3xl transition-all duration-500" style={{ backgroundColor: selectedProgram.color, opacity: 0.4 }} />
+            
+            <div className="relative z-10 flex items-end gap-4 mb-4">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shrink-0 transition-all duration-500" style={{ backgroundColor: `${selectedProgram.color}40`, color: selectedProgram.color, backdropFilter: 'blur(8px)' }}>
                 <span className="material-symbols-outlined text-3xl">{selectedProgram.icon}</span>
               </div>
-              <div>
-                <h2 className="text-xl font-extrabold">{selectedProgram.nameAr}</h2>
-                <p className="text-sm text-[#adaaaa]">{selectedProgram.name} Level</p>
+              <div className="flex-1 pb-1">
+                <h2 className="text-xl font-extrabold text-white mb-1">{selectedProgram.nameAr}</h2>
+                <p className="text-xs text-gray-300 line-clamp-2 leading-relaxed">{selectedProgram.desc}</p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="relative z-10 flex flex-wrap gap-2">
               {[
                 { icon: 'schedule', label: selectedProgram.duration },
                 { icon: 'bar_chart', label: selectedProgram.level },
@@ -594,14 +601,13 @@ export default function FatLossProgram() {
     <FadeContent blur duration={600} easing="ease-out" initialOpacity={0}>
       <div className="relative flex flex-col min-h-screen pb-32 bg-[#0e0e0e] text-white font-display antialiased">
         <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5">
-          <div className="flex items-center gap-4">
-            <BackButton />
-            <h1 className="text-xl font-extrabold">
-              <GradientText colors={['#ff6b6b','#e08dff','#ff6b6b']} animationSpeed={6} showBorder={false}>
-                برنامج خسارة الدهون
-              </GradientText>
-            </h1>
-          </div>
+          <div className="w-10 flex justify-start"><BackButton /></div>
+          <h1 className="text-xl font-extrabold truncate flex-1 text-center flex justify-center">
+            <GradientText colors={['#ff6b6b','#e08dff','#ff6b6b']} animationSpeed={6} showBorder={false}>
+              برنامج خسارة الدهون
+            </GradientText>
+          </h1>
+          <div className="w-10"></div>
         </header>
 
         {/* Hero */}

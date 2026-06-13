@@ -35,8 +35,11 @@ service cloud.firestore {
     }
 
     function isValidUserProfile(data) {
-      return data.keys().hasOnly(['uid', 'personal_info', 'calculated_nutrition', 'weightHistory', 'settings']) &&
-             data.uid is string && data.uid.size() > 0 && data.uid.size() < 100 &&
+      return data.uid is string && data.uid.size() > 0 && data.uid.size() < 100 &&
+             (!('role' in data) || data.role is string) &&
+             (!('groupId' in data) || data.groupId is string) &&
+             (!('groupName' in data) || data.groupName is string) &&
+             (!('groupCode' in data) || data.groupCode is string) &&
              (!('personal_info' in data) || (
                data.personal_info is map &&
                data.personal_info.keys().hasOnly(['user_age', 'user_weight', 'user_height', 'user_gender', 'activity_multiplier', 'training_goal']) &&
@@ -71,7 +74,7 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      allow read: if isOwner(userId);
+      allow read: if isAuthenticated();
       allow create: if isOwner(userId) && isValidUserProfile(request.resource.data) && uidUnchanged();
       allow update: if isOwner(userId) && isValidUserProfile(request.resource.data) && uidNotModified();
       allow delete: if isOwner(userId);
@@ -82,6 +85,19 @@ service cloud.firestore {
     }
 
     match /programs/{programId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    match /groups/{groupId} {
+      allow read, write: if isAuthenticated();
+    }
+    match /group_messages/{messageId} {
+      allow read, write: if isAuthenticated();
+    }
+    match /group_workouts/{workoutId} {
+      allow read, write: if isAuthenticated();
+    }
+    match /invite_codes/{codeId} {
       allow read, write: if isAuthenticated();
     }
   }

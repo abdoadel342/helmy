@@ -11,7 +11,7 @@ export const articlesData = [
     description: "الدليل التقني المتكامل للرياضيين",
     image: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80",
     path: "/education/anatomy",
-    icon: "anatomy",
+    icon: "accessibility",
     badge: "أساسي",
     badgeColor: "#ef4444"
   },

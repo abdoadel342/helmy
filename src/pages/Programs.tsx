@@ -1950,30 +1950,35 @@ export default function Programs() {
         className="space-y-6 pb-12"
       >
         {selectedProgram.program_id === 'prog_003' ? (
-          <div className="pb-12 text-[#ffffff] max-w-2xl mx-auto w-full">
-            <header className="flex items-center bg-transparent p-4 sticky top-0 z-10 border-b border-[#BF00FF]/10 mb-4 backdrop-blur-md">
-              <button onClick={() => setSelectedProgram(null)} className="flex items-center justify-center size-10 text-[#BF00FF] hover:bg-[#BF00FF]/10 rounded-full transition-colors self-start mr-2">
-                <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
-              </button>
-              <h1 className="text-white text-xl font-bold leading-tight tracking-tight flex-1 mr-4">برنامج المرونة والاستشفاء</h1>
-              <button className="flex items-center justify-center size-10 text-[#BF00FF] hover:bg-[#BF00FF]/10 rounded-full transition-colors">
-                <span className="material-symbols-outlined">share</span>
-              </button>
+          <div className="pb-12 text-[#ffffff] w-full">
+            <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 mb-4 -mx-4 md:-mx-8">
+              <div className="w-10 flex justify-start">
+                <button onClick={() => setSelectedProgram(null)} className="flex items-center justify-center size-10 text-white hover:bg-white/10 rounded-full transition-colors">
+                  <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
+                </button>
+              </div>
+              <h1 className="text-lg font-bold truncate flex-1 text-center flex justify-center">
+                <GradientText colors={['#BF00FF','#E066FF','#BF00FF']} animationSpeed={6} showBorder={false}>
+                  برنامج المرونة والاستشفاء
+                </GradientText>
+              </h1>
+              <div className="w-10"></div>
             </header>
 
             {/* Hero Section */}
             <FadeContent blur={true} duration={1000} initialOpacity={0}>
-              <div className="@container px-4 py-4">
-                <div 
-                  className="w-full aspect-video bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl relative group shadow-2xl border border-[#BF00FF]/20" 
-                  style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2000&auto=format&fit=crop")' }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e]/90 via-[#0e0e0e]/20 to-transparent"></div>
-                  <div className="relative p-6">
-                    <span className="inline-block px-3 py-1 bg-[#BF00FF] text-white text-xs font-bold rounded-full mb-2">
-                      <ShinyText text="RECOVERY PROGRAM" disabled={false} speed={3} className="text-white" />
-                    </span>
-                    <h2 className="text-white text-2xl font-bold">خطة المرونة والاستشفاء</h2>
+              <div className="rounded-3xl overflow-hidden p-6 relative shadow-2xl min-h-[180px] flex flex-col justify-end mb-8">
+                <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2000&auto=format&fit=crop')` }} />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/80 to-transparent" />
+                <div className="absolute top-4 left-4 w-24 h-24 rounded-full blur-3xl" style={{ backgroundColor: '#BF00FF', opacity: 0.3 }} />
+                
+                <div className="relative z-10 flex items-end gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shrink-0" style={{ backgroundColor: `#BF00FF40`, color: '#BF00FF', backdropFilter: 'blur(8px)' }}>
+                    <span className="material-symbols-outlined text-3xl">self_improvement</span>
+                  </div>
+                  <div className="flex-1 pb-1">
+                    <h2 className="text-xl font-extrabold text-white mb-1">خطة المرونة والاستشفاء</h2>
+                    <p className="text-xs text-gray-300">تسريع التعافي وتقليل الإصابات</p>
                   </div>
                 </div>
               </div>
@@ -2103,17 +2108,35 @@ export default function Programs() {
         ) : (
           <>
 
-        <header className="relative rounded-3xl overflow-hidden mb-8 bg-zinc-950 border border-zinc-800">
-          <div className="h-64 relative">
-            <img src={selectedProgram.image} alt={selectedProgram.program_name} className="w-full h-full object-cover opacity-60" referrerPolicy="no-referrer" />
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:20px_20px]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <h1 className="text-4xl font-bold text-white mb-2">{selectedProgram.program_name}</h1>
-              <p className="text-zinc-300 max-w-2xl text-lg">{selectedProgram.program_description}</p>
+        <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-[#0e0e0e]/80 backdrop-blur-xl border-b border-white/5 mb-4 -mx-4 md:-mx-8">
+          <div className="w-10 flex justify-start">
+            <button onClick={() => setSelectedProgram(null)} className="flex items-center justify-center size-10 text-white hover:bg-white/10 rounded-full transition-colors">
+              <span className="material-symbols-outlined">{language === 'ar' ? 'arrow_forward' : 'arrow_back'}</span>
+            </button>
+          </div>
+          <h1 className="text-lg font-bold truncate flex-1 text-center flex justify-center">
+            <GradientText colors={['#e08dff','#bc00fb','#e08dff']} animationSpeed={6} showBorder={false}>
+              {selectedProgram.program_name}
+            </GradientText>
+          </h1>
+          <div className="w-10"></div>
+        </header>
+
+        <div className="rounded-3xl overflow-hidden p-6 relative shadow-2xl min-h-[180px] flex flex-col justify-end mb-8">
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${selectedProgram.image}')` }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/80 to-transparent" />
+          <div className="absolute top-4 left-4 w-24 h-24 rounded-full blur-3xl" style={{ backgroundColor: '#bc00fb', opacity: 0.3 }} />
+          
+          <div className="relative z-10 flex items-end gap-4 mb-4">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shrink-0" style={{ backgroundColor: `#bc00fb40`, color: '#e08dff', backdropFilter: 'blur(8px)' }}>
+              <span className="material-symbols-outlined text-3xl">fitness_center</span>
+            </div>
+            <div className="flex-1 pb-1">
+              <h2 className="text-xl font-extrabold text-white mb-1">{selectedProgram.program_name}</h2>
+              <p className="text-xs text-gray-300 line-clamp-2">{selectedProgram.program_description}</p>
             </div>
           </div>
-        </header>
+        </div>
 
         {/* Weeks Tabs */}
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { useLanguage } from '../LanguageContext';
@@ -10,11 +10,12 @@ const navItems = [
   { to: '/', icon: 'home', labelAr: 'الرئيسية', labelEn: 'Home' },
   { to: '/programs', icon: 'fitness_center', labelAr: 'البرامج', labelEn: 'Programs' },
   { to: '/nutrition', icon: 'restaurant', labelAr: 'التغذية', labelEn: 'Nutrition' },
-  { to: '/education', icon: 'school', labelAr: 'التعليم', labelEn: 'Education' },
+  { to: '/team', icon: 'groups', labelAr: 'الفريق', labelEn: 'Team' },
   { to: '/ai', icon: 'smart_toy', labelAr: 'المدرب الذكي', labelEn: 'AI Coach' },
 ];
 
 const secondaryItems = [
+  { to: '/education', icon: 'school', labelAr: 'التعليم', labelEn: 'Education' },
   { to: '/profile', icon: 'person', labelAr: 'الحساب', labelEn: 'Profile' },
   { to: '/settings', icon: 'settings', labelAr: 'الإعدادات', labelEn: 'Settings' },
   { to: '/telemetry', icon: 'monitoring', labelAr: 'التحليلات', labelEn: 'Telemetry' },
@@ -28,6 +29,14 @@ export default function Layout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { isInstallable, installApp } = usePWAInstall();
   const isAr = language === 'ar';
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo(0, 0);
+    }
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -37,10 +46,9 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex">
       {/* ══════════ SIDEBAR (Desktop md+) ══════════ */}
-      <aside className={`hidden md:flex flex-col fixed top-0 right-0 h-screen z-40 transition-all duration-300 ${
-        sidebarCollapsed ? 'w-[72px]' : 'w-[260px]'
-      } glass border-l border-primary/10`}>
-        
+      <aside className={`hidden md:flex flex-col fixed top-0 right-0 h-screen z-40 transition-all duration-300 ${sidebarCollapsed ? 'w-[72px]' : 'w-[260px]'
+        } glass border-l border-primary/10`}>
+
         {/* Logo */}
         <div className="flex items-center gap-3 p-5 border-b border-primary/10">
           <div className="bg-gradient-to-br from-primary to-violet-500 p-2 rounded-xl shadow-lg shadow-primary/25 shrink-0">
@@ -52,8 +60,8 @@ export default function Layout() {
               <p className="text-[10px] text-slate-500 font-medium -mt-0.5">{isAr ? 'منصة اللياقة البدنية' : 'Fitness Platform'}</p>
             </div>
           )}
-          <button 
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)} 
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             className={`${sidebarCollapsed ? '' : 'mr-auto'} p-1.5 text-slate-500 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors`}
           >
             <span className="material-symbols-outlined text-lg">{sidebarCollapsed ? 'menu_open' : 'menu'}</span>
@@ -84,7 +92,7 @@ export default function Layout() {
             <div className="section-divider !my-4" />
           )}
           {sidebarCollapsed && <div className="h-px bg-primary/10 my-3" />}
-          
+
           {!sidebarCollapsed && (
             <p className="text-[10px] uppercase tracking-widest text-slate-600 font-bold px-3 mb-2">{isAr ? 'إعدادات' : 'Settings'}</p>
           )}
@@ -111,7 +119,7 @@ export default function Layout() {
             <span className="material-symbols-outlined text-xl">language</span>
             {!sidebarCollapsed && <span>{isAr ? 'English' : 'العربية'}</span>}
           </button>
-          
+
           {isInstallable && (
             <button onClick={installApp} className={`sidebar-link w-full bg-purple-500/10 text-purple-500 hover:bg-purple-500 hover:text-white transition-colors ${sidebarCollapsed ? 'justify-center px-0' : ''}`}>
               <span className="material-symbols-outlined text-xl">download</span>
@@ -135,9 +143,8 @@ export default function Layout() {
       </aside>
 
       {/* ══════════ MAIN CONTENT ══════════ */}
-      <main className={`flex-1 overflow-y-auto transition-all duration-300 ${
-        sidebarCollapsed ? 'md:mr-[72px]' : 'md:mr-[260px]'
-      } pb-20 md:pb-0`}>
+      <main ref={mainRef} className={`flex-1 min-w-0 overflow-x-hidden overflow-y-auto transition-all duration-300 ${sidebarCollapsed ? 'md:mr-[72px]' : 'md:mr-[260px]'
+        } pb-20 md:pb-0`}>
         <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
           <Outlet />
         </div>
